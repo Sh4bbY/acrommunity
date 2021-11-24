@@ -1,0 +1,56 @@
+{
+  "name": "acrommunity",
+  "version": "0.1.0",
+  "description": "A community platform for acrobatics and acroyoga jams",
+  "private": true,
+  "license": "UNLICENSED",
+  "repository": "git@github.com:Sh4bby/acrommunity.git",
+  "scripts": {
+    "build:api": "yarn workspace @acrommunity/api build",
+    "serve:api": "yarn workspace @acrommunity/api serve",
+    "build:web": "yarn workspace @acrommunity/web build",
+    "serve:web": "yarn workspace @acrommunity/web serve",
+    "build:common": "yarn workspace @acrommunity/common build",
+    "watch:common": "yarn workspace @acrommunity/common watch",
+    "compose:up": "docker-compose --env api/.env up -d",
+    "compose:down": "docker-compose --env api/.env down",
+    "db:reset": "yarn workspace @ltms/api db:reset",
+    "lint": "yarn lint:common && yarn lint:api && yarn lint:web",
+    "lint:api": "yarn workspace @acrommunity/api lint",
+    "lint:web": "yarn workspace @acrommunity/web lint",
+    "lint:common": "yarn workspace @acrommunity/common lint",
+    "release": "standard-version"
+  },
+  "workspaces": {
+    "packages": [
+      "api",
+      "common",
+      "web"
+    ]
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "standard-version": "^9.3.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "standard-version": {
+    "tag-prefix": ""
+  },
+  "lint-staged": {
+    "web/**/*.{js,ts,vue}": [
+      "yarn lint:web"
+    ],
+    "api/**/*.{js,ts}": [
+      "yarn lint:api"
+    ],
+    "common/**/*.{js,ts}": [
+      "yarn lint:common"
+    ]
+  }
+}

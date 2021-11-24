@@ -1,0 +1,9 @@
+{
+  "watch": [
+    "src",
+    "tsconfig.json"
+  ],
+  "ext": "ts,json",
+  "ignore": ["src/**/*.spec.ts"],
+  "exec": "yarn build"
+}
