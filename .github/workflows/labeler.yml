@@ -1,0 +1,14 @@
+# Workflow to assign labels automatically
+name: labeler
+on: [ pull_request ]  # Trigger the workflow on pull request events
+jobs:
+  label:
+    if: github.actor != 'depbot'
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Labeler
+        uses: docker://decathlon/pull-request-labeler-action:2.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CONFIG_PATH: ${{ secrets.GITHUB_WORKSPACE }}/.github/labeler.yml

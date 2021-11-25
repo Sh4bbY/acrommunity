@@ -1,0 +1,20 @@
+- regExp: "api\\/.*$"
+  labels: [ "backend" ]
+
+- regExp: "common\\/.*$"
+  labels: [ "common" ]
+
+- regExp: "web\\/.*$"
+  labels: [ "frontend" ]
+
+- regExp: ".*\\.vue$"
+  labels: [ "frontend" ]
+
+- regExp: ".*\\.md$"
+  labels: [ "documentation" ]
+
+- regExp: ".*(package\\.json|yarn\\.lock)$"
+  labels: [ "dependencies" ]
+
+- regExp: "\\.github\\/.*$"
+  labels: [ "github_actions" ]
