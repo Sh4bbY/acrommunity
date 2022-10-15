@@ -1,0 +1,8 @@
+# Ignore everything
+**
+
+# Allow files and directories
+!/dist/**
+!/nginx/**
+!/package.json
+!/yarn.lock

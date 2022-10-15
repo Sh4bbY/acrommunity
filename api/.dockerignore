@@ -1,0 +1,11 @@
+# Ignore everything
+**
+
+# Allow the following
+!/dist/**
+!/db/data/**
+!/package.json
+!/yarn.lock
+!/@acrommunity/common/**
+
+!/.sequelizerc
