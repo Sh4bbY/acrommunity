@@ -1,7 +1,7 @@
 <template>
   <v-tooltip top :open-delay="400" :left="left">
     <template #activator="{on}">
-      <v-btn v-on="{...on, ...$listeners}" :icon="!!icon" :color="color" :small="small">
+      <v-btn v-on="{...on, ...$listeners}" v-bind="$attrs" :icon="!!icon" :color="color" :small="smallBtn || small">
         <v-icon :small="small">{{ icon }}</v-icon>
       </v-btn>
     </template>
@@ -20,6 +20,7 @@ export default class TooltipButton extends Vue {
   @Prop({type: String, default: ''}) tooltip!: string;
   @Prop({type: String}) icon!: string;
   @Prop({type: Boolean, default: false}) small!: boolean;
+  @Prop({type: Boolean, default: false}) smallBtn!: boolean;
   @Prop({type: Boolean, default: false}) left!: boolean;
 }
 </script>

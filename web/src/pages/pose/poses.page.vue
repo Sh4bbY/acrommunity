@@ -4,7 +4,8 @@
       <v-toolbar color="primary" dark dense>
         <v-toolbar-title>{{ $tc('p.pose', 2) }}</v-toolbar-title>
         <v-spacer/>
-        <v-btn :to="{name: 'pose-create'}" icon small class="mr-1">
+        <tooltip-button :to="{name: 'pose-create'}" icon="mdi-plus" :tooltip="$t('action.createItem', {item: $tc('p.pose')})" small-btn left/>
+        <v-btn icon small class="mr-1">
           <v-icon>mdi-plus</v-icon>
         </v-btn>
       </v-toolbar>

@@ -24,6 +24,7 @@ export const de = {
     email: 'Email',
     password: 'Passwort',
     passwordConfirmation: 'Passwort wiederholung',
+    url: 'URL',
     title: 'Titel',
     description: 'Beschreibung',
     date: 'Datum',

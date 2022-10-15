@@ -8,10 +8,10 @@ export const flowSeeds = new Seeds(flowsTable.name);
 let id = 1;
 const acronycWashingMachines = [
   {id: id++, difficulty: 1, name: 'Awkward Look', attachments: []},
-  {id: id++, difficulty: 1, name: 'Ballerina', attachments: []},
-  {id: id++, difficulty: 1, name: 'Barrel Roll', attachments: []},
-  {id: id++, difficulty: 1, name: 'Biglemoi', attachments: []},
-  {id: id++, difficulty: 1, name: 'Binding Edge', attachments: []},
+  {id: id++, difficulty: 1, name: 'Ballerina', attachments: [{url: 'https://www.youtube-nocookie.com/embed/p1oeyEVgRfM', type: AttachmentType.YouTube}]},
+  {id: id++, difficulty: 1, name: 'Barrel Roll', attachments: [{url: 'https://www.youtube-nocookie.com/embed/ty7J2yF4h8w', type: AttachmentType.YouTube}]},
+  {id: id++, difficulty: 1, name: 'Biglemoi', attachments: [{url: 'https://www.youtube-nocookie.com/embed/ZiyigfjF-Z8', type: AttachmentType.YouTube}]},
+  {id: id++, difficulty: 1, name: 'Binding Edge', attachments: [{url: 'https://www.youtube-nocookie.com/embed/QOu1tlBXdsM', type: AttachmentType.YouTube}]},
   {id: id++, difficulty: 1, name: 'Boom Bareback', attachments: []},
   {id: id++, difficulty: 1, name: 'Boomerang', attachments: []},
   {id: id++, difficulty: 1, name: 'Buddha Rising', attachments: []},
@@ -41,7 +41,11 @@ const acronycWashingMachines = [
   {id: id++, difficulty: 1, name: 'Flight to Uranus', attachments: []},
   {id: id++, difficulty: 1, name: 'Flipper', attachments: []},
   {id: id++, difficulty: 1, name: 'Flying Crescent', attachments: []},
-  {id: id++, difficulty: 1, name: 'Four Step', attachments: []},
+  {
+    id: id++, difficulty: 1, name: 'Four Step', attachments: [
+      {url: 'https://www.youtube-nocookie.com/embed/MOydBLLUZmw', type: AttachmentType.YouTube},
+    ],
+  },
   {id: id++, difficulty: 1, name: 'Graeme Cracker', attachments: []},
   {id: id++, difficulty: 1, name: 'Hamster Wheel', attachments: []},
   {id: id++, difficulty: 1, name: 'Headspin', attachments: []},
@@ -133,6 +137,6 @@ flowSeeds.setData(async () => {
 
 flowSeeds.setMeta('attachments', acronycWashingMachines.reduce((arr, flow: any) =>
     flow.attachments
-      ? arr.concat(flow.attachments.map(attachment => ({...attachment, attachableId: flow.id})))
+      ? arr.concat(flow.attachments.map(attachment => ({...attachment, attachableId: flow.id, name: flow.name + ' Video'})))
       : arr,
   []));
