@@ -40,6 +40,7 @@ export default class LeafletMap extends Vue {
   }
 
   fixLeafletIcons() {
+    // eslint-disable-next-line
     // @ts-ignore
     delete L.Icon.Default.prototype._getIconUrl;
 

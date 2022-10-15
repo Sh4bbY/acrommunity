@@ -1,6 +1,5 @@
 import {Controller, Get, Query, UseGuards} from '@nestjs/common';
 import {AuthGuard} from '@nestjs/passport';
-import {Validator} from '~/utils';
 import {AcroletteService} from './acrolette.service';
 
 

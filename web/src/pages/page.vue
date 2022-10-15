@@ -4,7 +4,7 @@ import {Component, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Page extends Vue {
-  public error: string = '';
+  public error = '';
 
   @Watch('title')
   watchTitle() {

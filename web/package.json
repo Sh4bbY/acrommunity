@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint --format stylish"
+    "lint": "vue-cli-service lint --format stylish",
+    "link:common": "yarn workspace @acrommunity/common link && yarn link @acrommunity/common"
   },
   "dependencies": {
     "axios": "^0.24.0",

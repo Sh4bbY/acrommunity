@@ -30,11 +30,11 @@
             <v-spacer class="my-5"/>
 
             <h2 class="mb-2">{{ $tc('p.tag', 2) }}</h2>
-            <v-chip v-for="tag of pose.tags" small>{{ tag.name }}</v-chip>
+            <v-chip v-for="tag of pose.tags" :key="tag.name" small>{{ tag.name }}</v-chip>
             <v-spacer class="my-5"/>
 
             <h2 class="mb-2">{{ $tc('p.alias', 2) }}</h2>
-            <v-chip v-for="alias of pose.aliases" small>{{ alias.name }}</v-chip>
+            <v-chip v-for="alias of pose.aliases" :key="alias.name" small>{{ alias.name }}</v-chip>
           </v-col>
         </v-row>
       </v-card-text>

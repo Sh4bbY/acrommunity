@@ -144,11 +144,11 @@ export default class JamCreatePage extends Page {
 
   get recurringTypes() {
     return Object.values(RECURRING_TYPE).map(value => ({text: this.$t('recurringType.' + value), value}));
-  };
+  }
 
   get today() {
     return new Date().toISOString().substring(0, 10);
-  };
+  }
 
   events(date) {
     if (date < this.today) {
@@ -158,10 +158,10 @@ export default class JamCreatePage extends Page {
       return 'red';
     }
     return false;
-  };
+  }
 
   get title() {
     return this.$t('action.createItem', {item: this.$tc('p.jam')});
-  };
+  }
 }
 </script>

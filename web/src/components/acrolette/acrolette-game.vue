@@ -92,7 +92,7 @@ export default class AcroletteGame extends Vue {
   get useTimer(): boolean {
     return this.settings.imageSwitch.type === 'timer';
   }
-  
+
   get timer() {
     return this.timerValue;
   }
@@ -105,9 +105,7 @@ export default class AcroletteGame extends Vue {
     if (this.pose) {
       return this.pose.attachments[0]?.url;
     }
-  }
-
-  getPose() {
+    return ''
   }
 }
 </script>

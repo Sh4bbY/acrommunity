@@ -21,7 +21,7 @@
               </v-btn>
             </v-list-item-action>
           </v-list-item>
-          <v-divider/>
+          <v-divider :key="reference.url + '-divider'"/>
         </template>
 
         <v-subheader class="mt-6">
@@ -39,7 +39,7 @@
               </v-btn>
             </v-list-item-action>
           </v-list-item>
-          <v-divider/>
+          <v-divider :key="reference.url + '-divider'"/>
         </template>
       </v-list>
     </v-card>

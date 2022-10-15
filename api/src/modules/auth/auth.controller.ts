@@ -11,7 +11,7 @@ export class AuthController {
   }
 
   @Post('register')
-  async register(@Req() req: Request, @Res() res: Response) {
+  async register(@Req() req: Request) {
     Validator.validate(registerSchema, req.body);
     return await this.authService.registerUser(req.body);
   }

@@ -35,7 +35,7 @@
             </v-col>
             <v-col cols="12">
               <h3>{{ $tc('p.attachment', 2) }}</h3>
-              <div v-for="(attachment,idx) in form.attachments" class="d-flex align-center">
+              <div v-for="(attachment,idx) in form.attachments" :key="'pose-' + idx" class="d-flex align-center">
                 <v-text-field v-model="attachment.url" :label="$tc('field.url', 2)"/>
                 <v-btn v-if="idx>0" icon class="ml-2" @click="removeAttachment(idx)">
                   <v-icon>mdi-minus</v-icon>
