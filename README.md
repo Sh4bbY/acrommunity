@@ -1,7 +1,8 @@
 Acrommunity
 ===========
 
-This mono-repo contains the sources of the acrommunity backend and frontend. It also contains common code used across multiple projects. The backend is a [NestJS Application](https://docs.nestjs.com/) and the Frontend a [VueJs Application](https://vuejs.org/).
+This mono-repo contains the sources of the acrommunity backend and frontend.
+The backend is a [NestJS Application](https://docs.nestjs.com/) and the Frontend a [VueJs Application](https://vuejs.org/).
 
 ## Getting Started
 

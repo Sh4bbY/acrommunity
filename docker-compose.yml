@@ -1,0 +1,27 @@
+version: '3'
+
+volumes:
+  acro-sql-data:
+    driver: local
+
+networks:
+  cat-network:
+    driver: bridge
+
+services:
+  sql:
+    image: 'mysql:5.7'
+    container_name: acro-sql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - '${SQL_PORT}:3306'
+    environment:
+      MYSQL_USER: '${SQL_USERNAME}'
+      MYSQL_PASSWORD: '${SQL_PASSWORD}'
+      MYSQL_DATABASE: '${SQL_DATABASE}'
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    volumes:
+      - 'acro-sql-data:/var/lib/mysql'
+
+

@@ -1,15 +1,18 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import {appStore} from '~/store/app.store';
+import {authStore} from '~/store/auth.store';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
+export type RootState = any;
 
-export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+export const store = new Vuex.Store<RootState>({
+  plugins: [],
   modules: {
-  }
-})
+    app: appStore,
+    auth: authStore,
+  },
+  state: {},
+  mutations: {},
+  actions: {},
+});

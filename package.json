@@ -14,7 +14,7 @@
     "watch:common": "yarn workspace @acrommunity/common watch",
     "compose:up": "docker-compose --env api/.env up -d",
     "compose:down": "docker-compose --env api/.env down",
-    "db:reset": "yarn workspace @ltms/api db:reset",
+    "db:reset": "yarn workspace @acrommunity/api db:reset",
     "lint": "yarn lint:common && yarn lint:api && yarn lint:web",
     "lint:api": "yarn workspace @acrommunity/api lint",
     "lint:web": "yarn workspace @acrommunity/web lint",

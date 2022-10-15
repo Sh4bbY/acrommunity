@@ -9,6 +9,8 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
@@ -17,7 +19,7 @@
       "jest"
     ],
     "paths": {
-      "@/*": [
+      "~/*": [
         "src/*"
       ]
     },

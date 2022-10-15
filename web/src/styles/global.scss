@@ -1,0 +1,32 @@
+.v-btn {
+  text-transform: none;
+}
+
+#app .v-tabs-slider-wrapper {
+  height: 5px !important;
+}
+
+#app .v-menu__content .v-list {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.text-small {
+  font-size: 12px;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.no-select {
+  user-select: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
