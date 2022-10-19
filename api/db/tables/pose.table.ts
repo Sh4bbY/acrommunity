@@ -7,6 +7,6 @@ export const poseTable = new Table('Poses', () => ({
   description: {type: DataType.TEXT},
   difficulty: {type: DataType.INTEGER.UNSIGNED, defaultValue: 0},
   persons: {type: DataType.INTEGER.UNSIGNED, defaultValue: 2},
-  basePosition: {type: DataType.INTEGER.UNSIGNED},
-  flyerPosition: {type: DataType.INTEGER.UNSIGNED},
+  basePosition: {type: DataType.STRING},
+  flyerPosition: {type: DataType.STRING},
 }));

@@ -16,6 +16,14 @@ userSeeds.setData(async () => {
     password,
     createdAt: now,
     updatedAt: now,
+  },{
+    id: 2,
+    username: 'Nici',
+    avatar: '/assets/img/profile/default.png',
+    email: 'n.stegert@gmail.com',
+    password,
+    createdAt: now,
+    updatedAt: now,
   }];
 
   for (let i = users.length + 1; i <= 100; i++) {

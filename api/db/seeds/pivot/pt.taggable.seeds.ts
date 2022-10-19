@@ -1,17 +1,24 @@
-import {TaggableType} from '~/enums';
-import {Randomizer} from '~/utils';
-import {poseSeeds, tagSeeds} from '..';
+import {flowSeeds, poseSeeds, tagSeeds} from '..';
 import {PT_Taggable} from '../../tables/pivot';
 import {Seeds} from '../Seeds';
 
 export const taggableSeeds = new Seeds(PT_Taggable.name);
 
 taggableSeeds.setData(async () => {
-  const [poses, tags] = await Promise.all([poseSeeds.getData(), tagSeeds.getData()]);
+  const [tags, poseTags, flowTags] = await Promise.all([
+    tagSeeds.getData(),
+    poseSeeds.getMeta('tags'),
+    flowSeeds.getMeta('tags'),
+  ]);
 
-  return poses.map(pose => ({
-    taggableType: TaggableType.Pose,
-    taggableId: pose.id,
-    tagId: Randomizer.getRandomArrayValue(tags).id,
-  }));
+  const taggables = poseTags.concat(flowTags);
+
+  return taggables.map(taggable => {
+    const tag = tags.find(tag => tag.name === taggable.name);
+    if (tag) {
+      return {tagId: tag.id, taggableId: taggable.taggableId, taggableType: taggable.taggableType};
+    } else {
+      console.log(`Tag "${taggable.name}" not found!`);
+    }
+  });
 });

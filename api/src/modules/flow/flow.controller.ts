@@ -11,8 +11,8 @@ export class FlowController {
 
   @Get()
   async getPaginatedData(@Query() query) {
-    Validator.validatePaginatedQuery(query);
-    return await this.flowService.getPaginatedData(query);
+    const queryParams = Validator.validatePaginatedQuery(query);
+    return await this.flowService.getPaginatedData(queryParams);
   }
 
   @Get(':id')

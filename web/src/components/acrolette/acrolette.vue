@@ -4,6 +4,7 @@
 </template>
 
 <script lang="ts">
+import {BasePosition} from '@acrommunity/common';
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import AcroletteGame from '~/components/acrolette/acrolette-game.vue';
@@ -15,12 +16,21 @@ import AcroletteSettings from '~/components/acrolette/acrolette-settings.vue';
 export default class Acrolette extends Vue {
   isGameStarted = false;
   settings = {
+    difficulty: 3,
     sound: {
       onSwitch: true,
     },
-    imageSwitch: {
+    switch: {
       type: 'timer',
       duration: 60,
+    },
+    poses: {
+      basePositions: [BasePosition.LYING_ON_BACK],
+      flyerPositions: [],
+      exclude: [],
+    },
+    transitions: {
+      onlyValid: false,
     },
   };
 }

@@ -11,9 +11,13 @@ export class FlowService {
 
   async getPaginatedData(query: any) {
     return this.flowModel.findAndCountAll({
-      limit: undefined,
-      offset: 0,
-      order: ['id'],
+      limit: query.limit,
+      offset: query.offset,
+      order: query.order,
+      include: [{
+        model: Attachment,
+      }],
+      distinct: true,
     });
   }
 

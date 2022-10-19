@@ -4,6 +4,7 @@ import {SequelizeModule} from '@nestjs/sequelize';
 import {ServeStaticModule} from '@nestjs/serve-static';
 import {config, sequelizeOptions} from '~/config';
 import {models} from '~/models';
+import {AcroQuizModule} from '~/modules/acro-quiz/acro-quiz.module';
 import {AcroletteModule} from '~/modules/acrolette/acrolette.module';
 import {AuthModule} from '~/modules/auth/auth.module';
 import {CommentModule} from '~/modules/comment/comment.module';
@@ -36,6 +37,7 @@ import {SequelizeExceptionFilter} from '~/utils/nest/sequelize-exception-filter'
     CommentModule,
     FlowModule,
     AcroletteModule,
+    AcroQuizModule,
   ],
   controllers: [],
   providers: [

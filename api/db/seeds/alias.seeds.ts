@@ -1,21 +1,25 @@
-import {faker} from '@faker-js/faker';
 import {AliasableType} from '~/enums';
-import {Randomizer} from '~/utils';
 import {aliasTable} from '../tables/alias.table';
+import {flowSeeds} from './flow.seeds';
 import {poseSeeds} from './pose.seeds';
 import {Seeds} from './Seeds';
 
 export const aliasSeeds = new Seeds(aliasTable.name);
 
 aliasSeeds.setData(async () => {
-  const poses = await poseSeeds.getData();
+  const [poseAliases, flowAliases] = await Promise.all([
+    poseSeeds.getMeta('aliases'),
+    flowSeeds.getMeta('aliases'),
+  ]);
 
-  return Array.from(Array(100).keys()).map((idx) => {
+  const aliases = poseAliases.concat(flowAliases);
+
+  return aliases.map((alias, idx) => {
     return {
       id: idx + 1,
-      aliasableType: AliasableType.Pose,
-      aliasableId: Randomizer.getRandomArrayValue(poses).id,
-      name: faker.helpers.unique(faker.random.word),
+      aliasableType: alias.aliasableType,
+      aliasableId: alias.aliasableId,
+      name: alias.name,
     };
   });
 });

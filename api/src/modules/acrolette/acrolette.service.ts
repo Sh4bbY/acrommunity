@@ -12,11 +12,21 @@ export class AcroletteService {
     @InjectModel(Transition) private transitionModel: typeof Transition) {
   }
 
-  async getRandomPose(poseId?: string) {
+  async getRandomPose(query: any) {
     const where: WhereOptions<Pose> = {};
-    if (poseId) {
-      where.id = {[Op.not]: Number(poseId)};
+    if (query.currentPoseId) {
+      where.id = {[Op.not]: Number(query.currentPoseId)};
     }
+    if (query.difficulty) {
+      where.difficulty = {[Op.lte]: Number(query.difficulty)};
+    }
+    if (query.basePositions) {
+      where.basePosition = {[Op.in]: query.basePositions};
+    }
+    if (query.flyerPositions) {
+      where.flyerPosition = {[Op.in]: query.flyerPositions};
+    }
+
     const poses = await this.poseModel.findAll({
       where,
       include: [Attachment, Alias],

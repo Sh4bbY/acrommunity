@@ -10,7 +10,7 @@ export class AcroletteController {
   }
 
   @Get('pose')
-  async getOne(@Query('current') currentPoseId?: string) {
-    return await this.acroletteService.getRandomPose(currentPoseId);
+  async getOne(@Query() query: any) {
+    return await this.acroletteService.getRandomPose(query);
   }
 }

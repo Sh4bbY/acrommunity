@@ -7,15 +7,39 @@
       <v-row>
         <v-col cols="12" md="6">
           <v-sheet outlined rounded class="pa-2">
-            <v-radio-group v-model="settings.imageSwitch.type" label="Next Image" class="mt-0" hide-details>
+            <v-radio-group v-model="settings.switch.type" label="Next Image" class="mt-0" hide-details>
               <v-radio value="button" label="Button"/>
               <div class="d-flex">
                 <v-radio value="timer" label="Timer" class="mr-5"/>
-                <v-text-field v-model="settings.imageSwitch.duration" label="Timer Duration" :disabled="settings.imageSwitch.type !== 'timer'" type="number">
+                <v-text-field v-model="settings.switch.duration" label="Timer Duration" :disabled="settings.switch.type !== 'timer'" type="number">
                   <template #append>sek</template>
                 </v-text-field>
               </div>
             </v-radio-group>
+          </v-sheet>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-sheet outlined rounded class="pa-2">
+            <h3>{{ $tc('p.pose', 2) }}</h3>
+            <v-select v-model="settings.poses.basePositions" :label="$t('field.basePosition')" :items="basePositions" multiple/>
+            <v-select v-model="settings.poses.flyerPositions" :label="$t('field.flyerPosition')" :items="flyerPositions" multiple/>
+          </v-sheet>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-sheet outlined rounded class="pa-2">
+            <div class="d-flex px-2 mb-2 align-center">
+              <h3>{{ $t('field.difficulty') }}</h3>
+              <span class="ml-4">{{ $t('label.upTo') }}</span>
+              <v-spacer/>
+              <span>{{ difficultyLabel }}</span>
+            </div>
+            <v-slider v-model="settings.difficulty" max="10"/>
+          </v-sheet>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-sheet outlined rounded class="pa-2">
+            <h3>{{ $t('label.other') }}</h3>
+            <v-checkbox v-model="settings.transitions.onlyValid" :label="$t('acrolette.settings.validTransitions')"/>
           </v-sheet>
         </v-col>
       </v-row>
@@ -28,12 +52,26 @@
 </template>
 
 <script lang="ts">
+import {BasePosition, FlyerPosition} from '@acrommunity/common';
 import Vue from 'vue';
 import {Component, VModel} from 'vue-property-decorator';
 import {IAcroletteSettings} from '~/components/acrolette/IAcroletteSettings';
+import {resolveDifficulty} from '~/utils';
 
 @Component
 export default class AcroletteSettings extends Vue {
   @VModel() settings: IAcroletteSettings;
+
+  get basePositions() {
+    return Object.values(BasePosition).map(value => ({text: this.$t('basePosition.' + value), value}));
+  }
+
+  get flyerPositions() {
+    return Object.values(FlyerPosition).map(value => ({text: this.$t('flyerPosition.' + value), value}));
+  }
+
+  get difficultyLabel() {
+    return resolveDifficulty(this.settings.difficulty, this);
+  }
 }
 </script>

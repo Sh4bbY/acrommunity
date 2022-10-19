@@ -13,7 +13,7 @@
           <v-list-item :key="reference.url">
             <v-list-item-content>
               <v-list-item-title>{{ reference.name }}</v-list-item-title>
-              <v-list-item-subtitle>{{ reference.url }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ reference.description || reference.url }}</v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action>
               <v-btn icon @click="openTab(reference.url)">
@@ -62,6 +62,7 @@ export default class ReferencesPage extends Page {
       {name: 'Acrodicted', url: 'http://www.acrodicted.com/poses'},
       {name: 'The Circus Dictionary', url: 'http://thecircusdictionary.com/moves'},
       {name: 'Partner Acrobatics', url: 'https://partneracrobatics.com/manual/l-basing'},
+      {name: 'christiangieger', url: 'https://www.christiangieger.de/', description: 'Dictionary verschiedener Posen'},
     ],
     calendars: [
       {name: 'Acro Event Kalender', url: 'https://kalender.digital/9290ecc26f6f5a51ddc5'},

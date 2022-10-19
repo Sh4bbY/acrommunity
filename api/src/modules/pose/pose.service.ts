@@ -13,10 +13,14 @@ export class PoseService {
   }
 
   async getPaginatedData(query: any) {
-    return this.poseModel.findAndCountAll({
-      limit: undefined,
-      offset: 0,
-      order: ['id'],
+    return await this.poseModel.findAndCountAll({
+      limit: query.limit,
+      offset: query.offset,
+      order: query.order,
+      include: [{
+        model: Attachment,
+      }],
+      distinct: true,
     });
   }
 

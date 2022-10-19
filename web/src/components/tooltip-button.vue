@@ -1,7 +1,7 @@
 <template>
   <v-tooltip top :open-delay="400" :left="left">
     <template #activator="{on}">
-      <v-btn v-on="{...on, ...$listeners}" v-bind="$attrs" :icon="!!icon" :color="color" :small="smallBtn || small">
+      <v-btn v-on="{...on, ...$listeners}" v-bind="$attrs" :icon="!!icon" :color="color" :small="smallBtn || small" class="mx-0">
         <v-icon :small="small">{{ icon }}</v-icon>
       </v-btn>
     </template>

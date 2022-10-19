@@ -4,13 +4,6 @@ import Joi from 'joi';
 import {Validator} from '~/utils';
 import {PoseService} from './pose.service';
 
-// TODO: move to central place
-const paginatedDataQuerySchema = Joi.object({
-  limit: Joi.number(),
-  offset: Joi.number(),
-});
-
-
 @Controller('/api/poses')
 @UseGuards(AuthGuard('jwt'))
 export class PoseController {
@@ -19,8 +12,8 @@ export class PoseController {
 
   @Get()
   async getPaginatedData(@Query() query) {
-    Validator.validate(paginatedDataQuerySchema, query);
-    return await this.poseService.getPaginatedData(query);
+    const queryParams = Validator.validatePaginatedQuery(query);
+    return await this.poseService.getPaginatedData(queryParams);
   }
 
   @Get(':id/transitions')

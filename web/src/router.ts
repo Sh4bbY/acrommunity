@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
+import FlowGeneratorPage from '~/pages/flow-generator.page.vue';
 import FlowDetailsPage from '~/pages/flow/flow-details.page.vue';
 import FlowsPage from '~/pages/flow/flows.page.vue';
+import AcroQuizPage from '~/pages/games/acro-quiz.page.vue';
 import AcrolettePage from '~/pages/games/acrolette.page.vue';
 import HomePage from '~/pages/home.page.vue';
 import JamCreatePage from '~/pages/jam/jam-create.page.vue';
 import JamsPage from '~/pages/jam/jams.page.vue';
-import LandingPage from '~/pages/landing.page.vue';
 import LoginPage from '~/pages/login.page.vue';
 import PoseCreatePage from '~/pages/pose/pose-create.page.vue';
 import PoseDetailsPage from '~/pages/pose/pose-details.page.vue';
@@ -19,7 +20,8 @@ import SkillsPage from '~/pages/skills.page.vue';
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
-  {path: '/', name: 'landing', component: LandingPage},
+  // {path: '/', name: 'landing', component: LandingPage},
+  {path: '/', redirect: 'home'},
   {path: '/home', name: 'home', component: HomePage},
   {path: '/login', name: 'login', component: LoginPage},
   {path: '/register', name: 'register', component: RegisterPage},
@@ -33,6 +35,8 @@ const routes: Array<RouteConfig> = [
   {path: '/flows', name: 'flows', component: FlowsPage},
   {path: '/flows/:id', name: 'flow-details', component: FlowDetailsPage},
   {path: '/games/acrolette', name: 'acrolette', component: AcrolettePage},
+  {path: '/games/acro-quiz', name: 'acro-quiz', component: AcroQuizPage},
+  {path: '/flow-generator', name: 'flow-generator', component: FlowGeneratorPage},
   {path: '/references', name: 'references', component: ReferencesPage},
 
   // 404 page needs to be last in routes array

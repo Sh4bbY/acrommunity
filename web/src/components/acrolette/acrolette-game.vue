@@ -7,7 +7,12 @@
     </v-toolbar>
     <v-progress-linear v-if="useTimer" v-model="timerProgress" color="amber" height="25"/>
     <v-card-text>
-      <h1 class="text-center mb-5" v-if="pose">{{ pose.name }}</h1>
+      <div class="d-flex align-center justify-center mb-5">
+        <h1 class="text-center mr-3" v-if="pose">{{ pose.name }}</h1>
+        <v-btn icon :to="{name: 'pose-details', params: {id: pose.id}}">
+          <v-icon>mdi-open-in-new</v-icon>
+        </v-btn>
+      </div>
       <v-img contain :src="imageUrl" max-height="400px"/>
     </v-card-text>
     <v-card-actions>
@@ -35,7 +40,7 @@ export default class AcroletteGame extends Vue {
 
   mounted() {
     if (this.useTimer) {
-      this.timerValue = this.settings.imageSwitch.duration;
+      this.timerValue = this.settings.switch.duration;
       this.intervalId = window.setInterval(() => this.update(), 1000);
     }
 
@@ -71,7 +76,7 @@ export default class AcroletteGame extends Vue {
   async getNextPose() {
     await this.fetchPose();
 
-    this.timerValue = this.settings.imageSwitch.duration;
+    this.timerValue = this.settings.switch.duration;
   }
 
   async fetchPose() {
@@ -80,9 +85,15 @@ export default class AcroletteGame extends Vue {
       if (this.pose) {
         params.current = this.pose.id;
       }
+      params.basePositions = this.settings.poses.basePositions;
+      params.flyerPositions = this.settings.poses.flyerPositions;
+      params.validTransitions = this.settings.transitions.onlyValid;
+      params.difficulty = this.settings.difficulty;
+
       const response = await this.$api.get(`/api/acrolette/pose`, {params});
       this.pose = response.data;
       this.speechSynthesis.text = this.pose.name;
+      window.speechSynthesis.cancel();
       window.speechSynthesis.speak(this.speechSynthesis);
     } catch (err) {
       this.$notify.error(err);
@@ -90,7 +101,7 @@ export default class AcroletteGame extends Vue {
   }
 
   get useTimer(): boolean {
-    return this.settings.imageSwitch.type === 'timer';
+    return this.settings.switch.type === 'timer';
   }
 
   get timer() {
@@ -98,14 +109,14 @@ export default class AcroletteGame extends Vue {
   }
 
   get timerProgress() {
-    return this.timerValue / this.settings.imageSwitch.duration * 100;
+    return this.timerValue / this.settings.switch.duration * 100;
   }
 
   get imageUrl() {
     if (this.pose) {
       return this.pose.attachments[0]?.url;
     }
-    return ''
+    return '';
   }
 }
 </script>

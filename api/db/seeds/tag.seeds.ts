@@ -1,15 +1,20 @@
-import {faker} from '@faker-js/faker';
 import {tagTable} from '../tables';
+import {poseSeeds} from './pose.seeds';
 import {Seeds} from './Seeds';
 
 export const tagSeeds = new Seeds(tagTable.name);
 
 tagSeeds.setData(async () => {
-  return Array.from(Array(50).keys()).map((idx) => {
+  const tags = await poseSeeds.getMeta('tags');
+  const now = new Date();
+  const uniqueTags = tags.filter((tag, idx) => tags.findIndex(t => t.name === tag.name) === idx);
+
+  return uniqueTags.map((tag, idx) => {
     return {
       id: idx + 1,
-      name: faker.helpers.unique(faker.random.word),
-      createdAt: faker.date.past(),
+      name: tag.name,
+      createdAt: now,
     };
   });
 });
+
