@@ -5,3 +5,4 @@ export * from './ContactPoint';
 export * from './Difficulty';
 export * from './FlyerPosition';
 export * from './SkillType';
+export * from './AcroQuizQuestionType';

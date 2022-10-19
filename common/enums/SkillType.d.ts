@@ -1,8 +1,9 @@
 export declare enum SkillType {
-    COUNTER_BALANCE = 0,
-    DRILL = 1,
-    WHIP = 2,
-    POP = 3,
-    ICARIAN = 4,
-    WHIP_POP = 5
+    COUNTER_BALANCE = "counterBalance",
+    DRILL = "drill",
+    WHIP = "whip",
+    POP = "pop",
+    ICARIAN = "icarian",
+    WHIP_POP = "whipPop",
+    RELAXATION = "relaxation"
 }

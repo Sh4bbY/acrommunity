@@ -21,6 +21,7 @@ export const de = {
     action: 'Aktion | Aktionen',
   },
   field: {
+    type: 'Typ',
     id: 'ID',
     username: 'Benutzername',
     email: 'Email',
@@ -112,5 +113,14 @@ export const de = {
     hard: 'Schwer',
     veryHard: 'Sehr Schwer',
     expert: 'Expert',
+  },
+  skillType: {
+    counterBalance: 'Counter Balance',
+    drill: 'Drill',
+    whip: 'Whip',
+    pop: 'Pop',
+    icarian: 'Icarian',
+    whipPop: 'Whip-Pop',
+    relaxation: 'Entspannung',
   },
 };

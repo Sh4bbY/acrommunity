@@ -16,6 +16,7 @@ import {GeolocationModule} from '~/modules/geolocation/geolocation.module';
 import {JamModule} from '~/modules/jam/jam.module';
 import {PoseModule} from '~/modules/pose/pose.module';
 import {ProfileModule} from '~/modules/profile/profile.module';
+import {SkillModule} from '~/modules/skill/skill.module';
 import {LoggingInterceptor} from '~/utils/nest/logging.interceptor';
 import {SequelizeExceptionFilter} from '~/utils/nest/sequelize-exception-filter';
 
@@ -36,6 +37,7 @@ import {SequelizeExceptionFilter} from '~/utils/nest/sequelize-exception-filter'
     JamModule,
     CommentModule,
     FlowModule,
+    SkillModule,
     AcroletteModule,
     AcroQuizModule,
   ],

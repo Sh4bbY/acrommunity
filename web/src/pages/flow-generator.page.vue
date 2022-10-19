@@ -6,7 +6,7 @@
       </v-toolbar>
 
       <v-card-text>
-        Generator
+        Wollen wir einen Flow Generator?!
       </v-card-text>
     </v-card>
   </v-container>

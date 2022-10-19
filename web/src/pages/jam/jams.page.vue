@@ -10,6 +10,9 @@
       </v-toolbar>
 
       <v-data-table :items="jams.rows" :headers="headers">
+        <template #item.title="{item}">
+          <router-link :to="{name: 'jam-details', params: {id: item.id}}">{{ item.title }}</router-link>
+        </template>
         <template #item.startDate="{item}">
           <moment v-model="item.startDate"/>
         </template>

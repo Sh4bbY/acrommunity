@@ -1,4 +1,5 @@
-import {Body, Controller, Get, Post, Query} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Query} from '@nestjs/common';
+import {Validator} from '~/utils';
 import {JamService} from './jam.service';
 
 @Controller('/api/jams')
@@ -9,6 +10,12 @@ export class JamController {
   @Get()
   async getPaginatedData(@Query() query: any) {
     return await this.jamService.getPaginatedData(query);
+  }
+
+  @Get(':id')
+  async getJamDetails(@Param('id') id: string) {
+    Validator.validateId(id);
+    return await this.jamService.getJam(Number(id));
   }
 
   @Post()

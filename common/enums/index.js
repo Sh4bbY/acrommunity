@@ -17,3 +17,4 @@ __exportStar(require("./ContactPoint"), exports);
 __exportStar(require("./Difficulty"), exports);
 __exportStar(require("./FlyerPosition"), exports);
 __exportStar(require("./SkillType"), exports);
+__exportStar(require("./AcroQuizQuestionType"), exports);

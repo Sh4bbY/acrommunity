@@ -28,10 +28,11 @@ module.exports = {
         '^/api/': {
           target: 'http://localhost:9000',
         },
-        '^/assets/': {
-          target: 'http://localhost:9000',
-        },
       },
     },
   },
+  pwa: {
+    name: 'Acrommunity',
+    themeColor: '#1b4e75',
+  }
 };

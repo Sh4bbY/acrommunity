@@ -7,6 +7,9 @@ export class JamService {
   constructor(@InjectModel(Jam) readonly jamModel: typeof Jam) {
   }
 
+  async getJam(id: number) {
+    return await this.jamModel.findOne({where: {id}});
+  }
 
   async getPaginatedData(data) {
     return await this.jamModel.findAndCountAll({

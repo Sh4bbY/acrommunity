@@ -1,7 +1,8 @@
+import {SkillType} from '@acrommunity/common';
 import {BelongsToMany, Column, DataType, HasMany, Model, Table} from 'sequelize-typescript';
-import {CommentableType, TaggableType} from '~/enums';
-import {Comment, Tag} from '~/models';
-import {PT_Taggable} from '~/models/pivot';
+import {AliasableType, AttachableType, CommentableType, TaggableType} from '~/enums';
+import {Alias, Attachment, Comment, Tag} from '~/models';
+import {PT_Attachable, PT_Taggable} from '~/models/pivot';
 
 export interface SkillData {
   id: number;
@@ -28,6 +29,12 @@ export class Skill extends Model<Skill> {
   @Column({type: DataType.TEXT})
   declare description: string;
 
+  @Column({type: DataType.TINYINT.UNSIGNED})
+  declare difficulty: string;
+
+  @Column({type: DataType.STRING})
+  declare type: SkillType;
+
   @HasMany(() => Comment, {
     foreignKey: 'commentableId',
     constraints: false,
@@ -46,4 +53,23 @@ export class Skill extends Model<Skill> {
       constraints: false,
     })
   tags?: Tag[];
+
+  @HasMany(() => Alias, {
+    foreignKey: 'aliasableId',
+    constraints: false,
+    scope: {aliasableType: AliasableType.Skill},
+  })
+  declare aliases?: Alias[];
+
+  @BelongsToMany(() => Attachment,
+    {
+      through: {
+        model: () => PT_Attachable,
+        scope: {attachableType: AttachableType.Skill},
+        unique: false,
+      },
+      foreignKey: 'attachableId',
+      constraints: false,
+    })
+  attachments?: Attachment[];
 }

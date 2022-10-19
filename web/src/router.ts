@@ -7,6 +7,7 @@ import AcroQuizPage from '~/pages/games/acro-quiz.page.vue';
 import AcrolettePage from '~/pages/games/acrolette.page.vue';
 import HomePage from '~/pages/home.page.vue';
 import JamCreatePage from '~/pages/jam/jam-create.page.vue';
+import JamDetailsPage from '~/pages/jam/jam-details.page.vue';
 import JamsPage from '~/pages/jam/jams.page.vue';
 import LoginPage from '~/pages/login.page.vue';
 import PoseCreatePage from '~/pages/pose/pose-create.page.vue';
@@ -15,7 +16,8 @@ import PosesPage from '~/pages/pose/poses.page.vue';
 import ProfilePage from '~/pages/profile/profile.page.vue';
 import ReferencesPage from '~/pages/references.page.vue';
 import RegisterPage from '~/pages/register.page.vue';
-import SkillsPage from '~/pages/skills.page.vue';
+import SkillDetailsPage from '~/pages/skill/skill-details.page.vue';
+import SkillsPage from '~/pages/skill/skills.page.vue';
 
 Vue.use(VueRouter);
 
@@ -28,10 +30,12 @@ const routes: Array<RouteConfig> = [
   {path: '/profile', name: 'profile', component: ProfilePage},
   {path: '/jams', name: 'jams', component: JamsPage},
   {path: '/jams/create', name: 'jam-create', component: JamCreatePage},
+  {path: '/jams/:id', name: 'jam-details', component: JamDetailsPage},
   {path: '/poses', name: 'poses', component: PosesPage},
   {path: '/poses/create', name: 'pose-create', component: PoseCreatePage},
   {path: '/poses/:id', name: 'pose-details', component: PoseDetailsPage},
   {path: '/skills', name: 'skills', component: SkillsPage},
+  {path: '/skills/:id', name: 'skill-details', component: SkillDetailsPage},
   {path: '/flows', name: 'flows', component: FlowsPage},
   {path: '/flows/:id', name: 'flow-details', component: FlowDetailsPage},
   {path: '/games/acrolette', name: 'acrolette', component: AcrolettePage},
