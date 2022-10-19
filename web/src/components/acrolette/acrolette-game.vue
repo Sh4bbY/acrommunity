@@ -1,12 +1,12 @@
 <template>
-  <v-card>
+  <v-card ref="gameContainer">
     <v-toolbar color="primary" dense dark>
       <v-toolbar-title>{{ $t('label.acrolette') }}</v-toolbar-title>
       <v-spacer/>
       <span v-if="useTimer">{{ timer }}</span>
     </v-toolbar>
     <v-progress-linear v-if="useTimer" v-model="timerProgress" color="amber" height="25"/>
-    <v-card-text>
+    <v-card-text v-if="pose">
       <div class="d-flex align-center justify-center mb-5">
         <h1 class="text-center mr-3" v-if="pose">{{ pose.name }}</h1>
         <v-btn icon :to="{name: 'pose-details', params: {id: pose.id}}">
@@ -16,6 +16,10 @@
       <v-img contain :src="imageUrl" max-height="400px"/>
     </v-card-text>
     <v-card-actions>
+      <v-btn @click="toggleSound" icon>
+        <v-icon>{{ isMuted ? 'mdi-volume-off' : 'mdi-volume-high' }}</v-icon>
+      </v-btn>
+      <v-btn @click="toggleFullscreen">{{ isFullscreen ? 'Exit Fullscreen' : 'Go Fullscreen' }}</v-btn>
       <v-spacer/>
       <v-btn @click="getNextPose">{{ 'Nächste Pose' }}</v-btn>
       <v-btn @click="togglePause">{{ isPaused ? 'Weiter' : 'Pause' }}</v-btn>
@@ -37,6 +41,8 @@ export default class AcroletteGame extends Vue {
   pose = null;
   intervalId = null;
   speechSynthesis: SpeechSynthesisUtterance = null;
+  isFullscreen = false;
+  isMuted = false;
 
   mounted() {
     if (this.useTimer) {
@@ -92,9 +98,13 @@ export default class AcroletteGame extends Vue {
 
       const response = await this.$api.get(`/api/acrolette/pose`, {params});
       this.pose = response.data;
-      this.speechSynthesis.text = this.pose.name;
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(this.speechSynthesis);
+
+      if (!this.isMuted) {
+        this.speechSynthesis.text = this.pose.name;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(this.speechSynthesis);
+      }
+
     } catch (err) {
       this.$notify.error(err);
     }
@@ -117,6 +127,19 @@ export default class AcroletteGame extends Vue {
       return this.pose.attachments[0]?.url;
     }
     return '';
+  }
+
+  async toggleFullscreen() {
+    if (this.isFullscreen) {
+      await document.exitFullscreen();
+    } else {
+      await (this.$refs.gameContainer as any).$el.requestFullscreen();
+    }
+    this.isFullscreen = !this.isFullscreen;
+  }
+
+  async toggleSound() {
+    this.isMuted = !this.isMuted;
   }
 }
 </script>

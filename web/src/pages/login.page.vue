@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <div class="d-flex justify-center mt-10">
-      <v-form @submit.prevent="submit">
-        <v-card width="500px">
+    <v-form @submit.prevent="submit">
+      <div class="mt-10">
+        <v-card max-width="500px" class="mx-auto">
           <v-toolbar dense dark color="primary">
             <v-toolbar-title>{{ $t('action.login') }}</v-toolbar-title>
           </v-toolbar>
@@ -15,8 +15,8 @@
             <v-btn color="primary" type="submit">{{ $t('action.login') }}</v-btn>
           </v-card-actions>
         </v-card>
-      </v-form>
-    </div>
+      </div>
+    </v-form>
   </v-container>
 </template>
 

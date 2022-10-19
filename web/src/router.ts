@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
 import FlowGeneratorPage from '~/pages/flow-generator.page.vue';
+import FlowCreatePage from '~/pages/flow/flow-create.page.vue';
 import FlowDetailsPage from '~/pages/flow/flow-details.page.vue';
 import FlowsPage from '~/pages/flow/flows.page.vue';
 import AcroQuizPage from '~/pages/games/acro-quiz.page.vue';
@@ -16,6 +17,7 @@ import PosesPage from '~/pages/pose/poses.page.vue';
 import ProfilePage from '~/pages/profile/profile.page.vue';
 import ReferencesPage from '~/pages/references.page.vue';
 import RegisterPage from '~/pages/register.page.vue';
+import SkillCreatePage from '~/pages/skill/skill-create.page.vue';
 import SkillDetailsPage from '~/pages/skill/skill-details.page.vue';
 import SkillsPage from '~/pages/skill/skills.page.vue';
 
@@ -35,8 +37,10 @@ const routes: Array<RouteConfig> = [
   {path: '/poses/create', name: 'pose-create', component: PoseCreatePage},
   {path: '/poses/:id', name: 'pose-details', component: PoseDetailsPage},
   {path: '/skills', name: 'skills', component: SkillsPage},
+  {path: '/skills/create', name: 'skill-create', component: SkillCreatePage},
   {path: '/skills/:id', name: 'skill-details', component: SkillDetailsPage},
   {path: '/flows', name: 'flows', component: FlowsPage},
+  {path: '/flows/create', name: 'flow-create', component: FlowCreatePage},
   {path: '/flows/:id', name: 'flow-details', component: FlowDetailsPage},
   {path: '/games/acrolette', name: 'acrolette', component: AcrolettePage},
   {path: '/games/acro-quiz', name: 'acro-quiz', component: AcroQuizPage},
