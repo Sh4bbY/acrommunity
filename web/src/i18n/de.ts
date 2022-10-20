@@ -1,5 +1,8 @@
 export const de = {
   p: {
+    my: 'Mein | Meine',
+    event: 'Veranstaltung | Veranstaltungen',
+    list: 'Liste | Listen',
     filter: 'Filter | Filter',
     image: 'Bild | Bilder',
     reference: 'Referenz | Referenzen',
@@ -21,6 +24,8 @@ export const de = {
     action: 'Aktion | Aktionen',
   },
   field: {
+    icon: 'Icon',
+    isPublic: 'Ist Öffentlich',
     type: 'Typ',
     id: 'ID',
     username: 'Benutzername',
@@ -40,6 +45,7 @@ export const de = {
     basePosition: 'Base Position',
   },
   label: {
+    settings: 'Einstellungen',
     from: 'von',
     to: 'bis',
     upTo: 'bis zu',
@@ -51,8 +57,13 @@ export const de = {
     acrolette: 'Acrolette',
     acroQuiz: 'Acro-Quiz',
     flowGenerator: 'Flow-Generator',
+    dictionary: 'Lexion',
   },
   action: {
+    add: 'Hinzufügen',
+    search: 'Suchen',
+    create: 'Erstellen',
+    delete: 'Löschen',
     apply: 'Anwenden',
     submit: 'Abschicken',
     cancel: 'Abbrechen',
@@ -66,7 +77,9 @@ export const de = {
     createItem: '{item} erstellen',
     writeItem: '{item} schreiben',
     addToItems: 'Zu {items} hinzufügen',
+    addItem: '{item} hinzufügen',
     removeFromItems: 'Von {items} entfernen',
+    removeItem: '{item} entfernen',
   },
   notify: {
     info: 'Info',
@@ -76,6 +89,7 @@ export const de = {
     clientError: 'Client Error',
     notFound: 'Nicht Gefunden',
     createItemSuccess: '{item} wurde erstellt',
+    deleteItemSuccess: '{item} wurde gelöscht',
     unauthorized: 'Nicht Authorisiert',
     unknownError: 'Unbekannter Error',
   },

@@ -1,5 +1,6 @@
 import Joi from 'joi';
-import {Column, DataType, Model, Table} from 'sequelize-typescript';
+import {Column, DataType, HasMany, Model, Table} from 'sequelize-typescript';
+import {List} from '~/models/List';
 
 export interface UserData {
   id: number;
@@ -51,4 +52,7 @@ export class User extends Model<User> {
 
   @Column({type: DataType.INTEGER.UNSIGNED, defaultValue: 1})
   declare tokenVersion: number;
+
+  @HasMany(() => List, {foreignKey: 'userId'})
+  declare lists?: List[];
 }

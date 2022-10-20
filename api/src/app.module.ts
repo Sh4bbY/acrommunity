@@ -14,9 +14,11 @@ import {FileModule} from '~/modules/file/file.module';
 import {FlowModule} from '~/modules/flow/flow.module';
 import {GeolocationModule} from '~/modules/geolocation/geolocation.module';
 import {JamModule} from '~/modules/jam/jam.module';
+import {MyModule} from '~/modules/my/my.module';
 import {PoseModule} from '~/modules/pose/pose.module';
 import {ProfileModule} from '~/modules/profile/profile.module';
 import {SkillModule} from '~/modules/skill/skill.module';
+import {UserModule} from '~/modules/user/user.module';
 import {LoggingInterceptor} from '~/utils/nest/logging.interceptor';
 import {SequelizeExceptionFilter} from '~/utils/nest/sequelize-exception-filter';
 
@@ -40,6 +42,8 @@ import {SequelizeExceptionFilter} from '~/utils/nest/sequelize-exception-filter'
     SkillModule,
     AcroletteModule,
     AcroQuizModule,
+    UserModule,
+    MyModule,
   ],
   controllers: [],
   providers: [

@@ -16,6 +16,11 @@ export class PoseController {
     return await this.poseService.getPaginatedData(queryParams);
   }
 
+  @Get('search')
+  async findPoses(@Query('search') search: string) {
+    return await this.poseService.findPoses(search);
+  }
+
   @Get(':id/transitions')
   async getTransitions(@Param() params: any) {
     Validator.validate(Joi.object({id: Joi.number()}), params);

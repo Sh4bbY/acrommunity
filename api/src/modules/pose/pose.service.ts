@@ -24,6 +24,15 @@ export class PoseService {
     });
   }
 
+  async findPoses(search: string) {
+    return await this.poseModel.findAll({
+      where: {name: {[Op.like]: `%${search}%`}},
+      include: [{
+        model: Attachment,
+      }],
+    });
+  }
+
   async getPose(id: number) {
     const pose: any = await this.poseModel.findOne({
       where: {id},

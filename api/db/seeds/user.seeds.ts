@@ -16,12 +16,20 @@ userSeeds.setData(async () => {
     password,
     createdAt: now,
     updatedAt: now,
-  },{
+  }, {
     id: 2,
     username: 'Nici',
     avatar: '/assets/img/profile/default.png',
     email: 'n.stegert@gmail.com',
     password,
+    createdAt: now,
+    updatedAt: now,
+  }, {
+    id: 3,
+    username: 'Gast',
+    avatar: '/assets/img/profile/default.png',
+    email: 'gast@acrommunity.de',
+    password: await Crypt.hashPassword('gast123'),
     createdAt: now,
     updatedAt: now,
   }];

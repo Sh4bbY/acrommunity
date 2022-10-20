@@ -1,23 +1,24 @@
 import {Column, DataType, ForeignKey, Model, Table} from 'sequelize-typescript';
-import {TaggableType} from '~/enums';
-import {Flow, Pose, Skill, Tag} from '~/models';
+import {ListableType} from '~/enums';
+import {Flow, Pose, Skill} from '~/models';
+import {List} from '~/models/List';
 
 @Table({
   timestamps: false,
-  tableName: 'PT_Taggable',
+  tableName: 'PT_Listable',
 })
-export class PT_Taggable extends Model<PT_Taggable> {
+export class PT_Listable extends Model<PT_Listable> {
   @Column({type: DataType.STRING, allowNull: false})
-  taggableType!: TaggableType;
+  listableType!: ListableType;
 
   @ForeignKey(() => Pose)
   @ForeignKey(() => Skill)
   @ForeignKey(() => Flow)
   @Column({type: DataType.INTEGER.UNSIGNED, allowNull: true})
-  declare taggableId: number;
+  declare listableId: number;
 
-  @ForeignKey(() => Tag)
+  @ForeignKey(() => List)
   @Column({type: DataType.INTEGER.UNSIGNED, allowNull: true})
-  declare tagId: number;
+  declare listId: number;
 }
 

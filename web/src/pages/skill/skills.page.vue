@@ -60,6 +60,9 @@
         <template #item.difficulty="{item}">
           <span>{{ item.difficulty }} ({{ resolveDifficulty(item.difficulty) }})</span>
         </template>
+        <template #item.type="{item}">
+          <span>{{ $t('skillType.' + item.type) }}</span>
+        </template>
         <template #item.actions="{item}">
           <tooltip-button color="red" small
                           :tooltip="isFavorite(item) ? $t('action.removeFromItems', {items: $tc('p.favorite', 2)}) : $t('action.addToItems', {items: $tc('p.favorite', 2)})"

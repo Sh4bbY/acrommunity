@@ -1,6 +1,6 @@
 import {Column, DataType, ForeignKey, Model, Table} from 'sequelize-typescript';
 import {AttachableType} from '~/enums';
-import {Pose, Skill} from '~/models';
+import {Flow, Pose, Skill} from '~/models';
 import {Attachment} from '~/models/Attachment';
 
 @Table({
@@ -13,6 +13,7 @@ export class PT_Attachable extends Model<PT_Attachable> {
 
   @ForeignKey(() => Pose)
   @ForeignKey(() => Skill)
+  @ForeignKey(() => Flow)
   @Column({type: DataType.INTEGER.UNSIGNED, allowNull: true})
   declare attachableId: number;
 

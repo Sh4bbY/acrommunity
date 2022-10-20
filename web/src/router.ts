@@ -20,6 +20,8 @@ import RegisterPage from '~/pages/register.page.vue';
 import SkillCreatePage from '~/pages/skill/skill-create.page.vue';
 import SkillDetailsPage from '~/pages/skill/skill-details.page.vue';
 import SkillsPage from '~/pages/skill/skills.page.vue';
+import UserDetailsPage from '~/pages/user/user-details.page.vue';
+import UsersPage from '~/pages/user/users.page.vue';
 
 Vue.use(VueRouter);
 
@@ -42,6 +44,8 @@ const routes: Array<RouteConfig> = [
   {path: '/flows', name: 'flows', component: FlowsPage},
   {path: '/flows/create', name: 'flow-create', component: FlowCreatePage},
   {path: '/flows/:id', name: 'flow-details', component: FlowDetailsPage},
+  {path: '/users', name: 'users', component: UsersPage},
+  {path: '/users/:id', name: 'user-details', component: UserDetailsPage},
   {path: '/games/acrolette', name: 'acrolette', component: AcrolettePage},
   {path: '/games/acro-quiz', name: 'acro-quiz', component: AcroQuizPage},
   {path: '/flow-generator', name: 'flow-generator', component: FlowGeneratorPage},

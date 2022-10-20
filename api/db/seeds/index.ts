@@ -7,6 +7,7 @@ export * from './transition.seeds';
 export * from './tag.seeds';
 export * from './alias.seeds';
 export * from './flow.seeds';
+export * from './list.seeds';
 
 import {aliasSeeds} from './alias.seeds';
 import {attachmentSeeds} from './attachment.seeds';
@@ -14,7 +15,9 @@ import {commentSeeds} from './comment.seeds';
 import {eventSeeds} from './event.seeds';
 import {flowSeeds} from './flow.seeds';
 import {jamSeeds} from './jam.seeds';
+import {listSeeds} from './list.seeds';
 import {attachableSeeds} from './pivot/pt.attachable.seeds';
+import {listableSeeds} from './pivot/pt.listable.seeds';
 import {taggableSeeds} from './pivot/pt.taggable.seeds';
 import {poseSeeds} from './pose.seeds';
 import {skillSeeds} from './skill.seeds';
@@ -26,6 +29,7 @@ export const pivotSeeds = [
   transitionSeeds,
   taggableSeeds,
   attachableSeeds,
+  listableSeeds,
 ];
 
 export const seeds = [
@@ -39,4 +43,5 @@ export const seeds = [
   attachmentSeeds,
   flowSeeds,
   aliasSeeds,
+  listSeeds,
 ];

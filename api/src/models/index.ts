@@ -7,11 +7,13 @@ export * from './Tag';
 export * from './Skill';
 export * from './Flow';
 export * from './Alias';
+export * from './List';
 export * from './Attachment';
 
 import {Alias} from '~/models/Alias';
 import {Flow} from '~/models/Flow';
-import {PT_Attachable, PT_Taggable} from '~/models/pivot';
+import {List} from '~/models/List';
+import {PT_Attachable, PT_Listable, PT_Taggable} from '~/models/pivot';
 import {Attachment} from './Attachment';
 import {Comment} from './Comment';
 import {Jam} from './Jam';
@@ -31,7 +33,9 @@ export const models = [
   Tag,
   PT_Taggable,
   PT_Attachable,
+  PT_Listable,
   Skill,
   Attachment,
   Alias,
+  List,
 ];
