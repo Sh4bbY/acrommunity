@@ -1,5 +1,5 @@
 import {faker} from '@faker-js/faker';
-import {CommentableType} from '~/enums';
+import {CommentableType} from '@acrommunity/common';
 import {Randomizer} from '~/utils';
 import {commentTable} from '../tables';
 import {poseSeeds} from './pose.seeds';

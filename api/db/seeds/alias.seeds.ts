@@ -1,4 +1,3 @@
-import {AliasableType} from '~/enums';
 import {aliasTable} from '../tables/alias.table';
 import {flowSeeds} from './flow.seeds';
 import {poseSeeds} from './pose.seeds';

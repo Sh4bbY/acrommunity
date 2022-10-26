@@ -1,5 +1,6 @@
 export const de = {
   p: {
+    transition: 'Übergang | Übergänge',
     my: 'Mein | Meine',
     event: 'Veranstaltung | Veranstaltungen',
     list: 'Liste | Listen',
@@ -45,6 +46,7 @@ export const de = {
     basePosition: 'Base Position',
   },
   label: {
+    misc: 'Verschiedenes',
     settings: 'Einstellungen',
     from: 'von',
     to: 'bis',
@@ -60,6 +62,10 @@ export const de = {
     dictionary: 'Lexion',
   },
   action: {
+    addToList: 'Zu Liste hinzufügen',
+    createNewList: 'Neue Liste erstellen',
+    save: 'Speichern',
+    reset: 'Zurücksetzen',
     add: 'Hinzufügen',
     search: 'Suchen',
     create: 'Erstellen',
@@ -88,6 +94,7 @@ export const de = {
     serverError: 'Server Error',
     clientError: 'Client Error',
     notFound: 'Nicht Gefunden',
+    addItemSuccess: '{item} wurde hinzugefügt',
     createItemSuccess: '{item} wurde erstellt',
     deleteItemSuccess: '{item} wurde gelöscht',
     unauthorized: 'Nicht Authorisiert',
@@ -135,6 +142,12 @@ export const de = {
     pop: 'Pop',
     icarian: 'Icarian',
     whipPop: 'Whip-Pop',
-    relaxation: 'Entspannung',
+    acropeutics: 'Acropeutics',
+    dancelift: 'Dance Lift',
   },
+  acrolette: {
+    settings: {
+      validTransitions: 'Nur direkte Übergänge'
+    }
+  }
 };

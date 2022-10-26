@@ -13,12 +13,34 @@ export class AcroletteService {
   }
 
   async getRandomPose(query: any) {
+    const currentPoseId = query.current ? Number(query.current) : null;
     const where: WhereOptions<Pose> = {};
-    if (query.currentPoseId) {
-      where.id = {[Op.not]: Number(query.currentPoseId)};
+
+    console.log(query.validTransitions, currentPoseId, query.validTransitions && currentPoseId);
+    if (query.validTransitions && currentPoseId) {
+      const transitions = await this.transitionModel.findAll({
+        where: {
+          [Op.or]: {
+            sourcePoseId: currentPoseId,
+            targetPoseId: currentPoseId,
+          },
+        },
+      });
+      const transitionIds = transitions.map(transition => transition.targetPoseId !== currentPoseId ? transition.targetPoseId : transition.sourcePoseId);
+      where.id = {
+        [Op.in]: transitionIds,
+        [Op.not]: currentPoseId,
+      };
+    } else if (currentPoseId) {
+      where.id = {[Op.not]: currentPoseId};
     }
     if (query.difficulty) {
-      where.difficulty = {[Op.lte]: Number(query.difficulty)};
+      where.difficulty = {
+        [Op.and]: {
+          [Op.gte]: Number(query.difficulty[0]),
+          [Op.lte]: Number(query.difficulty[1]),
+        },
+      };
     }
     if (query.basePositions) {
       where.basePosition = {[Op.in]: query.basePositions};

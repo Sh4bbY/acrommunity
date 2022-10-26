@@ -31,25 +31,14 @@
         </v-sheet>
       </v-expand-transition>
 
+
+      <v-chip-group v-model="filter.skillTypes" column multiple class="ma-2">
+        <v-chip v-for="skillType in skillTypes" :key="skillType.value" outlined filter class="ma-1">{{ skillType.text }}</v-chip>
+      </v-chip-group>
+
       <paginated-grid v-if="gridView" url="/api/skills" :headers="headers" :search-params="searchParams">
         <template #item="{item}">
-          <div class="grid-item">
-            <div class="image-wrap">
-              <div class="d-flex pa-1">
-                <tooltip-button color="red" small
-                                :tooltip="isFavorite(item) ? $t('action.removeFromItems', {items: $tc('p.favorite', 2)}) : $t('action.addToItems', {items: $tc('p.favorite', 2)})"
-                                :icon="isFavorite(item) ? 'mdi-heart' : 'mdi-heart-outline'"
-                                @click="toggleFavorite(item)"
-                />
-                <v-spacer/>
-                <item-menu class="item-menu"/>
-              </div>
-              <v-img v-if="item.attachments.length > 0" :src="item.attachments[0].url" contain/>
-            </div>
-            <div class="text">
-              <router-link :to="{name: 'skill-details', params: {id: item.id}}">{{ item.name }}</router-link>
-            </div>
-          </div>
+          <grid-item :item="item" :type="type"/>
         </template>
       </paginated-grid>
 
@@ -64,12 +53,8 @@
           <span>{{ $t('skillType.' + item.type) }}</span>
         </template>
         <template #item.actions="{item}">
-          <tooltip-button color="red" small
-                          :tooltip="isFavorite(item) ? $t('action.removeFromItems', {items: $tc('p.favorite', 2)}) : $t('action.addToItems', {items: $tc('p.favorite', 2)})"
-                          :icon="isFavorite(item) ? 'mdi-heart' : 'mdi-heart-outline'"
-                          @click="toggleFavorite(item)"
-          />
-          <item-menu/>
+          <fav-button :item="item" :type="type"/>
+          <item-menu :item="item" :type="type"/>
         </template>
       </paginated-table>
     </v-card>
@@ -79,7 +64,10 @@
 <script lang="ts">
 import {SkillType} from '@acrommunity/common';
 import {Component} from 'vue-property-decorator';
-import ItemMenu from '~/components/item-menu.vue';
+import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
+import FavButton from '~/components/item/fav-button.vue';
+import GridItem from '~/components/item/grid-item.vue';
+import ItemMenu from '~/components/item/item-menu.vue';
 import PaginatedGrid from '~/components/paginated-grid.vue';
 import PaginatedTable from '~/components/paginated-table.vue';
 import TooltipButton from '~/components/tooltip-button.vue';
@@ -87,13 +75,13 @@ import {resolveDifficulty} from '~/utils';
 import Page from '../page.vue';
 
 @Component({
-  components: {PaginatedTable, PaginatedGrid, TooltipButton, ItemMenu},
+  components: {EmbedAttachment, PaginatedTable, PaginatedGrid, TooltipButton, ItemMenu, FavButton, GridItem},
 })
 export default class SkillsPage extends Page {
   skills = [];
-  favorites = [];
   filter = {
     difficulty: [1, 5],
+    skillType: [],
   };
   showFilter = false;
   gridView = false;
@@ -116,19 +104,6 @@ export default class SkillsPage extends Page {
     return this.searchParams = Object.assign({}, this.filter);
   }
 
-  isFavorite(item) {
-    return this.favorites.includes(item.id);
-  }
-
-  toggleFavorite(item) {
-    if (this.isFavorite(item)) {
-      const index = this.favorites.indexOf(item.id);
-      this.favorites.splice(index, 1);
-    } else {
-      this.favorites.push(item.id);
-    }
-  }
-
   resolveDifficulty(difficulty) {
     return resolveDifficulty(difficulty, this);
   }
@@ -143,22 +118,12 @@ export default class SkillsPage extends Page {
   get skillTypes() {
     return Object.values(SkillType).map(type => ({text: this.$t('skillType.' + type), value: type}));
   }
+
+  get type() {
+    return 'skill';
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.grid-item {
-  padding: 6px;
-
-  .image-wrap {
-    margin: 6px;
-    border: 1px solid rgba(#777, 0.2);
-    border-radius: 4px;
-  }
-
-  .text {
-    text-align: center;
-  }
-}
-
 </style>

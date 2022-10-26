@@ -1,6 +1,6 @@
 <template>
-  <v-card ref="gameContainer">
-    <v-toolbar color="primary" dense dark>
+  <v-card ref="gameContainer" :height="isFullscreen ? documentHeight : undefined" class="d-flex flex-column">
+    <v-toolbar color="primary" dense dark class="flex-grow-0">
       <v-toolbar-title>{{ $t('label.acrolette') }}</v-toolbar-title>
       <v-spacer/>
       <span v-if="useTimer">{{ timer }}</span>
@@ -15,15 +15,15 @@
       </div>
       <v-img contain :src="imageUrl" max-height="400px"/>
     </v-card-text>
+    <v-spacer/>
     <v-card-actions>
-      <v-btn @click="toggleSound" icon>
-        <v-icon>{{ isMuted ? 'mdi-volume-off' : 'mdi-volume-high' }}</v-icon>
-      </v-btn>
-      <v-btn @click="toggleFullscreen">{{ isFullscreen ? 'Exit Fullscreen' : 'Go Fullscreen' }}</v-btn>
-      <v-spacer/>
-      <v-btn @click="getNextPose">{{ 'Nächste Pose' }}</v-btn>
-      <v-btn @click="togglePause">{{ isPaused ? 'Weiter' : 'Pause' }}</v-btn>
-      <v-btn color="primary" @click="$emit('end')">{{ 'Beenden' }}</v-btn>
+      <div class="d-flex justify-space-between w-100">
+        <tooltip-button :tooltip="isMuted ? 'Unmute' : 'Mute'" :icon="isMuted ? 'mdi-volume-off' : 'mdi-volume-high'" @click="toggleSound"/>
+        <tooltip-button :tooltip="isPaused ? 'Weiter' : 'Pause'" :icon="isPaused ? 'mdi-play' : 'mdi-pause'" @click="togglePause"/>
+        <tooltip-button tooltip="Nächste Pose" icon="mdi-fast-forward" @click="getNextPose"/>
+        <tooltip-button :tooltip="isFullscreen ? 'Exit Fullscreen' : 'Go Fullscreen'" :icon="isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'" @click="toggleFullscreen"/>
+        <tooltip-button tooltip="Beenden" icon="mdi-exit-run" @click="$emit('end')"/>
+      </div>
     </v-card-actions>
   </v-card>
 </template>
@@ -32,8 +32,11 @@
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 import {IAcroletteSettings} from '~/components/acrolette/IAcroletteSettings';
+import TooltipButton from '~/components/tooltip-button.vue';
 
-@Component
+@Component({
+  components: {TooltipButton},
+})
 export default class AcroletteGame extends Vue {
   @Prop({type: Object, default: () => ({})}) settings: IAcroletteSettings;
   isPaused = false;
@@ -42,6 +45,7 @@ export default class AcroletteGame extends Vue {
   intervalId = null;
   speechSynthesis: SpeechSynthesisUtterance = null;
   isFullscreen = false;
+  documentHeight = 500;
   isMuted = false;
 
   mounted() {
@@ -129,11 +133,13 @@ export default class AcroletteGame extends Vue {
     return '';
   }
 
+
   async toggleFullscreen() {
     if (this.isFullscreen) {
       await document.exitFullscreen();
     } else {
       await (this.$refs.gameContainer as any).$el.requestFullscreen();
+      this.documentHeight = document.body.clientHeight;
     }
     this.isFullscreen = !this.isFullscreen;
   }

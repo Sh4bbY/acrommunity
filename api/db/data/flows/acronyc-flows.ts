@@ -1,5 +1,3 @@
-import {AttachmentType} from '~/enums';
-
 export const acronycFlows = [
   {name: 'Awkward Look', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=nm7A2X0QfxQ', 'https://www.youtube.com/watch?v=C7gO1GTN0Kk']},
   {name: 'Ballerina', difficulty: 1, attachments: ['https://www.youtube-nocookie.com/embed/p1oeyEVgRfM', 'https://www.youtube.com/watch?v=FSvpzvqWNOA']},
@@ -11,10 +9,10 @@ export const acronycFlows = [
   {name: 'Buddha Rising', difficulty: 1, attachments: []},
   {name: 'Cannonball Run', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=XAESW7Sdufs']},
   {name: 'Cassiopeia', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=dYeDd28Db4I', 'https://www.youtube.com/watch?v=p94cVS0cxMo']},
-  {name: 'Catch a Bird', difficulty: 1, attachments: ['']},
+  {name: 'Catch a Bird', difficulty: 1, attachments: []},
   {name: 'Cathrines Wheel', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=UyqkvT_5Z8c', 'https://www.youtube.com/watch?v=gebMdfs9x8w']},
   {name: 'Chameleon', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=K25bzzbH8es']},
-  {name: 'Chinese Dragon', difficulty: 1, attachments: ['']},
+  {name: 'Chinese Dragon', difficulty: 1, attachments: []},
   {name: 'Circuit Runner', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=fRVkAjkGTZA', 'https://www.youtube.com/watch?v=voIjHr24jyk']},
   {
     name: 'Corkscrew',
@@ -33,8 +31,8 @@ export const acronycFlows = [
     difficulty: 1,
     attachments: ['https://www.youtube.com/watch?v=8Twyoi0Na20', 'https://www.youtube.com/watch?v=hQ8g6ISO_vc', 'https://www.youtube.com/watch?v=zlIHSJ33fu0', 'https://www.youtube.com/watch?v=EunqLKH3x90'],
   },
-  {name: 'Cuttlefish', difficulty: 1, attachments: ['']},
-  {name: 'Dandelion', difficulty: 1, attachments: ['']},
+  {name: 'Cuttlefish', difficulty: 1, attachments: []},
+  {name: 'Dandelion', difficulty: 1, attachments: []},
   {name: 'Dragonfly', difficulty: 1, aliases: ['Dragonfly Parade', 'Dragon Flag Parade'], attachments: ['https://www.youtube.com/watch?v=hLJ8TzzzL5o']},
   {name: 'Dream Machine', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=DeLAu0mgmfk']},
   {
@@ -43,10 +41,10 @@ export const acronycFlows = [
     attachments: ['https://www.youtube.com/watch?v=Cg0q7kRWNPs', 'https://www.youtube.com/watch?v=i2yUBTaZWSc', 'https://www.youtube.com/watch?v=_P62eip6vis'],
   },
   {name: 'Espresso Shot', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=3C5Up3XVeNY', 'https://www.youtube.com/watch?v=GDGjXvvrmlg']},
-  {name: 'Eternity', difficulty: 1, attachments: ['']},
+  {name: 'Eternity', difficulty: 1, attachments: []},
   {name: 'Extra Mile', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=KiSCC1LBlZI', 'https://www.youtube.com/watch?v=W-s3JzZy6a4']},
   {name: 'Ferris Wheel', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=zJf8FHv7Yqg']},
-  {name: 'Final Nexus', difficulty: 1, attachments: ['']},
+  {name: 'Final Nexus', difficulty: 1, attachments: []},
   {name: 'Fireball', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=MwO2eYq7Oq8', 'https://www.youtube.com/watch?v=e9w2VBi_0rM']},
   {
     name: 'Flatspin',
@@ -89,7 +87,7 @@ export const acronycFlows = [
   {name: 'Iguana', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=mxoZKu0Huz0']},
   {name: 'Illusion', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=mlAZXzpoCvQ', 'https://www.youtube.com/watch?v=d3iAVSwscfI']},
   {name: 'Kings Pendulum', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=j24XXgcvUaI', 'https://www.youtube.com/watch?v=Qrkd9ktsxzA']},
-  {name: 'Kitty Foot', difficulty: 1, attachments: ['']},
+  {name: 'Kitty Foot', difficulty: 1, attachments: []},
   {name: 'Koala Walla', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=BPAVWzfvHo4', 'https://www.youtube.com/watch?v=zUwyrcQj-l8']},
   {
     name: 'L.A. Gear',
@@ -221,7 +219,7 @@ export const acronycFlows = [
   },
   {name: 'Shadow Roll', difficulty: 1, attachments: ['https://www.youtube.com/shorts/KlPgIUz_5bw', 'https://www.youtube.com/watch?v=qHWM5A8GM_8']},
   {name: 'Skipping Stone', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=VzGUZBDdIFg']},
-  {name: 'Snyder', difficulty: 1, attachments: ['']},
+  {name: 'Snyder', difficulty: 1, attachments: []},
   {
     name: 'Spider Roll',
     difficulty: 1,
@@ -268,7 +266,7 @@ export const acronycFlows = [
     difficulty: 1,
     attachments: ['https://www.youtube.com/watch?v=A8mop9dq8q4', 'https://www.youtube.com/watch?v=EtgjiIEsanw', 'https://www.youtube.com/watch?v=tH1-OHIYoYg', 'https://www.youtube.com/watch?v=C4_WlfR_6zw'],
   },
-  {name: 'Trinity', difficulty: 1, attachments: ['']},
+  {name: 'Trinity', difficulty: 1, attachments: []},
   {name: 'Tumbler', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=drgN53_NHqQ']},
   {
     name: 'Tumbleweed',
@@ -282,40 +280,16 @@ export const acronycFlows = [
   },
   {name: 'Twisted Star Child', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=DSoy_HiPo3w']},
   {name: 'Via Ferrata', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=ujapfmgFThg']},
-  {name: 'Voltage', difficulty: 1, attachments: ['']},
-  {name: 'Vortex', difficulty: 1, attachments: ['']},
-  {name: 'Waggle Baggle', difficulty: 1, attachments: ['']},
-  {name: 'Waggle Wiggle', difficulty: 1, attachments: ['']},
-  {name: 'Weather Vane', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=kiuzXqlZSiI', 'https://www.youtube.com/watch?v=kiuzXqlZSiI', '']},
-  {name: 'Weightlessness', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=TURHHbOQjQw', '']},
+  {name: 'Voltage', difficulty: 1, attachments: []},
+  {name: 'Vortex', difficulty: 1, attachments: []},
+  {name: 'Waggle Baggle', difficulty: 1, attachments: []},
+  {name: 'Waggle Wiggle', difficulty: 1, attachments: []},
+  {name: 'Weather Vane', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=kiuzXqlZSiI', 'https://www.youtube.com/watch?v=kiuzXqlZSiI']},
+  {name: 'Weightlessness', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=TURHHbOQjQw']},
   {name: 'Whirly Bird', difficulty: 1, attachments: ['https://www.youtube.com/watch?v=Qp0B78J1i-A']},
   {
     name: 'Whirly Gig',
     difficulty: 1,
     attachments: ['https://www.youtube.com/shorts/ciUDv0jc3Fc', 'https://www.youtube.com/watch?v=OEWRpcyU6Tk', 'https://www.youtube.com/watch?v=yqvJCEUHVvo', 'https://www.youtube.com/watch?v=TiZ7YqRMdfQ'],
   },
-].map(flow => ({
-  ...flow,
-  attachments: flow.attachments.filter(attachment => !!attachment).map(attachment => mapAttachment(attachment)),
-}));
-
-function mapAttachment(input: string) {
-  const youtubePrefix = 'https://www.youtube.com/watch?v=';
-  const youtubeShortPrefix = 'https://www.youtube.com/shorts/';
-  const youtubeNoCookiePrefix = 'https://www.youtube-nocookie.com/embed/';
-  let url = input;
-
-  if (input.startsWith(youtubePrefix)) {
-    const videoId = input.substr(youtubePrefix.length);
-    url = youtubeNoCookiePrefix + videoId;
-  }
-  if (input.startsWith(youtubeShortPrefix)) {
-    const videoId = input.substr(youtubeShortPrefix.length);
-    url = youtubeNoCookiePrefix + videoId;
-  }
-
-  return {
-    type: AttachmentType.YouTube,
-    url,
-  };
-}
+];

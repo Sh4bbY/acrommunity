@@ -3,7 +3,7 @@
     <v-form>
       <v-card>
         <v-toolbar color="primary" dark dense>
-          <v-toolbar-title>{{ $t('action.createItem', {item: $tc('p.flow')}) }}</v-toolbar-title>
+          <breadcrumb-title :title="$t('action.createItem', {item: $tc('p.flow')})" :type="type"/>
         </v-toolbar>
         <v-card-text>
           <v-row>
@@ -52,10 +52,11 @@
 
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
+import BreadcrumbTitle from '~/components/breadcrumb-title.vue';
 import Page from '../page.vue';
 
 @Component({
-  components: {},
+  components: {BreadcrumbTitle},
 })
 export default class FlowCreatePage extends Page {
   form = {

@@ -1,5 +1,5 @@
 import {DataType} from 'sequelize-typescript';
-import {userValidation} from '~/models';
+import {userValidation} from '@acrommunity/common';
 import {Table} from '.';
 
 export const userTable = new Table('Users', () => ({

@@ -2,6 +2,34 @@ import {BasePosition, FlyerPosition} from '@acrommunity/common';
 
 export const standingPoses = [
   {
+    name: 'Thigh Stand',
+    difficulty: 3,
+    flyerPosition: FlyerPosition.STANDING,
+    transitions: ['Front Plank', 'Flag'],
+    attachments: [
+      'https://s3.eu-central-1.amazonaws.com/acrodicted/poses/original/img082.png',
+    ],
+  },
+  {
+    name: 'Flag',
+    difficulty: 3,
+    flyerPosition: FlyerPosition.STANDING,
+    transitions: ['Thigh Stand'],
+    attachments: [
+      'https://s3.eu-central-1.amazonaws.com/acrodicted/poses/original/img116.png',
+    ],
+  },
+  {
+    name: 'Extended Flag',
+    difficulty: 4,
+    flyerPosition: FlyerPosition.STANDING,
+    aliases: ['Flag with Hand Support'],
+    transitions: ['Flag'],
+    attachments: [
+      'https://s3.eu-central-1.amazonaws.com/acrodicted/poses/original/img117.png',
+    ],
+  },
+  {
     name: 'High Bird',
     difficulty: 3,
     flyerPosition: FlyerPosition.LYING_ON_BELLY,

@@ -14,12 +14,19 @@
       </v-expand-transition>
       <v-card-text v-if="question">
         <div class="d-flex flex-column align-center">
-          <h1 class="mb-5">{{ question.text }}</h1>
-          <v-img :src="question.img" class="mb-5" max-width="600" width="100%" max-height="400" contain/>
+          <h2 class="mb-3">{{ question.text }}</h2>
+          <v-img v-if="type === 'name-of-pose'" :src="question.img" class="mb-5" max-width="600" width="100%" max-height="400" contain/>
         </div>
-        <v-row>
-          <v-col v-for="answer in question.answers" :key="answer.text" cols="12" sm="6" lg="3">
+        <v-row v-if="type === 'name-of-pose'">
+          <v-col v-for="answer in question.answers" :key="answer.text" cols="12" sm="6" lg="3" class="py-1">
             <v-btn width="100%" :color="getColor(answer.text)" @click="onAnswerClick(answer)">{{ answer.text }}</v-btn>
+          </v-col>
+        </v-row>
+        <v-row v-else-if="type === 'look-of-pose'">
+          <v-col v-for="answer in question.answers" :key="answer.text" cols="12" sm="6" lg="3">
+            <v-sheet class="cursor-pointer" outlined rounded @click="onAnswerClick(answer)" :color="getColor(answer.text)">
+              <v-img :src="answer.img" contain max-width="100%" max-height="200px"/>
+            </v-sheet>
           </v-col>
         </v-row>
       </v-card-text>
@@ -31,6 +38,11 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 
+enum QuizQuestionType {
+  NameOfPose = 'name-of-pose',
+  LookOfPose = 'look-of-pose',
+}
+
 @Component({
   components: {},
 })
@@ -40,8 +52,10 @@ export default class AcroQuiz extends Vue {
   solution = null;
   selection = null;
   nextQuestionCount = null;
-  nextQuestionMaxCount = 150;
+  nextQuestionMaxCount = 100;
   responsePending = false;
+  type = QuizQuestionType.NameOfPose;
+  types = Object.values(QuizQuestionType);
 
   async mounted() {
     await this.fetchQuestion();
@@ -50,13 +64,19 @@ export default class AcroQuiz extends Vue {
   async nextQuestion() {
     this.selection = null;
     this.solution = null;
+    // this.type = Randomizer.getRandomArrayValue(this.types);
     await this.fetchQuestion();
   }
 
 
   async fetchQuestion() {
-    const response = await this.$api.get('/api/acro-quiz/question');
-    this.question = response.data;
+    if (this.type === QuizQuestionType.NameOfPose) {
+      const response = await this.$api.get('/api/acro-quiz/question/name-of-pose');
+      this.question = response.data;
+    } else if (this.type === QuizQuestionType.LookOfPose) {
+      const response = await this.$api.get('/api/acro-quiz/question/look-of-pose');
+      this.question = response.data;
+    }
   }
 
   async onAnswerClick(answer) {
@@ -70,7 +90,7 @@ export default class AcroQuiz extends Vue {
     try {
       this.selection = answer.text;
       this.responsePending = true;
-      const response = await this.$api.post('/api/acro-quiz/solution', {
+      const response = await this.$api.post('/api/acro-quiz/solution/name-of-pose', {
         poseId: this.question.poseId,
         solution: answer.text,
       });

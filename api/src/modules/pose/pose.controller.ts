@@ -1,4 +1,4 @@
-import {Controller, Get, Param, Query, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Put, Query, UseGuards} from '@nestjs/common';
 import {AuthGuard} from '@nestjs/passport';
 import Joi from 'joi';
 import {Validator} from '~/utils';
@@ -14,6 +14,11 @@ export class PoseController {
   async getPaginatedData(@Query() query) {
     const queryParams = Validator.validatePaginatedQuery(query);
     return await this.poseService.getPaginatedData(queryParams);
+  }
+
+  @Get('options')
+  async getPoseOptions() {
+    return await this.poseService.getOptions();
   }
 
   @Get('search')
@@ -35,5 +40,22 @@ export class PoseController {
     }), params);
 
     return await this.poseService.getPose(Number(params.id));
+  }
+
+  @Put(':id')
+  async updatePose(@Param() params: any, @Body() body: any) {
+    Validator.validate(Joi.number().label('id'), params.id);
+    // Validator.validate(Joi.object({}), body);
+
+    return await this.poseService.updatePose(Number(params.id), body);
+  }
+
+  @Post()
+  async createPose(@Body() body: any) {
+    // Validator.validate(Joi.object({
+    //   name: Joi.string(),
+    // }), body);
+
+    return await this.poseService.createPose(body);
   }
 }

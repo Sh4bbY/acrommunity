@@ -1,5 +1,5 @@
 import {faker} from '@faker-js/faker';
-import {AliasableType, TaggableType} from '~/enums';
+import {AliasableType, TaggableType} from '@acrommunity/common';
 import {flows} from '../data';
 import {flowsTable} from '../tables/flows.table';
 import {Seeds} from './Seeds';

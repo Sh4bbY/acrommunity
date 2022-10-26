@@ -1,29 +1,29 @@
-import {AttachableType} from '~/enums';
+import {AttachableType} from '@acrommunity/common';
 import {flowSeeds, poseSeeds} from '..';
 import {PT_Attachable} from '../../tables/pivot';
 import {attachmentSeeds} from '../attachment.seeds';
 import {Seeds} from '../Seeds';
+import {skillSeeds} from '../skill.seeds';
 
 export const attachableSeeds = new Seeds(PT_Attachable.name);
 
 attachableSeeds.setData(async () => {
-  const [attachments, poseAttachments, flowAttachments] = await Promise.all([
+  const [attachments, poseAttachments, flowAttachments, skillAttachments] = await Promise.all([
     attachmentSeeds.getData(),
     poseSeeds.getMeta('attachments'),
     flowSeeds.getMeta('attachments'),
+    skillSeeds.getMeta('attachments'),
   ]);
 
-  let attachables = poseAttachments.map(poseAttachment => ({
-    attachableType: AttachableType.Pose,
-    attachableId: poseAttachment.attachableId,
-    attachmentId: attachments.find(attachment => attachment.url === poseAttachment.url).id,
-  }));
+  const attachmentGroups = [
+    {attachableType: AttachableType.Pose, attachables: poseAttachments},
+    {attachableType: AttachableType.Flow, attachables: flowAttachments},
+    {attachableType: AttachableType.Skill, attachables: skillAttachments},
+  ];
 
-  attachables = attachables.concat(flowAttachments.map(flowAttachment => ({
-    attachableType: AttachableType.Flow,
-    attachableId: flowAttachment.attachableId,
-    attachmentId: attachments.find(attachment => attachment.url === flowAttachment.url).id,
-  })));
-
-  return attachables;
+  return attachmentGroups.reduce((arr, group) => arr.concat(group.attachables.map(attachable => ({
+    attachableType: group.attachableType,
+    attachableId: attachable.attachableId,
+    attachmentId: attachments.find(attachment => attachment.url === attachable.url).id,
+  }))), []);
 });

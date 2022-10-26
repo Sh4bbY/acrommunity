@@ -29,16 +29,15 @@
           <v-sheet outlined rounded class="pa-2">
             <div class="d-flex px-2 mb-2 align-center">
               <h3>{{ $t('field.difficulty') }}</h3>
-              <span class="ml-4">{{ $t('label.upTo') }}</span>
               <v-spacer/>
               <span>{{ difficultyLabel }}</span>
             </div>
-            <v-slider v-model="settings.difficulty" max="10"/>
+            <v-range-slider v-model="settings.difficulty" min="1" max="10"/>
           </v-sheet>
         </v-col>
         <v-col cols="12" md="6">
           <v-sheet outlined rounded class="pa-2">
-            <h3>{{ $t('label.other') }}</h3>
+            <h3>{{ $t('label.misc') }}</h3>
             <v-checkbox v-model="settings.transitions.onlyValid" :label="$t('acrolette.settings.validTransitions')"/>
           </v-sheet>
         </v-col>
@@ -71,7 +70,7 @@ export default class AcroletteSettings extends Vue {
   }
 
   get difficultyLabel() {
-    return resolveDifficulty(this.settings.difficulty, this);
+    return `${resolveDifficulty(this.settings.difficulty[0], this)} ${this.$t('label.to')} ${resolveDifficulty(this.settings.difficulty[1], this)}`;
   }
 }
 </script>

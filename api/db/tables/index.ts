@@ -15,7 +15,7 @@ import {eventTable} from './event.table';
 import {flowsTable} from './flows.table';
 import {jamTable} from './jam.table';
 import {listTable} from './list.table';
-import {PT_Attachable, PT_Listable, PT_Taggable} from './pivot';
+import {PT_Attachable, PT_Listable, PT_Markable, PT_Taggable} from './pivot';
 import {poseTable} from './pose.table';
 import {skillTable} from './skill.table';
 import {Table} from './table';
@@ -39,6 +39,7 @@ export const tables: Table[] = [
   skillTable,
   listTable,
   PT_Listable,
+  PT_Markable,
 ];
 
 export const constraints = tables.reduce((arr, table) => [...arr, ...table.constraints], []);

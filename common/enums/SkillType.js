@@ -9,5 +9,6 @@ var SkillType;
     SkillType["POP"] = "pop";
     SkillType["ICARIAN"] = "icarian";
     SkillType["WHIP_POP"] = "whipPop";
-    SkillType["RELAXATION"] = "relaxation";
+    SkillType["ACROPEUTICS"] = "acropeutics";
+    SkillType["DANCE_LIFT"] = "dancelift";
 })(SkillType = exports.SkillType || (exports.SkillType = {}));

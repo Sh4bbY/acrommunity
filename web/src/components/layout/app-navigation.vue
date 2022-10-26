@@ -42,11 +42,6 @@ export default class AppNavigation extends Vue {
     return [
       {title: this.$t('label.home'), icon: 'mdi-home', route: {name: 'home'}, exact: true},
       {
-        title: this.$tc('p.event', 2), icon: 'mdi-calendar', children: [
-          {title: this.$tc('p.jam', 2), icon: 'mdi-account-group', route: {name: 'jams'}, exact: false},
-        ],
-      },
-      {
         title: this.$t('label.dictionary'), icon: 'mdi-book-open-variant', children: [
           {title: this.$tc('p.pose', 2), icon: 'mdi-human', route: {name: 'poses'}, exact: false},
           {title: this.$tc('p.flow', 2), icon: 'mdi-spa', route: {name: 'flows'}, exact: false},
@@ -57,6 +52,11 @@ export default class AppNavigation extends Vue {
         title: this.$tc('p.game', 2), icon: 'mdi-gamepad-variant', children: [
           {title: this.$t('label.acrolette'), icon: 'mdi-gamepad', route: {name: 'acrolette'}, exact: false},
           {title: this.$t('label.acroQuiz'), icon: 'mdi-help-circle', route: {name: 'acro-quiz'}, exact: false},
+        ],
+      },
+      {
+        title: this.$tc('p.event', 2), icon: 'mdi-calendar', children: [
+          {title: this.$tc('p.jam', 2), icon: 'mdi-account-group', route: {name: 'jams'}, exact: false},
         ],
       },
       {title: this.$t('label.flowGenerator'), icon: 'mdi-spa', route: {name: 'flow-generator'}, exact: false},

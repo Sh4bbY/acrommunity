@@ -9,6 +9,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer/>
+        <v-btn text class="mr-2" @click="show=false">{{ $t('action.cancel') }}</v-btn>
         <v-btn color="primary" @click="createList">{{ $t('action.create') }}</v-btn>
       </v-card-actions>
     </v-card>
@@ -28,8 +29,7 @@ export default class CreateListDialog extends Vue {
 
   async createList() {
     try {
-      const response = await this.$api.post(`/api/my/list`, this.form);
-      const list = Object.assign({poses: [], flows: [], skills: []}, response.data);
+      const list = await this.$store.dispatch('user/createList', this.form);
       this.show = false;
       this.$emit('success', list);
     } catch (e) {

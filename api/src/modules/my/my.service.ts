@@ -1,22 +1,25 @@
+import {ListableType} from '@acrommunity/common';
 import {ForbiddenException, Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
-import {ListableType} from '~/enums';
 import {Flow, List, Pose, Skill, User} from '~/models';
-import {PT_Listable} from '~/models/pivot';
+import {PT_Listable, PT_Markable} from '~/models/pivot';
 
 @Injectable()
 export class MyService {
   constructor(
     @InjectModel(User) private userModel: typeof User,
     @InjectModel(List) private listModel: typeof List,
-    @InjectModel(PT_Listable) private ptListableModel: typeof PT_Listable) {
+    @InjectModel(PT_Listable) private ptListableModel: typeof PT_Listable,
+    @InjectModel(PT_Markable) private ptMarkableModel: typeof PT_Markable,
+  ) {
   }
 
-  async getLists(userId: number) {
-    return await this.listModel.findAll({
-      where: {userId},
-      include: [Pose, Flow, Skill],
-    });
+  async getUserState(userId: number) {
+    const [lists, marks] = await Promise.all([
+      this.listModel.findAll({where: {userId}, include: [Pose, Flow, Skill]}),
+      this.ptMarkableModel.findAll({where: {userId}}),
+    ]);
+    return {lists, marks};
   }
 
   async addListableToList(userId: number, listId: number, listableType: ListableType, listableId: number) {
@@ -40,9 +43,9 @@ export class MyService {
     });
   }
 
-  async addItemsToList(userId: number, listId: number, body: any) {
-    const records = body.listableIds.map(listableId => ({listId, listableId, listableType: body.listableType}));
-    return await this.ptListableModel.bulkCreate(records);
+  async addItemToList(userId: number, listId: number, body: any) {
+    const record = {listId, listableId: body.listableId, listableType: body.listableType} as any;
+    return await this.ptListableModel.create(record);
   }
 
   async updateList(userId: number, listId: number, body: any) {
@@ -61,5 +64,15 @@ export class MyService {
 
     await this.ptListableModel.destroy({where: {listId}});
     await this.listModel.destroy({where: {id: listId, userId}});
+  }
+
+  // -------- Marks
+
+  async createMark(userId: number, body: any) {
+    return await this.ptMarkableModel.create({userId, markableType: body.markableType, markableId: body.markableId, type: body.type} as any);
+  }
+
+  async deleteMark(userId: number, markableType: string, markableId: number) {
+    await this.ptMarkableModel.destroy({where: {userId, markableType, markableId}});
   }
 }

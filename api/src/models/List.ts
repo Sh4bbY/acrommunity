@@ -1,14 +1,7 @@
 import {BelongsTo, BelongsToMany, Column, DataType, Model, Table} from 'sequelize-typescript';
-import {ListableType} from '~/enums';
+import {ListableType} from '@acrommunity/common';
 import {Flow, Pose, Skill, User} from '~/models';
 import {PT_Listable} from '~/models/pivot';
-
-export interface List {
-  id: number;
-  name: string;
-  description: string;
-  poses?: Pose[];
-}
 
 @Table({updatedAt: false})
 export class List extends Model<List> {

@@ -1,5 +1,6 @@
 export enum AttachmentType {
-  Picture = 'picture',
+  Image = 'image',
   YouTube = 'youtube',
+  Instagram = 'instagram',
   Video = 'video',
 }

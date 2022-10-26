@@ -5,10 +5,16 @@
         <v-toolbar-title>{{ user.username }}</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
-        <v-img :src="user.avatar" max-width="200px" max-height="200px" contain/>
-        <h3>{{ $t('field.email') }}</h3>
-        <span>{{ user.email }}</span>
-        <v-spacer class="my-5"/>
+        <v-row>
+          <v-col cols="12" md="6">
+            <v-img :src="user.avatar" max-width="200px" max-height="200px" contain/>
+          </v-col>
+          <v-col cols="12" md="6">
+            <h3>{{ $t('field.email') }}</h3>
+            <span>{{ user.email }}</span>
+            <v-spacer class="my-5"/>
+          </v-col>
+        </v-row>
       </v-card-text>
     </v-card>
 

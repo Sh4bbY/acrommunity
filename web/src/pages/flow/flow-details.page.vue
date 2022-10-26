@@ -2,7 +2,7 @@
   <v-container v-if="flow">
     <v-card class="mb-5">
       <v-toolbar color="primary" dense dark>
-        <v-toolbar-title>{{ flow.name }}</v-toolbar-title>
+        <breadcrumb-title :item="flow" :type="type"/>
         <v-spacer/>
         <v-btn v-if="flow.id > 1" icon :to="{name: 'flow-details', params: {id: flow.id - 1}}">
           <v-icon>mdi-arrow-left</v-icon>
@@ -20,19 +20,19 @@
             <v-spacer class="my-5"/>
           </v-col>
 
-          <v-col cols="12" md="4">
+          <v-col v-if="flow.difficulty" cols="12" md="4">
             <h3 class="mb-2">{{ $t('field.difficulty') }}</h3>
             <p>{{ flow.difficulty }} ({{ difficultyLabel }})</p>
             <v-spacer class="my-5"/>
           </v-col>
 
-          <v-col cols="12" md="4">
+          <v-col v-if="flow.tags.length > 0" cols="12" md="4">
             <h2 class="mb-2">{{ $tc('p.tag', 2) }}</h2>
             <v-chip v-for="tag of flow.tags" :key="tag.name" small>{{ tag.name }}</v-chip>
             <v-spacer class="my-5"/>
           </v-col>
 
-          <v-col cols="12" md="4">
+          <v-col v-if="flow.aliases.length > 0" cols="12" md="4">
             <h2 class="mb-2">{{ $tc('p.alias', 2) }}</h2>
             <v-chip v-for="alias of flow.aliases" :key="alias.name" small>{{ alias.name }}</v-chip>
             <v-spacer class="my-5"/>
@@ -46,11 +46,7 @@
       <v-card-text>
         <v-row>
           <v-col v-for="(attachment,i) in flow.attachments" :key="i" cols="12" md="6" lg="4">
-            <template v-if="attachment.type === 'youtube'">
-              <iframe width="100%" height="300px" :src="attachment.url" title="YouTube video player" frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </template>
-            <v-img v-else-if="attachment.type === 'image'" contain :src="attachment.url" max-height="400px"/>
+            <embed-attachment :attachment="attachment"/>
           </v-col>
         </v-row>
       </v-card-text>
@@ -62,12 +58,14 @@
 
 <script lang="ts">
 import {Component, Watch} from 'vue-property-decorator';
+import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
+import BreadcrumbTitle from '~/components/breadcrumb-title.vue';
 import CommentsPanel from '~/components/comment/comments-panel.vue';
 import {resolveDifficulty} from '~/utils';
 import Page from '../page.vue';
 
 @Component({
-  components: {CommentsPanel},
+  components: {CommentsPanel, EmbedAttachment, BreadcrumbTitle},
 })
 export default class FlowDetailsPage extends Page {
   flow: any = null;
@@ -84,6 +82,10 @@ export default class FlowDetailsPage extends Page {
 
   get title() {
     return this.flow?.name || this.$tc('p.flow');
+  }
+
+  get type() {
+    return 'flow';
   }
 
   get difficultyLabel() {

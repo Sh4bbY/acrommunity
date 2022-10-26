@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
-import ItemMenu from '~/components/item-menu.vue';
+import ItemMenu from '~/components/item/item-menu.vue';
 import PaginatedGrid from '~/components/paginated-grid.vue';
 import PaginatedTable from '~/components/paginated-table.vue';
 import TooltipButton from '~/components/tooltip-button.vue';

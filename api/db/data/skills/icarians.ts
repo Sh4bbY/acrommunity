@@ -1,9 +1,9 @@
 import {SkillType} from '@acrommunity/common';
 
 export const icarians = [
-  {name: 'Bird Icarian', attachments: []},
-].map(whip => ({
-  ...whip,
+  {name: 'Martini', attachments: ['https://www.instagram.com/p/BnUB6xvnDHW']},
+].map(skill => ({
+  ...skill,
   type: SkillType.ICARIAN,
 }));
 

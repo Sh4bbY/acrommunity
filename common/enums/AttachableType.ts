@@ -1,5 +1,5 @@
 export enum AttachableType {
-  POSE = 'pose',
-  TRANSITION = 'transition',
-  SKILL = 'skill',
+  Pose = 'pose',
+  Flow = 'flow',
+  Skill = 'skill',
 }

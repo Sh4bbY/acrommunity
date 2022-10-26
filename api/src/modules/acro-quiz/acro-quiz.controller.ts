@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post, Query, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, Post, UseGuards} from '@nestjs/common';
 import {AuthGuard} from '@nestjs/passport';
 import {AcroQuizService} from './acro-quiz.service';
 
@@ -9,12 +9,17 @@ export class AcroQuizController {
   constructor(private readonly acroQuizService: AcroQuizService) {
   }
 
-  @Get('question')
+  @Get('question/name-of-pose')
   async getQuestion() {
     return await this.acroQuizService.getQuestion();
   }
 
-  @Post('solution')
+  @Get('question/look-of-pose')
+  async getImageForPoseQuestion() {
+    return await this.acroQuizService.getLookOfPoseQuestion();
+  }
+
+  @Post('solution/name-of-pose')
   async postSolution(@Body() solution: any) {
     return await this.acroQuizService.postSolution(solution);
   }

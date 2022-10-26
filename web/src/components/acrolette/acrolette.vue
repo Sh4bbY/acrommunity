@@ -16,7 +16,7 @@ import AcroletteSettings from '~/components/acrolette/acrolette-settings.vue';
 export default class Acrolette extends Vue {
   isGameStarted = false;
   settings = {
-    difficulty: 3,
+    difficulty: [1, 10],
     sound: {
       onSwitch: true,
     },

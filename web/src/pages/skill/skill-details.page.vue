@@ -14,14 +14,8 @@
       <v-card-text>
         <v-row>
           <v-col cols="12" md="6">
-            <v-img v-if="skill.attachments.length === 1" :src="skill.attachments[0].url" contain/>
-            <v-carousel v-else-if="skill.attachments.length > 1" :show-arrows="skill.attachments.length > 1">
-              <v-carousel-item v-for="(attachment,i) in skill.attachments" :key="i">
-                <v-img :src="attachment.url" contain/>
-              </v-carousel-item>
-            </v-carousel>
-            <div v-else>
-              <v-alert color="grey" outlined class="text-center">no images</v-alert>
+            <div v-for="attachment in skill.attachments" :key="attachment.id">
+              <attachment :attachment="attachment"/>
             </div>
           </v-col>
 
@@ -71,12 +65,13 @@
 
 <script lang="ts">
 import {Component, Watch} from 'vue-property-decorator';
+import Attachment from '~/components/attachment/embed-attachment.vue';
 import CommentsPanel from '~/components/comment/comments-panel.vue';
 import {resolveDifficulty} from '~/utils';
 import Page from '../page.vue';
 
 @Component({
-  components: {CommentsPanel},
+  components: {CommentsPanel, Attachment},
 })
 export default class SkillDetailsPage extends Page {
   skill: any = null;

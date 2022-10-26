@@ -11,7 +11,7 @@ export class JamService {
     return await this.jamModel.findOne({where: {id}});
   }
 
-  async getPaginatedData(data) {
+  async getPaginatedData() {
     return await this.jamModel.findAndCountAll({
       limit: undefined,
       offset: 0,

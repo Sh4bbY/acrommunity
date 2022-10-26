@@ -1,30 +1,10 @@
-import Joi from 'joi';
+import {TaggableType} from '@acrommunity/common';
 import {BelongsToMany, Column, DataType, Model, Table} from 'sequelize-typescript';
-import {TaggableType} from '~/enums';
 import {PT_Taggable} from '~/models/pivot';
 import {Pose} from '~/models/Pose';
 
-export interface TagData {
-  id: number;
-  name: string;
-  createdAt: Date;
-}
-
-const constraints = {
-  title: {minLength: 3, maxLength: 30},
-};
-
-export const tagValidation = {
-  constraints,
-  schema: Joi.object({
-    name: Joi.string().min(constraints.title.minLength).max(constraints.title.maxLength).required(),
-  }),
-};
-
-@Table({timestamps: false})
+@Table({updatedAt: false})
 export class Tag extends Model<Tag> {
-  public static validation = tagValidation;
-
   declare id: number;
 
   @Column({type: DataType.STRING})

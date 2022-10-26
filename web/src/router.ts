@@ -13,6 +13,7 @@ import JamsPage from '~/pages/jam/jams.page.vue';
 import LoginPage from '~/pages/login.page.vue';
 import PoseCreatePage from '~/pages/pose/pose-create.page.vue';
 import PoseDetailsPage from '~/pages/pose/pose-details.page.vue';
+import PoseEditPage from '~/pages/pose/pose-edit.page.vue';
 import PosesPage from '~/pages/pose/poses.page.vue';
 import ProfilePage from '~/pages/profile/profile.page.vue';
 import ReferencesPage from '~/pages/references.page.vue';
@@ -37,6 +38,7 @@ const routes: Array<RouteConfig> = [
   {path: '/jams/:id', name: 'jam-details', component: JamDetailsPage},
   {path: '/poses', name: 'poses', component: PosesPage},
   {path: '/poses/create', name: 'pose-create', component: PoseCreatePage},
+  {path: '/poses/:id/edit', name: 'pose-edit', component: PoseEditPage},
   {path: '/poses/:id', name: 'pose-details', component: PoseDetailsPage},
   {path: '/skills', name: 'skills', component: SkillsPage},
   {path: '/skills/create', name: 'skill-create', component: SkillCreatePage},

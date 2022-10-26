@@ -1,26 +1,11 @@
 import {SkillType} from '@acrommunity/common';
 import {BelongsToMany, Column, DataType, HasMany, Model, Table} from 'sequelize-typescript';
-import {AliasableType, AttachableType, CommentableType, TaggableType} from '~/enums';
+import {AliasableType, AttachableType, CommentableType, TaggableType} from '@acrommunity/common';
 import {Alias, Attachment, Comment, Tag} from '~/models';
 import {PT_Attachable, PT_Taggable} from '~/models/pivot';
 
-export interface SkillData {
-  id: number;
-  name: string;
-  description: string;
-}
-
-const constraints = {};
-
-export const skillValidation = {
-  constraints,
-  schema: {},
-};
-
 @Table({updatedAt: false, createdAt: false})
 export class Skill extends Model<Skill> {
-  public static validation = skillValidation;
-
   declare id: number;
 
   @Column({type: DataType.STRING, unique: true})

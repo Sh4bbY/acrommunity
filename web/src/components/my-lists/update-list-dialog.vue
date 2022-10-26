@@ -9,6 +9,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer/>
+        <v-btn text class="mr-2" @click="show=false">{{ $t('action.cancel') }}</v-btn>
         <v-btn color="primary" @click="updateList">{{ $t('action.apply') }}</v-btn>
       </v-card-actions>
     </v-card>
@@ -38,9 +39,9 @@ export default class UpdateListDialog extends Vue {
 
   async updateList() {
     try {
-      await this.$api.put(`/api/my/list/${this.list.id}`, this.form);
+      const list = await this.$store.dispatch('user/updateList', {list: this.list, form: this.form});
       this.show = false;
-      this.$emit('success', Object.assign({}, this.list, this.form));
+      this.$emit('success', list);
     } catch (e) {
       this.$notify.error(e);
     }

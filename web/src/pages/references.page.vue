@@ -13,7 +13,8 @@
           <v-list-item :key="reference.url">
             <v-list-item-content>
               <v-list-item-title>{{ reference.name }}</v-list-item-title>
-              <v-list-item-subtitle>{{ reference.description || reference.url }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ reference.url }}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="reference.description">{{ reference.description }}</v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action>
               <v-btn icon @click="openTab(reference.url)">
@@ -28,6 +29,24 @@
           <h3>{{ $tc('p.calendar', 2) }}</h3>
         </v-subheader>
         <template v-for="reference in references.calendars">
+          <v-list-item :key="reference.url">
+            <v-list-item-content>
+              <v-list-item-title>{{ reference.name }}</v-list-item-title>
+              <v-list-item-subtitle>{{ reference.url }}</v-list-item-subtitle>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-btn icon @click="openTab(reference.url)">
+                <v-icon>mdi-open-in-new</v-icon>
+              </v-btn>
+            </v-list-item-action>
+          </v-list-item>
+          <v-divider :key="reference.url + '-divider'"/>
+        </template>
+
+        <v-subheader class="mt-6">
+          <h3>{{ $tc('p.community', 2) }}</h3>
+        </v-subheader>
+        <template v-for="reference in references.communities">
           <v-list-item :key="reference.url">
             <v-list-item-content>
               <v-list-item-title>{{ reference.name }}</v-list-item-title>
@@ -67,6 +86,9 @@ export default class ReferencesPage extends Page {
     calendars: [
       {name: 'Acro Event Kalender', url: 'https://kalender.digital/9290ecc26f6f5a51ddc5'},
       {name: 'Acrocalendar', url: 'https://acrocalendar.com/'},
+    ],
+    communities: [
+      {name: 'Acro Map', url: 'https://www.acropedia.org/communities/#page'},
     ],
   };
 

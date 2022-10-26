@@ -1,13 +1,6 @@
 import {BelongsTo, Column, DataType, ForeignKey, Model, Table} from 'sequelize-typescript';
 import {Pose} from '~/models/Pose';
 
-export interface TransitionData {
-  description: string;
-  difficulty: number;
-  sourcePoseId: number;
-  targetPoseId: number;
-}
-
 @Table({timestamps: false})
 export class Transition extends Model<Transition> {
   @Column({type: DataType.TEXT})

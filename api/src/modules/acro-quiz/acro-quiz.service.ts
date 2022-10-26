@@ -15,7 +15,7 @@ export class AcroQuizService {
 
   async getQuestion() {
     const poses = await this.poseModel.findAll({
-      include: [Attachment, Alias],
+      include: [{model: Attachment, required: true}, Alias],
       order: [literal('rand()')],
       limit: 1,
     });
@@ -34,6 +34,32 @@ export class AcroQuizService {
     return {
       text: 'What is the name of this pose?',
       img: pose.attachments[0].url,
+      poseId: pose.id,
+      answers,
+    };
+  }
+
+
+  async getLookOfPoseQuestion() {
+    const poses = await this.poseModel.findAll({
+      include: [Attachment, Alias],
+      order: [literal('rand()')],
+      limit: 1,
+    });
+    const pose = poses[0];
+
+    const answerOptions = await this.poseModel.findAll({
+      where: {id: {[Op.not]: pose.id}},
+      include: [{model: Attachment, required: true}],
+      order: [literal('rand()')],
+      limit: 3,
+    });
+
+    const answers = answerOptions.map(pose => ({img: pose.attachments[0].url})).concat([{img: pose.attachments[0].url}])
+      .sort(Randomizer.randomSort);
+
+    return {
+      text: `How does "${pose.name}" look like?`,
       poseId: pose.id,
       answers,
     };

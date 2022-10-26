@@ -16,7 +16,7 @@ export default class Page extends Vue {
   }
 
   get title(): any {
-    return 'LTMS';
+    return 'Acrommunity';
   }
 }
 </script>

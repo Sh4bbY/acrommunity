@@ -5,5 +5,6 @@ export enum SkillType {
   POP = 'pop',
   ICARIAN = 'icarian',
   WHIP_POP = 'whipPop',
-  RELAXATION = 'relaxation',
+  ACROPEUTICS = 'acropeutics',
+  DANCE_LIFT = 'dancelift',
 }

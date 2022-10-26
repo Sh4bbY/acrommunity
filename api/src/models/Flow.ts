@@ -1,5 +1,5 @@
+import {AliasableType, AttachableType, CommentableType, TaggableType} from '@acrommunity/common';
 import {BelongsToMany, Column, DataType, HasMany, Model, Table} from 'sequelize-typescript';
-import {AliasableType, AttachableType, CommentableType, TaggableType} from '~/enums';
 import {Comment, Tag} from '~/models';
 import {Alias} from '~/models/Alias';
 import {Attachment} from '~/models/Attachment';

@@ -1,5 +1,5 @@
+import {userValidation} from '@acrommunity/common';
 import Joi from 'joi';
-import {userValidation} from '~/models';
 
 export const registerSchema: Joi.Schema = Joi.compile(Joi.object({
   email: Joi.string().email().max(userValidation.constraints.email.maxLength).required(),

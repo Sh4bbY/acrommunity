@@ -9,9 +9,9 @@ export class MyController {
   constructor(private readonly myService: MyService) {
   }
 
-  @Get('lists')
+  @Get('state')
   async getOne(@Req() req: Request) {
-    return await this.myService.getLists(req.user.id);
+    return await this.myService.getUserState(req.user.id);
   }
 
   @Delete('/list/:listId/:listableType/:listableId')
@@ -25,8 +25,8 @@ export class MyController {
   }
 
   @Put('/list/:listId/add')
-  async addItemsToList(@Req() req: Request, @Param('listId') listId, @Body() body: { listableType: string, listableIds: number }) {
-    return await this.myService.addItemsToList(req.user.id, Number(listId), body);
+  async addItemsToList(@Req() req: Request, @Param('listId') listId, @Body() body: { listableType: string, listableId: number }) {
+    return await this.myService.addItemToList(req.user.id, Number(listId), body);
   }
 
   @Put('/list/:listId')
@@ -37,5 +37,15 @@ export class MyController {
   @Post('/list')
   async createList(@Req() req: Request, @Body() body: any) {
     return await this.myService.createList(req.user.id, body);
+  }
+
+  @Post('/mark')
+  async createMark(@Req() req: Request, @Body() body: any) {
+    return await this.myService.createMark(req.user.id, body);
+  }
+
+  @Delete('/mark/:type/:id')
+  async deleteMark(@Req() req: Request, @Param('type') markableType, @Param('id') id: string) {
+    return await this.myService.deleteMark(req.user.id, markableType, Number(id));
   }
 }

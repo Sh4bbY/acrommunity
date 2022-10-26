@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommentableType = void 0;
 var CommentableType;
 (function (CommentableType) {
-    CommentableType["POSE"] = "pose";
-    CommentableType["TRANSITION"] = "transition";
-    CommentableType["SKILL"] = "skill";
+    CommentableType["Pose"] = "pose";
+    CommentableType["Flow"] = "flow";
+    CommentableType["Skill"] = "skill";
 })(CommentableType = exports.CommentableType || (exports.CommentableType = {}));

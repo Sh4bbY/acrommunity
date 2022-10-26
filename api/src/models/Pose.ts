@@ -1,5 +1,5 @@
+import {AliasableType, AttachableType, CommentableType, TaggableType} from '@acrommunity/common';
 import {BelongsToMany, Column, DataType, HasMany, Model, Table} from 'sequelize-typescript';
-import {AliasableType, AttachableType, CommentableType, TaggableType} from '~/enums';
 import {Comment, Tag} from '~/models';
 import {Alias} from '~/models/Alias';
 import {Attachment} from '~/models/Attachment';
@@ -7,27 +7,8 @@ import {PT_Taggable} from '~/models/pivot';
 import {PT_Attachable} from '~/models/pivot/PT_Attachable';
 import {Transition} from '~/models/Transition';
 
-export interface PoseData {
-  id: number;
-  name: string;
-  description: string;
-  difficulty: number;
-  image: string;
-}
-
-const constraints = {
-  name: {minLength: 3, maxLength: 30},
-};
-
-export const poseValidation = {
-  constraints,
-  schema: {},
-};
-
 @Table({updatedAt: false, createdAt: false})
 export class Pose extends Model<Pose> {
-  public static validation = poseValidation;
-
   declare id: number;
 
   @Column({type: DataType.STRING, unique: true})

@@ -1,4 +1,4 @@
-export enum AttachableType {
+export enum MarkableType {
   Pose = 'pose',
   Flow = 'flow',
   Skill = 'skill',

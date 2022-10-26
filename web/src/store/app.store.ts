@@ -5,8 +5,6 @@ import {RootState} from '~/store';
 export interface AppState {
   showNavigation: boolean,
   isLoading: boolean,
-  title: string,
-  titleShort: string,
   openRequests: number,
 }
 
@@ -15,8 +13,6 @@ export const appStore: Module<AppState, RootState> = {
   state: {
     showNavigation: true,
     isLoading: false,
-    title: 'LunaTech Mentoring System',
-    titleShort: 'LTMS',
     openRequests: 0,
   },
   mutations: {

@@ -31,26 +31,7 @@
 
       <paginated-grid v-if="gridView" url="/api/flows" :headers="headers" :search-params="searchParams">
         <template #item="{item}">
-          <div class="grid-item">
-            <div class="image-wrap">
-              <div class="d-flex pa-1">
-                <tooltip-button color="red" small
-                                :tooltip="isFavorite(item) ? $t('action.removeFromItems', {items: $tc('p.favorite', 2)}) : $t('action.addToItems', {items: $tc('p.favorite', 2)})"
-                                :icon="isFavorite(item) ? 'mdi-heart' : 'mdi-heart-outline'"
-                                @click="toggleFavorite(item)"
-                />
-                <v-spacer/>
-                <item-menu class="item-menu"/>
-              </div>
-              <div v-if="item.attachments.length > 0 && item.attachments[0].type === 'youtube'">
-                <iframe width="100%" height="200px" :src="item.attachments[0].url" title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              </div>
-            </div>
-            <div class="text">
-              <router-link :to="{name: 'flow-details', params: {id: item.id}}">{{ item.name }}</router-link>
-            </div>
-          </div>
+          <grid-item :item="item" :type="type"/>
         </template>
       </paginated-grid>
 
@@ -65,12 +46,8 @@
           <span>{{ item.difficulty }} ({{ resolveDifficulty(item.difficulty) }})</span>
         </template>
         <template #item.actions="{item}">
-          <tooltip-button color="red" small
-                          :tooltip="isFavorite(item) ? $t('action.removeFromItems', {items: $tc('p.favorite', 2)}) : $t('action.addToItems', {items: $tc('p.favorite', 2)})"
-                          :icon="isFavorite(item) ? 'mdi-heart' : 'mdi-heart-outline'"
-                          @click="toggleFavorite(item)"
-          />
-          <item-menu/>
+          <fav-button :item="item" :type="type"/>
+          <item-menu :item="item" :type="type"/>
         </template>
       </paginated-table>
     </v-card>
@@ -79,7 +56,10 @@
 
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
-import ItemMenu from '~/components/item-menu.vue';
+import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
+import FavButton from '~/components/item/fav-button.vue';
+import GridItem from '~/components/item/grid-item.vue';
+import ItemMenu from '~/components/item/item-menu.vue';
 import PaginatedGrid from '~/components/paginated-grid.vue';
 import PaginatedTable from '~/components/paginated-table.vue';
 import TooltipButton from '~/components/tooltip-button.vue';
@@ -87,16 +67,15 @@ import {resolveDifficulty} from '~/utils';
 import Page from '../page.vue';
 
 @Component({
-  components: {TooltipButton, ItemMenu, PaginatedTable, PaginatedGrid},
+  components: {TooltipButton, ItemMenu, PaginatedTable, PaginatedGrid, EmbedAttachment, GridItem, FavButton},
 })
 export default class FlowsPage extends Page {
   flows = [];
-  favorites = [];
   filter = {
     difficulty: [1, 5],
   };
   showFilter = false;
-  gridView = false;
+  gridView = true;
   searchParams = {};
 
   get title() {
@@ -115,19 +94,6 @@ export default class FlowsPage extends Page {
     return this.searchParams = Object.assign({}, this.filter);
   }
 
-  isFavorite(item) {
-    return this.favorites.includes(item.id);
-  }
-
-  toggleFavorite(item) {
-    if (this.isFavorite(item)) {
-      const index = this.favorites.indexOf(item.id);
-      this.favorites.splice(index, 1);
-    } else {
-      this.favorites.push(item.id);
-    }
-  }
-
   resolveDifficulty(difficulty) {
     return resolveDifficulty(difficulty, this);
   }
@@ -138,22 +104,12 @@ export default class FlowsPage extends Page {
     }
     return '-';
   }
+
+  get type() {
+    return 'flow';
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.grid-item {
-  padding: 6px;
-
-  .image-wrap {
-    margin: 6px;
-    border: 1px solid rgba(#777, 0.2);
-    border-radius: 4px;
-  }
-
-  .text {
-    text-align: center;
-  }
-}
-
 </style>

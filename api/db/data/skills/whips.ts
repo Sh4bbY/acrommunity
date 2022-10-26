@@ -5,7 +5,7 @@ export const whips = [
   {name: 'Back Whip', attachments: []},
   {name: 'Jäger Whip', attachments: []},
   {name: 'Forbidden Whip', attachments: []},
-].map(whip => ({
-  ...whip,
+].map(skill => ({
+  ...skill,
   type: SkillType.WHIP,
 }));

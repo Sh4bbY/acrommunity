@@ -18,6 +18,7 @@ import {jamSeeds} from './jam.seeds';
 import {listSeeds} from './list.seeds';
 import {attachableSeeds} from './pivot/pt.attachable.seeds';
 import {listableSeeds} from './pivot/pt.listable.seeds';
+import {markableSeeds} from './pivot/pt.markable.seeds';
 import {taggableSeeds} from './pivot/pt.taggable.seeds';
 import {poseSeeds} from './pose.seeds';
 import {skillSeeds} from './skill.seeds';
@@ -30,6 +31,7 @@ export const pivotSeeds = [
   taggableSeeds,
   attachableSeeds,
   listableSeeds,
+  markableSeeds,
 ];
 
 export const seeds = [
