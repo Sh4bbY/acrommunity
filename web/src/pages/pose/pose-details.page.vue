@@ -32,57 +32,72 @@
           </v-col>
 
           <v-col cols="12" md="6">
-            <h3 class="mb-2">{{ $t('field.description') }}</h3>
-            <p>{{ pose.description }}</p>
-            <v-spacer class="my-5"/>
-
             <v-row>
+              <v-col v-if="pose.description" cols="12">
+                <h3 class="mb-2">{{ $t('field.description') }}</h3>
+                <p>{{ pose.description }}</p>
+              </v-col>
               <v-col cols="12" md="6">
                 <h3 class="mb-2">{{ $t('field.difficulty') }}</h3>
                 <p>{{ pose.difficulty }} ({{ difficultyLabel }})</p>
-                <v-spacer class="my-5"/>
               </v-col>
               <v-col cols="12" md="6">
                 <h3 class="mb-2">{{ $tc('p.person', 2) }}</h3>
                 <p>{{ pose.persons }}</p>
-                <v-spacer class="my-5"/>
               </v-col>
 
               <v-col cols="12" md="6">
                 <h3 class="mb-2">{{ $t('field.basePosition') }}</h3>
                 <p>{{ pose.basePosition ? $t('basePosition.' + pose.basePosition) : '-' }}</p>
-                <v-spacer class="my-5"/>
               </v-col>
 
               <v-col cols="12" md="6">
                 <h3 class="mb-2">{{ $t('field.flyerPosition') }}</h3>
                 <p>{{ pose.flyerPosition ? $t('flyerPosition.' + pose.flyerPosition) : '-' }}</p>
-                <v-spacer class="my-5"/>
               </v-col>
 
-              <v-col cols="12" md="6">
-                <div v-if="targets.length > 0">
-                  <h3 class="mb-2">{{ $t('label.transitionTo') }}</h3>
-                  <ul>
-                    <li v-for="target in targets" :key="'target-'+target.id">
-                      <router-link :to="{name: 'pose-details', params: {id: target.id}}">{{ target.name }}</router-link>
-                    </li>
-                  </ul>
-                  <v-spacer class="my-5"/>
-                </div>
+              <v-col v-if="pose.tags.length > 0" cols="12" md="6">
+                <h3 class="mb-2">{{ $tc('p.tag', 2) }}</h3>
+                <v-chip v-for="tag of pose.tags" :key="tag.name" small class="mr-1 mb-1">{{ tag.name }}</v-chip>
+              </v-col>
 
-                <div v-if="pose.tags.length > 0">
-                  <h3 class="mb-2">{{ $tc('p.tag', 2) }}</h3>
-                  <v-chip v-for="tag of pose.tags" :key="tag.name" small>{{ tag.name }}</v-chip>
-                  <v-spacer class="my-5"/>
-                </div>
-
-                <div v-if="pose.aliases.length > 0">
-                  <h3 class="mb-2">{{ $tc('p.alias', 2) }}</h3>
-                  <v-chip v-for="alias of pose.aliases" :key="alias.name" small>{{ alias.name }}</v-chip>
-                </div>
+              <v-col v-if="pose.aliases.length > 0" cols="12" md="6">
+                <h3 class="mb-2">{{ $tc('p.alias', 2) }}</h3>
+                <v-chip v-for="alias of pose.aliases" :key="alias.name" small class="mr-1 mb-1">{{ alias.name }}</v-chip>
               </v-col>
             </v-row>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+
+    <v-card class="mb-5">
+      <v-toolbar color="primary" dense dark>
+        <v-toolbar-title>{{ $t('label.transitionFrom') }}</v-toolbar-title>
+      </v-toolbar>
+      <v-card-text>
+        <v-row>
+          <v-col cols="12" sm="6" md="4" lg="3" v-for="source in sources" :key="'source-'+source.id">
+            <div class="d-flex flex-column align-center">
+              <v-img :src="source.attachments[0].url" max-height="150px" contain/>
+              <router-link :to="{name: 'pose-details', params: {id: source.id}}">{{ source.name }}</router-link>
+            </div>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+
+    <v-card class="mb-5">
+      <v-toolbar color="primary" dense dark>
+        <v-toolbar-title>{{ $t('label.transitionTo') }}</v-toolbar-title>
+      </v-toolbar>
+      <v-card-text>
+        <v-row>
+          <v-col cols="12" sm="6" md="4" lg="3" v-for="target in targets" :key="'target-'+target.id">
+            <div class="d-flex flex-column align-center">
+              <v-img :src="target.attachments[0].url" max-height="150px" contain/>
+              <router-link :to="{name: 'pose-details', params: {id: target.id}}">{{ target.name }}</router-link>
+            </div>
           </v-col>
         </v-row>
       </v-card-text>
@@ -108,8 +123,8 @@ import Page from '../page.vue';
 })
 export default class PoseDetailsPage extends Page {
   pose: any = null;
-  targets: any = [];
   sources: any = [];
+  targets: any = [];
 
   @Watch('$route.params.id', {immediate: true})
   async watchId(id: string) {
@@ -119,7 +134,8 @@ export default class PoseDetailsPage extends Page {
         this.$api.get(`/api/poses/${id}/transitions`),
       ]);
       this.pose = response.data;
-      this.targets = responseT.data;
+      this.sources = responseT.data.sources;
+      this.targets = responseT.data.targets;
     } catch (e) {
       this.$notify.error(e);
     }

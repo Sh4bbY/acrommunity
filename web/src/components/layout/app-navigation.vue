@@ -62,6 +62,8 @@ export default class AppNavigation extends Vue {
       {title: this.$t('label.flowGenerator'), icon: 'mdi-spa', route: {name: 'flow-generator'}, exact: false},
       {title: this.$tc('p.reference', 2), icon: 'mdi-web', route: {name: 'references'}, exact: false},
       {title: this.$tc('p.user', 2), icon: 'mdi-account-multiple', route: {name: 'users'}, exact: false},
+      {title: 'Communities', icon: 'mdi-account-group', route: {name: 'communities'}, exact: false},
+      {title: 'Dev', icon: 'mdi-dev-to', route: {name: 'dev'}, exact: false},
     ];
   }
 

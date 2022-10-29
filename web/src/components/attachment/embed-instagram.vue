@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="embed-instagram">
     <v-hover v-if="showThumbnail" v-slot="{hover}">
       <div class="thumbnail-wrapper">
         <v-img :src="thumbnail"/>
-        <div v-show="hover" class="thumbnail-hint" @click="disableThumbnail=true">
+        <div v-show="hover" class="thumbnail-hint" @click="embedInstagram">
           <v-icon color="#fff" class="mr-2">mdi-instagram</v-icon>
           <span>embed instagram</span>
         </div>
@@ -28,9 +28,16 @@ export default class EmbedInstagram extends Vue {
   @Prop({type: String, required: true}) url!: string;
   @Prop({default: false, type: Boolean}) noThumbnail!: boolean;
   checkIterations = 0;
-  disableThumbnail = true;
+  disableThumbnail = false;
 
   async mounted() {
+    if (this.disableThumbnail) {
+      await this.embedInstagram();
+    }
+  }
+
+  async embedInstagram() {
+    this.disableThumbnail = true;
     this.insertScript();
     await this.scriptLoaded();
     window.instgrm.Embeds.process();
@@ -71,7 +78,7 @@ export default class EmbedInstagram extends Vue {
   }
 
   get thumbnail() {
-    return `https://www.instagram.com/p/${this.mediaId}/media?size=t`;
+    return `/api/proxy/instagram/media/${this.mediaId}?size=m`;
   }
 }
 </script>
@@ -107,5 +114,9 @@ export default class EmbedInstagram extends Vue {
   right: 0;
   color: #fff;
   cursor: pointer;
+}
+
+.embed-instagram {
+  overflow: hidden;
 }
 </style>

@@ -46,6 +46,7 @@ export const de = {
     basePosition: 'Base Position',
   },
   label: {
+    none: '-',
     misc: 'Verschiedenes',
     settings: 'Einstellungen',
     from: 'von',
@@ -55,6 +56,7 @@ export const de = {
     when: 'Wann',
     where: 'Wo',
     oClock: 'Uhr',
+    transitionFrom: 'Übergang von',
     transitionTo: 'Übergang zu',
     acrolette: 'Acrolette',
     acroQuiz: 'Acro-Quiz',
@@ -62,6 +64,7 @@ export const de = {
     dictionary: 'Lexion',
   },
   action: {
+    generate: 'Generieren',
     addToList: 'Zu Liste hinzufügen',
     createNewList: 'Neue Liste erstellen',
     save: 'Speichern',
@@ -78,6 +81,7 @@ export const de = {
     register: 'Account erstellen',
     editItem: '{item} bearbeiten',
     showItem: '{item} anzeigen',
+    selectItem: '{item} auswählen',
     hideItem: '{item} ausblenden',
     updateItem: '{item} aktualisieren',
     createItem: '{item} erstellen',
@@ -149,5 +153,11 @@ export const de = {
     settings: {
       validTransitions: 'Nur direkte Übergänge'
     }
+  },
+  flowGenerator: {
+    numberPoses: 'Anzahl an Posen',
+    startPose: 'Startpose',
+    endPose: 'Endpose',
+    isWashingMachine: 'Ist Waschmaschiene',
   }
 };

@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <create-list-dialog v-model="dialog.createList"/>
     <v-card>
       <v-toolbar color="primary" dark dense>
         <v-toolbar-title>{{ $tc('p.pose', 2) }}</v-toolbar-title>
@@ -36,7 +37,7 @@
 
       <paginated-grid v-if="gridView" url="/api/poses" :headers="headers" :search-params="searchParams">
         <template #item="{item}">
-          <grid-item :item="item" :type="type"/>
+          <grid-item :item="item" :type="type" @create-list="dialog.createList=true"/>
         </template>
       </paginated-grid>
 
@@ -52,7 +53,7 @@
         </template>
         <template #item.actions="{item}">
           <fav-button :item="item" :type="type"/>
-          <item-menu :item="item" :type="type"/>
+          <item-menu :item="item" :type="type" @create-list="dialog.createList=true"/>
         </template>
       </paginated-table>
     </v-card>
@@ -65,6 +66,7 @@ import {Component} from 'vue-property-decorator';
 import FavButton from '~/components/item/fav-button.vue';
 import GridItem from '~/components/item/grid-item.vue';
 import ItemMenu from '~/components/item/item-menu.vue';
+import CreateListDialog from '~/components/my-lists/create-list-dialog.vue';
 import PaginatedGrid from '~/components/paginated-grid.vue';
 import PaginatedTable from '~/components/paginated-table.vue';
 import TooltipButton from '~/components/tooltip-button.vue';
@@ -72,13 +74,16 @@ import {resolveDifficulty} from '~/utils';
 import Page from '../page.vue';
 
 @Component({
-  components: {PaginatedTable, PaginatedGrid, TooltipButton, ItemMenu, GridItem, FavButton},
+  components: {PaginatedTable, PaginatedGrid, TooltipButton, ItemMenu, GridItem, FavButton, CreateListDialog},
 })
 export default class PosesPage extends Page {
   poses = [];
   favorites = [];
   filter = {
     difficulty: [1, 5],
+  };
+  dialog = {
+    createList: false,
   };
   showFilter = false;
   gridView = true;

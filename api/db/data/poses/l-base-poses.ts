@@ -6,7 +6,7 @@ export const lBasePoses = [
     difficulty: 1,
     flyerPosition: FlyerPosition.LYING_ON_BELLY,
     aliases: ['Flieger'],
-    transitions: ['Front Bird', 'Straddle Throne', 'Throne', 'Folded Leaf', 'Foot to Foot'],
+    transitions: ['Front Bird', 'Straddle Throne', 'Throne', 'Folded Leaf', 'Foot to Foot', 'Shoulderstand'],
     attachments: [
       'https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose001.webp',
       'https://www.fitforfun.de/files/images/201909/1/flugstunde-mit-acroyoga,383383_m_n.jpg',
@@ -18,7 +18,7 @@ export const lBasePoses = [
     difficulty: 1,
     flyerPosition: FlyerPosition.LYING_ON_BELLY,
     aliases: ['Bird', 'Flieger'],
-    transitions: ['Front Plank', 'Straddle Throne', 'Throne', 'Folded Leaf', 'Star', 'Shoulderstand'],
+    transitions: ['Front Plank', 'Straddle Throne', 'Throne', 'Folded Leaf', 'Star', 'Shoulderstand', 'Outside Side Star'],
     attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose003.webp'],
   },
   {
@@ -30,10 +30,17 @@ export const lBasePoses = [
     attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose005.webp'],
   },
   {
+    name: 'Reverse Bow',
+    difficulty: 3,
+    flyerPosition: FlyerPosition.LYING_ON_BELLY,
+    transitions: ['Reverse Front Bird'],
+    attachments: ['https://s3.eu-central-1.amazonaws.com/acrodicted/poses/original/1489799834_818401.png'],
+  },
+  {
     name: 'Reverse Front Bird',
     difficulty: 2,
     flyerPosition: FlyerPosition.LYING_ON_BELLY,
-    transitions: ['Inside Side Star'],
+    transitions: ['Inside Side Star', 'Straddle Bat', 'Back Bird', 'Low Foot to Hand', 'Reverse Front Plank', 'Standing on Elbows'],
     attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose006.jpg'],
   },
   {
@@ -44,11 +51,47 @@ export const lBasePoses = [
     attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose007.webp'],
   },
   {
+    name: 'Standing on Elbows',
+    difficulty: 2,
+    flyerPosition: FlyerPosition.LYING_ON_BELLY,
+    transitions: ['Reverse Front Bird', 'Reverse Straddle Throne', 'L-Sit'],
+    attachments: ['https://s3.eu-central-1.amazonaws.com/acrodicted/poses/original/1489799415_785514.png'],
+  },
+  {
     name: 'Back Plank',
     difficulty: 2,
+    aliases: ['Back Bird'],
     flyerPosition: FlyerPosition.LYING_ON_BACK,
-    transitions: ['Reverse Straddle Throne', 'Back Bird', 'Star'],
+    transitions: ['Reverse Straddle Throne', 'Back Bird', 'Star', 'Straddle Bat', 'Supported Reverse Shoulderstand', 'Reverse Shoulderstand', 'Low Foot to Hand', 'Boat', 'Back Bird on Hands', 'Squatting on Knees'],
     attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose041.webp'],
+  },
+  {
+    name: 'Back Bird',
+    difficulty: 1,
+    flyerPosition: FlyerPosition.LYING_ON_BACK,
+    transitions: ['Back Plank', 'Star', 'Reverse Shoulderstand', 'Supported Reverse Shoulderstand'],
+    attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose042.webp'],
+  },
+  {
+    name: 'Boat',
+    difficulty: 2,
+    flyerPosition: FlyerPosition.SITTING,
+    transitions: ['Back Plank', 'Back Bird'],
+    attachments: ['https://s3.eu-central-1.amazonaws.com/acrodicted/poses/original/1490438589_310664.png'],
+  },
+  {
+    name: 'Baby Handstand on Hands',
+    difficulty: 2,
+    flyerPosition: FlyerPosition.ON_HANDS,
+    transitions: ['Back Bird'],
+    attachments: ['https://s3.eu-central-1.amazonaws.com/acrodicted/poses/original/1490438647_467219.png'],
+  },
+  {
+    name: 'Squatting on Knees',
+    difficulty: 2,
+    flyerPosition: FlyerPosition.ON_HANDS,
+    transitions: ['Back Bird', 'Reverse Thigh Stand'],
+    attachments: ['https://s3.eu-central-1.amazonaws.com/acrodicted/poses/original/img009.png'],
   },
   {
     name: 'Bed',
@@ -57,13 +100,6 @@ export const lBasePoses = [
     transitions: ['Flying Fish'],
     aliases: ['Backplank Sideways'],
     attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose092.webp'],
-  },
-  {
-    name: 'Back Bird',
-    difficulty: 1,
-    flyerPosition: FlyerPosition.LYING_ON_BACK,
-    transitions: ['Star', 'Reverse Shoulderstand'],
-    attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose042.webp'],
   },
   {
     name: 'Back Bird on Hands',
@@ -83,7 +119,7 @@ export const lBasePoses = [
     name: 'Folded Leaf',
     difficulty: 1,
     flyerPosition: FlyerPosition.LYING_ON_BELLY,
-    transitions: ['Front Bird', 'Front Plank', 'Straddlebat'],
+    transitions: ['Front Bird', 'Front Plank', 'Straddle Bat'],
     attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose055.jpg'],
   },
   {
@@ -144,7 +180,7 @@ export const lBasePoses = [
     name: 'Star',
     difficulty: 1,
     flyerPosition: FlyerPosition.ON_SHOULDERS,
-    transitions: ['Straddlebat'],
+    transitions: ['Straddle Bat'],
     attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose058.webp'],
   },
   {
@@ -198,7 +234,7 @@ export const lBasePoses = [
     attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose091.jpg'],
   },
   {
-    name: 'Straddlebat',
+    name: 'Straddle Bat',
     difficulty: 1,
     flyerPosition: FlyerPosition.ON_THIGHS_HEADOVER,
     aliases: ['Buddha'],
@@ -209,14 +245,14 @@ export const lBasePoses = [
     name: 'Bat',
     difficulty: 1,
     flyerPosition: FlyerPosition.ON_THIGHS_HEADOVER,
-    transitions: ['Straddlebat', 'Floating Paschi'],
+    transitions: ['Straddle Bat', 'Floating Paschi'],
     attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose083.webp'],
   },
   {
     name: 'Inside Side Star',
     difficulty: 2,
     flyerPosition: FlyerPosition.LYING_ON_SIDE,
-    transitions: ['Straddlebat'],
+    transitions: ['Straddle Bat'],
     attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose087.webp'],
   },
   {
@@ -231,7 +267,7 @@ export const lBasePoses = [
     name: 'Pigeon',
     difficulty: 2,
     flyerPosition: FlyerPosition.SITTING,
-    transitions: ['Straddlebat', 'Ninja'],
+    transitions: ['Straddle Bat', 'Ninja'],
     attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/07/Acroyoga-PIDGEON-POSE-scaled.webp'],
   },
   {
@@ -296,7 +332,7 @@ export const lBasePoses = [
     difficulty: 2,
     flyerPosition: FlyerPosition.ON_SHOULDERS,
     aliases: ['Dreieck', 'Shrimp'],
-    transitions: ['Straddlebat', 'Bat'],
+    transitions: ['Straddle Bat', 'Bat'],
     attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/07/Acroyoga-Floating-Paschi-Dreiceck-Pose-scaled.webp'],
   },
   {
@@ -407,7 +443,7 @@ export const lBasePoses = [
   {
     name: 'Titibasana',
     difficulty: 3,
-    flyerPosition: FlyerPosition.STANDING,
+    flyerPosition: FlyerPosition.ON_HANDS,
     aliases: ['Firefly'],
     transitions: ['Star'],
     attachments: ['https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose050.webp'],

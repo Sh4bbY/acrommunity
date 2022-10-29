@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
+import CommunitiesPage from '~/pages/communities.page.vue';
+import DevPage from '~/pages/dev.page.vue';
 import FlowGeneratorPage from '~/pages/flow-generator.page.vue';
 import FlowCreatePage from '~/pages/flow/flow-create.page.vue';
 import FlowDetailsPage from '~/pages/flow/flow-details.page.vue';
@@ -52,6 +54,8 @@ const routes: Array<RouteConfig> = [
   {path: '/games/acro-quiz', name: 'acro-quiz', component: AcroQuizPage},
   {path: '/flow-generator', name: 'flow-generator', component: FlowGeneratorPage},
   {path: '/references', name: 'references', component: ReferencesPage},
+  {path: '/dev', name: 'dev', component: DevPage},
+  {path: '/communities', name: 'communities', component: CommunitiesPage},
 
   // 404 page needs to be last in routes array
   {path: '*', name: '404', component: () => import( /* webpackChunkName: "404.page" */ './pages/404.page.vue')},

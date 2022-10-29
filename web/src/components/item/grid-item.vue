@@ -6,7 +6,7 @@
         <div class="flex-grow-1 text-center py-1">
           <router-link :to="{name: type + '-details', params: {id: item.id}}">{{ item.name }}</router-link>
         </div>
-        <item-menu :item="item" :type="type" small/>
+        <item-menu :item="item" :type="type" small @create-list="$emit('create-list')"/>
       </div>
 
       <router-link v-if="type === 'pose'" :to="{name: type + '-details', params: {id: item.id}}">

@@ -1,3 +1,4 @@
+import { BasePosition, FlyerPosition } from '../enums';
 import { IAlias } from './IAlias';
 import { IAttachment } from './IAttachment';
 import { IComment } from './IComment';
@@ -7,6 +8,9 @@ export interface IPose {
     name: string;
     description: string;
     difficulty: number;
+    persons: number;
+    basePosition: BasePosition;
+    flyerPosition: FlyerPosition;
     comments?: IComment[];
     aliases?: IAlias[];
     tags?: ITag[];

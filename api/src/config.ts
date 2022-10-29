@@ -41,6 +41,8 @@ export const config = {
   path: {
     root: ROOT_DIR,
     static: path.join(ROOT_DIR, '/static'),
+    assets: path.join(ROOT_DIR, '/static/assets'),
+    profilePictures: path.join(ROOT_DIR, '/static/assets/img/profile'),
     tmp: path.join(ROOT_DIR, '/static/tmp'),
     tmpUpload: path.join(ROOT_DIR, '/static/tmp/upload'),
     tmpChunks: path.join(ROOT_DIR, '/static/tmp/chunks'),

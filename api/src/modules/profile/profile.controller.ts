@@ -2,8 +2,11 @@ import {userValidation} from '@acrommunity/common';
 import {Body, Controller, Inject, Put, Req, UseGuards} from '@nestjs/common';
 import {AuthGuard} from '@nestjs/passport';
 import {Request} from 'express';
+import path from 'path';
+import {config} from '~/config';
 import {EmailService} from '~/modules/email/email.service';
-import {UpdateEmailDto, UpdatePasswordDto, UpdateProfileDto} from '~/modules/profile/dto';
+import {FileService} from '~/modules/file/file.service';
+import {UpdateEmailDto, UpdatePasswordDto} from '~/modules/profile/dto';
 import {Validator} from '~/utils';
 import {ProfileService} from './profile.service';
 
@@ -11,13 +14,21 @@ import {ProfileService} from './profile.service';
 @UseGuards(AuthGuard('jwt'))
 export class ProfileController {
   constructor(private readonly userService: ProfileService,
-              @Inject(EmailService) private emailService: EmailService) {
+              @Inject(EmailService) private emailService: EmailService,
+              @Inject(FileService) private fileService: FileService,
+  ) {
   }
 
   @Put()
-  async updateProfile(@Req() req: Request, @Body() updateProfileDto: UpdateProfileDto) {
-    Validator.validate(userValidation.schema.update, updateProfileDto);
-    return await this.userService.updateProfile(req.user.id, updateProfileDto);
+  async updateProfile(@Req() req: Request, @Body() updateProfileDto: any) {
+    // async updateProfile(@Req() req: Request, @Body() updateProfileDto: UpdateProfileDto) {
+    // Validator.validate(userValidation.schema.update, updateProfileDto);
+    if (updateProfileDto.uploadRef) {
+      const result = await this.fileService.moveAndResizeUploadedFile(updateProfileDto.uploadRef, path.join(config.path.profilePictures));
+      updateProfileDto.avatar = '/assets/img/profile/' + result.name;
+    }
+    await this.userService.updateProfile(req.user.id, updateProfileDto);
+    return updateProfileDto;
   }
 
   @Put('email')

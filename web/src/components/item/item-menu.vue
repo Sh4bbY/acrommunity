@@ -17,7 +17,7 @@
           </v-list-item>
         </template>
         <v-list dense>
-          <v-list-item @click="todo()">
+          <v-list-item @click="createList">
             <v-list-item-title>{{ $t('action.createNewList') }}</v-list-item-title>
           </v-list-item>
           <v-divider/>
@@ -25,7 +25,7 @@
             <v-list-item-icon class="mr-3">
               <v-icon>{{ list.icon ? list.icon : 'mdi-view-list' }}</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>{{ list.name }} {{ isAlreadyListed(list) }}</v-list-item-title>
+            <v-list-item-title>{{ list.name }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -37,19 +37,16 @@
 import {getListables, ListableType} from '@acrommunity/common';
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
-import CreateListDialog from '~/components/my-lists/create-list-dialog.vue';
 
-@Component({
-  components: {CreateListDialog},
-})
+@Component({})
 export default class ItemMenu extends Vue {
   @Prop({type: Boolean, default: false}) small: boolean;
   @Prop() item: any;
   @Prop({type: String}) type: string;
   parentMenu = false;
 
-  todo() {
-    this.$notify.info('Not yet implemented');
+  createList() {
+    this.$emit('create-list');
     this.parentMenu = false;
   }
 

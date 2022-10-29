@@ -1,5 +1,4 @@
 import {AliasableType, TaggableType} from '@acrommunity/common';
-import {faker} from '@faker-js/faker';
 import {skills} from '../data';
 import {skillTable} from '../tables';
 import {Seeds} from './Seeds';
@@ -11,7 +10,7 @@ skillSeeds.setData(async () => {
     id: skill.id,
     name: skill.name,
     type: skill.type,
-    description: skill.description || faker.lorem.text(),
+    description: skill.description,
   }));
 });
 

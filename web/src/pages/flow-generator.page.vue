@@ -1,24 +1,16 @@
 <template>
   <v-container>
-    <v-card>
-      <v-toolbar color="primary" dark dense>
-        <v-toolbar-title>{{ $t('label.flowGenerator') }}</v-toolbar-title>
-      </v-toolbar>
-
-      <v-card-text>
-        Wollen wir einen Flow Generator?!
-      </v-card-text>
-    </v-card>
+    <flow-generator/>
   </v-container>
 </template>
 
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
-import TooltipButton from '~/components/tooltip-button.vue';
+import FlowGenerator from '~/components/flow-generator/flow-generator.vue';
 import Page from './page.vue';
 
 @Component({
-  components: {TooltipButton},
+  components: {FlowGenerator},
 })
 export default class FlowGeneratorPage extends Page {
 

@@ -33,7 +33,7 @@ export class PoseService {
   }
 
   async getOptions() {
-    return await this.poseModel.findAll({attributes: ['id', 'name']});
+    return await this.poseModel.findAll();
   }
 
   async findPoses(search: string) {
@@ -92,19 +92,19 @@ export class PoseService {
   }
 
   async getTransitionTargets(poseId: number) {
-    const transitions = await this.transitionModel.findAll({
-      attributes: ['sourcePoseId', 'targetPoseId'], where: {
-        [Op.or]: [
-          {targetPoseId: poseId},
-          {sourcePoseId: poseId},
-        ],
-      }, raw: true,
-    });
+    const [sourceTransitions, targetTransitions] = await Promise.all([
+      this.transitionModel.findAll({attributes: ['sourcePoseId'], where: {targetPoseId: poseId}, raw: true}),
+      this.transitionModel.findAll({attributes: ['targetPoseId'], where: {sourcePoseId: poseId}, raw: true}),
+    ]);
 
-    const poseIds = transitions.map(transition => poseId === transition.sourcePoseId ? transition.targetPoseId : transition.sourcePoseId);
-    return await this.poseModel.findAll({
-      where: {id: {[Op.in]: poseIds}},
-      raw: true,
-    });
+    const sourceIds = sourceTransitions.map(t => t.sourcePoseId);
+    const targetIds = targetTransitions.map(t => t.targetPoseId);
+
+    const [sources, targets] = await Promise.all([
+      this.poseModel.findAll({where: {id: {[Op.in]: sourceIds}}, include: [Attachment]}),
+      this.poseModel.findAll({where: {id: {[Op.in]: targetIds}}, include: [Attachment]}),
+    ]);
+
+    return {sources, targets};
   }
 }

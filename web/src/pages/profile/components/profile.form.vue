@@ -5,7 +5,13 @@
         <v-toolbar-title>{{ $tc('p.profile') }}</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
-        <v-img :src="form.avatar" alt="avatar" max-height="100" max-width="100" contain/>
+        <div class="d-inline-flex flex-column justify-center align-center mb-4">
+          <v-img :src="preview || form.avatar" alt="avatar" max-height="200" max-width="200" contain class="mb-2"/>
+          <div v-if="preview">
+            {{ fileSize | filesize }}
+          </div>
+          <upload-button v-model="file" only-image/>
+        </div>
         <v-text-field v-model="form.username" :label="$t('field.username')"/>
       </v-card-text>
       <v-card-actions>
@@ -19,13 +25,18 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
+import UploadButton from '~/components/upload/upload-button.vue';
+import {filesize} from '~/utils';
 
 @Component({
-  components: {},
+  components: {UploadButton},
+  filters: {filesize},
 })
 export default class ProfileForm extends Vue {
   isValid = true;
+  file = null;
   form = {
+    uploadRef: undefined,
     username: '',
     avatar: '',
   };
@@ -37,12 +48,26 @@ export default class ProfileForm extends Vue {
 
   async submit() {
     try {
-      await this.$api.put('/api/profile', this.form);
-      this.$store.commit('auth/updateUserProfile', this.form);
+      if (this.file) {
+        const data = new FormData();
+        data.set('file', this.file);
+        const response = await this.$api.post('/api/file/upload', data);
+        this.form.uploadRef = response.data.ref;
+      }
+      const profileResponse = await this.$api.put('/api/profile', this.form);
+      this.$store.commit('auth/updateUserProfile', profileResponse.data);
       this.$notify.info('success');
     } catch (e) {
       this.$notify.error(e);
     }
+  }
+
+  get preview() {
+    return this.file ? URL.createObjectURL(this.file) : null;
+  }
+
+  get fileSize() {
+    return this.file?.size;
   }
 }
 </script>

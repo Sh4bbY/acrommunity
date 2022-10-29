@@ -21,7 +21,7 @@ import LoginPage from '~/pages/login.page.vue';
 })
 export default class App extends Vue {
   async created() {
-    this.$store.state.app.showNavigation = this.$vuetify.breakpoint.mdAndUp;
+    this.$store.state.app.showNavigation = this.$vuetify.breakpoint.smAndUp;
     await this.$store.dispatch('auth/loginByToken');
     moment.locale(this.$i18n.locale);
     await this.$store.dispatch('user/updateState');
