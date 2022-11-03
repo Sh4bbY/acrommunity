@@ -1,3 +1,4 @@
+import {MarkableType, MarkType} from '@acrommunity/common';
 import {Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards} from '@nestjs/common';
 import {AuthGuard} from '@nestjs/passport';
 import {Request} from 'express';
@@ -39,13 +40,21 @@ export class MyController {
     return await this.myService.createList(req.user.id, body);
   }
 
+  @Get('/marks/:markType')
+  async getMarkedItem(@Req() req: Request, @Param('markType') type: MarkType) {
+    return await this.myService.getMarkedItem(req.user.id, type);
+  }
+
   @Post('/mark')
   async createMark(@Req() req: Request, @Body() body: any) {
     return await this.myService.createMark(req.user.id, body);
   }
 
-  @Delete('/mark/:type/:id')
-  async deleteMark(@Req() req: Request, @Param('type') markableType, @Param('id') id: string) {
-    return await this.myService.deleteMark(req.user.id, markableType, Number(id));
+  @Delete('/mark/:markableType/:markableId/:markType')
+  async deleteMark(@Req() req: Request,
+                   @Param('markableType') markableType: MarkableType,
+                   @Param('markableId') markableId: string,
+                   @Param('markType') type: MarkType) {
+    return await this.myService.deleteMark(req.user.id, markableType, Number(markableId), type);
   }
 }

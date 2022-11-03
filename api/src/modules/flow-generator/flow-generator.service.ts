@@ -20,9 +20,11 @@ export class FlowGeneratorService {
     let poseCount = 1;
     const poses = [];
     let pose = startPose;
+    console.log('start', pose.getDataValue('name'));
     while (poseCount < settings.numberPoses) {
       pose = await this.getFollowUpPose(pose.id, where);
       poses.push(pose);
+      console.log('next', pose.getDataValue('name'));
       poseCount++;
     }
 
@@ -75,8 +77,8 @@ export class FlowGeneratorService {
   }
 
   async getFollowUpPose(sourcePoseId: number, where?: any) {
-    const transitions = await this.transitionModel.findAll({where: {[Op.or]: [{sourcePoseId}, {targetPoseId: sourcePoseId}]}});
-    const targetIds = transitions.map(t => t.targetPoseId === sourcePoseId ? t.sourcePoseId : t.targetPoseId);
+    const transitions = await this.transitionModel.findAll({where: {sourcePoseId}});
+    const targetIds = transitions.map(t => t.targetPoseId);
     where.id = {[Op.in]: targetIds};
     const poses = await this.poseModel.findAll({
       where,

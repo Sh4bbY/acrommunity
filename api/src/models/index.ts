@@ -9,6 +9,8 @@ export * from './Flow';
 export * from './Alias';
 export * from './List';
 export * from './Attachment';
+export * from './Image';
+export * from './Video';
 
 import {Alias} from '~/models/Alias';
 import {Flow} from '~/models/Flow';
@@ -16,12 +18,14 @@ import {List} from '~/models/List';
 import {PT_Attachable, PT_Listable, PT_Markable, PT_Taggable} from '~/models/pivot';
 import {Attachment} from './Attachment';
 import {Comment} from './Comment';
+import {Image} from './Image';
 import {Jam} from './Jam';
 import {Pose} from './Pose';
 import {Skill} from './Skill';
 import {Tag} from './Tag';
 import {Transition} from './Transition';
 import {User} from './User';
+import {Video} from './Video';
 
 export const models = [
   User,
@@ -39,4 +43,6 @@ export const models = [
   Attachment,
   Alias,
   List,
+  Image,
+  Video,
 ];

@@ -1,5 +1,9 @@
 export const de = {
   p: {
+    flyer: 'Flyer | Flyers',
+    base: 'Base | Bases',
+    video: 'Video | Videos',
+    community: 'Community | Communities',
     transition: 'Übergang | Übergänge',
     my: 'Mein | Meine',
     event: 'Veranstaltung | Veranstaltungen',
@@ -46,6 +50,10 @@ export const de = {
     basePosition: 'Base Position',
   },
   label: {
+    randomItems: 'Zufällige {items}',
+    any: 'Egal',
+    baseType: 'Base-Typ',
+    myLists: 'Meine Listen',
     none: '-',
     misc: 'Verschiedenes',
     settings: 'Einstellungen',
@@ -104,6 +112,10 @@ export const de = {
     unauthorized: 'Nicht Authorisiert',
     unknownError: 'Unbekannter Error',
   },
+  msg: {
+    noFavorites: 'Du hast aktuell keine Favoriten',
+    noLists: 'Du hast aktuell keine Listen',
+  },
   recurringType: {
     once: 'Einmalig',
     weekly: 'Wöchentlich',
@@ -151,13 +163,13 @@ export const de = {
   },
   acrolette: {
     settings: {
-      validTransitions: 'Nur direkte Übergänge'
-    }
+      validTransitions: 'Nur direkte Übergänge',
+    },
   },
   flowGenerator: {
     numberPoses: 'Anzahl an Posen',
     startPose: 'Startpose',
     endPose: 'Endpose',
     isWashingMachine: 'Ist Waschmaschiene',
-  }
+  },
 };

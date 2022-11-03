@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div v-if="attachment" class="embed-attachment">
     <v-img v-if="attachment.type === AttachmentType.Image" :src="attachment.url" contain/>
     <embed-instagram v-else-if="attachment.type === AttachmentType.Instagram" :url="attachment.url"/>
-    <embed-youtube v-else-if="attachment.type === AttachmentType.YouTube" :url="attachment.url"/>
+    <embed-youtube v-else-if="attachment.type === AttachmentType.YouTube" :url="attachment.url" :height="height" :width="width" :max-height="maxHeight" :max-width="maxWidth"
+                   :non-clickable="nonClickable"/>
   </div>
 </template>
 
@@ -18,6 +19,11 @@ import EmbedYoutube from '~/components/attachment/embed-youtube.vue';
 })
 export default class EmbedAttachment extends Vue {
   @Prop({required: true}) attachment!: IAttachment;
+  @Prop({type: Boolean, default: false}) nonClickable!: boolean;
+  @Prop() height!: number | string;
+  @Prop() width!: number | string;
+  @Prop() maxHeight!: number | string;
+  @Prop() maxWidth!: number | string;
 
   get AttachmentType() {
     return AttachmentType;
@@ -26,4 +32,7 @@ export default class EmbedAttachment extends Vue {
 </script>
 
 <style lang="scss">
+.embed-attachment {
+  max-width: 100%;
+}
 </style>

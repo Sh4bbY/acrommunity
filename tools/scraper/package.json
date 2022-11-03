@@ -6,7 +6,10 @@
   "scripts": {
     "start": "ts-node-dev ./src/main.ts",
     "test": "ts-node-dev ./src/test.ts",
-    "watch": "ts-node-dev --respawn ./src/main.ts"
+    "watch": "ts-node-dev --respawn ./src/main.ts",
+    "move": "yarn cp:museum && yarn cp:poses",
+    "cp:museum": "cp output/scrape/acromuseum-*.json ../../api/db/data/",
+    "cp:poses": "cp output/merge/poses.json ../../api/db/data/poses/"
   },
   "author": "",
   "license": "ISC",

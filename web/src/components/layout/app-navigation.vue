@@ -38,24 +38,47 @@ import {Component} from 'vue-property-decorator';
 
 @Component
 export default class AppNavigation extends Vue {
+  isGroupOpen = {
+    dictionary: false,
+    games: false,
+    events: false,
+  };
+
+  mounted() {
+    if (this.startsWithAny(this.$route.path, ['/poses', '/flows', '/skills', '/images', '/videos'])) {
+      this.isGroupOpen.dictionary = true;
+      return;
+    }
+    if (this.startsWithAny(this.$route.path, ['/acrolette', '/acro-quiz'])) {
+      this.isGroupOpen.games = true;
+      return;
+    }
+    if (this.startsWithAny(this.$route.path, ['/jams'])) {
+      this.isGroupOpen.games = true;
+      return;
+    }
+  }
+
   get items() {
     return [
       {title: this.$t('label.home'), icon: 'mdi-home', route: {name: 'home'}, exact: true},
       {
-        title: this.$t('label.dictionary'), icon: 'mdi-book-open-variant', children: [
+        title: this.$t('label.dictionary'), icon: 'mdi-book-open-variant', open: this.isGroupOpen.dictionary, children: [
           {title: this.$tc('p.pose', 2), icon: 'mdi-human', route: {name: 'poses'}, exact: false},
           {title: this.$tc('p.flow', 2), icon: 'mdi-spa', route: {name: 'flows'}, exact: false},
           {title: this.$tc('p.skill', 2), icon: 'mdi-magic-staff', route: {name: 'skills'}, exact: false},
+          {title: this.$tc('p.image', 2), icon: 'mdi-image', route: {name: 'images'}, exact: false},
+          {title: this.$tc('p.video', 2), icon: 'mdi-video', route: {name: 'videos'}, exact: false},
         ],
       },
       {
-        title: this.$tc('p.game', 2), icon: 'mdi-gamepad-variant', children: [
+        title: this.$tc('p.game', 2), icon: 'mdi-gamepad-variant', open: this.isGroupOpen.games, children: [
           {title: this.$t('label.acrolette'), icon: 'mdi-gamepad', route: {name: 'acrolette'}, exact: false},
           {title: this.$t('label.acroQuiz'), icon: 'mdi-help-circle', route: {name: 'acro-quiz'}, exact: false},
         ],
       },
       {
-        title: this.$tc('p.event', 2), icon: 'mdi-calendar', children: [
+        title: this.$tc('p.event', 2), icon: 'mdi-calendar', open: this.isGroupOpen.events, children: [
           {title: this.$tc('p.jam', 2), icon: 'mdi-account-group', route: {name: 'jams'}, exact: false},
         ],
       },
@@ -65,6 +88,11 @@ export default class AppNavigation extends Vue {
       {title: 'Communities', icon: 'mdi-account-group', route: {name: 'communities'}, exact: false},
       {title: 'Dev', icon: 'mdi-dev-to', route: {name: 'dev'}, exact: false},
     ];
+  }
+
+  startsWithAny(input: string, starts: string | string[]) {
+    starts = Array.isArray(starts) ? starts : [starts];
+    return starts.reduce((result, start) => result || input.startsWith(start), false);
   }
 
   get isOpen(): boolean {

@@ -2,14 +2,14 @@
   <div ref="wrapper">
     <v-hover v-if="showThumbnail" v-slot="{hover}">
       <div class="thumbnail-wrapper">
-        <v-img :src="thumbnail"/>
-        <div v-show="hover" class="thumbnail-hint" @click="disableThumbnail=true">
+        <v-img :src="thumbnail" :style="style" contain/>
+        <div v-show="hover" class="thumbnail-hint" @click="onClick">
           <v-icon color="#fff" class="mr-2">mdi-youtube</v-icon>
           <span>embed youtube</span>
         </div>
       </div>
     </v-hover>
-    <iframe v-else width="100%" :height="height" :src="embedUrl" title="YouTube video player" frameborder="0"
+    <iframe v-else :width="width === 'auto' ? '100%' : width" :height="height" :src="embedUrl" title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
 </template>
@@ -22,8 +22,17 @@ import {Component, Prop} from 'vue-property-decorator';
 export default class EmbedYoutube extends Vue {
   @Prop({type: String, required: true}) url!: string;
   @Prop({type: Boolean, default: false}) noThumbnail!: boolean;
+  @Prop({type: String, default: 'auto'}) height!: string;
+  @Prop({type: String, default: 'auto'}) width!: string;
+  @Prop({type: String, default: 'auto'}) maxHeight!: string;
+  @Prop({type: String, default: 'auto'}) maxWidth!: string;
+  @Prop({type: Boolean, default: false}) nonClickable!: boolean;
 
   disableThumbnail = false;
+
+  get style() {
+    return {height: this.height, width: this.width, maxWidth: this.maxWidth, maxHeight: this.maxHeight};
+  }
 
   get embedUrl() {
     return 'https://www.youtube-nocookie.com/embed/' + this.videoId;
@@ -49,8 +58,14 @@ export default class EmbedYoutube extends Vue {
     return '';
   }
 
-  get height(): number {
-    return (this.$refs.wrapper as HTMLElement).clientWidth * 3 / 4;
+  // get height(): number {
+  //   return (this.$refs.wrapper as HTMLElement).clientWidth * 3 / 4;
+  // }
+
+  onClick() {
+    if (!this.nonClickable) {
+      this.disableThumbnail = true;
+    }
   }
 
   get showThumbnail(): boolean {

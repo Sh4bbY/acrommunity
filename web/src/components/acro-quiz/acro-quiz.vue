@@ -35,6 +35,7 @@
 </template>
 
 <script lang="ts">
+import {Randomizer} from '@acrommunity/common';
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 
@@ -64,7 +65,7 @@ export default class AcroQuiz extends Vue {
   async nextQuestion() {
     this.selection = null;
     this.solution = null;
-    // this.type = Randomizer.getRandomArrayValue(this.types);
+    this.type = Randomizer.getRandomArrayValue(this.types);
     await this.fetchQuestion();
   }
 

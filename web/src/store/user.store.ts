@@ -35,20 +35,27 @@ export const userStore: Module<UserState, RootState> = {
       context.state.lists = response.data.lists;
       context.state.marks = response.data.marks;
     },
-    async markAsFavorite(context: ActionContext<UserState, RootState>, payload: { markableType: MarkableType, markableId: number }) {
+    async toggleMark({state, dispatch}: ActionContext<UserState, RootState>, payload: { markableType: MarkableType, markableId: number, type: MarkType }) {
+      if (state.marks.find(mark => mark.markableType === payload.markableType && mark.markableId === payload.markableId && mark.type === payload.type)) {
+        return await dispatch('removeMark', payload);
+      } else {
+        return await dispatch('addMark', payload);
+      }
+    },
+    async addMark(context: ActionContext<UserState, RootState>, payload: { markableType: MarkableType, markableId: number, type: MarkType }) {
       const response = await api.post(`/api/my/mark`, {
         markableType: payload.markableType,
         markableId: payload.markableId,
-        type: MarkType.Favorite,
+        type: payload.type,
       });
       const mark = response.data;
       context.state.marks.push(mark);
       return mark;
     },
-    async removeFromFavorites(context: ActionContext<UserState, RootState>, payload: { markableType: MarkableType, markableId: number }) {
-      const response = await api.delete(`/api/my/mark/${payload.markableType}/${payload.markableId}`);
+    async removeMark(context: ActionContext<UserState, RootState>, payload: { markableType: MarkableType, markableId: number, type: MarkType }) {
+      const response = await api.delete(`/api/my/mark/${payload.markableType}/${payload.markableId}/${payload.type}`);
       const mark = response.data;
-      const idx = context.state.marks.findIndex(mark => mark.markableId === payload.markableId && mark.markableType === payload.markableType);
+      const idx = context.state.marks.findIndex(mark => mark.markableId === payload.markableId && mark.markableType === payload.markableType && mark.type === payload.type);
       context.state.marks.splice(idx, 1);
       return mark;
     },

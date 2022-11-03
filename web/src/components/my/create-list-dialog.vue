@@ -4,7 +4,14 @@
       <v-toolbar color="primary" dark dense>{{ $t('action.createItem', {item: $tc('p.list')}) }}</v-toolbar>
       <v-card-text>
         <v-text-field v-model="form.name" :label="$t('field.name')"/>
-        <v-text-field v-model="form.icon" :label="$t('field.icon')"/>
+        <v-select v-model="form.icon" :label="$t('field.icon')" :items="icons" clearable>
+          <template #selection="{item}">
+            <v-icon>{{ item }}</v-icon>
+          </template>
+          <template #item="{item}">
+            <v-icon>{{ item }}</v-icon>
+          </template>
+        </v-select>
         <v-checkbox v-model="form.isPublic" :label="$t('field.isPublic')"/>
       </v-card-text>
       <v-card-actions>
@@ -35,6 +42,10 @@ export default class CreateListDialog extends Vue {
     } catch (e) {
       this.$notify.error(e);
     }
+  }
+
+  get icons() {
+    return ['mdi-cog', 'mdi-wrench', 'mdi-heart'];
   }
 }
 </script>

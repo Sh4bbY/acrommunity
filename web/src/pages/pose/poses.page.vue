@@ -17,13 +17,16 @@
         <v-sheet v-show="showFilter" color="primary lighten-5 pa-3">
           <v-row>
             <v-col cols="12" md="6" lg="4">
-              <v-select v-model="filter.basePositions" :label="$t('field.basePosition')" :items="basePositions" multiple/>
+              <v-select v-model="filter.basePosition" :label="$t('field.basePosition')" :items="basePositions"/>
             </v-col>
             <v-col cols="12" md="6" lg="4">
-              <v-select v-model="filter.flyerPositions" :label="$t('field.flyerPosition')" :items="flyerPositions" multiple/>
+              <v-select v-model="filter.flyerPosition" :label="$t('field.flyerPosition')" :items="flyerPositions"/>
             </v-col>
             <v-col cols="12" md="6" lg="4">
-              <v-range-slider v-model="filter.difficulty" :label="$t('field.difficulty')" min="1" max="10" :hint="difficultyLabel" persistent-hint/>
+              <v-checkbox v-model="filter.enableDifficulty" label="Enable Difficulty"/>
+            </v-col>
+            <v-col cols="12" md="6" lg="4">
+              <v-range-slider v-model="filter.difficulty" :label="$t('field.difficulty')" min="1" max="10" :hint="difficultyLabel" persistent-hint :disabled="!filter.enableDifficulty"/>
             </v-col>
           </v-row>
           <div class="d-flex">
@@ -66,7 +69,7 @@ import {Component} from 'vue-property-decorator';
 import FavButton from '~/components/item/fav-button.vue';
 import GridItem from '~/components/item/grid-item.vue';
 import ItemMenu from '~/components/item/item-menu.vue';
-import CreateListDialog from '~/components/my-lists/create-list-dialog.vue';
+import CreateListDialog from '~/components/my/create-list-dialog.vue';
 import PaginatedGrid from '~/components/paginated-grid.vue';
 import PaginatedTable from '~/components/paginated-table.vue';
 import TooltipButton from '~/components/tooltip-button.vue';
@@ -81,6 +84,9 @@ export default class PosesPage extends Page {
   favorites = [];
   filter = {
     difficulty: [1, 5],
+    basePosition: null,
+    flyerPosition: null,
+    enableDifficulty: false,
   };
   dialog = {
     createList: false,
@@ -95,6 +101,7 @@ export default class PosesPage extends Page {
 
   get headers() {
     return [
+      {text: this.$tc('field.id'), value: 'id'},
       {text: this.$tc('p.image'), value: 'image', sortable: false},
       {text: this.$t('field.name'), value: 'name'},
       {text: this.$t('field.difficulty'), value: 'difficulty'},
@@ -103,7 +110,11 @@ export default class PosesPage extends Page {
   }
 
   applyFilter() {
-    return this.searchParams = Object.assign({}, this.filter);
+    return this.searchParams = {
+      difficulty: this.filter.enableDifficulty === false ? undefined : this.filter.difficulty,
+      basePosition: this.filter.basePosition === null ? undefined : this.filter.basePosition,
+      flyerPosition: this.filter.flyerPosition === null ? undefined : this.filter.flyerPosition,
+    };
   }
 
   resolveDifficulty(difficulty) {
@@ -111,11 +122,11 @@ export default class PosesPage extends Page {
   }
 
   get basePositions() {
-    return Object.values(BasePosition).map(value => ({text: this.$t('basePosition.' + value), value}));
+    return [{text: this.$t('label.any'), value: null}].concat(Object.values(BasePosition).map(value => ({text: this.$t('basePosition.' + value), value})));
   }
 
   get flyerPositions() {
-    return Object.values(FlyerPosition).map(value => ({text: this.$t('flyerPosition.' + value), value}));
+    return [{text: this.$t('label.any'), value: null}].concat(Object.values(FlyerPosition).map(value => ({text: this.$t('flyerPosition.' + value), value})));
   }
 
   get difficultyLabel() {

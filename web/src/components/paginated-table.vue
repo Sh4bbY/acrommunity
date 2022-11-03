@@ -42,7 +42,6 @@ export default class PaginatedTable extends Vue {
 
   @Watch('searchParams')
   async watchSearchParams(newParams, oldParams) {
-    console.log('watched!', newParams);
     if (newParams.q !== oldParams.q) {
       this.options.page = 1;
     }

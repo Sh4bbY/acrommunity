@@ -15,6 +15,8 @@ import {FileModule} from '~/modules/file/file.module';
 import {FlowGeneratorModule} from '~/modules/flow-generator/flow-generator.module';
 import {FlowModule} from '~/modules/flow/flow.module';
 import {GeolocationModule} from '~/modules/geolocation/geolocation.module';
+import {HomeModule} from '~/modules/home/home.module';
+import {ImageModule} from '~/modules/image/image.module';
 import {JamModule} from '~/modules/jam/jam.module';
 import {MyModule} from '~/modules/my/my.module';
 import {PoseModule} from '~/modules/pose/pose.module';
@@ -22,6 +24,7 @@ import {ProfileModule} from '~/modules/profile/profile.module';
 import {ProxyModule} from '~/modules/proxy/proxy.module';
 import {SkillModule} from '~/modules/skill/skill.module';
 import {UserModule} from '~/modules/user/user.module';
+import {VideoModule} from '~/modules/video/video.module';
 import {LoggingInterceptor} from '~/utils/nest/logging.interceptor';
 import {SequelizeExceptionFilter} from '~/utils/nest/sequelize-exception-filter';
 
@@ -50,6 +53,9 @@ import {SequelizeExceptionFilter} from '~/utils/nest/sequelize-exception-filter'
     ProxyModule,
     FlowGeneratorModule,
     AdminModule,
+    ImageModule,
+    VideoModule,
+    HomeModule,
   ],
   controllers: [],
   providers: [

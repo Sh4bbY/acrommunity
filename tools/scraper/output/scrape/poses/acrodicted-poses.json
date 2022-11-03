@@ -28,7 +28,7 @@
     "flyerPosition": "Sitting flyer",
     "contactPoint": "Flyer on feet of base",
     "fromSource": [
-      "Foot",
+      "Foot to Hand",
       "Standing on Feet (L-Base)"
     ],
     "toTarget": [
@@ -46,7 +46,7 @@
     "contactPoint": "Flyer on hands of base",
     "fromSource": [
       "Entry",
-      "Shoulderstand (L-Base, hands on ankles) ",
+      "Shoulderstand (L-Base, hands on ankles)",
       "Reverse squatting on Knees"
     ],
     "toTarget": [
@@ -74,11 +74,11 @@
       "Baby Handstand on Hands (L-Base)",
       "Floating Pashi",
       "Bird",
-      "Foot",
-      "Foot",
+      "Foot to Hands on Bend Arms to Back Plank on Feet (L-Base) - Flyer bending",
+      "Foot to Hands on Bend Arms to Back Plank on Feet (L-Base) - Flyer rotating",
       "Reverse Plank (L-Base)",
       "Arabesque",
-      "Entry"
+      "Entry to Back Plank on Feet (L-Base) Handstand Entry"
     ],
     "toTarget": [
       "Reverse Supported Shoulderstand (L-Base)",
@@ -206,7 +206,7 @@
     "contactPoint": "Flyer on hands of base",
     "fromSource": [
       "Bird",
-      "Shoulderstand (L-Base, hands on ankles) ",
+      "Shoulderstand (L-Base, hands on ankles)",
       "Maria on Feet (L-Base)",
       "Standing on Thighs",
       "Shoulderstand (L-Base, supported on the knees)",
@@ -300,14 +300,14 @@
     "contactPoint": "Flyer on feet of base",
     "fromSource": [
       "Reverse Star",
-      "Reverse Foot",
-      "Reverse Foot",
-      "Foot",
+      "Reverse Foot to Hand",
+      "Reverse Foot to Hand on Bent Arms (L-Base)",
+      "Foot to Shin",
       "Reverse Maria on Hands (L-Base)",
       "Bird",
       "Reverse Handstand on Hands (L-Base)",
       "Reverse Standing on Feet (L-Base)",
-      "Foot",
+      "Foot to Hand",
       "High Flying Whale"
     ],
     "toTarget": [
@@ -416,7 +416,7 @@
       "Reverse Sitting on Feet",
       "Maria on Feet (L-Base)",
       "Reverse Star",
-      "Foot"
+      "Foot to Shin"
     ],
     "toTarget": [
       "Reverse Straddle Sit on Feet (L-Base)",
@@ -455,14 +455,14 @@
     "contactPoint": "Flyer on feet of base",
     "fromSource": [
       "Standing on Elbows",
-      "Reverse Bow on Feet (L-Base) ",
+      "Reverse Bow on Feet (L-Base)",
       "Standing in Hands on Bent Arms (L-Base)",
       "Handstand on Hands (L-Base)",
       "Standing in Hands (L-Base)",
       "Straddle Bat",
       "Inside Side-Star",
       "START",
-      "Foot"
+      "Foot to hand (Sitting Base)"
     ],
     "toTarget": [
       "Standing in Hands on Bent Arms (L-Base)",
@@ -537,7 +537,7 @@
       "Shoulderstand on Chair"
     ],
     "toTarget": [
-      "Exit",
+      "",
       "Cradle"
     ]
   },
@@ -572,7 +572,7 @@
     "flyerPosition": "Standing flyer",
     "contactPoint": "Flyer on feet of base",
     "fromSource": [
-      "Foot",
+      "Foot to Hand",
       "L-Sit (L-Base)",
       "Standing in one Hand (Lying Base)"
     ],
@@ -593,14 +593,14 @@
     "contactPoint": "Flyer on hands of base",
     "fromSource": [
       "Reverse Sitting on Feet",
-      "Reverse Back Bird"
+      ""
     ],
     "toTarget": [
-      "Hand to Reverse Sitting on Feet",
-      "Hand to Plank on Feet (L-Base)",
-      "Reverse Star",
-      "Throne on Feet (L-Base) RF2H to Throne",
-      "Throne on Feet (L-Base)"
+      "Reverse Sitting on Feet",
+      "Plank on Feet (L-Base)",
+      "",
+      "Throne",
+      ""
     ]
   },
   {
@@ -613,10 +613,10 @@
     "flyerPosition": "Standing flyer",
     "contactPoint": "Flyer on hands of base",
     "fromSource": [
-      "Foot"
+      "Foot to hand (Standing Base)"
     ],
     "toTarget": [
-      "Hand to Foot to hand (Standing Base) (throwing the flyer)"
+      "Foot to hand (Standing Base) (throwing the flyer)"
     ]
   },
   {
@@ -660,7 +660,7 @@
       "Butterfly"
     ],
     "toTarget": [
-      "Exit"
+      ""
     ]
   },
   {
@@ -702,7 +702,7 @@
       "Entry"
     ],
     "toTarget": [
-      "Exit"
+      ""
     ]
   },
   {
@@ -715,7 +715,7 @@
     "flyerPosition": "Flyer on hands",
     "contactPoint": "Flyer on feet of base",
     "fromSource": [
-      "Foot"
+      "Foot to Hand - Box"
     ],
     "toTarget": [
       "Foot to Hand - Box"
@@ -734,7 +734,7 @@
       "Entry"
     ],
     "toTarget": [
-      "Exit"
+      ""
     ]
   },
   {
@@ -750,7 +750,7 @@
       "Entry"
     ],
     "toTarget": [
-      "Exit",
+      "",
       "Back Plank on Hands (L-Base)",
       "Maria on Feet (L-Base)"
     ]
@@ -768,7 +768,7 @@
       "Entry"
     ],
     "toTarget": [
-      "Exit"
+      ""
     ]
   },
   {
@@ -802,7 +802,7 @@
       "Reverse Handstand on Hands (Standing Base)"
     ],
     "toTarget": [
-      "Exit",
+      "",
       "Reverse Handstand on Hands (Standing Base)"
     ]
   },
@@ -889,7 +889,7 @@
     "contactPoint": "Flyer on hands of base",
     "fromSource": [
       "Two-Man-High",
-      "Foot",
+      "Foot to hand (Standing Base)",
       "Handstand on Extended Arms (Standing Base)",
       "Standing on Lower Back",
       "Plank on Shoulder",
@@ -935,14 +935,14 @@
       "START",
       "Reverse Sitting on Feet",
       "Reverse Handstand on Hands (L-Base)",
-      "Shoulderstand (L-Base, hands on ankles) ",
+      "Shoulderstand (L-Base, hands on ankles)",
       "Bow on Feet (L-Base)",
       "Straddle Bat",
-      "Reverse Foot",
+      "Reverse Foot to Hand",
       "Bird on Hands",
       "Reverse Maria on Hands (L-Base)",
       "Handstand on Hands (L-Base)",
-      "Reverse Foot",
+      "Reverse Foot to Hand on Bent Arms (L-Base)",
       "Throne on Feet (L-Base)",
       "Needle",
       "Inside Side-Star",
@@ -950,9 +950,9 @@
       "Star",
       "Back Plank on Feet (L-Base)",
       "Reverse squatting on Knees",
-      "Foot",
+      "Foot to Shin",
       "Maria on Hands (L-Base)",
-      "Throne on Feet (L-Base)",
+      "Throne on Feet (L-Base) to Plank on Feet (L-Base) Throne",
       "Reverse Inside Side Star"
     ],
     "toTarget": [
@@ -1052,7 +1052,7 @@
     "contactPoint": "Flyer between knees of base",
     "fromSource": [
       "Bird on Hands",
-      "Shoulderstand (L-Base, hands on ankles) "
+      "Shoulderstand (L-Base, hands on ankles)"
     ],
     "toTarget": [
       "Plank on Hands (L-Base)",
@@ -1073,7 +1073,7 @@
       "High Flying Whale"
     ],
     "toTarget": [
-      "Exit"
+      ""
     ]
   },
   {
@@ -1091,7 +1091,7 @@
       "Hanging Back Plank"
     ],
     "toTarget": [
-      "Exit",
+      "",
       "Butterfly"
     ]
   },
@@ -1132,7 +1132,7 @@
       "Entry"
     ],
     "toTarget": [
-      "Exit"
+      ""
     ]
   },
   {
@@ -1158,20 +1158,20 @@
     "contactPoint": "Flyer on hands of base",
     "fromSource": [
       "Two-Man-High",
-      "Foot",
-      "Reverse Foot",
+      "Foot to hand (Sitting Base)",
+      "Reverse Foot to Hand",
       "Handstand on Hands (Standing Base)",
-      "Foot",
+      "Foot to Hand on Extended Arms",
       "Sitting on Shoulders (Standing Base)",
       "Standing on Shoulders (Zombie)",
       "Straddle Bat"
     ],
     "toTarget": [
-      "hand (Standing Base) to Foot to hand (Sitting Base)",
-      "hand (Standing Base) to Reverse Foot to Hand (throwing the flyer)",
-      "hand (Standing Base) to Handstand on Hands (Standing Base) - cascade",
-      "hand (Standing Base) to Foot to Hand on Extended Arms",
-      "hand (Standing Base) to Standing on Shoulders (Zombie) with a pop"
+      "Foot to hand (Sitting Base)",
+      "Reverse Foot to Hand (throwing the flyer)",
+      "Handstand on Hands (Standing Base) - cascade",
+      "Foot to Hand on Extended Arms",
+      "Standing on Shoulders (Zombie) with a pop"
     ]
   },
   {
@@ -1247,9 +1247,9 @@
     "flyerPosition": "Kneeling flyer",
     "contactPoint": "Flyer on feet of base",
     "fromSource": [
-      "Foot",
+      "Foot to Shin",
       "Shoulderstand on Hands (L-Base)",
-      "Shoulderstand (L-Base, hands on ankles) ",
+      "Shoulderstand (L-Base, hands on ankles)",
       "Bowspirt (Lying Base)",
       "Handstand on Knees",
       "Handstand on Shins"
@@ -1363,7 +1363,7 @@
       "Straddle Sit"
     ],
     "toTarget": [
-      "Exit",
+      "",
       "Reverse Handstand on Hands (Standing Base)"
     ]
   },
@@ -1503,7 +1503,7 @@
       "Maria on Feet (L-Base)"
     ],
     "toTarget": [
-      "Exit",
+      "",
       "Back Plank on Hands (L-Base)",
       "Bowspirt (Lying Base)"
     ]
@@ -1602,8 +1602,8 @@
     "flyerPosition": "Standing flyer",
     "contactPoint": "Flyer on hands of base",
     "fromSource": [
-      "Foot",
-      "Foot",
+      "Foot to Hand",
+      "Foot to hand (Standing Base)",
       "Standing on Shoulders (Sitting Base)",
       "Sitting Popeye",
       "Entry",
@@ -1613,10 +1613,10 @@
       "Straddle Bat"
     ],
     "toTarget": [
-      "hand (Sitting Base) to Foot to Hand",
-      "hand (Sitting Base) to Foot to hand (Standing Base)",
-      "hand (Sitting Base) to Throne (Sitting Base)",
-      "hand (Sitting Base) to Reverse Plank (L-Base)"
+      "Foot to Hand",
+      "Foot to hand (Standing Base)",
+      "Throne (Sitting Base)",
+      "Reverse Plank (L-Base)"
     ]
   },
   {
@@ -1736,10 +1736,10 @@
       "Plank on Feet (L-Base)"
     ],
     "toTarget": [
-      "Shin to Maria on Feet (L-Base)",
-      "Shin to Reverse Sitting on Feet",
-      "Shin to Reverse Handstand on Hands (L-Base)",
-      "Shin to Plank on Feet (L-Base)"
+      "Maria on Feet (L-Base)",
+      "Reverse Sitting on Feet",
+      "Reverse Handstand on Hands (L-Base)",
+      "Plank on Feet (L-Base)"
     ]
   },
   {
@@ -1756,7 +1756,7 @@
       "Sitting on Feet (L-Base)",
       "Reverse Sitting on Feet",
       "Standing on Elbows",
-      "Foot",
+      "Foot to hand (Sitting Base)",
       "Standing on Feet (L-Base)",
       "Reverse Sitting on Feet",
       "Standing in one Hand (Lying Base)",
@@ -1764,22 +1764,22 @@
       "Reverse maria on Feet (L-Base)",
       "Reverse Throne on Feet (L-Base)",
       "Croc on Feet (L-Base)",
-      "Star",
+      "Star to Standing in Hands (L-Base) Pike over",
       "Handstand on Elbows"
     ],
     "toTarget": [
-      "Hand to Sitting on Feet (L-Base)",
-      "Foot to Hand - Box",
-      "Hand to Foot to hand (Sitting Base)",
-      "Hand to Standing on Feet (L-Base) stepping up",
-      "Hand to Reverse Sitting on Feet",
-      "Reverse Bird",
-      "Hand to Standing in one Hand (Lying Base)",
-      "Star",
-      "Hand to Standing in Hands (Belly Base) Chinese Roll",
-      "Hand to Reverse maria on Feet (L-Base)",
-      "Hand to Croc on Feet (L-Base)",
-      "Foot to hand (Sitting Base)"
+      "Sitting on Feet (L-Base)",
+      "Hand - Box",
+      "Foot to hand (Sitting Base)",
+      "Standing on Feet (L-Base) stepping up",
+      "Reverse Sitting on Feet",
+      "",
+      "Standing in one Hand (Lying Base)",
+      "",
+      "Standing in Hands (Belly Base) Chinese Roll",
+      "Reverse maria on Feet (L-Base)",
+      "Croc on Feet (L-Base)",
+      "hand (Sitting Base)"
     ]
   },
   {
@@ -1792,7 +1792,7 @@
     "flyerPosition": "Standing flyer",
     "contactPoint": "Flyer on hands of base",
     "fromSource": [
-      "Foot"
+      "Foot to Hand"
     ],
     "toTarget": [
       "Foot to Hand Chinese Roll"
@@ -1808,7 +1808,7 @@
     "flyerPosition": "Standing flyer",
     "contactPoint": "Flyer on hands of base",
     "fromSource": [
-      "Foot"
+      "Foot to Hand"
     ],
     "toTarget": [
       "Foot to Hand",
@@ -1826,12 +1826,12 @@
     "contactPoint": "Flyer on hands of base",
     "fromSource": [
       "Sitting on Shoulders (Standing Base)",
-      "Foot",
-      "Standing on Shoulders (Zombie)",
-      "Standing Popeye"
+      "Foot to hand (Standing Base)",
+      "",
+      ""
     ],
     "toTarget": [
-      "Hand on Extended Arms to Foot to hand (Standing Base)"
+      "Foot to hand (Standing Base)"
     ]
   },
   {
@@ -2040,7 +2040,7 @@
     "flyerPosition": "Standing flyer",
     "contactPoint": "Flyer on hands of base",
     "fromSource": [
-      "Reverse Bird",
+      "",
       "START",
       "Foot",
       "Back Plank on Feet (L-Base)",
@@ -2048,12 +2048,12 @@
       "Croc on Feet (L-Base)"
     ],
     "toTarget": [
-      "Foot to Hand - Box",
-      "Reverse Bird",
-      "Hands on Bend Arms to Reverse Throne on Feet (L-Base)",
-      "Hands on Bend Arms to Croc on Feet (L-Base)",
-      "Hands on Bend Arms to Back Plank on Feet (L-Base) - Flyer bending to the front",
-      "Hands on Bend Arms to Back Plank on Feet (L-Base) - Flyer rotating to the back"
+      "Hand - Box",
+      "",
+      "Reverse Throne on Feet (L-Base)",
+      "Croc on Feet (L-Base)",
+      "Back Plank on Feet (L-Base) - Flyer bending to the front",
+      "Back Plank on Feet (L-Base) - Flyer rotating to the back"
     ]
   },
   {
@@ -2071,9 +2071,9 @@
       "Standing in Hands (L-Base)"
     ],
     "toTarget": [
-      "Hand - Box to Standing in Hands (L-Base)",
-      "Hand - Box to Handstand on Feet (L-Base)",
-      "Hand - Box to Standing in Hands on Bent Arms (L-Base)"
+      "Standing in Hands (L-Base)",
+      "Handstand on Feet (L-Base)",
+      "Standing in Hands on Bent Arms (L-Base)"
     ]
   },
   {
@@ -2086,7 +2086,7 @@
     "flyerPosition": "Kneeling flyer",
     "contactPoint": "Flyer on feet of base",
     "fromSource": [
-      "Foot"
+      "Foot to Hand"
     ],
     "toTarget": [
       "Foot to Hand"
@@ -2169,16 +2169,16 @@
     "contactPoint": "Flyer on hands of base",
     "fromSource": [
       "Reverse Sitting on Feet",
-      "Reverse Back Bird",
+      "",
       "Plank on Feet (L-Base)",
-      "Reverse Inside Side Star"
+      ""
     ],
     "toTarget": [
-      "Hand on Bent Arms (L-Base) to Reverse Sitting on Feet",
-      "Hand on Bent Arms (L-Base) to Plank on Feet (L-Base)",
-      "Reverse Back Bird",
-      "Biceps stand on Feet (L-Base)",
-      "Throne on Feet (L-Base)"
+      "Reverse Sitting on Feet",
+      "Plank on Feet (L-Base)",
+      "",
+      "",
+      ""
     ]
   },
   {
@@ -2229,7 +2229,7 @@
     ],
     "toTarget": [
       "Reverse Sitting on Feet",
-      "Exit",
+      "",
       "Reverse Plank (Standing Base) sequenza 1"
     ]
   },
@@ -2334,7 +2334,7 @@
     "flyerPosition": "Flyer lying on the back",
     "contactPoint": "Flyer on hands of base",
     "fromSource": [
-      "Sideway Back Plank ",
+      "Sideway Back Plank",
       "Biceps stand on Feet (L-Base)",
       "Side Bird on Feet (L-Base)"
     ],
@@ -2400,7 +2400,7 @@
     "fromSource": [
       "Reverse Sitting on Feet",
       "Bird",
-      "Reverse Standing in Hands (L-Base)",
+      "Reverse Standing in Hands (L-Base) to Throne on Feet (L-Base) RF2H",
       "Reverse Standing in Hands (L-Base)",
       "Reverse Standing in Hands on Bent Arms (L-Base)"
     ],
@@ -2423,7 +2423,7 @@
     "flyerPosition": "Sitting flyer",
     "contactPoint": "Flyer on feet of base",
     "fromSource": [
-      "Foot",
+      "Foot to Hands on Bend Arms",
       "Entry",
       "Straddle Bat",
       "L-Sit (L-Base)",
@@ -2493,8 +2493,8 @@
     "contactPoint": "Flyer on feet of base",
     "fromSource": [
       "Biceps stand on Feet (L-Base)",
-      "Foot",
-      "Foot",
+      "Foot to Hand",
+      "Foot to Hands on Bend Arms",
       "Reverse Star",
       "Croc on Hands (L-Base)"
     ],
@@ -2625,7 +2625,7 @@
     "toTarget": [
       "Handstand on one Arm",
       "Plank (Standing Base)",
-      "Exit"
+      ""
     ]
   },
   {
@@ -2654,7 +2654,7 @@
     "flyerPosition": "Standing flyer",
     "contactPoint": "Flyer on shoulders of base",
     "fromSource": [
-      "Foot"
+      "Foot to hand (Standing Base)"
     ],
     "toTarget": [
       "Foot to hand (Standing Base) with a pop",
@@ -2800,7 +2800,7 @@
     "flyerPosition": "Sitting flyer",
     "contactPoint": "Flyer on hands of base",
     "fromSource": [
-      "Foot",
+      "Foot to hand (Sitting Base)",
       "Standing on Shoulders (Sitting Base)"
     ],
     "toTarget": [
@@ -2838,7 +2838,7 @@
     ],
     "toTarget": [
       "Straddle Bat",
-      "Exit"
+      ""
     ]
   }
 ]

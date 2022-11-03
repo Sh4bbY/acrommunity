@@ -1,0 +1,655 @@
+[
+  {
+    "name": "Front Plank",
+    "url": "https://www.christiangieger.de/acroyoga-posen/frontplank/",
+    "thumbnail": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose001-150x150.jpg",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose001.webp",
+    "aliases": [
+      "Airplane",
+      "Flieger"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Front Bird",
+    "url": "https://www.christiangieger.de/acroyoga-posen/front-bird/",
+    "thumbnail": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose003-150x150.jpg",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose003.webp",
+    "aliases": [
+      "Flieger"
+    ],
+    "variations": [
+      {
+        "name": "seated Bird on Hands",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose070.jpg"
+      },
+      {
+        "name": "Front Bird on Hands",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose068.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Bow",
+    "url": "https://www.christiangieger.de/acroyoga-posen/bow/",
+    "thumbnail": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose005-150x150.jpg",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose005.webp",
+    "aliases": [
+      "Bogen"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Reverse Front Bird",
+    "url": "https://www.christiangieger.de/acroyoga-posen/reverse-front-bird/",
+    "thumbnail": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose006-150x150.jpg",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose006.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Reverse Front Plank",
+    "url": "https://www.christiangieger.de/acroyoga-posen/reverse-front-plank/",
+    "thumbnail": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose007-150x150.jpg",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose007.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Back Plank",
+    "url": "https://www.christiangieger.de/acroyoga-posen/back-plank/",
+    "thumbnail": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose041-150x150.jpg",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose041.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": [
+      {
+        "name": "supported Back Plank",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose040.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Bed",
+    "url": "https://www.christiangieger.de/acroyoga-posen/bed/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose092.webp",
+    "aliases": [
+      "Backplank sidways"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Back Bird",
+    "url": "https://www.christiangieger.de/acroyoga-posen/back-bird/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose042.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": [
+      {
+        "name": "supported Back Bird",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose043.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Back Bird on Hands",
+    "url": "https://www.christiangieger.de/acroyoga-posen/back-bird-on-hands/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose069.webp",
+    "variations": []
+  },
+  {
+    "name": "High Flying Whale",
+    "url": "https://www.christiangieger.de/acroyoga-posen/high-flying-whale/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose009.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": [
+      {
+        "name": "reverse High Flying Whale",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose011.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Hammock",
+    "url": "https://www.christiangieger.de/acroyoga-posen/hammock/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose012.webp",
+    "aliases": [
+      "Hängematte"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Throne",
+    "url": "https://www.christiangieger.de/acroyoga-posen/throne/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose018.webp",
+    "aliases": [
+      "regular Throne",
+      "Easy Throne"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Straddle Throne",
+    "url": "https://www.christiangieger.de/acroyoga-posen/straddle-throne/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose071.webp",
+    "aliases": [
+      "gegrätschter Thron"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Reverse Throne",
+    "url": "https://www.christiangieger.de/acroyoga-posen/reverse-throne/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose020.webp",
+    "aliases": [
+      "Reverse Straddle Throne"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Pidgeon Pose",
+    "url": "https://www.christiangieger.de/acroyoga-posen/pidgeon-pose/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/07/Acroyoga-PIDGEON-POSE-scaled.webp",
+    "variations": []
+  },
+  {
+    "name": "Ninja Pose",
+    "url": "https://www.christiangieger.de/acroyoga-posen/ninja-pose/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose093.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Foot to Shin",
+    "url": "https://www.christiangieger.de/acroyoga-posen/foot-to-shin/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose032.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Shin to Foot",
+    "url": "https://www.christiangieger.de/acroyoga-posen/shin-to-foot/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose035.webp",
+    "aliases": [
+      "Maria",
+      "Kniemarie"
+    ],
+    "variations": [
+      {
+        "name": "Shin to Foot  (Childs Pose)",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose034.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Asym",
+    "url": "https://www.christiangieger.de/acroyoga-posen/asym/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose033.webp",
+    "aliases": [
+      "Flamingo"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Inside Star",
+    "url": "https://www.christiangieger.de/acroyoga-posen/inside-star/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose087.webp",
+    "aliases": [
+      "Inside Sidestar"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Side Star",
+    "url": "https://www.christiangieger.de/acroyoga-posen/side-star/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose088.webp",
+    "aliases": [
+      "Reverse Inside Star"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Outside Star",
+    "url": "https://www.christiangieger.de/acroyoga-posen/outside-star/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose090.webp",
+    "aliases": [
+      "Outside Sidestar"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Reverse Outside Star",
+    "url": "https://www.christiangieger.de/acroyoga-posen/reverse-outside-star/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose089.webp",
+    "aliases": [
+      "Reverse Outside Sidestar"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Vishnus Couch",
+    "url": "https://www.christiangieger.de/acroyoga-posen/vishnus-couch/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose084.webp",
+    "aliases": [
+      "Couch"
+    ],
+    "variations": [
+      {
+        "name": "Reverse Couch",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose085.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Reverse Couch",
+    "url": "https://www.christiangieger.de/acroyoga-posen/reverse-couch/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose085.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": [
+      {
+        "name": "Vishnus Couch",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose084.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Folded Leaf",
+    "url": "https://www.christiangieger.de/acroyoga-posen/folded-leaf/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose055.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Candle Stick",
+    "url": "https://www.christiangieger.de/acroyoga-posen/candle-stick/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose023.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "supported Shoulderstand",
+    "url": "https://www.christiangieger.de/acroyoga-posen/supported-shoulderstand/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose025.webp",
+    "variations": []
+  },
+  {
+    "name": "Needle",
+    "url": "https://www.christiangieger.de/acroyoga-posen/needle/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose027.webp",
+    "aliases": [
+      "Free Shoulderstand"
+    ],
+    "variations": []
+  },
+  {
+    "name": "supported Reverse Shoulder Stand",
+    "url": "https://www.christiangieger.de/acroyoga-posen/supported-reverse-shoulder-stand/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose028.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": [
+      {
+        "name": "sup. Rev. Shoulder Stand stagged leg",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose029.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Reverse Shoulder Stand",
+    "url": "https://www.christiangieger.de/acroyoga-posen/reverse-shoulder-stand/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose030.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Reverse Needle",
+    "url": "https://www.christiangieger.de/acroyoga-posen/reverse-needle/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose031.webp",
+    "aliases": [
+      "Free Shoulderstand"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Floating Paschi",
+    "url": "https://www.christiangieger.de/acroyoga-posen/floating-paschi/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/07/Acroyoga-Floating-Paschi-Dreiceck-Pose-scaled.webp",
+    "aliases": [
+      "Dreieck",
+      "Shrimp"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Lovers Box",
+    "url": "https://www.christiangieger.de/acroyoga-posen/lovers-box/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose021.webp",
+    "aliases": [
+      "Boxed Shoulderstand"
+    ],
+    "variations": [
+      {
+        "name": "Lovers Box ohne support",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose022.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Bat",
+    "url": "https://www.christiangieger.de/acroyoga-posen/bat/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose083.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": [
+      {
+        "name": "Straddle Bat",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose082.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Straddle Bat",
+    "url": "https://www.christiangieger.de/acroyoga-posen/straddle-bat/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose082.webp",
+    "aliases": [
+      "Buddha"
+    ],
+    "variations": [
+      {
+        "name": "Bat",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose083.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Star",
+    "url": "https://www.christiangieger.de/acroyoga-posen/star/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose058.webp",
+    "aliases": [
+      "Schulterstand auf Füßen"
+    ],
+    "variations": [
+      {
+        "name": "Free Star",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose077.jpg"
+      },
+      {
+        "name": "Pancake Star",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose060.jpg"
+      },
+      {
+        "name": "Star, Flyer m. gestreckten Armen",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose059.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Reverse Star",
+    "url": "https://www.christiangieger.de/acroyoga-posen/reverse-star/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose062.webp",
+    "aliases": [
+      "Wadenkneifer"
+    ],
+    "variations": [
+      {
+        "name": "Supported Reverse Star",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose063.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Bicep Stand",
+    "url": "https://www.christiangieger.de/acroyoga-posen/bicep-stand/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose038.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Reverse Bicep Stand",
+    "url": "https://www.christiangieger.de/acroyoga-posen/reverse-bicep-stand/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose039.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Croc",
+    "url": "https://www.christiangieger.de/acroyoga-posen/croc/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose091.webp",
+    "aliases": [
+      "Krokodil"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Foot to Forearm",
+    "url": "https://www.christiangieger.de/acroyoga-posen/foot-to-forearm/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose052.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "(low) Foot to Hand",
+    "url": "https://www.christiangieger.de/acroyoga-posen/low-foot-to-hand/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose015.webp",
+    "aliases": [
+      "stehen in Händen"
+    ],
+    "variations": [
+      {
+        "name": "Foot to Hand (gestreckte Arme)",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose016.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Foot to Hand",
+    "url": "https://www.christiangieger.de/acroyoga-posen/foot-to-hand-mit-gestreckten-armen/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose016.webp",
+    "aliases": [
+      "extended Foot to Hand",
+      "long arm Foot to Hand",
+      "stehen in Händen"
+    ],
+    "variations": [
+      {
+        "name": "(low) Foot to Hand",
+        "img": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose015.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Reverse Foot to Forearm",
+    "url": "https://www.christiangieger.de/acroyoga-posen/reverse-foot-to-forearm/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose053.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "(low) Reverse Foot to Hand",
+    "url": "https://www.christiangieger.de/acroyoga-posen/low-reverse-foot-to-hand/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose036.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Reverse Foot to Hand",
+    "url": "https://www.christiangieger.de/acroyoga-posen/reverse-foot-to-hand/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose037.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Foot to Foot",
+    "url": "https://www.christiangieger.de/acroyoga-posen/foot-to-foot/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose065.webp",
+    "variations": []
+  },
+  {
+    "name": "Reverse Foot to Foot",
+    "url": "https://www.christiangieger.de/acroyoga-posen/reverse-foot-to-foot/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose066.webp",
+    "variations": []
+  },
+  {
+    "name": "Tuck Sit",
+    "url": "https://www.christiangieger.de/acroyoga-posen/tuck-sit/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/07/Tuck-Sit-Acroyoga-Pose-scaled.webp",
+    "variations": []
+  },
+  {
+    "name": "L- Sit",
+    "url": "https://www.christiangieger.de/acroyoga-posen/l-sit/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/07/L-Sit-Acroyoga-Pose-scaled.webp",
+    "variations": []
+  },
+  {
+    "name": "Titibasana",
+    "url": "https://www.christiangieger.de/acroyoga-posen/titibasana/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose050.webp",
+    "aliases": [
+      "Firefly"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Reverse Tuck Sit",
+    "url": "https://www.christiangieger.de/acroyoga-posen/reverse-tuck-sit/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose051.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "(low) Hand to Hand",
+    "url": "https://www.christiangieger.de/acroyoga-posen/low-hand-to-hand/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose044.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Hand to Forearm",
+    "url": "https://www.christiangieger.de/acroyoga-posen/hand-to-forearm/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose054.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Hand to Hand",
+    "url": "https://www.christiangieger.de/acroyoga-posen/extended-hand-to-hand/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose046.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "(low) Reverse Hand to Hand",
+    "url": "https://www.christiangieger.de/acroyoga-posen/low-reverse-hand-to-hand/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose045.webp",
+    "aliases": [
+      "-"
+    ],
+    "variations": []
+  },
+  {
+    "name": "Reverse Hand to Hand",
+    "url": "https://www.christiangieger.de/acroyoga-posen/reverse-extended-hand-to-hand/",
+    "thumbnail": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E",
+    "image": "https://www.christiangieger.de/wp-content/uploads/2021/06/Acroyoga-Haltung-Pose047.jpg",
+    "aliases": [
+      "long Arm Reverse Hand to Hand",
+      "Gegenhandstand"
+    ],
+    "variations": []
+  }
+]

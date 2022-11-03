@@ -17,7 +17,7 @@ export class AcrodictedScraper extends Scraper {
       }
     }
 
-    this.saveResults(poses, 'acrodicted-poses.json');
+    this.saveResults(poses, 'poses/acrodicted-poses.json');
 
     await this.browser.close();
   }
@@ -47,18 +47,36 @@ export class AcrodictedScraper extends Scraper {
       contactPoint: document.querySelector(resultsSelector + ' .table.table tr:nth-of-type(3) td:nth-of-type(2)').textContent.trim(),
     }), resultsSelector);
 
-    const {fromSource, toTarget} = await this.page.evaluate(resultsSelector => {
+
+    const {fromSource, toTarget} = await this.page.evaluate((resultsSelector, name) => {
+      function getNthPosition(input, search, n) {
+        return input.split(search, n).join(search).length + search.length;
+      }
+
+      function getNthLastPosition(input, search, n) {
+        let idx = input.length - search.length;
+        let occurrences = 0;
+        for (; occurrences < n && idx > 0; idx--) {
+          if (input.substr(idx).startsWith(search)) {
+            occurrences++;
+          }
+        }
+        return occurrences < n ? -1 : idx + 1;
+      }
+
       const transitions = document.querySelectorAll(resultsSelector + ' .transitions');
       const sources = transitions[0];
       let results = Array.from(sources.querySelectorAll('.neighbour a h4')).map(el => el.textContent.trim());
-      const fromSource = results.map(result => result.substr(0, result.indexOf(' to ')));
+      const nameToCount = (name.match(/ to /g) || []).length;
+
+      const fromSource = results.map(result => result.substr(0, getNthLastPosition(result, ' to ', nameToCount + 1)).trim());
 
       const targets = transitions[1];
       results = Array.from(targets.querySelectorAll('.neighbour a h4')).map(el => el.textContent.trim());
-      const toTarget = results.map(result => result.startsWith('Exit') ? 'Exit' : result.substr(result.indexOf(' to ') + 4));
+      const toTarget = results.map(result => result.substr(getNthPosition(result, ' to ', nameToCount + 1)).trim());
 
       return {fromSource, toTarget};
-    }, resultsSelector);
+    }, resultsSelector, name);
 
     const description = descriptionHTML.replace(/\n/g, '')
       .replace(/[\t ]+\</g, '<')

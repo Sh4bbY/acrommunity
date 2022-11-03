@@ -8,7 +8,7 @@ export class JamController {
   }
 
   @Get()
-  async getPaginatedData(@Query() query: any) {
+  async getPaginatedData(@Query() _query: any) {
     return await this.jamService.getPaginatedData();
   }
 

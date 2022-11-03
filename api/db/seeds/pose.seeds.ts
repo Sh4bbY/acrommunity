@@ -14,6 +14,7 @@ poseSeeds.setData(async () => {
     id: pose.id,
     name: pose.name,
     difficulty: pose.difficulty,
+    persons: pose.persons,
     basePosition: pose.basePosition,
     flyerPosition: pose.flyerPosition,
     description: pose.description,

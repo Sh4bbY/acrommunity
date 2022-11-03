@@ -9,7 +9,7 @@ export class AcropediaScraper extends Scraper {
     const poses = await this.getPoses();
     const detailedPoses = await this.getPoseDetails(poses);
 
-    this.saveResults(detailedPoses, 'acropedia-poses.json');
+    this.saveResults(detailedPoses, 'poses/acropedia-poses.json');
 
     await this.browser.close();
   }

@@ -21,7 +21,17 @@ export class PoseService {
   }
 
   async getPaginatedData(query: any) {
+    const where = query.filter;
+    if (query.filter.difficulty) {
+      where.difficulty = {
+        [Op.and]: [
+          {[Op.gte]: query.filter.difficulty[0]},
+          {[Op.lte]: query.filter.difficulty[1]},
+        ],
+      };
+    }
     return await this.poseModel.findAndCountAll({
+      where,
       limit: query.limit,
       offset: query.offset,
       order: query.order,

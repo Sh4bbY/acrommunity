@@ -2,17 +2,22 @@ import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
 import CommunitiesPage from '~/pages/communities.page.vue';
 import DevPage from '~/pages/dev.page.vue';
+import DictionaryPage from '~/pages/dictionary.page.vue';
 import FlowGeneratorPage from '~/pages/flow-generator.page.vue';
 import FlowCreatePage from '~/pages/flow/flow-create.page.vue';
 import FlowDetailsPage from '~/pages/flow/flow-details.page.vue';
 import FlowsPage from '~/pages/flow/flows.page.vue';
 import AcroQuizPage from '~/pages/games/acro-quiz.page.vue';
 import AcrolettePage from '~/pages/games/acrolette.page.vue';
+import GamesPage from '~/pages/games/games.page.vue';
 import HomePage from '~/pages/home.page.vue';
+import ImagesPage from '~/pages/image/images.page.vue';
 import JamCreatePage from '~/pages/jam/jam-create.page.vue';
 import JamDetailsPage from '~/pages/jam/jam-details.page.vue';
 import JamsPage from '~/pages/jam/jams.page.vue';
 import LoginPage from '~/pages/login.page.vue';
+import MyFavoritesPage from '~/pages/my/my-favorites.page.vue';
+import MyListsPage from '~/pages/my/my-lists.page.vue';
 import PoseCreatePage from '~/pages/pose/pose-create.page.vue';
 import PoseDetailsPage from '~/pages/pose/pose-details.page.vue';
 import PoseEditPage from '~/pages/pose/pose-edit.page.vue';
@@ -25,6 +30,7 @@ import SkillDetailsPage from '~/pages/skill/skill-details.page.vue';
 import SkillsPage from '~/pages/skill/skills.page.vue';
 import UserDetailsPage from '~/pages/user/user-details.page.vue';
 import UsersPage from '~/pages/user/users.page.vue';
+import VideosPage from '~/pages/video/videos.page.vue';
 
 Vue.use(VueRouter);
 
@@ -38,24 +44,30 @@ const routes: Array<RouteConfig> = [
   {path: '/jams', name: 'jams', component: JamsPage},
   {path: '/jams/create', name: 'jam-create', component: JamCreatePage},
   {path: '/jams/:id', name: 'jam-details', component: JamDetailsPage},
+  {path: '/dictionary', name: 'dictionary', component: DictionaryPage},
   {path: '/poses', name: 'poses', component: PosesPage},
   {path: '/poses/create', name: 'pose-create', component: PoseCreatePage},
   {path: '/poses/:id/edit', name: 'pose-edit', component: PoseEditPage},
   {path: '/poses/:id', name: 'pose-details', component: PoseDetailsPage},
-  {path: '/skills', name: 'skills', component: SkillsPage},
-  {path: '/skills/create', name: 'skill-create', component: SkillCreatePage},
-  {path: '/skills/:id', name: 'skill-details', component: SkillDetailsPage},
   {path: '/flows', name: 'flows', component: FlowsPage},
   {path: '/flows/create', name: 'flow-create', component: FlowCreatePage},
   {path: '/flows/:id', name: 'flow-details', component: FlowDetailsPage},
+  {path: '/skills', name: 'skills', component: SkillsPage},
+  {path: '/skills/create', name: 'skill-create', component: SkillCreatePage},
+  {path: '/skills/:id', name: 'skill-details', component: SkillDetailsPage},
+  {path: '/images', name: 'images', component: ImagesPage},
+  {path: '/videos', name: 'videos', component: VideosPage},
   {path: '/users', name: 'users', component: UsersPage},
   {path: '/users/:id', name: 'user-details', component: UserDetailsPage},
+  {path: '/games', name: 'games', component: GamesPage},
   {path: '/games/acrolette', name: 'acrolette', component: AcrolettePage},
   {path: '/games/acro-quiz', name: 'acro-quiz', component: AcroQuizPage},
   {path: '/flow-generator', name: 'flow-generator', component: FlowGeneratorPage},
   {path: '/references', name: 'references', component: ReferencesPage},
   {path: '/dev', name: 'dev', component: DevPage},
   {path: '/communities', name: 'communities', component: CommunitiesPage},
+  {path: '/my/lists', name: 'my-lists', component: MyListsPage},
+  {path: '/my/favorites', name: 'my-favorites', component: MyFavoritesPage},
 
   // 404 page needs to be last in routes array
   {path: '*', name: '404', component: () => import( /* webpackChunkName: "404.page" */ './pages/404.page.vue')},
@@ -65,4 +77,7 @@ export const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+  scrollBehavior(_to, _from, _savedPosition) {
+    return {x: 0, y: 0, behavior: 'smooth'};
+  },
 });

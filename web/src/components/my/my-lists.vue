@@ -9,6 +9,11 @@
       <v-btn color="primary" @click="dialog.create.show = true">{{ $t('action.createItem', {item: $tc('p.list')}) }}</v-btn>
     </div>
 
+    <v-card v-if="lists.length === 0">
+      <v-card-text>
+        {{ $t('msg.noLists') }}
+      </v-card-text>
+    </v-card>
     <v-card v-for="list in lists" :key="'store-'+list.id" class="mb-5">
       <v-toolbar color="primary lighten-1" dark dense>
         <v-icon class="mr-2">{{ list.icon || 'mdi-view-list' }}</v-icon>
@@ -54,8 +59,8 @@
 import {ListableType} from '@acrommunity/common';
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import CreateListDialog from '~/components/my-lists/create-list-dialog.vue';
-import UpdateListDialog from '~/components/my-lists/update-list-dialog.vue';
+import CreateListDialog from '~/components/my/create-list-dialog.vue';
+import UpdateListDialog from '~/components/my/update-list-dialog.vue';
 import TooltipButton from '~/components/tooltip-button.vue';
 import ContextMenu from '~/components/utils/context-menu.vue';
 

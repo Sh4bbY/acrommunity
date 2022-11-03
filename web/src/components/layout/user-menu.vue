@@ -42,11 +42,20 @@ export default class UserMenu extends Vue {
         to: {name: 'profile'},
       },
       {
+        icon: 'mdi-heart',
+        title: this.$tc('p.my', 2) + ' ' + this.$tc('p.favorite', 2),
+        to: {name: 'my-favorites'},
+      },
+      {
+        icon: 'mdi-format-list-bulleted ',
+        title: this.$tc('label.myLists'),
+        to: {name: 'my-lists'},
+      },
+      {
         icon: 'mdi-power',
         title: this.$t('action.logout'),
         onClick: async () => {
           await this.$store.dispatch('auth/logout');
-          await this.$router.push('/');
         },
       },
     ];

@@ -1,8 +1,22 @@
-import {AcrodictedScraper} from './AcrodictedScraper';
-import {AcropediaScraper} from './AcropediaScraper';
+import {Merger} from './Merger';
+import {AcrodictedScraper} from './scraper/AcrodictedScraper';
+import {AcromuseumScraper} from './scraper/AcromuseumScraper';
+import {AcropediaScraper} from './scraper/AcropediaScraper';
+import {ChristianGiegerScraper} from './scraper/ChristianGiegerScraper';
+import {PartneracrobaticsScraper} from './scraper/PartneracrobaticsScraper';
 
 const acrodictedScraper = new AcrodictedScraper();
-// acrodictedScraper.run();
-
 const acropediaScraper = new AcropediaScraper();
-acropediaScraper.run();
+const christianGiegerScraper = new ChristianGiegerScraper();
+const partneracrobaticsScraper = new PartneracrobaticsScraper();
+const acromuseumScraper = new AcromuseumScraper();
+
+const merger = new Merger();
+
+// acrodictedScraper.run();
+// acropediaScraper.run();
+// christianGiegerScraper.run();
+// partneracrobaticsScraper.run();
+acromuseumScraper.run();
+
+// merger.run();

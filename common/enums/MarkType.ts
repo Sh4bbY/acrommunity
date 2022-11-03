@@ -1,4 +1,5 @@
 export enum MarkType {
   Favorite = 'favorite',
-  Like = 'like',
+  CanDo = 'can-do',
+  WorkingOn = 'working-on',
 }

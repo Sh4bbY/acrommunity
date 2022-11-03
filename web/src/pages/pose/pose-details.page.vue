@@ -35,7 +35,7 @@
             <v-row>
               <v-col v-if="pose.description" cols="12">
                 <h3 class="mb-2">{{ $t('field.description') }}</h3>
-                <p>{{ pose.description }}</p>
+                <div v-html="pose.description"/>
               </v-col>
               <v-col cols="12" md="6">
                 <h3 class="mb-2">{{ $t('field.difficulty') }}</h3>

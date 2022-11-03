@@ -22,13 +22,15 @@ export class Validator {
     this.validate(Joi.object({
       limit: Joi.number(),
       offset: Joi.number(),
+      filter: Joi.any(),
       order: Joi.array().items(Joi.string()),
     }), query);
 
     return {
-      limit: query.limit && query.limit !== '-1' ? Number(query.limit)  : undefined,
+      limit: query.limit && query.limit !== '-1' ? Number(query.limit) : undefined,
       offset: query.offset ? Number(query.offset) : undefined,
       order: query.order?.map(item => item.split(':')),
+      filter: query.filter ? JSON.parse(query.filter) : undefined,
     };
   }
 }

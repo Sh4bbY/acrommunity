@@ -4,5 +4,6 @@ exports.MarkType = void 0;
 var MarkType;
 (function (MarkType) {
     MarkType["Favorite"] = "favorite";
-    MarkType["Like"] = "like";
+    MarkType["CanDo"] = "can-do";
+    MarkType["WorkingOn"] = "working-on";
 })(MarkType = exports.MarkType || (exports.MarkType = {}));

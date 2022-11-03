@@ -48,13 +48,17 @@ export const authStore: Module<AuthState, RootState> = {
       commit('setAccessToken', data.token);
       commit('setUser', data.user);
       dispatch('renewToken', data.token);
+
+      dispatch('user/updateState', undefined, {root: true});
     },
-    async loginByToken({commit, dispatch}) {
+    async loginByToken({commit, dispatch, }) {
       try {
         const {data} = await api.post('/api/auth/refresh');
         commit('setAccessToken', data.token);
         commit('setUser', data.user);
         dispatch('renewToken', data.token);
+
+        dispatch('user/updateState', undefined, {root: true});
       } catch (err) {
         commit('setAuthPending', false);
       }

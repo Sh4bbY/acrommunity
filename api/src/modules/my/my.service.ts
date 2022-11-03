@@ -1,7 +1,8 @@
-import {ListableType} from '@acrommunity/common';
+import {ListableType, MarkableType, MarkType} from '@acrommunity/common';
 import {ForbiddenException, Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
-import {Flow, List, Pose, Skill, User} from '~/models';
+import {Op} from 'sequelize';
+import {Attachment, Flow, List, Pose, Skill, User} from '~/models';
 import {PT_Listable, PT_Markable} from '~/models/pivot';
 
 @Injectable()
@@ -11,6 +12,9 @@ export class MyService {
     @InjectModel(List) private listModel: typeof List,
     @InjectModel(PT_Listable) private ptListableModel: typeof PT_Listable,
     @InjectModel(PT_Markable) private ptMarkableModel: typeof PT_Markable,
+    @InjectModel(Pose) private poseModel: typeof Pose,
+    @InjectModel(Flow) private flowModel: typeof Flow,
+    @InjectModel(Skill) private skillModel: typeof Skill,
   ) {
   }
 
@@ -72,7 +76,31 @@ export class MyService {
     return await this.ptMarkableModel.create({userId, markableType: body.markableType, markableId: body.markableId, type: body.type} as any);
   }
 
-  async deleteMark(userId: number, markableType: string, markableId: number) {
-    await this.ptMarkableModel.destroy({where: {userId, markableType, markableId}});
+  async getMarkedItem(userId: number, type: MarkType) {
+
+    const markables = await this.ptMarkableModel.findAll({where: {userId, type}});
+    const poseIds = markables.filter(markable => markable.markableType === MarkableType.Pose).map(markable => markable.markableId);
+    const flowIds = markables.filter(markable => markable.markableType === MarkableType.Flow).map(markable => markable.markableId);
+    const skillIds = markables.filter(markable => markable.markableType === MarkableType.Skill).map(markable => markable.markableId);
+
+    const [poses, flows, skills] = await Promise.all([
+      this.poseModel.findAll({where: {id: {[Op.in]: poseIds}}, include: [Attachment]}),
+      this.flowModel.findAll({where: {id: {[Op.in]: flowIds}}, include: [Attachment]}),
+      this.skillModel.findAll({where: {id: {[Op.in]: skillIds}}, include: [Attachment]}),
+    ]);
+    return {poses, flows, skills};
+
+
+    // return await this.ptMarkableModel.findAll({
+    //   where: {userId, type}, include: [
+    //     {model: Pose},
+    //     {model: Flow},
+    //   ],
+    // });
+  }
+
+
+  async deleteMark(userId: number, markableType: MarkableType, markableId: number, type: MarkType) {
+    await this.ptMarkableModel.destroy({where: {userId, markableType, markableId, type}});
   }
 }

@@ -65,6 +65,14 @@ export default class PaginatedGrid extends Vue {
     await this.fetchData();
   }
 
+  @Watch('searchParams')
+  async watchSearchParams(newParams, oldParams) {
+    if (newParams.q !== oldParams.q) {
+      this.options.page = 1;
+    }
+    await this.fetchData();
+  }
+
   get colStyle() {
     return {
       padding: this.gridSize,
@@ -82,7 +90,7 @@ export default class PaginatedGrid extends Vue {
         params.offset = (pagination.page - 1) * pagination.itemsPerPage;
         params.limit = pagination.itemsPerPage;
         params.order = pagination.sortBy.map((field: string, index: number) => `${field}:${pagination.sortDesc[index] ? 'DESC' : 'ASC'}`);
-        Object.assign(params, this.searchParams);
+        Object.assign(params, {filter: this.searchParams});
       }
       const response = await this.$api.get(this.url, {params});
       this.items = response.data.rows;

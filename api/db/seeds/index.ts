@@ -14,6 +14,7 @@ import {attachmentSeeds} from './attachment.seeds';
 import {commentSeeds} from './comment.seeds';
 import {eventSeeds} from './event.seeds';
 import {flowSeeds} from './flow.seeds';
+import {imageSeeds} from './image.seeds';
 import {jamSeeds} from './jam.seeds';
 import {listSeeds} from './list.seeds';
 import {attachableSeeds} from './pivot/pt.attachable.seeds';
@@ -25,6 +26,7 @@ import {skillSeeds} from './skill.seeds';
 import {tagSeeds} from './tag.seeds';
 import {transitionSeeds} from './transition.seeds';
 import {userSeeds} from './user.seeds';
+import {videoSeeds} from './video.seeds';
 
 export const pivotSeeds = [
   transitionSeeds,
@@ -46,4 +48,6 @@ export const seeds = [
   flowSeeds,
   aliasSeeds,
   listSeeds,
+  imageSeeds,
+  videoSeeds,
 ];

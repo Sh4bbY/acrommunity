@@ -14,29 +14,13 @@ import TooltipButton from '~/components/tooltip-button.vue';
   components: {TooltipButton},
 })
 export default class FavButton extends Vue {
-  @Prop({type: String}) type: string;
+  @Prop({type: String, required: true}) type: string;
   @Prop({type: Object, required: true}) item: any;
   @Prop({type: Boolean, default: false}) small: any;
 
   async toggleFavorite() {
-    if (this.isFavorite) {
-      await this.removeFromFavorites();
-    } else {
-      await this.markAsFavorite();
-    }
-  }
-
-  async markAsFavorite() {
     try {
-      await this.$store.dispatch('user/markAsFavorite', {markableType: this.type, markableId: this.item.id});
-    } catch (e) {
-      this.$notify.error(e);
-    }
-  }
-
-  async removeFromFavorites() {
-    try {
-      await this.$store.dispatch('user/removeFromFavorites', {markableType: this.type, markableId: this.item.id});
+      await this.$store.dispatch('user/toggleMark', {markableType: this.type, markableId: this.item.id, type: MarkType.Favorite});
     } catch (e) {
       this.$notify.error(e);
     }
