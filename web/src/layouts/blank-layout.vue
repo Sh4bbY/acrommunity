@@ -11,12 +11,9 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import AcroLoadingIndicator from '~/components/acro-loading-indicator.vue';
-import AppHeader from '~/components/layout/app-header.vue';
-import AppNavigation from '~/components/layout/app-navigation.vue';
 
 @Component({
-  components: {AppHeader, AppNavigation, AcroLoadingIndicator},
+  components: {},
 })
 export default class BlankLayout extends Vue {
 }

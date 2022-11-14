@@ -15,7 +15,9 @@ export class AttachmentService {
     const type = AttachmentService.getAttachmentType(url);
     const attachment = await this.attachmentModel.create({url, type} as any);
     const entry = {attachmentId: attachment.id, attachableType, attachableId} as any;
-    await this.ptAttachableModel.create(entry);
+    const attachable = await this.ptAttachableModel.create(entry);
+    attachable.setDataValue('attachment', attachment);
+    return attachable;
   }
 
   async getAttachables(attachableType: AttachableType, attachableId: number) {
@@ -24,6 +26,7 @@ export class AttachmentService {
 
   async deleteAttachable(attachableType: AttachableType, attachableId: number, attachmentId: number) {
     await this.ptAttachableModel.destroy({where: {attachableType, attachableId, attachmentId}});
+    await this.attachmentModel.destroy({where: {id: attachmentId}});
   }
 
   static getAttachmentType(url: string): AttachmentType {

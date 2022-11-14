@@ -3,15 +3,12 @@ import {BelongsToMany, Column, DataType, Model, Table} from 'sequelize-typescrip
 import {PT_Taggable} from '~/models/pivot';
 import {Pose} from '~/models/Pose';
 
-@Table({updatedAt: false})
+@Table({timestamps: false})
 export class Tag extends Model<Tag> {
   declare id: number;
 
   @Column({type: DataType.STRING})
   declare name: string;
-
-  @Column({type: DataType.DATE})
-  declare createdAt: Date;
 
   @BelongsToMany(() => Pose,
     {

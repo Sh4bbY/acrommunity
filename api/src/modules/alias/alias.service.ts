@@ -15,7 +15,8 @@ export class AliasService {
     return await this.aliasModel.create(record);
   }
 
-  async deleteAliases(ids: number[]) {
+  async deleteAliases(id: number | number[]) {
+    const ids = Array.isArray(id) ? id : [id];
     return await this.aliasModel.destroy({where: {id: {[Op.in]: ids}}});
   }
 

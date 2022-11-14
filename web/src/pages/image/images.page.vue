@@ -101,7 +101,7 @@ export default class ImagesPage extends Page {
       {text: '1', value: 1},
       {text: '2', value: 2},
       {text: '3', value: 3},
-      {text: '3', value: 'multiple'},
+      {text: '4 oder mehr', value: 'multiple'},
     ];
   }
 

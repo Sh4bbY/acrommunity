@@ -1,10 +1,10 @@
 <template>
   <v-app-bar app clipped-left dark color="primary" short>
-    <v-app-bar-nav-icon @click="onNavIconClick"/>
+    <v-app-bar-nav-icon v-if="$vuetify.breakpoint.smAndUp" @click="onNavIconClick"/>
     <v-img src="/img/logo.png" max-height="40" max-width="100" contain/>
-    <v-app-bar-title>Acrommunity</v-app-bar-title>
+    <v-app-bar-title>{{ $store.state.app.title }}</v-app-bar-title>
     <v-spacer/>
-    <user-menu v-if="$store.state.auth.isAuthenticated"/>
+    <user-menu v-if="$store.state.auth.isSignedIn"/>
   </v-app-bar>
 </template>
 
@@ -16,10 +16,7 @@ import UserMenu from '~/components/layout/user-menu.vue';
 @Component({
   components: {UserMenu},
 })
-export default class AppHeader extends Vue {
-  showFeedbackDialog = false;
-  screenshot = null;
-
+export default class UserHeader extends Vue {
   onNavIconClick() {
     this.$store.dispatch('app/toggleNavigation');
   }

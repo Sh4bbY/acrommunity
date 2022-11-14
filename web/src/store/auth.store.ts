@@ -1,25 +1,32 @@
+import {IUser} from '@acrommunity/common';
 import {Module} from 'vuex';
 import {api} from '~/plugins/api';
 import {RootState} from '~/store/index';
 
 export interface AuthState {
   isAuthPending: boolean,
-  isAuthenticated: boolean,
+  isAdmin: boolean,
+  isSignedIn: boolean,
   accessToken: string,
   refreshTimeoutId: number,
-  // user?: User,
-  user?: any,
+  user?: IUser,
+  authPendingPromise: Promise<boolean>,
 }
 
+let resolveAuthPending;
 
 export const authStore: Module<AuthState, RootState> = {
   namespaced: true,
   state: {
     isAuthPending: true,
-    isAuthenticated: false,
+    isAdmin: false,
+    isSignedIn: false,
     accessToken: null,
     refreshTimeoutId: null,
     user: null,
+    authPendingPromise: new Promise((resolve => {
+      resolveAuthPending = resolve;
+    })),
   },
   mutations: {
     setAccessToken(state, token) {
@@ -27,19 +34,23 @@ export const authStore: Module<AuthState, RootState> = {
     },
     setUser(state, user) {
       state.user = user;
-      state.isAuthenticated = true;
+      state.isAdmin = user.isAdmin;
+      state.isSignedIn = true;
       state.isAuthPending = false;
+      resolveAuthPending();
     },
     updateUserProfile(state, profile) {
       Object.keys(profile).forEach(key => state.user[key] = profile[key]);
     },
     logout(state) {
-      state.isAuthenticated = false;
+      state.isAdmin = false;
+      state.isSignedIn = false;
       state.accessToken = null;
       state.user = null;
     },
     setAuthPending(state, isPending) {
       state.isAuthPending = isPending;
+      resolveAuthPending();
     },
   },
   actions: {
@@ -51,7 +62,7 @@ export const authStore: Module<AuthState, RootState> = {
 
       dispatch('user/updateState', undefined, {root: true});
     },
-    async loginByToken({commit, dispatch, }) {
+    async loginByToken({commit, dispatch, state}) {
       try {
         const {data} = await api.post('/api/auth/refresh');
         commit('setAccessToken', data.token);
@@ -89,5 +100,9 @@ export const authStore: Module<AuthState, RootState> = {
       context.state.refreshTimeoutId = window.setTimeout(() => context.dispatch('refreshToken'), timeout);
     },
   },
-  getters: {},
+  getters: {
+    isAuthPending(state) {
+      return state.authPendingPromise;
+    },
+  },
 };

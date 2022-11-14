@@ -1,4 +1,4 @@
-import {BasePosition, FlyerPosition} from '../enums';
+import {BasePosition, FlyerPosition, Status} from '../enums';
 import {IAlias} from './IAlias';
 import {IAttachment} from './IAttachment';
 import {IComment} from './IComment';
@@ -16,6 +16,7 @@ export interface IPose {
   aliases?: IAlias[];
   tags?: ITag[];
   attachments?: IAttachment[];
+  status?: Status;
 }
 
 const constraints = {

@@ -9,4 +9,5 @@ export const poseTable = new Table('Poses', () => ({
   persons: {type: DataType.INTEGER.UNSIGNED, defaultValue: 2},
   basePosition: {type: DataType.STRING},
   flyerPosition: {type: DataType.STRING},
+  status: {type: DataType.STRING},
 }));

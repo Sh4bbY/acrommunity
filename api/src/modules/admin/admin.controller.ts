@@ -8,9 +8,13 @@ export class AdminController {
   constructor(private readonly adminService: AdminService) {
   }
 
-  @Get('export/pose/lbase')
-  async exportLbasePoses() {
-    const data = await this.adminService.exportLbasePoses();
-    return data;
+  @Get('backup/data')
+  async backupPoses() {
+    await this.adminService.backupData();
+  }
+
+  @Get('export/data')
+  async exportPoses() {
+    return await this.adminService.exportData();
   }
 }

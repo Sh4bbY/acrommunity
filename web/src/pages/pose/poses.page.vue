@@ -8,25 +8,39 @@
         <tooltip-button :icon="showFilter ? 'mdi-filter' : 'mdi-filter-outline'"
                         :tooltip="showFilter ? $t('action.hideItem', {item: $tc('p.filter',2)}) : $t('action.showItem', {item: $tc('p.filter',2)})" left
                         @click="showFilter = !showFilter"/>
-        <tooltip-button :icon="gridView ? 'mdi-view-list' : 'mdi-view-grid'" :tooltip="gridView ? 'Switch to Table View' : 'Switch to Grid View'" left
-                        @click="gridView = !gridView"/>
         <tooltip-button :to="{name: 'pose-create'}" icon="mdi-plus" :tooltip="$t('action.createItem', {item: $tc('p.pose')})" small-btn left/>
       </v-toolbar>
 
       <v-expand-transition>
         <v-sheet v-show="showFilter" color="primary lighten-5 pa-3">
           <v-row>
-            <v-col cols="12" md="6" lg="4">
-              <v-select v-model="filter.basePosition" :label="$t('field.basePosition')" :items="basePositions"/>
+            <v-col cols="12" sm="6" lg="4">
+              <v-text-field v-model="filter.name" :label="$t('field.name')" clearable @keyup.enter="applyFilter"/>
             </v-col>
-            <v-col cols="12" md="6" lg="4">
-              <v-select v-model="filter.flyerPosition" :label="$t('field.flyerPosition')" :items="flyerPositions"/>
+            <v-col cols="12" sm="6" lg="4">
+              <v-select v-model="filter.status" :label="$t('field.status')" :items="statusOptions" clearable/>
             </v-col>
-            <v-col cols="12" md="6" lg="4">
-              <v-checkbox v-model="filter.enableDifficulty" label="Enable Difficulty"/>
+            <v-col cols="12" sm="6" lg="4">
+              <v-select v-model="filter.persons" :label="$tc('p.person', 2)" :items="personOptions" clearable/>
             </v-col>
-            <v-col cols="12" md="6" lg="4">
-              <v-range-slider v-model="filter.difficulty" :label="$t('field.difficulty')" min="1" max="10" :hint="difficultyLabel" persistent-hint :disabled="!filter.enableDifficulty"/>
+            <v-col cols="12" sm="6" lg="4">
+              <div class="d-flex align-center">
+                <v-checkbox v-model="filter.enableDifficulty" class="mr-2 mt-0"/>
+                <v-range-slider v-model="filter.difficulty" :label="$t('field.difficulty')" min="1" max="10" :hint="difficultyLabel" persistent-hint
+                                :disabled="!filter.enableDifficulty"/>
+              </div>
+            </v-col>
+            <v-col cols="12" sm="6" lg="4">
+              <v-select v-model="filter.basePosition" :label="$t('field.basePosition')" :items="basePositions" clearable/>
+            </v-col>
+            <v-col cols="12" sm="6" lg="4">
+              <v-select v-model="filter.flyerPosition" :label="$t('field.flyerPosition')" :items="flyerPositions" clearable/>
+            </v-col>
+            <v-col cols="12" sm="6" lg="4">
+              <v-select v-model="options.sortBy[0]" :label="$t('action.sortBy')" :items="sortByOptions"/>
+            </v-col>
+            <v-col cols="12" sm="6" lg="4">
+              <v-select v-model="options.sortDesc[0]" :label="$t('label.direction')" :items="directionOptions"/>
             </v-col>
           </v-row>
           <div class="d-flex">
@@ -38,33 +52,17 @@
         </v-sheet>
       </v-expand-transition>
 
-      <paginated-grid v-if="gridView" url="/api/poses" :headers="headers" :search-params="searchParams">
+      <paginated-grid url="/api/poses" :headers="headers" :search-params="searchParams" :options="options">
         <template #item="{item}">
           <grid-item :item="item" :type="type" @create-list="dialog.createList=true"/>
         </template>
       </paginated-grid>
-
-      <paginated-table v-else url="/api/poses" :headers="headers" :search-params="searchParams">
-        <template #item.name="{item}">
-          <router-link :to="{name: 'pose-details', params: {id: item.id}}">{{ item.name }}</router-link>
-        </template>
-        <template #item.image="{item}">
-          <v-img v-if="item.attachments.length > 0" :src="item.attachments[0].url" max-width="100" max-height="100" contain/>
-        </template>
-        <template #item.difficulty="{item}">
-          <span>{{ item.difficulty }} ({{ resolveDifficulty(item.difficulty) }})</span>
-        </template>
-        <template #item.actions="{item}">
-          <fav-button :item="item" :type="type"/>
-          <item-menu :item="item" :type="type" @create-list="dialog.createList=true"/>
-        </template>
-      </paginated-table>
     </v-card>
   </v-container>
 </template>
 
 <script lang="ts">
-import {BasePosition, FlyerPosition} from '@acrommunity/common';
+import {BasePosition, FlyerPosition, Status} from '@acrommunity/common';
 import {Component} from 'vue-property-decorator';
 import FavButton from '~/components/item/fav-button.vue';
 import GridItem from '~/components/item/grid-item.vue';
@@ -83,16 +81,23 @@ export default class PosesPage extends Page {
   poses = [];
   favorites = [];
   filter = {
-    difficulty: [1, 5],
+    name: null,
+    persons: null,
+    status: Status.Suggestion,
+    difficulty: [1, 6],
     basePosition: null,
     flyerPosition: null,
     enableDifficulty: false,
   };
+  options = {
+    sortBy: ['id'],
+    sortDesc: [false],
+    itemsPerPage: 12,
+  };
   dialog = {
     createList: false,
   };
-  showFilter = false;
-  gridView = true;
+  showFilter = true;
   searchParams = {};
 
   get title() {
@@ -109,12 +114,41 @@ export default class PosesPage extends Page {
     ];
   }
 
+  beforeMount() {
+    this.searchParams = Object.assign(this.searchParams, this.$route.query);
+    Object.keys(this.filter).map(key => this.filter[key] = this.$route.query[key] || this.filter[key]);
+    Object.keys(this.options).map(key => this.options[key] = this.$route.query[key] || this.options[key]);
+    if (this.$route.query.sortBy) {
+      this.options.sortBy = Array.isArray(this.$route.query.sortBy) ? this.$route.query.sortBy : [this.$route.query.sortBy];
+    }
+    if (this.$route.query.sortDesc) {
+      this.options.sortDesc = Array.isArray(this.$route.query.sortDesc) ? [this.$route.query.sortDesc[0] === 'true'] : [this.$route.query.sortDesc === 'true'];
+    }
+  }
+
   applyFilter() {
-    return this.searchParams = {
+    this.searchParams = {
+      name: this.filter.name,
+      persons: this.filter.persons,
       difficulty: this.filter.enableDifficulty === false ? undefined : this.filter.difficulty,
-      basePosition: this.filter.basePosition === null ? undefined : this.filter.basePosition,
-      flyerPosition: this.filter.flyerPosition === null ? undefined : this.filter.flyerPosition,
+      basePosition: this.filter.basePosition,
+      flyerPosition: this.filter.flyerPosition,
+      status: this.filter.status,
     };
+    const query = Object.assign(this.searchParams, {sortBy: this.options.sortBy, sortDesc: String(this.options.sortDesc)});
+    const isDifferentQuery = Object.keys(query).reduce((result, key) => {
+      if (key === 'sortBy') {
+        return result || this.$route.query[key] === query[key][0];
+      }
+      if (key === 'sortDesc') {
+        return result || this.$route.query[key] === String(query[key][0]);
+      }
+      return result || query[key] !== this.$route.query[key];
+    }, false);
+
+    if (isDifferentQuery) {
+      this.$router.replace({query});
+    }
   }
 
   resolveDifficulty(difficulty) {
@@ -127,6 +161,26 @@ export default class PosesPage extends Page {
 
   get flyerPositions() {
     return [{text: this.$t('label.any'), value: null}].concat(Object.values(FlyerPosition).map(value => ({text: this.$t('flyerPosition.' + value), value})));
+  }
+
+  get statusOptions() {
+    return Object.values(Status).map(value => ({text: this.$t('status.' + value), value}));
+  }
+
+  get personOptions() {
+    return [1, 2, 3, 4, 5];
+  }
+
+  get sortByOptions() {
+    return ['id', 'name', 'difficulty', 'persons', 'basePosition', 'flyerPosition']
+        .map(field => ({text: this.$t('field.' + field), value: field}));
+  }
+
+  get directionOptions() {
+    return [
+      {text: this.$t('direction.desc'), value: true},
+      {text: this.$t('direction.asc'), value: false},
+    ];
   }
 
   get difficultyLabel() {

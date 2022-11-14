@@ -21,9 +21,14 @@ module.exports = {
       if (e.errors && e.original && e.sql) {
         console.log(
           '\n',
-          chalk.red('ERROR: ' + e.errors && e.errors[0].message), '\n',
+          chalk.green(e.sql),
           chalk.yellow(e.original && e.original.sqlMessage), '\n',
-          chalk.green(e.sql));
+          chalk.red('ERROR: ' + e.errors && e.errors[0].message), '\n');
+      } else if (e.original && e.sql) {
+        console.log(
+          '\n',
+          chalk.green(e.sql), '\n',
+          chalk.yellow(e.original.sqlMessage), '\n');
       } else {
         console.error(e);
       }

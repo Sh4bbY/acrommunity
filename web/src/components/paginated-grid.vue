@@ -1,6 +1,6 @@
 <template>
   <v-data-iterator v-bind="$attrs" v-on="$listeners"
-                   :items="items" :server-items-length="totalItems" :loading="loading" :options.sync="options" :footer-props="footerProps">
+                   :items="items" :server-items-length="totalItems" :loading="loading" :options.sync="iteratorOptions" :footer-props="footerProps">
     <template #default="{ items}">
       <slot name="items" v-bind:items="items">
         <v-row>
@@ -19,12 +19,26 @@
         </v-progress-circular>
       </div>
     </template>
+    <template #no-data>
+      <div class="no-data">{{ $t('msg.noDataFound') }}</div>
+    </template>
   </v-data-iterator>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
+
+export interface DataIteratorOptions {
+  groupBy: string[],
+  groupDesc: boolean[],
+  itemsPerPage: 12,
+  mustSort: boolean,
+  multiSort: boolean,
+  page: number,
+  sortBy: string[],
+  sortDesc: boolean[],
+}
 
 @Component
 export default class PaginatedGrid extends Vue {
@@ -35,8 +49,9 @@ export default class PaginatedGrid extends Vue {
   @Prop({default: 3, type: Number}) readonly lg!: string;
   @Prop({default: '10px', type: String}) readonly gridSize!: string;
   @Prop({default: () => [], type: Array}) readonly relations!: string[];
+  @Prop({default: () => ({}), type: Object}) readonly options!: DataIteratorOptions;
 
-  options = {
+  iteratorOptions = {
     groupBy: [],
     groupDesc: [],
     itemsPerPage: 12,
@@ -60,8 +75,13 @@ export default class PaginatedGrid extends Vue {
     await this.fetchData();
   }
 
-  @Watch('options')
+  @Watch('options', {immediate: true})
   async watchOptions() {
+    this.iteratorOptions = Object.assign({}, this.iteratorOptions, this.options);
+  }
+
+  @Watch('iteratorOptions')
+  async watchIteratorOptions() {
     await this.fetchData();
   }
 
@@ -85,8 +105,8 @@ export default class PaginatedGrid extends Vue {
       this.loading = true;
       const params: any = {};
 
-      if (this.options) {
-        const pagination = this.options;
+      if (this.iteratorOptions) {
+        const pagination = this.iteratorOptions;
         params.offset = (pagination.page - 1) * pagination.itemsPerPage;
         params.limit = pagination.itemsPerPage;
         params.order = pagination.sortBy.map((field: string, index: number) => `${field}:${pagination.sortDesc[index] ? 'DESC' : 'ASC'}`);
@@ -104,4 +124,8 @@ export default class PaginatedGrid extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.no-data {
+  text-align: center;
+  color: rgba(#777, 0.8);
+}
 </style>

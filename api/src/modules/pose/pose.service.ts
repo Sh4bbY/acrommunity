@@ -1,7 +1,7 @@
 import {AliasableType, AttachableType, TaggableType} from '@acrommunity/common';
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
-import {Op} from 'sequelize';
+import {Op, WhereOptions} from 'sequelize';
 import {Comment, Pose, Tag, Transition} from '~/models';
 import {Alias} from '~/models/Alias';
 import {Attachment} from '~/models/Attachment';
@@ -21,7 +21,19 @@ export class PoseService {
   }
 
   async getPaginatedData(query: any) {
-    const where = query.filter;
+    const where: WhereOptions<Pose> = {};
+    if (query.filter.persons) {
+      where.persons = query.filter.persons;
+    }
+    if (query.filter.basePosition) {
+      where.basePosition = query.filter.basePosition;
+    }
+    if (query.filter.flyerPosition) {
+      where.flyerPosition = query.filter.flyerPosition;
+    }
+    if (query.filter.status) {
+      where.status = query.filter.status;
+    }
     if (query.filter.difficulty) {
       where.difficulty = {
         [Op.and]: [
@@ -30,6 +42,13 @@ export class PoseService {
         ],
       };
     }
+    if (query.filter.name) {
+      const nameParts = query.filter.name.trim().split(' ').map(part => part.trim());
+      where.name = {
+        [Op.and]: nameParts.map(part => ({[Op.like]: `%${part}%`})),
+      };
+    }
+
     return await this.poseModel.findAndCountAll({
       where,
       limit: query.limit,
@@ -43,7 +62,7 @@ export class PoseService {
   }
 
   async getOptions() {
-    return await this.poseModel.findAll();
+    return await this.poseModel.findAll({include: [Attachment]});
   }
 
   async findPoses(search: string) {
@@ -116,5 +135,45 @@ export class PoseService {
     ]);
 
     return {sources, targets};
+  }
+
+  async updatePoseData(id: number, data) {
+    await this.poseModel.update(data, {where: {id}});
+  }
+
+  async removeTag(poseId: number, tagId: number) {
+    await this.tagService.deleteTaggable(TaggableType.Pose, poseId, tagId);
+  }
+
+  async removeAlias(aliasId: number) {
+    await this.aliasService.deleteAliases(aliasId);
+  }
+
+  async removeTransition(sourcePoseId: number, targetPoseId: number) {
+    await this.transitionModel.destroy({where: {sourcePoseId, targetPoseId}});
+  }
+
+  async addTag(poseId: number, tag: string) {
+    return await this.tagService.addTag(tag, TaggableType.Pose, poseId);
+  }
+
+  async addAlias(poseId: number, alias: string) {
+    return await this.aliasService.createAlias(alias, AliasableType.Pose, poseId);
+  }
+
+  async addAttachment(poseId: number, url: string) {
+    return await this.attachmentService.addAttachment(url, AttachableType.Pose, poseId);
+  }
+
+  async removeAttachment(poseId: number, attachmentId: number) {
+    return await this.attachmentService.deleteAttachable(AttachableType.Pose, poseId, attachmentId);
+  }
+
+  async addTransition(sourcePoseId: number, targetPoseId: number) {
+    return await this.transitionModel.create({targetPoseId, sourcePoseId} as any);
+  }
+
+  async deletePose(id: number) {
+    return await this.poseModel.destroy({where: {id}});
   }
 }

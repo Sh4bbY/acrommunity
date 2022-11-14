@@ -21,7 +21,10 @@ export class TagService {
     }
 
     const entry = {tagId: tag.id, taggableType, taggableId} as any;
-    await this.ptTaggableModel.create(entry);
+    const taggable = await this.ptTaggableModel.create(entry);
+    taggable.setDataValue('tag', tag);
+
+    return taggable;
   }
 
   async getTaggables(taggableType: TaggableType, taggableId: number) {

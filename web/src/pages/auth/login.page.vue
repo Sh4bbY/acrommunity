@@ -12,6 +12,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer/>
+            <v-btn text exact :to="{name: 'landing'}">{{ $t('action.cancel') }}</v-btn>
             <v-btn color="primary" type="submit">{{ $t('action.login') }}</v-btn>
           </v-card-actions>
         </v-card>
@@ -22,7 +23,7 @@
 
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
-import Page from './page.vue';
+import Page from '../page.vue';
 
 @Component({
   components: {},
@@ -40,6 +41,7 @@ export default class LoginPage extends Page {
   async submit() {
     try {
       await this.$store.dispatch('auth/login', this.form);
+      await this.$router.push({name: 'home'});
     } catch (e) {
       this.$notify.error(e);
     }

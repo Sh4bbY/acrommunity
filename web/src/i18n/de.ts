@@ -1,5 +1,6 @@
 export const de = {
   p: {
+    url: 'Url | Urls',
     flyer: 'Flyer | Flyers',
     base: 'Base | Bases',
     video: 'Video | Videos',
@@ -29,6 +30,8 @@ export const de = {
     action: 'Aktion | Aktionen',
   },
   field: {
+    persons: 'Personen',
+    status: 'Status',
     icon: 'Icon',
     isPublic: 'Ist Öffentlich',
     type: 'Typ',
@@ -50,6 +53,9 @@ export const de = {
     basePosition: 'Base Position',
   },
   label: {
+    location: 'Ort',
+    distance: 'Entfernung',
+    direction: 'Richtung',
     randomItems: 'Zufällige {items}',
     any: 'Egal',
     baseType: 'Base-Typ',
@@ -72,6 +78,7 @@ export const de = {
     dictionary: 'Lexion',
   },
   action: {
+    sortBy: 'Sortieren nach',
     generate: 'Generieren',
     addToList: 'Zu Liste hinzufügen',
     createNewList: 'Neue Liste erstellen',
@@ -87,6 +94,7 @@ export const de = {
     login: 'Anmelden',
     logout: 'Abmelden',
     register: 'Account erstellen',
+    copyItem: '{item} kopieren',
     editItem: '{item} bearbeiten',
     showItem: '{item} anzeigen',
     selectItem: '{item} auswählen',
@@ -98,6 +106,7 @@ export const de = {
     addItem: '{item} hinzufügen',
     removeFromItems: 'Von {items} entfernen',
     removeItem: '{item} entfernen',
+    deleteItem: '{item} löschen',
   },
   notify: {
     info: 'Info',
@@ -115,6 +124,7 @@ export const de = {
   msg: {
     noFavorites: 'Du hast aktuell keine Favoriten',
     noLists: 'Du hast aktuell keine Listen',
+    noDataFound: 'Es konnten keine Daten gefunden werden',
   },
   recurringType: {
     once: 'Einmalig',
@@ -171,5 +181,13 @@ export const de = {
     startPose: 'Startpose',
     endPose: 'Endpose',
     isWashingMachine: 'Ist Waschmaschiene',
+  },
+  status: {
+    suggestion: 'Vorschlag',
+    accepted: 'Akzeptiert',
+  },
+  direction: {
+    asc: 'Aufsteigend',
+    desc: 'Absteigend',
   },
 };

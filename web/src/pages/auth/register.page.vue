@@ -13,6 +13,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer/>
+        <v-btn text exact :to="{name: 'landing'}">{{ $t('action.cancel') }}</v-btn>
         <v-btn color="primary" @click="submit">{{ $t('action.register') }}</v-btn>
       </v-card-actions>
     </v-card>
@@ -21,7 +22,7 @@
 
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
-import Page from './page.vue';
+import Page from '../page.vue';
 
 @Component({
   components: {},

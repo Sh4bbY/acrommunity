@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev ./src/main.ts",
+    "scrape": "ts-node-dev ./src/scrape.ts",
+    "merge": "ts-node-dev ./src/merge.ts",
     "test": "ts-node-dev ./src/test.ts",
-    "watch": "ts-node-dev --respawn ./src/main.ts",
+    "watch": "ts-node-dev --respawn src/scrape.ts",
     "move": "yarn cp:museum && yarn cp:poses",
     "cp:museum": "cp output/scrape/acromuseum-*.json ../../api/db/data/",
-    "cp:poses": "cp output/merge/poses.json ../../api/db/data/poses/"
+    "cp:poses": "cp output/merge/poses.json ../../api/db/data/poses/initial-poses.json"
   },
   "author": "",
   "license": "ISC",

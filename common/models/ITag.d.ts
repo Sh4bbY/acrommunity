@@ -2,7 +2,6 @@ import Joi from 'joi';
 export interface ITag {
     id: number;
     name: string;
-    createdAt: Date;
 }
 export declare const tagValidation: {
     constraints: {

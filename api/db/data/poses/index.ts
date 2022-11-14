@@ -1,10 +1,9 @@
 import {mapAttachment} from '../helpers';
-import {lBasePoses} from './l-base-poses';
-import posesJson from './poses.json';
-import {standingPoses} from './standing-poses';
+import initialPoses from './initial-poses.json';
+// import {standingPoses} from './standing-poses';
 
 export const poses = []
-  .concat(posesJson)
+  .concat(initialPoses)
   // .concat(lBasePoses)
   // .concat(standingPoses)
   .map((pose, idx) => ({

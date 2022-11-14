@@ -13,3 +13,4 @@ export * from './SkillType';
 export * from './TaggableType';
 export * from './MarkableType';
 export * from './MarkType';
+export * from './Status';

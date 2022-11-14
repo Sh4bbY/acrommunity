@@ -1,23 +1,28 @@
 <template>
   <v-skeleton-loader v-if="$store.state.auth.isAuthPending"/>
-  <app-layout v-else-if="$store.state.auth.isAuthenticated">
+  <admin-layout v-else-if="$store.state.auth.isAdmin">
     <router-view/>
-  </app-layout>
-  <blank-layout v-else>
-    <login-page/>
-  </blank-layout>
+  </admin-layout>
+  <user-layout v-else-if="$store.state.auth.isSignedIn">
+    <router-view/>
+  </user-layout>
+  <guest-layout v-else>
+    <router-view v-if="!['admin','user'].includes($route.meta.access)"/>
+  </guest-layout>
 </template>
 
 <script lang="ts">
 import moment from 'moment';
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import AppLayout from '~/layouts/app-layout.vue';
+import AdminLayout from '~/layouts/admin-layout.vue';
 import BlankLayout from '~/layouts/blank-layout.vue';
-import LoginPage from '~/pages/login.page.vue';
+import GuestLayout from '~/layouts/guest-layout.vue';
+import UserLayout from '~/layouts/user-layout.vue';
+import LoginPage from '~/pages/auth/login.page.vue';
 
 @Component({
-  components: {BlankLayout, AppLayout, LoginPage},
+  components: {BlankLayout, AdminLayout, UserLayout, GuestLayout, LoginPage},
 })
 export default class App extends Vue {
   async created() {

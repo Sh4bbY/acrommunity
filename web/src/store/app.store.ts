@@ -1,19 +1,24 @@
 import {Module} from 'vuex';
+import {api} from '~/plugins/api';
 import {RootState} from '~/store';
 
 
 export interface AppState {
+  title: string,
   showNavigation: boolean,
   isLoading: boolean,
   openRequests: number,
+  poses: [],
 }
 
 export const appStore: Module<AppState, RootState> = {
   namespaced: true,
   state: {
+    title: 'Acrommunity',
     showNavigation: true,
     isLoading: false,
     openRequests: 0,
+    poses: [],
   },
   mutations: {
     START_REQUEST: (state) => {
@@ -39,9 +44,11 @@ export const appStore: Module<AppState, RootState> = {
     setNavigation({commit}, isOpen: boolean) {
       commit('SET_NAVIGATION', isOpen);
     },
-    showError(context, error: any) {
-      console.log('showError', error);
-      console.log('this', this);
+    async fetchPoses(context) {
+      if (context.state.poses.length === 0) {
+        const response = await api.get('/api/poses/options');
+        context.state.poses = response.data.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1);
+      }
     },
   },
   getters: {},

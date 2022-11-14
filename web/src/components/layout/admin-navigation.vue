@@ -37,7 +37,7 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 
 @Component
-export default class AppNavigation extends Vue {
+export default class AdminNavigation extends Vue {
   isGroupOpen = {
     dictionary: false,
     games: false,

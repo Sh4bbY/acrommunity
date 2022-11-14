@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="$store.state.auth.isAuthenticated">
+  <v-container v-if="$store.state.auth.isSignedIn">
     <v-row>
       <v-col cols="12">
         <profile-form/>

@@ -7,7 +7,7 @@ import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 
 @Component
-export default class AcroLoadingIndicator extends Vue {
+export default class LoadingIndicator extends Vue {
   @Prop({default: false, type: Boolean}) loading!: boolean;
   @Prop({default: true, type: Boolean}) onRequest!: boolean;
 

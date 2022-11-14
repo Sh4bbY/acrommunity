@@ -1,4 +1,4 @@
-import {AliasableType, AttachableType, CommentableType, TaggableType} from '@acrommunity/common';
+import {AliasableType, AttachableType, CommentableType, Status, TaggableType} from '@acrommunity/common';
 import {BelongsToMany, Column, DataType, HasMany, Model, Table} from 'sequelize-typescript';
 import {Comment, Tag} from '~/models';
 import {Alias} from '~/models/Alias';
@@ -28,6 +28,9 @@ export class Pose extends Model<Pose> {
 
   @Column({type: DataType.STRING})
   declare flyerPosition: string;
+
+  @Column({type: DataType.STRING})
+  declare status: Status;
 
   @BelongsToMany(() => Pose, () => Transition, 'targetPoseId')
   declare sourcePoses?: Pose[];

@@ -19,12 +19,6 @@
         </v-list>
       </v-card-text>
     </v-card>
-    <v-card class="mb-2">
-      <v-card-text>
-        <v-btn color="primary" :to="{name: 'register'}">{{ $t('action.register') }}</v-btn>
-        <v-btn color="secondary" :to="{name: 'login'}">{{ $t('action.login') }}</v-btn>
-      </v-card-text>
-    </v-card>
   </v-container>
 </template>
 

@@ -25,3 +25,4 @@ __exportStar(require("./SkillType"), exports);
 __exportStar(require("./TaggableType"), exports);
 __exportStar(require("./MarkableType"), exports);
 __exportStar(require("./MarkType"), exports);
+__exportStar(require("./Status"), exports);

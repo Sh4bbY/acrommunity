@@ -1,5 +1,5 @@
 <template>
-  <tooltip-button color="red" :small="small"
+  <tooltip-button color="red" :small="small" :disabled="isRequesting"
                   :tooltip="isFavorite ? $t('action.removeFromItems', {items: $tc('p.favorite', 2)}) : $t('action.addToItems', {items: $tc('p.favorite', 2)})"
                   :icon="isFavorite ? 'mdi-heart' : 'mdi-heart-outline'" @click="toggleFavorite"/>
 </template>
@@ -18,12 +18,16 @@ export default class FavButton extends Vue {
   @Prop({type: Object, required: true}) item: any;
   @Prop({type: Boolean, default: false}) small: any;
 
+  isRequesting = false;
+
   async toggleFavorite() {
     try {
+      this.isRequesting = true;
       await this.$store.dispatch('user/toggleMark', {markableType: this.type, markableId: this.item.id, type: MarkType.Favorite});
     } catch (e) {
       this.$notify.error(e);
     }
+    this.isRequesting = false;
   }
 
   get isFavorite() {

@@ -18,6 +18,9 @@ export class User extends Model<User> {
   @Column({type: DataType.STRING})
   declare avatar: string;
 
+  @Column({type: DataType.BOOLEAN})
+  declare isAdmin: boolean;
+
   @Column({type: DataType.INTEGER.UNSIGNED})
   declare tokenVersion: number;
 

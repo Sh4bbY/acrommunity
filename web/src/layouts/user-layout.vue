@@ -1,8 +1,8 @@
 <template>
   <v-app :style="style">
-    <acro-loading-indicator/>
-    <app-header/>
-    <app-navigation/>
+    <loading-indicator/>
+    <user-header/>
+    <user-navigation/>
 
     <v-main ref="main">
       <transition name="page" mode="out-in">
@@ -10,22 +10,22 @@
       </transition>
     </v-main>
 
-    <app-bottom-navigation v-if="$vuetify.breakpoint.xs" :height="bottomNavHeight"/>
+    <bottom-navigation v-if="$vuetify.breakpoint.xs" :height="bottomNavHeight"/>
   </v-app>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import AcroLoadingIndicator from '~/components/acro-loading-indicator.vue';
-import AppBottomNavigation from '~/components/layout/app-bottom-navigation.vue';
-import AppHeader from '~/components/layout/app-header.vue';
-import AppNavigation from '~/components/layout/app-navigation.vue';
+import BottomNavigation from '~/components/layout/bottom-navigation.vue';
+import UserHeader from '~/components/layout/user-header.vue';
+import UserNavigation from '~/components/layout/user-navigation.vue';
+import LoadingIndicator from '~/components/loading-indicator.vue';
 
 @Component({
-  components: {AppHeader, AppNavigation, AcroLoadingIndicator, AppBottomNavigation},
+  components: {UserHeader, UserNavigation, LoadingIndicator, BottomNavigation},
 })
-export default class AppLayout extends Vue {
+export default class UserLayout extends Vue {
   bottomNavHeight = 56;
 
   get style() {

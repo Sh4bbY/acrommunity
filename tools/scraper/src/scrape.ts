@@ -1,4 +1,3 @@
-import {Merger} from './Merger';
 import {AcrodictedScraper} from './scraper/AcrodictedScraper';
 import {AcromuseumScraper} from './scraper/AcromuseumScraper';
 import {AcropediaScraper} from './scraper/AcropediaScraper';
@@ -11,12 +10,8 @@ const christianGiegerScraper = new ChristianGiegerScraper();
 const partneracrobaticsScraper = new PartneracrobaticsScraper();
 const acromuseumScraper = new AcromuseumScraper();
 
-const merger = new Merger();
-
 // acrodictedScraper.run();
 // acropediaScraper.run();
 // christianGiegerScraper.run();
 // partneracrobaticsScraper.run();
-acromuseumScraper.run();
-
-// merger.run();
+// acromuseumScraper.run();

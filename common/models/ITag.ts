@@ -3,7 +3,6 @@ import Joi from 'joi';
 export interface ITag {
   id: number;
   name: string;
-  createdAt: Date;
 }
 
 const constraints = {
