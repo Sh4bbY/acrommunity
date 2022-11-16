@@ -63,6 +63,7 @@ export const de = {
     basePosition: 'Base Position',
   },
   label: {
+    feedback: 'Feedback',
     availablePoses: 'Verfügbare Posen',
     administration: 'Administration',
     location: 'Ort',
@@ -137,6 +138,7 @@ export const de = {
     noFavorites: 'Du hast aktuell keine Favoriten',
     noLists: 'Du hast aktuell keine Listen',
     noDataFound: 'Es konnten keine Daten gefunden werden',
+    thankYouForFeedback: 'Vielen Dank für dein Feedback!',
   },
   recurringType: {
     once: 'Einmalig',
@@ -187,9 +189,10 @@ export const de = {
     dancelift: 'Dance Lift',
   },
   acrolette: {
-    settings: {
-      playSound: 'Namen der Pose vorlesen',
-    },
+    nextPose: 'Nächste Pose',
+    playSound: 'Namen der Pose vorlesen',
+    autoload: 'Nächste Pose automatisch laden',
+    autoloadDuration: 'Automatisch laden nach',
   },
   flowGenerator: {
     numberPoses: 'Anzahl an Posen',

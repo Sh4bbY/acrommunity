@@ -20,7 +20,7 @@ export default class Acrolette extends Vue {
     difficulty: [1, 3],
     playSound: true,
     switch: {
-      type: 'timer',
+      autoLoad: true,
       duration: 30,
     },
     poses: {

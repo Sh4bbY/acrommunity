@@ -14,4 +14,5 @@ var FlyerPosition;
     FlyerPosition["ON_HEAD"] = "on_head";
     FlyerPosition["ON_THIGHS_HEADOVER"] = "on_thighs_headover";
     FlyerPosition["ON_ARMS"] = "on_arms";
+    FlyerPosition["DIVERSE"] = "diverse";
 })(FlyerPosition = exports.FlyerPosition || (exports.FlyerPosition = {}));

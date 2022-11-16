@@ -8,7 +8,7 @@
 import {MarkType} from '@acrommunity/common';
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
-import TooltipButton from '~/components/tooltip-button.vue';
+import TooltipButton from '~/components/common/tooltip-button.vue';
 
 @Component({
   components: {TooltipButton},

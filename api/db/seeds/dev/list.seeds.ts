@@ -1,5 +1,5 @@
-import {listTable} from '../tables';
-import {Seeds} from './Seeds';
+import {listTable} from '../../tables';
+import {Seeds} from '../Seeds';
 
 export const listSeeds = new Seeds(listTable.name);
 

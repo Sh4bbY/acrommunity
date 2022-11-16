@@ -23,7 +23,7 @@ import {Component, Prop} from 'vue-property-decorator';
 import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
 import FavButton from '~/components/item/fav-button.vue';
 import ItemMenu from '~/components/item/item-menu.vue';
-import TooltipButton from '~/components/tooltip-button.vue';
+import TooltipButton from '~/components/common/tooltip-button.vue';
 
 @Component({
   components: {FavButton, ItemMenu, TooltipButton, EmbedAttachment},

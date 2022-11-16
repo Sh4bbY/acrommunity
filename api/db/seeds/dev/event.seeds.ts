@@ -1,7 +1,7 @@
 import {faker} from '@faker-js/faker';
 import {Randomizer} from '~/utils';
-import {eventTable} from '../tables';
-import {Seeds} from './Seeds';
+import {eventTable} from '../../tables';
+import {Seeds} from '../Seeds';
 import {userSeeds} from './user.seeds';
 
 export const eventSeeds = new Seeds(eventTable.name);

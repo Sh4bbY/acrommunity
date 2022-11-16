@@ -17,9 +17,10 @@ export const vuetify = new Vuetify({
     dark: false,
     themes: {
       light: {
-        primary: '#1b4e75',
-        'primary-light': '#2d71a8',
-        secondary: '#cc7e00',
+        // primary: '#1b4e75',
+        // secondary: '#cc7e00',
+        primary: '#546b99',
+        secondary: '#398061',
         accent: '#82B1FF',
         error: '#FF5252',
         info: '#2196F3',

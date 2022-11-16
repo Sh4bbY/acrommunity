@@ -61,7 +61,7 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import CreateListDialog from '~/components/my/create-list-dialog.vue';
 import UpdateListDialog from '~/components/my/update-list-dialog.vue';
-import TooltipButton from '~/components/tooltip-button.vue';
+import TooltipButton from '~/components/common/tooltip-button.vue';
 import ContextMenu from '~/components/utils/context-menu.vue';
 
 @Component({

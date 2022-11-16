@@ -30,3 +30,4 @@ __exportStar(require("./TaggableType"), exports);
 __exportStar(require("./MarkableType"), exports);
 __exportStar(require("./MarkType"), exports);
 __exportStar(require("./Status"), exports);
+__exportStar(require("./FeedbackStatus"), exports);

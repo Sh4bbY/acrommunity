@@ -1,5 +1,5 @@
-import {PT_Markable} from '../../tables/pivot';
-import {Seeds} from '../Seeds';
+import {PT_Markable} from '../../../tables/pivot';
+import {Seeds} from '../../Seeds';
 
 export const markableSeeds = new Seeds(PT_Markable.name);
 

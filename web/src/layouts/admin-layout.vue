@@ -1,7 +1,8 @@
 <template>
-  <v-app :style="style">
+  <v-app>
+    <feedback-dialog v-model="dialog.feedback"/>
     <loading-indicator/>
-    <admin-header/>
+    <admin-header @feedback="dialog.feedback = true"/>
     <admin-navigation/>
 
     <v-main ref="main">
@@ -15,19 +16,18 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
+import FeedbackDialog from '~/components/feedback-dialog.vue';
 import AdminHeader from '~/components/layout/admin-header.vue';
 import AdminNavigation from '~/components/layout/admin-navigation.vue';
 import LoadingIndicator from '~/components/loading-indicator.vue';
 
 @Component({
-  components: {AdminNavigation, AdminHeader, LoadingIndicator},
+  components: {AdminNavigation, AdminHeader, LoadingIndicator, FeedbackDialog},
 })
 export default class AdminLayout extends Vue {
-  bottomNavHeight = 56;
-
-  get style() {
-    return {paddingBottom: this.$vuetify.breakpoint.xs ? this.bottomNavHeight + 'px' : 0};
-  }
+  dialog = {
+    feedback: false,
+  };
 }
 </script>
 

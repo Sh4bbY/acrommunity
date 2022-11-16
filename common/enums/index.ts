@@ -14,3 +14,4 @@ export * from './TaggableType';
 export * from './MarkableType';
 export * from './MarkType';
 export * from './Status';
+export * from './FeedbackStatus';

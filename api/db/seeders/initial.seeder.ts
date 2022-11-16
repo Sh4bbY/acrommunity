@@ -1,19 +1,29 @@
 import chalk from 'chalk';
 import {QueryInterface} from 'sequelize';
-import {pivotSeeds, seeds} from '../seeds';
+import {config} from '~/config';
+import {dev, show} from '../seeds';
 import {Seeds} from '../seeds/Seeds';
+
+let envSeeds: {
+  seeds: Seeds[],
+  pivotSeeds: Seeds[],
+};
+
+envSeeds = config.production ? show : dev;
 
 module.exports = {
   up: async (queryInterface: QueryInterface, _Sequelize) => {
     try {
+      console.log('Use', chalk.green(config.production ? 'show' : 'dev'), 'seeds');
+
       console.log(chalk.yellow('initial.seeder:up - seed core tables'));
-      await seedTables(queryInterface, seeds);
+      await seedTables(queryInterface, envSeeds.seeds);
 
       console.log(chalk.yellow('initial.seeder:up - seed pivot tables'));
-      await seedTables(queryInterface, pivotSeeds);
+      await seedTables(queryInterface, envSeeds.pivotSeeds);
 
       console.log(chalk.yellow('initial.seeder:up - post seed updates'));
-      await seedUpdates(queryInterface, seeds.concat(pivotSeeds));
+      await seedUpdates(queryInterface, envSeeds.seeds.concat(envSeeds.pivotSeeds));
 
       console.log(chalk.green('initial.seeder:up - success'));
     } catch (e) {
@@ -37,8 +47,8 @@ module.exports = {
 
   down: async (queryInterface: QueryInterface, _Sequelize) => {
     try {
-      await Promise.all(pivotSeeds.map(seed => queryInterface.bulkDelete(seed.tableName, undefined)));
-      await Promise.all(seeds.map(seed => queryInterface.bulkDelete(seed.tableName, undefined)));
+      await Promise.all(envSeeds.pivotSeeds.map(seed => queryInterface.bulkDelete(seed.tableName, undefined)));
+      await Promise.all(envSeeds.seeds.map(seed => queryInterface.bulkDelete(seed.tableName, undefined)));
     } catch (e) {
       console.error(e);
     }

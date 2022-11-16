@@ -10,11 +10,17 @@ export * from './list.table';
 export * from './image.table';
 export * from './video.table';
 export * from './list.table';
+export * from './feedback.table';
+export * from './jam.table';
+export * from './alias.table';
+export * from './flows.table';
+export * from './attachment.table';
 
 import {aliasTable} from './alias.table';
 import {attachmentTable} from './attachment.table';
 import {commentTable} from './comment.table';
 import {eventTable} from './event.table';
+import {feedbackTable} from './feedback.table';
 import {flowsTable} from './flows.table';
 import {imageTable} from './image.table';
 import {jamTable} from './jam.table';
@@ -47,6 +53,7 @@ export const tables: Table[] = [
   PT_Markable,
   imageTable,
   videoTable,
+  feedbackTable,
 ];
 
 export const constraints = tables.reduce((arr, table) => [...arr, ...table.constraints], []);

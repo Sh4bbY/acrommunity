@@ -92,6 +92,7 @@ export default class AdminNavigation extends Vue {
       {
         title: this.$t('label.administration'), icon: 'mdi-security', open: this.isGroupOpen.admin, children: [
           {title: this.$tc('p.user', 2), icon: 'mdi-account-multiple', route: {name: 'users'}, exact: false},
+          {title: this.$tc('label.feedback'), icon: 'mdi-chat-alert', route: {name: 'feedback'}, exact: false},
           {title: this.$tc('p.comment', 2), icon: 'mdi-chat', route: {name: 'comments'}, exact: false},
           {title: 'Dev', icon: 'mdi-dev-to', route: {name: 'dev'}, exact: false},
         ],
@@ -120,7 +121,7 @@ export default class AdminNavigation extends Vue {
 @import "../../styles/colors";
 
 .app-navigation::v-deep .v-list-item--active:not(.v-list-group__header) {
-  background-color: $c-background;
+  background-color: $c-primary;
   color: rgba(#fff, 0.9);
 
   & > .v-list-item {
@@ -128,7 +129,7 @@ export default class AdminNavigation extends Vue {
   }
 
   .v-icon {
-    color: $c-primary;
+    color: white;
   }
 }
 

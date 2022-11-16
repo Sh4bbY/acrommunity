@@ -1,6 +1,6 @@
-import {images} from '../data';
-import {imageTable} from '../tables';
-import {Seeds} from './Seeds';
+import {images} from '../../data';
+import {imageTable} from '../../tables';
+import {Seeds} from '../Seeds';
 
 export const imageSeeds = new Seeds(imageTable.name);
 

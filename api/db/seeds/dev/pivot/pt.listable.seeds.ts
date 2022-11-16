@@ -1,6 +1,6 @@
 import {ListableType} from '@acrommunity/common';
-import {PT_Listable} from '../../tables/pivot';
-import {Seeds} from '../Seeds';
+import {PT_Listable} from '../../../tables/pivot';
+import {Seeds} from '../../Seeds';
 
 export const listableSeeds = new Seeds(PT_Listable.name);
 

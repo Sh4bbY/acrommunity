@@ -1,8 +1,8 @@
-import {faker} from '@faker-js/faker';
 import {AliasableType, TaggableType} from '@acrommunity/common';
-import {flows} from '../data';
-import {flowsTable} from '../tables/flows.table';
-import {Seeds} from './Seeds';
+import {faker} from '@faker-js/faker';
+import {flows} from '../../data';
+import {flowsTable} from '../../tables';
+import {Seeds} from '../Seeds';
 
 export const flowSeeds = new Seeds(flowsTable.name);
 

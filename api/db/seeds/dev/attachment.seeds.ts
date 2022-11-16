@@ -1,8 +1,8 @@
-import {backupData} from '../data';
-import {attachmentTable} from '../tables/attachment.table';
+import {backupData} from '../../data';
+import {attachmentTable} from '../../tables';
+import {Seeds} from '../Seeds';
 import {flowSeeds} from './flow.seeds';
 import {poseSeeds} from './pose.seeds';
-import {Seeds} from './Seeds';
 import {skillSeeds} from './skill.seeds';
 
 export const attachmentSeeds = new Seeds(attachmentTable.name);

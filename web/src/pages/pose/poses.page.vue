@@ -68,9 +68,9 @@ import FavButton from '~/components/item/fav-button.vue';
 import GridItem from '~/components/item/grid-item.vue';
 import ItemMenu from '~/components/item/item-menu.vue';
 import CreateListDialog from '~/components/my/create-list-dialog.vue';
-import PaginatedGrid from '~/components/paginated-grid.vue';
-import PaginatedTable from '~/components/paginated-table.vue';
-import TooltipButton from '~/components/tooltip-button.vue';
+import PaginatedGrid from '~/components/common/paginated-grid.vue';
+import PaginatedTable from '~/components/common/paginated-table.vue';
+import TooltipButton from '~/components/common/tooltip-button.vue';
 import {resolveDifficulty} from '~/utils';
 import Page from '../page.vue';
 

@@ -11,6 +11,7 @@ import {AuthModule} from '~/modules/auth/auth.module';
 import {CommentModule} from '~/modules/comment/comment.module';
 import {CronJobModule} from '~/modules/cron-job/cron-job.module';
 import {EmailModule} from '~/modules/email/email.module';
+import {FeedbackModule} from '~/modules/feedback/feedback.module';
 import {FileModule} from '~/modules/file/file.module';
 import {FlowGeneratorModule} from '~/modules/flow-generator/flow-generator.module';
 import {FlowModule} from '~/modules/flow/flow.module';
@@ -56,6 +57,7 @@ import {SequelizeExceptionFilter} from '~/utils/nest/sequelize-exception-filter'
     ImageModule,
     VideoModule,
     HomeModule,
+    FeedbackModule,
   ],
   controllers: [],
   providers: [

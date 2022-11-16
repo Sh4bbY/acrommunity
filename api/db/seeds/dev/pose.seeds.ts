@@ -1,7 +1,7 @@
 import {AliasableType, Status, TaggableType} from '@acrommunity/common';
-import {backupData, poses} from '../data';
-import {poseTable} from '../tables';
-import {Seeds} from './Seeds';
+import {backupData, poses} from '../../data';
+import {poseTable} from '../../tables';
+import {Seeds} from '../Seeds';
 
 export const poseSeeds = new Seeds(poseTable.name);
 

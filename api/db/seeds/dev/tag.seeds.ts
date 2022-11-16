@@ -1,7 +1,7 @@
-import {backupData} from '../data';
-import {tagTable} from '../tables';
+import {backupData} from '../../data';
+import {tagTable} from '../../tables';
+import {Seeds} from '../Seeds';
 import {poseSeeds} from './pose.seeds';
-import {Seeds} from './Seeds';
 
 export const tagSeeds = new Seeds(tagTable.name);
 

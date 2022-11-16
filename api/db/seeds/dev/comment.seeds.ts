@@ -1,9 +1,9 @@
-import {faker} from '@faker-js/faker';
 import {CommentableType} from '@acrommunity/common';
+import {faker} from '@faker-js/faker';
 import {Randomizer} from '~/utils';
-import {commentTable} from '../tables';
+import {commentTable} from '../../tables';
+import {Seeds} from '../Seeds';
 import {poseSeeds} from './pose.seeds';
-import {Seeds} from './Seeds';
 import {userSeeds} from './user.seeds';
 
 export const commentSeeds = new Seeds(commentTable.name);

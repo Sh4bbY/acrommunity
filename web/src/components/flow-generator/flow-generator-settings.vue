@@ -7,48 +7,51 @@
 
       <v-card-text>
         <v-form>
-          <v-row v-show="showSettings">
-            <v-col cols="12" md="6" class="pb-1">
-              <v-select v-model="settings.basePositions" :label="$t('field.basePosition')" :items="basePositions" multiple clearable hide-details @change="updatePoses"/>
-            </v-col>
-            <!--        <v-col cols="12" md="6">-->
-            <!--          <v-select v-model="settings.flyerPositions" :label="$t('field.flyerPosition')" :items="flyerPositions" multiple clearable hide-details @change="updatePoses"/>-->
-            <!--        </v-col>-->
-            <v-col cols="12" md="6" class="pb-1">
-              <div class="d-flex px-2 mb-2 align-center">
-                <span>{{ $t('field.difficulty') }}</span>
-                <v-spacer/>
-                <span>{{ difficultyLabel }}</span>
-              </div>
-              <v-range-slider v-model="settings.difficulty" min="1" max="6" hide-details/>
-            </v-col>
-            <v-col cols="12" md="6" class="pb-1">
-              <v-text-field v-model="settings.numberPoses" :label="$t('flowGenerator.numberPoses')" type="number" :max="100" hide-details/>
-            </v-col>
-            <v-col cols="12" md="6" class="pb-1">
-              <v-checkbox v-model="settings.isWashingMachine" :label="$t('flowGenerator.isWashingMachine')" hide-details/>
-            </v-col>
-            <v-col cols="12" md="6" class="pb-1">
-              <v-autocomplete v-model="settings.startPoseId" :label="$t('flowGenerator.startPose')" :items="availablePoses" item-text="name" item-value="id" clearable/>
-            </v-col>
-            <v-col cols="12" md="6" class="pb-1">
-              <v-autocomplete v-if="settings.isWashingMachine" :value="settings.startPoseId" :label="$t('flowGenerator.endPose')" :items="availablePoses" item-text="name"
-                              item-value="id" disabled/>
-              <v-autocomplete v-else v-model="settings.endPoseId" :label="$t('flowGenerator.endPose')" :items="availablePoses" item-text="name" item-value="id" clearable
-                              @change="checkForWashingMachine"/>
-            </v-col>
-            <v-col cols="12" class="pt-0">
-              <span>{{ $t('label.availablePoses') }}: {{ availablePoses.length }}</span>
-            </v-col>
-          </v-row>
+          <v-expand-transition>
+            <v-row v-show="showSettings" class="py-0 my-0">
+              <v-col cols="12" md="6" class="pb-1">
+                <v-select v-model="settings.basePositions" :label="$t('field.basePosition')" :items="basePositions" multiple clearable hide-details @change="updatePoses"/>
+              </v-col>
+              <!--        <v-col cols="12" md="6">-->
+              <!--          <v-select v-model="settings.flyerPositions" :label="$t('field.flyerPosition')" :items="flyerPositions" multiple clearable hide-details @change="updatePoses"/>-->
+              <!--        </v-col>-->
+              <v-col cols="12" md="6" class="pb-1">
+                <div class="d-flex px-2 mb-2 align-center">
+                  <span>{{ $t('field.difficulty') }}</span>
+                  <v-spacer/>
+                  <span>{{ difficultyLabel }}</span>
+                </div>
+                <v-range-slider v-model="settings.difficulty" min="1" max="6" hide-details/>
+              </v-col>
+              <v-col cols="12" class="pt-0">
+                <span>{{ $t('label.availablePoses') }}: {{ availablePoses.length }}</span>
+              </v-col>
+              <v-col cols="12" sm="6" class="pb-1">
+                <v-text-field v-model="settings.numberPoses" :label="$t('flowGenerator.numberPoses')" type="number" :max="100" hide-details/>
+              </v-col>
+              <v-col cols="12" sm="6" class="pb-1">
+                <v-checkbox v-model="settings.isWashingMachine" :label="$t('flowGenerator.isWashingMachine')" hide-details class="mt-0"/>
+              </v-col>
+              <v-col cols="12" sm="6" class="pb-1">
+                <v-autocomplete v-model="settings.startPoseId" :label="$t('flowGenerator.startPose')" :items="availablePoses" item-text="name" item-value="id" clearable
+                                hide-details/>
+              </v-col>
+              <v-col cols="12" sm="6" class="">
+                <v-autocomplete v-if="settings.isWashingMachine" :value="settings.startPoseId" :label="$t('flowGenerator.endPose')" :items="availablePoses" item-text="name"
+                                item-value="id" disabled/>
+                <v-autocomplete v-else v-model="settings.endPoseId" :label="$t('flowGenerator.endPose')" :items="availablePoses" item-text="name" item-value="id" clearable
+                                @change="checkForWashingMachine"/>
+              </v-col>
+            </v-row>
+          </v-expand-transition>
           <v-row class="mt-0">
-            <v-col cols="12" sm="6" class="d-flex align-center pt-0">
-              <v-btn text @click="showSettings = !showSettings">
+            <v-col cols="6" class="d-flex align-center pt-0">
+              <v-btn text @click="showSettings = !showSettings" small>
                 <v-icon left>{{ showSettings ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
                 {{ $t('label.settings') }}
               </v-btn>
             </v-col>
-            <v-col cols="12" sm="6" class="d-flex align-center pt-0">
+            <v-col cols="6" class="d-flex align-center pt-0">
               <v-spacer/>
               <v-btn color="primary" @click="generate">{{ $t('action.generate') }}</v-btn>
             </v-col>
@@ -75,6 +78,7 @@ export default class FlowGeneratorSettings extends Vue {
   async mounted() {
     const response = await this.$api.get('/api/flow-generator/pose-options');
     this.poses = response.data;
+    this.showSettings = this.$vuetify.breakpoint.smAndUp;
   }
 
   get basePositions() {

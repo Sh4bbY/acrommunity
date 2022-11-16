@@ -1,9 +1,9 @@
 import {AttachableType} from '@acrommunity/common';
-import {flowSeeds, poseSeeds} from '..';
-import {backupData} from '../../data';
-import {PT_Attachable} from '../../tables/pivot';
+import {backupData} from '../../../data';
+import {PT_Attachable} from '../../../tables/pivot';
+import {Seeds} from '../../Seeds';
 import {attachmentSeeds} from '../attachment.seeds';
-import {Seeds} from '../Seeds';
+import {flowSeeds, poseSeeds} from '../index';
 import {skillSeeds} from '../skill.seeds';
 
 export const attachableSeeds = new Seeds(PT_Attachable.name);

@@ -107,7 +107,7 @@ export default class UserNavigation extends Vue {
 @import "../../styles/colors";
 
 .app-navigation::v-deep .v-list-item--active:not(.v-list-group__header) {
-  background-color: $c-background;
+  background-color: $c-primary;
   color: rgba(#fff, 0.9);
 
   & > .v-list-item {
@@ -115,7 +115,7 @@ export default class UserNavigation extends Vue {
   }
 
   .v-icon {
-    color: $c-primary;
+    color: white;
   }
 }
 

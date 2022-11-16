@@ -1,8 +1,8 @@
-import {backupData} from '../data';
-import {aliasTable} from '../tables/alias.table';
+import {backupData} from '../../data';
+import {aliasTable} from '../../tables';
+import {Seeds} from '../Seeds';
 import {flowSeeds} from './flow.seeds';
 import {poseSeeds} from './pose.seeds';
-import {Seeds} from './Seeds';
 
 export const aliasSeeds = new Seeds(aliasTable.name);
 

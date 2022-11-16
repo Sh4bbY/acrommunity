@@ -20,10 +20,10 @@
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
 import ItemMenu from '~/components/item/item-menu.vue';
-import Moment from '~/components/moment.vue';
-import PaginatedGrid from '~/components/paginated-grid.vue';
-import PaginatedTable from '~/components/paginated-table.vue';
-import TooltipButton from '~/components/tooltip-button.vue';
+import Moment from '~/components/common/moment.vue';
+import PaginatedGrid from '~/components/common/paginated-grid.vue';
+import PaginatedTable from '~/components/common/paginated-table.vue';
+import TooltipButton from '~/components/common/tooltip-button.vue';
 import Page from '../../page.vue';
 
 @Component({

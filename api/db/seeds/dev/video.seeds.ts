@@ -1,6 +1,6 @@
-import {videos} from '../data';
-import {videoTable} from '../tables';
-import {Seeds} from './Seeds';
+import {videos} from '../../data';
+import {videoTable} from '../../tables';
+import {Seeds} from '../Seeds';
 
 export const videoSeeds = new Seeds(videoTable.name);
 

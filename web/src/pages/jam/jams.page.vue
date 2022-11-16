@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
-import Moment from '~/components/moment.vue';
+import Moment from '~/components/common/moment.vue';
 import Page from '../page.vue';
 
 @Component({

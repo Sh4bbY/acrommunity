@@ -1,7 +1,7 @@
 import {AliasableType, TaggableType} from '@acrommunity/common';
-import {skills} from '../data';
-import {skillTable} from '../tables';
-import {Seeds} from './Seeds';
+import {skills} from '../../data';
+import {skillTable} from '../../tables';
+import {Seeds} from '../Seeds';
 
 export const skillSeeds = new Seeds(skillTable.name);
 

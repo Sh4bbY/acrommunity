@@ -7,4 +7,5 @@ var BasePosition;
     BasePosition["LYING_ON_BELLY"] = "lying_on_belly";
     BasePosition["SITTING"] = "sitting";
     BasePosition["STANDING"] = "standing";
+    BasePosition["HANDSTAND"] = "handstand";
 })(BasePosition = exports.BasePosition || (exports.BasePosition = {}));

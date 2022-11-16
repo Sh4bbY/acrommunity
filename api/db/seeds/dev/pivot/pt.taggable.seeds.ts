@@ -1,7 +1,7 @@
-import {flowSeeds, poseSeeds, tagSeeds} from '..';
-import {backupData} from '../../data';
-import {PT_Taggable} from '../../tables/pivot';
-import {Seeds} from '../Seeds';
+import {backupData} from '../../../data';
+import {PT_Taggable} from '../../../tables/pivot';
+import {Seeds} from '../../Seeds';
+import {flowSeeds, poseSeeds, tagSeeds} from '../index';
 
 export const taggableSeeds = new Seeds(PT_Taggable.name);
 

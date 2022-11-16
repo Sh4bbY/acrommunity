@@ -1,45 +1,35 @@
 <template>
   <v-card>
     <v-toolbar color="primary" dense dark>
-      <v-toolbar-title>{{ $t('label.acrolette') }} - Settings</v-toolbar-title>
+      <v-toolbar-title>{{ $t('label.acrolette') }}</v-toolbar-title>
     </v-toolbar>
     <v-card-text>
       <v-row>
-        <v-col cols="12" md="6">
-          <v-sheet outlined rounded class="pa-2">
-            <v-radio-group v-model="settings.switch.type" label="Next Image" class="mt-0" hide-details>
-              <v-radio value="button" label="Button"/>
-              <div class="d-flex">
-                <v-radio value="timer" label="Timer" class="mr-5"/>
-                <v-text-field v-model="settings.switch.duration" label="Timer Duration" :disabled="settings.switch.type !== 'timer'" type="number">
-                  <template #append>sek</template>
-                </v-text-field>
-              </div>
-            </v-radio-group>
-          </v-sheet>
+        <v-col cols="12">
+          <div class="d-flex">
+            <v-checkbox v-model="settings.switch.autoLoad" :label="$t('acrolette.autoload')" hide-details/>
+            <v-spacer/>
+            <v-text-field v-model="settings.switch.duration" :label="$t('acrolette.autoloadDuration')" :disabled="!settings.switch.autoLoad" type="number" hide-details>
+              <template #append>sek</template>
+            </v-text-field>
+          </div>
         </v-col>
         <v-col cols="12" md="6">
-          <v-sheet outlined rounded class="pa-2">
-            <h3>{{ $tc('p.pose', 2) }}</h3>
-            <v-select v-model="settings.poses.basePositions" :label="$t('field.basePosition')" :items="basePositions" multiple/>
-            <v-autocomplete v-model="settings.poses.startPoseId" :label="$tc('flowGenerator.startPose')" :items="availablePoses" item-value="id" item-text="name" clearable/>
-          </v-sheet>
+          <v-select v-model="settings.poses.basePositions" :label="$t('field.basePosition')" :items="basePositions" multiple hide-details/>
         </v-col>
         <v-col cols="12" md="6">
-          <v-sheet outlined rounded class="pa-2">
-            <div class="d-flex px-2 mb-2 align-center">
-              <h3>{{ $t('field.difficulty') }}</h3>
-              <v-spacer/>
-              <span>{{ difficultyLabel }}</span>
-            </div>
-            <v-range-slider v-model="settings.difficulty" min="1" max="6"/>
-          </v-sheet>
+          <v-autocomplete v-model="settings.poses.startPoseId" :label="$tc('flowGenerator.startPose')" :items="availablePoses" item-value="id" item-text="name" clearable hide-details/>
         </v-col>
         <v-col cols="12" md="6">
-          <v-sheet outlined rounded class="pa-2">
-            <h3>{{ $t('label.misc') }}</h3>
-            <v-checkbox v-model="settings.playSound" :label="$t('acrolette.settings.playSound')"/>
-          </v-sheet>
+          <div class="d-flex px-2 mb-2 align-center">
+            <h3>{{ $t('field.difficulty') }}</h3>
+            <v-spacer/>
+            <span>{{ difficultyLabel }}</span>
+          </div>
+          <v-range-slider v-model="settings.difficulty" min="1" max="6" hide-details/>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-checkbox v-model="settings.playSound" :label="$t('acrolette.playSound')"/>
         </v-col>
       </v-row>
     </v-card-text>

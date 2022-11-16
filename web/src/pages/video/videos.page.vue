@@ -49,8 +49,8 @@
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
 import MediaDialog from '~/components/media-dialog.vue';
-import PaginatedGrid from '~/components/paginated-grid.vue';
-import TooltipButton from '~/components/tooltip-button.vue';
+import PaginatedGrid from '~/components/common/paginated-grid.vue';
+import TooltipButton from '~/components/common/tooltip-button.vue';
 import Page from '../page.vue';
 
 @Component({

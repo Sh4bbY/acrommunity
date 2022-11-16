@@ -34,7 +34,7 @@
 <script lang="ts">
 import {Component, Watch} from 'vue-property-decorator';
 import CommentsPanel from '~/components/comment/comments-panel.vue';
-import Moment from '~/components/moment.vue';
+import Moment from '~/components/common/moment.vue';
 import Page from '../page.vue';
 
 @Component({

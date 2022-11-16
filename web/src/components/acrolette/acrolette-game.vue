@@ -3,9 +3,9 @@
     <v-toolbar color="primary" dense dark class="flex-grow-0">
       <v-toolbar-title>{{ $t('label.acrolette') }}</v-toolbar-title>
       <v-spacer/>
-      <span v-if="useTimer">{{ timer }}</span>
+      <span v-if="settings.switch.autoLoad">{{ timer }}</span>
     </v-toolbar>
-    <v-progress-linear v-if="useTimer" v-model="timerProgress" color="amber" height="25"/>
+    <v-progress-linear v-if="settings.switch.autoLoad" v-model="timerProgress" color="amber" height="25"/>
     <v-card-text v-if="pose">
       <div class="d-flex align-center justify-center mb-5">
         <h1 class="text-center mr-3" v-if="pose">{{ pose.name }}</h1>
@@ -32,7 +32,7 @@
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 import {IAcroletteSettings} from '~/components/acrolette/IAcroletteSettings';
-import TooltipButton from '~/components/tooltip-button.vue';
+import TooltipButton from '~/components/common/tooltip-button.vue';
 
 @Component({
   components: {TooltipButton},
@@ -49,15 +49,26 @@ export default class AcroletteGame extends Vue {
   isMuted = false;
 
   mounted() {
-    if (this.useTimer) {
+    if (this.settings.switch.autoLoad) {
       this.timerValue = this.settings.switch.duration;
       this.intervalId = window.setInterval(() => this.update(), 1000);
     }
     this.isMuted = !this.settings.playSound;
 
+
     this.speechSynthesis = new SpeechSynthesisUtterance();
-    this.speechSynthesis.lang = 'en-US';
-    this.speechSynthesis.volume = 0.7;
+    this.speechSynthesis.lang = 'en-GB';
+    this.speechSynthesis.volume = 1;
+    this.speechSynthesis.rate = 0.9;
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length > 0) {
+      this.speechSynthesis.voice = voices[6];
+    } else {
+      window.speechSynthesis.onvoiceschanged = () => {
+        const voices = window.speechSynthesis.getVoices();
+        this.speechSynthesis.voice = voices[6];
+      };
+    }
 
     this.fetchPose();
   }
@@ -113,10 +124,6 @@ export default class AcroletteGame extends Vue {
     } catch (err) {
       this.$notify.error(err);
     }
-  }
-
-  get useTimer(): boolean {
-    return this.settings.switch.type === 'timer';
   }
 
   get timer() {

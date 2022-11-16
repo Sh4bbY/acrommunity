@@ -1,6 +1,6 @@
-import {backupData, poses} from '../data';
-import {transitionTable} from '../tables';
-import {Seeds} from './Seeds';
+import {backupData, poses} from '../../data';
+import {transitionTable} from '../../tables';
+import {Seeds} from '../Seeds';
 
 export const transitionSeeds = new Seeds(transitionTable.name);
 

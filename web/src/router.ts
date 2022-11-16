@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
 import CommentsPage from '~/pages/admin/comments.page.vue';
 import DevPage from '~/pages/admin/dev.page.vue';
+import FeedbackPage from '~/pages/admin/feedback.page.vue';
 import UserDetailsPage from '~/pages/admin/user/user-details.page.vue';
 import UsersPage from '~/pages/admin/user/users.page.vue';
 import AcroQuizPage from '~/pages/apps/acro-quiz.page.vue';
@@ -72,6 +73,7 @@ const routes: Array<RouteConfig> = [
   {path: '/admin/users', name: 'users', component: UsersPage, meta: {access: 'admin'}},
   {path: '/admin/users/:id', name: 'user-details', component: UserDetailsPage, meta: {access: 'admin'}},
   {path: '/admin/comments', name: 'comments', component: CommentsPage, meta: {access: 'admin'}},
+  {path: '/admin/feedback', name: 'feedback', component: FeedbackPage, meta: {access: 'admin'}},
 
   // 404 page needs to be last in routes array
   {path: '*', name: 'not-found', component: () => import( /* webpackChunkName: "404.page" */ './pages/404.page.vue')},

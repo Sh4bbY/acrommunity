@@ -114,7 +114,7 @@ import BreadcrumbTitle from '~/components/breadcrumb-title.vue';
 import CommentsPanel from '~/components/comment/comments-panel.vue';
 import FavButton from '~/components/item/fav-button.vue';
 import ItemMenu from '~/components/item/item-menu.vue';
-import TooltipButton from '~/components/tooltip-button.vue';
+import TooltipButton from '~/components/common/tooltip-button.vue';
 import {resolveDifficulty} from '~/utils';
 import Page from '../page.vue';
 

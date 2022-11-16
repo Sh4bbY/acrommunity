@@ -30,7 +30,7 @@
 import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
 import CommentForm from '~/components/comment/comment-form.vue';
-import Moment from '~/components/moment.vue';
+import Moment from '~/components/common/moment.vue';
 
 @Component({
   components: {CommentForm, Moment},

@@ -36,7 +36,7 @@ import {MarkableType, MarkType} from '@acrommunity/common';
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
-import TooltipButton from '~/components/tooltip-button.vue';
+import TooltipButton from '~/components/common/tooltip-button.vue';
 
 @Component({
   components: {TooltipButton, EmbedAttachment},

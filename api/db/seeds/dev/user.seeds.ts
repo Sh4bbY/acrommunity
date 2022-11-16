@@ -1,7 +1,7 @@
 import {faker} from '@faker-js/faker';
 import {Crypt} from '~/utils';
-import {userTable} from '../tables';
-import {Seeds} from './Seeds';
+import {userTable} from '../../tables';
+import {Seeds} from '../Seeds';
 
 export const userSeeds = new Seeds(userTable.name);
 

@@ -4,7 +4,7 @@ export interface IAcroletteSettings {
   difficulty: number[];
   playSound: boolean;
   switch: {
-    type: 'timer' | 'button-click',
+    autoLoad: boolean,
     duration: number,
   };
   poses: {
