@@ -115,6 +115,7 @@ export default class PaginatedGrid extends Vue {
       const response = await this.$api.get(this.url, {params});
       this.items = response.data.rows;
       this.totalItems = response.data.count;
+      this.$emit('update', this.items);
     } catch (err) {
       this.$notify.error(err);
     }

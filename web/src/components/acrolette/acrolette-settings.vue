@@ -22,7 +22,7 @@
           <v-sheet outlined rounded class="pa-2">
             <h3>{{ $tc('p.pose', 2) }}</h3>
             <v-select v-model="settings.poses.basePositions" :label="$t('field.basePosition')" :items="basePositions" multiple/>
-            <v-select v-model="settings.poses.flyerPositions" :label="$t('field.flyerPosition')" :items="flyerPositions" multiple/>
+            <v-autocomplete v-model="settings.poses.startPoseId" :label="$tc('flowGenerator.startPose')" :items="availablePoses" item-value="id" item-text="name" clearable/>
           </v-sheet>
         </v-col>
         <v-col cols="12" md="6">
@@ -32,13 +32,13 @@
               <v-spacer/>
               <span>{{ difficultyLabel }}</span>
             </div>
-            <v-range-slider v-model="settings.difficulty" min="1" max="10"/>
+            <v-range-slider v-model="settings.difficulty" min="1" max="6"/>
           </v-sheet>
         </v-col>
         <v-col cols="12" md="6">
           <v-sheet outlined rounded class="pa-2">
             <h3>{{ $t('label.misc') }}</h3>
-            <v-checkbox v-model="settings.transitions.onlyValid" :label="$t('acrolette.settings.validTransitions')"/>
+            <v-checkbox v-model="settings.playSound" :label="$t('acrolette.settings.playSound')"/>
           </v-sheet>
         </v-col>
       </v-row>
@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import {BasePosition, FlyerPosition} from '@acrommunity/common';
+import {BasePosition, FlyerPosition, IPose} from '@acrommunity/common';
 import Vue from 'vue';
 import {Component, VModel} from 'vue-property-decorator';
 import {IAcroletteSettings} from '~/components/acrolette/IAcroletteSettings';
@@ -60,6 +60,12 @@ import {resolveDifficulty} from '~/utils';
 @Component
 export default class AcroletteSettings extends Vue {
   @VModel() settings: IAcroletteSettings;
+  poseOptions: IPose[] = [];
+
+  async mounted() {
+    const response = await this.$api.get('/api/acrolette/pose-options');
+    this.poseOptions = response.data;
+  }
 
   get basePositions() {
     return Object.values(BasePosition).map(value => ({text: this.$t('basePosition.' + value), value}));
@@ -67,6 +73,10 @@ export default class AcroletteSettings extends Vue {
 
   get flyerPositions() {
     return Object.values(FlyerPosition).map(value => ({text: this.$t('flyerPosition.' + value), value}));
+  }
+
+  get availablePoses() {
+    return this.poseOptions.filter(pose => pose.difficulty >= this.settings.difficulty[0] && pose.difficulty <= this.settings.difficulty[1]);
   }
 
   get difficultyLabel() {

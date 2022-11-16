@@ -17,4 +17,9 @@ export class AdminController {
   async exportPoses() {
     return await this.adminService.exportData();
   }
+
+  @Get('dev')
+  async doDevStuff() {
+    // return await this.adminService.getTransitions();
+  }
 }

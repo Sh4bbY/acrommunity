@@ -10,4 +10,7 @@ export const poseTable = new Table('Poses', () => ({
   basePosition: {type: DataType.STRING},
   flyerPosition: {type: DataType.STRING},
   status: {type: DataType.STRING},
+  easyIn: {type: DataType.BOOLEAN, defaultValue: false},
+  easyOut: {type: DataType.BOOLEAN, defaultValue: false},
+  counterbalance: {type: DataType.BOOLEAN, defaultValue: false},
 }));

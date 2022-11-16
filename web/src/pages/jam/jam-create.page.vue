@@ -107,7 +107,7 @@ export default class JamCreatePage extends Page {
     const mins = ['00', '15', '30', '45'];
     for (let h = 0; h < 24; h++) {
       for (let m = 0; m < mins.length; m++) {
-        let time = `${h}:${mins[m]}`;
+        const time = `${h}:${mins[m]}`;
         this.times.push({text: time, value: time});
       }
     }

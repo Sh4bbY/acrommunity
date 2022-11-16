@@ -13,6 +13,10 @@
             <h3>{{ $t('field.email') }}</h3>
             <span>{{ user.email }}</span>
             <v-spacer class="my-5"/>
+            <h3>{{ $t('field.createdAt') }}</h3>
+            <moment v-model="user.createdAt"/>
+            <v-spacer class="my-5"/>
+            <v-checkbox v-model="user.isAdmin" :label="$t('field.isAdmin')" disabled/>
           </v-col>
         </v-row>
       </v-card-text>
@@ -47,10 +51,11 @@
 
 <script lang="ts">
 import {Component, Watch} from 'vue-property-decorator';
-import Page from '../page.vue';
+import Moment from '~/components/moment.vue';
+import Page from '../../page.vue';
 
 @Component({
-  components: {},
+  components: {Moment},
 })
 export default class UserDetailsPage extends Page {
   user: any = null;

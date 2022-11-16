@@ -1,3 +1,4 @@
+import {Status} from '@acrommunity/common';
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {literal, Op, WhereOptions} from 'sequelize';
@@ -12,12 +13,22 @@ export class AcroletteService {
     @InjectModel(Transition) private transitionModel: typeof Transition) {
   }
 
+  async getPoseOptions() {
+    return await this.poseModel.findAll({where: {persons: 2, status: Status.Accepted}});
+  }
+
   async getRandomPose(query: any) {
     const currentPoseId = query.current ? Number(query.current) : null;
-    const where: WhereOptions<Pose> = {};
+    const where: WhereOptions<Pose> = {persons: 2, status: Status.Accepted};
 
-    console.log(query.validTransitions, currentPoseId, query.validTransitions && currentPoseId);
-    if (query.validTransitions && currentPoseId) {
+    if (query.startPoseId) {
+      return await this.poseModel.findOne({
+        where: {...where, id: query.startPoseId},
+        include: [Attachment, Alias],
+      });
+    }
+
+    if (currentPoseId) {
       const transitions = await this.transitionModel.findAll({
         where: {
           [Op.or]: {
@@ -31,9 +42,8 @@ export class AcroletteService {
         [Op.in]: transitionIds,
         [Op.not]: currentPoseId,
       };
-    } else if (currentPoseId) {
-      where.id = {[Op.not]: currentPoseId};
     }
+
     if (query.difficulty) {
       where.difficulty = {
         [Op.and]: {

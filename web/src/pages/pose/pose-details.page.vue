@@ -29,7 +29,7 @@
         </div>
 
         <v-row>
-          <v-col cols="12" sm="6" md="4" lg="3" v-for="(attachment,i) in pose.attachments" :key="attachment.id">
+          <v-col cols="12" sm="6" md="4" lg="3" v-for="attachment in pose.attachments" :key="attachment.id">
             <v-sheet class="d-flex flex-column align-center relative" outlined rounded>
               <div class="delete-btn">
                 <tooltip-button icon="mdi-delete" :tooltip="$t('action.removeItem', {item: $tc('p.image')})" @click="removeAttachment(attachment.id)"/>
@@ -49,6 +49,15 @@
           <!--            <h3 class="mb-2">{{ $t('field.description') }}</h3>-->
           <!--            <vue-editor v-model="pose.description" @keyup.enter.ctrl="updateData({description: pose.description})"/>-->
           <!--          </v-col>-->
+          <v-col cols="12" md="4">
+            <v-checkbox v-model="pose.counterbalance" :label="$tc('p.counterbalance')" @change="updateData({counterbalance: pose.counterbalance})"/>
+          </v-col>
+          <v-col cols="12" md="4">
+            <v-checkbox v-model="pose.easyIn" :label="$t('field.easyIn')" @change="updateData({easyIn: pose.easyIn})"/>
+          </v-col>
+          <v-col cols="12" md="4">
+            <v-checkbox v-model="pose.easyOut" :label="$t('field.easyOut')" @change="updateData({easyOut: pose.easyOut})"/>
+          </v-col>
           <v-col cols="12" md="4">
             <v-select v-model="pose.difficulty" :label="$t('field.difficulty')" :items="difficultyOptions" :class="{highlight: !pose.difficulty}"
                       @change="updateData({difficulty: pose.difficulty})"/>
@@ -339,11 +348,11 @@ export default class PoseDetailsPage extends Page {
   }
 
   get targetTransitions() {
-    return this.$store.state.app.poses.filter(p => !this.targets.find(tp => tp.id === p.id));
+    return this.$store.state.app.poses.filter(p => p.id !== this.pose.id && !this.targets.find(tp => tp.id === p.id));
   }
 
   get sourceTransitions() {
-    return this.$store.state.app.poses.filter(p => !this.sources.find(sp => sp.id === p.id));
+    return this.$store.state.app.poses.filter(p => p.id !== this.pose.id && !this.sources.find(sp => sp.id === p.id));
   }
 
   get sortedTargets() {

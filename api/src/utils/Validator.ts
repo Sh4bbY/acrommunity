@@ -30,7 +30,7 @@ export class Validator {
       limit: query.limit && query.limit !== '-1' ? Number(query.limit) : undefined,
       offset: query.offset ? Number(query.offset) : undefined,
       order: query.order?.map(item => item.split(':')),
-      filter: query.filter ? JSON.parse(query.filter) : undefined,
+      filter: query.filter,
     };
   }
 }

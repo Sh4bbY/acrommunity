@@ -19,7 +19,7 @@
         </div>
         <v-row v-if="type === 'name-of-pose'">
           <v-col v-for="answer in question.answers" :key="answer.text" cols="12" sm="6" lg="3" class="py-1">
-            <v-btn width="100%" :color="getColor(answer.text)" @click="onAnswerClick(answer)">{{ answer.text }}</v-btn>
+            <v-btn width="100%" :color="getColor(answer.text)" @click="onAnswerClick(answer)" class="answer-btn">{{ answer.text }}</v-btn>
           </v-col>
         </v-row>
         <v-row v-else-if="type === 'look-of-pose'">
@@ -150,5 +150,16 @@ export default class AcroQuiz extends Vue {
   width: 100%;
   height: 100%;
   background-color: rgba(orange, 0.5);
+}
+
+.answer-btn {
+  height: auto !important;
+  padding: 6px 16px !important;
+  min-height: 36px;
+
+  ::v-deep span.v-btn__content {
+    white-space: break-spaces;
+    width: 100%;
+  }
 }
 </style>

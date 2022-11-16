@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Post, Req, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Query, Req, UseGuards} from '@nestjs/common';
 import {AuthGuard} from '@nestjs/passport';
 import {Validator} from '~/utils';
 import {CommentService} from './comment.service';
@@ -8,6 +8,12 @@ import {CommentDto} from './dto';
 @UseGuards(AuthGuard('jwt'))
 export class CommentController {
   constructor(private readonly commentService: CommentService) {
+  }
+
+  @Get()
+  async getPaginatedData(@Query() query) {
+    const queryParams = Validator.validatePaginatedQuery(query);
+    return await this.commentService.getPaginatedData(queryParams);
   }
 
   @Post()

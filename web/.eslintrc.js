@@ -18,6 +18,12 @@ module.exports = {
   },
   overrides: [
     {
+      files: ['*.vue'],
+      rules: {
+        'vue/valid-v-slot': 'off',
+      },
+    },
+    {
       files: ['*.js'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off',

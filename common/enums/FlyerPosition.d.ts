@@ -8,5 +8,6 @@ export declare enum FlyerPosition {
     ON_HANDS = "on_hands",
     KNEELING = "kneeling",
     ON_HEAD = "on_head",
-    ON_THIGHS_HEADOVER = "on_thighs_headover"
+    ON_THIGHS_HEADOVER = "on_thighs_headover",
+    ON_ARMS = "on_arms"
 }

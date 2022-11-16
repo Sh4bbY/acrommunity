@@ -22,19 +22,19 @@ export class PoseService {
 
   async getPaginatedData(query: any) {
     const where: WhereOptions<Pose> = {};
-    if (query.filter.persons) {
+    if (query.filter?.persons) {
       where.persons = query.filter.persons;
     }
-    if (query.filter.basePosition) {
+    if (query.filter?.basePosition) {
       where.basePosition = query.filter.basePosition;
     }
-    if (query.filter.flyerPosition) {
+    if (query.filter?.flyerPosition) {
       where.flyerPosition = query.filter.flyerPosition;
     }
-    if (query.filter.status) {
+    if (query.filter?.status) {
       where.status = query.filter.status;
     }
-    if (query.filter.difficulty) {
+    if (query.filter?.difficulty) {
       where.difficulty = {
         [Op.and]: [
           {[Op.gte]: query.filter.difficulty[0]},
@@ -42,7 +42,7 @@ export class PoseService {
         ],
       };
     }
-    if (query.filter.name) {
+    if (query.filter?.name) {
       const nameParts = query.filter.name.trim().split(' ').map(part => part.trim());
       where.name = {
         [Op.and]: nameParts.map(part => ({[Op.like]: `%${part}%`})),

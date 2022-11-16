@@ -2,12 +2,13 @@
   <v-container>
     <v-btn @click="exportData" class="ma-2">Export Data</v-btn>
     <v-btn @click="backupData" class="ma-2">Backup Data</v-btn>
+    <v-btn @click="dev" class="ma-2">Do Dev Stuff</v-btn>
   </v-container>
 </template>
 
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
-import Page from './page.vue';
+import Page from '../page.vue';
 
 @Component({
   components: {},
@@ -33,6 +34,15 @@ export default class DevPage extends Page {
     try {
       await this.$api.get('/api/admin/backup/data');
       this.$notify.success('Data backup complete');
+    } catch (e) {
+      this.$notify.error(e);
+    }
+  }
+
+  async dev() {
+    try {
+      await this.$api.get('/api/admin/dev');
+      this.$notify.success('Dev stuff complete');
     } catch (e) {
       this.$notify.error(e);
     }

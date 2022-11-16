@@ -53,6 +53,7 @@ export default class AcroletteGame extends Vue {
       this.timerValue = this.settings.switch.duration;
       this.intervalId = window.setInterval(() => this.update(), 1000);
     }
+    this.isMuted = !this.settings.playSound;
 
     this.speechSynthesis = new SpeechSynthesisUtterance();
     this.speechSynthesis.lang = 'en-US';
@@ -94,10 +95,10 @@ export default class AcroletteGame extends Vue {
       const params: any = {};
       if (this.pose) {
         params.current = this.pose.id;
+      } else if (this.settings.poses.startPoseId) {
+        params.startPoseId = this.settings.poses.startPoseId;
       }
       params.basePositions = this.settings.poses.basePositions;
-      params.flyerPositions = this.settings.poses.flyerPositions;
-      params.validTransitions = this.settings.transitions.onlyValid;
       params.difficulty = this.settings.difficulty;
 
       const response = await this.$api.get(`/api/acrolette/pose`, {params});

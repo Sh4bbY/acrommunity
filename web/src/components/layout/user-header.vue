@@ -1,7 +1,9 @@
 <template>
   <v-app-bar app clipped-left dark color="primary" short>
     <v-app-bar-nav-icon v-if="$vuetify.breakpoint.smAndUp" @click="onNavIconClick"/>
-    <v-img src="/img/logo.png" max-height="40" max-width="100" contain/>
+    <router-link :to="{name: 'home'}">
+      <v-img src="/img/logo.png" max-height="40" max-width="100" contain/>
+    </router-link>
     <v-app-bar-title>{{ $store.state.app.title }}</v-app-bar-title>
     <v-spacer/>
     <user-menu v-if="$store.state.auth.isSignedIn"/>

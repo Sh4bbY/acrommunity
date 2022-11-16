@@ -1,5 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
+import {WhereOptions} from 'sequelize';
 import {Comment, User} from '~/models';
 
 @Injectable()
@@ -13,8 +14,15 @@ export class CommentService {
     return await this.commentModel.create(commentData);
   }
 
-  async getAll(): Promise<Comment[]> {
-    return await this.commentModel.findAll();
+
+  async getPaginatedData(query: any) {
+    const where: WhereOptions<Comment> = {};
+    return await this.commentModel.findAndCountAll({
+      where,
+      limit: query.limit,
+      offset: query.offset,
+      order: query.order,
+    });
   }
 
   async getCommentsFor(commentableType: string, commentableId: number): Promise<Comment[]> {

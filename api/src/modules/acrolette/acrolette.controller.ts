@@ -13,4 +13,9 @@ export class AcroletteController {
   async getOne(@Query() query: any) {
     return await this.acroletteService.getRandomPose(query);
   }
+
+  @Get('pose-options')
+  async getPoseOptions() {
+    return await this.acroletteService.getPoseOptions();
+  }
 }

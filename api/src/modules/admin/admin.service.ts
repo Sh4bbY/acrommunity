@@ -1,7 +1,7 @@
 import {Injectable, Logger} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import fs from 'fs';
-import {Alias, Attachment, Pose, Tag, Transition} from '~/models';
+import {Alias, Attachment, Image, Pose, Tag, Transition, Video} from '~/models';
 import {PT_Attachable, PT_Taggable} from '~/models/pivot';
 
 @Injectable()
@@ -14,6 +14,8 @@ export class AdminService {
     @InjectModel(PT_Taggable) private taggableModel: typeof PT_Taggable,
     @InjectModel(Tag) private tagModel: typeof Tag,
     @InjectModel(Alias) private aliasModel: typeof Alias,
+    @InjectModel(Image) private imageModel: typeof Image,
+    @InjectModel(Video) private videoModel: typeof Video,
   ) {
   }
 
@@ -44,5 +46,27 @@ export class AdminService {
       attachables,
       taggables,
     };
+  }
+
+  async getInstagramAccounts(): Promise<any> {
+    const [images, videos] = await Promise.all([
+      this.imageModel.findAll({raw: true}),
+      this.videoModel.findAll({raw: true})]);
+
+    const accounts = [];
+    images.forEach(image => {
+      if (!accounts.includes(image.copyright)) {
+        accounts.push(image.copyright);
+      }
+    });
+
+    videos.forEach(video => {
+      if (!accounts.includes(video.copyright)) {
+        accounts.push(video.copyright);
+      }
+    });
+
+    console.log(accounts);
+    return accounts;
   }
 }

@@ -1,5 +1,5 @@
 import {IFlowGeneratorSettings} from '@acrommunity/common';
-import {Body, Controller, Post, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, Post, UseGuards} from '@nestjs/common';
 import {AuthGuard} from '@nestjs/passport';
 import {FlowGeneratorService} from './flow-generator.service';
 
@@ -13,5 +13,10 @@ export class FlowGeneratorController {
   @Post('generate')
   async generate(@Body() body: IFlowGeneratorSettings) {
     return await this.flowGeneratorService.generate(body);
+  }
+
+  @Get('pose-options')
+  async getPoseOptions() {
+    return await this.flowGeneratorService.getPoseOptions();
   }
 }

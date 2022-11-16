@@ -29,6 +29,15 @@ export class Pose extends Model<Pose> {
   @Column({type: DataType.STRING})
   declare flyerPosition: string;
 
+  @Column({type: DataType.BOOLEAN})
+  declare easyIn: boolean;
+
+  @Column({type: DataType.BOOLEAN})
+  declare easyOut: boolean;
+
+  @Column({type: DataType.BOOLEAN})
+  declare counterbalance: boolean;
+
   @Column({type: DataType.STRING})
   declare status: Status;
 

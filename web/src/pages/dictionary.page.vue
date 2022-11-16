@@ -1,10 +1,21 @@
 <template>
   <v-container>
-    <ul>
-      <li v-for="(link, idx) in links" :key="idx">
-        <router-link :to="{name: link.name}">{{ link.text }}</router-link>
-      </li>
-    </ul>
+    <h2 class="text-center">{{ $t('label.dictionary') }}</h2>
+    <v-row>
+      <v-col v-for="(card, idx) in cards" :key="idx" cols="6" class="pb-0 pt-4">
+        <v-card :to="card.to">
+          <v-img
+              :src="card.img"
+              class="white--text align-end"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              height="170px"
+          >
+            <v-card-title>{{ card.title }}</v-card-title>
+            <v-card-subtitle>{{ card.subTitle }}</v-card-subtitle>
+          </v-img>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -18,13 +29,13 @@ export default class DictionaryPage extends Page {
     return this.$t('label.dictionary');
   }
 
-  get links() {
+  get cards() {
     return [
-      {name: 'poses', text: this.$tc('p.pose', 2)},
-      {name: 'flows', text: this.$tc('p.flow', 2)},
-      {name: 'skills', text: this.$tc('p.skill', 2)},
-      {name: 'images', text: this.$tc('p.image', 2)},
-      {name: 'videos', text: this.$tc('p.video', 2)},
+      {to: {name: 'poses'}, title: this.$tc('p.pose', 2), subTitle: 'Entdecke bis zu Explore123 Posen', img: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'},
+      {to: {name: 'flows'}, title: this.$tc('p.flow', 2), subTitle: 'Lorem ipsum dolor sit amet...', img: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'},
+      // {to: {name: 'skills'}, title: this.$tc('p.skill', 2), subTitle: 'Lorem ipsum dolor sit amet...', img: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'},
+      {to: {name: 'images'}, title: this.$tc('p.image', 2), subTitle: 'Lorem ipsum dolor sit amet...', img: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'},
+      {to: {name: 'videos'}, title: this.$tc('p.video', 2), subTitle: 'Lorem ipsum dolor sit amet...', img: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'},
     ];
   }
 }

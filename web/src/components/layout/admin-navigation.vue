@@ -40,22 +40,28 @@ import {Component} from 'vue-property-decorator';
 export default class AdminNavigation extends Vue {
   isGroupOpen = {
     dictionary: false,
-    games: false,
+    apps: false,
     events: false,
+    admin: false,
   };
 
   mounted() {
-    if (this.startsWithAny(this.$route.path, ['/poses', '/flows', '/skills', '/images', '/videos'])) {
+    this.updateGroupOpenState();
+  }
+
+  updateGroupOpenState() {
+    const path = window.location.pathname;
+    if (this.startsWithAny(path, ['/poses', '/flows', '/skills', '/images', '/videos'])) {
       this.isGroupOpen.dictionary = true;
-      return;
     }
-    if (this.startsWithAny(this.$route.path, ['/acrolette', '/acro-quiz'])) {
-      this.isGroupOpen.games = true;
-      return;
+    if (this.startsWithAny(path, ['/apps'])) {
+      this.isGroupOpen.apps = true;
     }
-    if (this.startsWithAny(this.$route.path, ['/jams'])) {
-      this.isGroupOpen.games = true;
-      return;
+    if (this.startsWithAny(path, ['/jams'])) {
+      this.isGroupOpen.events = true;
+    }
+    if (this.startsWithAny(path, ['/admin'])) {
+      this.isGroupOpen.admin = true;
     }
   }
 
@@ -72,8 +78,9 @@ export default class AdminNavigation extends Vue {
         ],
       },
       {
-        title: this.$tc('p.game', 2), icon: 'mdi-gamepad-variant', open: this.isGroupOpen.games, children: [
-          {title: this.$t('label.acrolette'), icon: 'mdi-gamepad', route: {name: 'acrolette'}, exact: false},
+        title: this.$tc('p.app', 2), icon: 'mdi-leaf', open: this.isGroupOpen.apps, children: [
+          {title: this.$t('label.flowGenerator'), icon: 'mdi-slot-machine', route: {name: 'flow-generator'}, exact: false},
+          {title: this.$t('label.acrolette'), icon: 'mdi-gamepad-variant', route: {name: 'acrolette'}, exact: false},
           {title: this.$t('label.acroQuiz'), icon: 'mdi-help-circle', route: {name: 'acro-quiz'}, exact: false},
         ],
       },
@@ -82,11 +89,15 @@ export default class AdminNavigation extends Vue {
           {title: this.$tc('p.jam', 2), icon: 'mdi-account-group', route: {name: 'jams'}, exact: false},
         ],
       },
-      {title: this.$t('label.flowGenerator'), icon: 'mdi-spa', route: {name: 'flow-generator'}, exact: false},
+      {
+        title: this.$t('label.administration'), icon: 'mdi-security', open: this.isGroupOpen.admin, children: [
+          {title: this.$tc('p.user', 2), icon: 'mdi-account-multiple', route: {name: 'users'}, exact: false},
+          {title: this.$tc('p.comment', 2), icon: 'mdi-chat', route: {name: 'comments'}, exact: false},
+          {title: 'Dev', icon: 'mdi-dev-to', route: {name: 'dev'}, exact: false},
+        ],
+      },
       {title: this.$tc('p.reference', 2), icon: 'mdi-web', route: {name: 'references'}, exact: false},
-      {title: this.$tc('p.user', 2), icon: 'mdi-account-multiple', route: {name: 'users'}, exact: false},
       {title: 'Communities', icon: 'mdi-account-group', route: {name: 'communities'}, exact: false},
-      {title: 'Dev', icon: 'mdi-dev-to', route: {name: 'dev'}, exact: false},
     ];
   }
 

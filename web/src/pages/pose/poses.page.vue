@@ -82,7 +82,7 @@ export default class PosesPage extends Page {
   favorites = [];
   filter = {
     name: null,
-    persons: null,
+    persons: 2,
     status: Status.Suggestion,
     difficulty: [1, 6],
     basePosition: null,
@@ -168,7 +168,7 @@ export default class PosesPage extends Page {
   }
 
   get personOptions() {
-    return [1, 2, 3, 4, 5];
+    return [2, 3, 4];
   }
 
   get sortByOptions() {

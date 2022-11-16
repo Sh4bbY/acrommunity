@@ -1,5 +1,9 @@
 export const de = {
   p: {
+    app: 'Anwendung | Anwendungen',
+    counterbalance: 'Counterbalance | Counterbalances',
+    flyerPosition: 'Flieger Position | Flieger Positionen',
+    basePosition: 'Base Position | Base Positionen',
     url: 'Url | Urls',
     flyer: 'Flyer | Flyers',
     base: 'Base | Bases',
@@ -30,6 +34,12 @@ export const de = {
     action: 'Aktion | Aktionen',
   },
   field: {
+    isAdmin: 'Ist Administrator',
+    author: 'Autor',
+    text: 'Text',
+    createdAt: 'Erstellt am',
+    easyIn: 'Einfacher Einstieg',
+    easyOut: 'Einfacher Ausstieg',
     persons: 'Personen',
     status: 'Status',
     icon: 'Icon',
@@ -53,6 +63,8 @@ export const de = {
     basePosition: 'Base Position',
   },
   label: {
+    availablePoses: 'Verfügbare Posen',
+    administration: 'Administration',
     location: 'Ort',
     distance: 'Entfernung',
     direction: 'Richtung',
@@ -139,6 +151,7 @@ export const de = {
     lying_on_belly: 'Auf dem Bauch liegend',
     standing: 'Stehend',
     sitting: 'Sitzend',
+    handstand: 'Handstand',
   },
   flyerPosition: {
     standing: 'Stehend',
@@ -150,7 +163,9 @@ export const de = {
     on_hands: 'Auf den Händen',
     kneeling: 'Knieend',
     on_head: 'Auf dem Kopf',
-    on_thighs_headover: 'Auf dem Oberschenkeln',
+    on_thighs_headover: 'Auf den Oberschenkeln',
+    on_arms: 'Auf den Armen',
+    diverse: 'Divers',
   },
   difficulty: {
     veryEasy: 'Sehr einfach',
@@ -173,7 +188,7 @@ export const de = {
   },
   acrolette: {
     settings: {
-      validTransitions: 'Nur direkte Übergänge',
+      playSound: 'Namen der Pose vorlesen',
     },
   },
   flowGenerator: {

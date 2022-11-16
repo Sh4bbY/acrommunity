@@ -7,7 +7,7 @@
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
 import FlowGenerator from '~/components/flow-generator/flow-generator.vue';
-import Page from './page.vue';
+import Page from '../page.vue';
 
 @Component({
   components: {FlowGenerator},

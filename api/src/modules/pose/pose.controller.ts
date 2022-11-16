@@ -68,6 +68,9 @@ export class PoseController {
       persons: Joi.number().optional(),
       basePosition: Joi.string().optional(),
       flyerPosition: Joi.string().optional(),
+      easyIn: Joi.boolean().optional(),
+      easyOut: Joi.boolean().optional(),
+      counterbalance: Joi.boolean().optional(),
       status: Joi.string().optional(),
       name: Joi.string().optional(),
     }), body);

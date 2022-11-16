@@ -1,4 +1,3 @@
-import {Logger} from '@nestjs/common';
 import {SequelizeModuleOptions} from '@nestjs/sequelize';
 import dotenv from 'dotenv';
 import path from 'path';
@@ -57,7 +56,7 @@ export function sequelizeOptions(models: ModelCtor[] = []): SequelizeModuleOptio
     username: config.sql.username,
     password: config.sql.password,
     database: config.sql.database,
-    logging: config.production ? false : (msg: string) => Logger.debug(msg),
+    logging: config.production ? false : false, //(msg: string) => Logger.debug(msg),
     query: {
       nest: true,
     },

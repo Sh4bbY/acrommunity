@@ -62,7 +62,7 @@ export const authStore: Module<AuthState, RootState> = {
 
       dispatch('user/updateState', undefined, {root: true});
     },
-    async loginByToken({commit, dispatch, state}) {
+    async loginByToken({commit, dispatch}) {
       try {
         const {data} = await api.post('/api/auth/refresh');
         commit('setAccessToken', data.token);

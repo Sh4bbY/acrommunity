@@ -1,17 +1,20 @@
 import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
+import CommentsPage from '~/pages/admin/comments.page.vue';
+import DevPage from '~/pages/admin/dev.page.vue';
+import UserDetailsPage from '~/pages/admin/user/user-details.page.vue';
+import UsersPage from '~/pages/admin/user/users.page.vue';
+import AcroQuizPage from '~/pages/apps/acro-quiz.page.vue';
+import AcrolettePage from '~/pages/apps/acrolette.page.vue';
+import GamesPage from '~/pages/apps/apps.page.vue';
+import FlowGeneratorPage from '~/pages/apps/flow-generator.page.vue';
 import LoginPage from '~/pages/auth/login.page.vue';
 import RegisterPage from '~/pages/auth/register.page.vue';
 import CommunitiesPage from '~/pages/communities.page.vue';
-import DevPage from '~/pages/dev.page.vue';
 import DictionaryPage from '~/pages/dictionary.page.vue';
-import FlowGeneratorPage from '~/pages/flow-generator.page.vue';
 import FlowCreatePage from '~/pages/flow/flow-create.page.vue';
 import FlowDetailsPage from '~/pages/flow/flow-details.page.vue';
 import FlowsPage from '~/pages/flow/flows.page.vue';
-import AcroQuizPage from '~/pages/games/acro-quiz.page.vue';
-import AcrolettePage from '~/pages/games/acrolette.page.vue';
-import GamesPage from '~/pages/games/games.page.vue';
 import HomePage from '~/pages/home.page.vue';
 import ImagesPage from '~/pages/image/images.page.vue';
 import JamCreatePage from '~/pages/jam/jam-create.page.vue';
@@ -29,8 +32,6 @@ import ReferencesPage from '~/pages/references.page.vue';
 import SkillCreatePage from '~/pages/skill/skill-create.page.vue';
 import SkillDetailsPage from '~/pages/skill/skill-details.page.vue';
 import SkillsPage from '~/pages/skill/skills.page.vue';
-import UserDetailsPage from '~/pages/user/user-details.page.vue';
-import UsersPage from '~/pages/user/users.page.vue';
 import VideosPage from '~/pages/video/videos.page.vue';
 import {store} from '~/store';
 
@@ -59,17 +60,18 @@ const routes: Array<RouteConfig> = [
   {path: '/skills/:id', name: 'skill-details', component: SkillDetailsPage},
   {path: '/images', name: 'images', component: ImagesPage},
   {path: '/videos', name: 'videos', component: VideosPage},
-  {path: '/users', name: 'users', component: UsersPage, meta: {access: 'admin'}},
-  {path: '/users/:id', name: 'user-details', component: UserDetailsPage, meta: {access: 'admin'}},
-  {path: '/games', name: 'games', component: GamesPage},
-  {path: '/games/acrolette', name: 'acrolette', component: AcrolettePage},
-  {path: '/games/acro-quiz', name: 'acro-quiz', component: AcroQuizPage},
-  {path: '/flow-generator', name: 'flow-generator', component: FlowGeneratorPage},
+  {path: '/apps', name: 'apps', component: GamesPage},
+  {path: '/apps/acrolette', name: 'acrolette', component: AcrolettePage},
+  {path: '/apps/acro-quiz', name: 'acro-quiz', component: AcroQuizPage},
+  {path: '/apps/flow-generator', name: 'flow-generator', component: FlowGeneratorPage},
   {path: '/references', name: 'references', component: ReferencesPage},
-  {path: '/dev', name: 'dev', component: DevPage, meta: {access: 'admin'}},
   {path: '/communities', name: 'communities', component: CommunitiesPage},
   {path: '/my/lists', name: 'my-lists', component: MyListsPage, meta: {access: 'user'}},
   {path: '/my/favorites', name: 'my-favorites', component: MyFavoritesPage, meta: {access: 'user'}},
+  {path: '/admin/dev', name: 'dev', component: DevPage, meta: {access: 'admin'}},
+  {path: '/admin/users', name: 'users', component: UsersPage, meta: {access: 'admin'}},
+  {path: '/admin/users/:id', name: 'user-details', component: UserDetailsPage, meta: {access: 'admin'}},
+  {path: '/admin/comments', name: 'comments', component: CommentsPage, meta: {access: 'admin'}},
 
   // 404 page needs to be last in routes array
   {path: '*', name: 'not-found', component: () => import( /* webpackChunkName: "404.page" */ './pages/404.page.vue')},

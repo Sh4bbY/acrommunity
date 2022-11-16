@@ -1,14 +1,6 @@
 <template>
   <div>
-    <v-card>
-      <v-toolbar color="primary" dark dense>
-        <v-toolbar-title>{{ $t('label.flowGenerator') }}</v-toolbar-title>
-      </v-toolbar>
-
-      <v-card-text>
-        <flow-generator-settings v-model="settings" @generate="onGenerate"/>
-      </v-card-text>
-    </v-card>
+    <flow-generator-settings v-model="settings" @generate="onGenerate"/>
 
     <v-sheet v-if="flow" class="mt-5">
       <flow-generator-result :flow="flow"/>
@@ -28,19 +20,23 @@ import FlowGeneratorSettings from '~/components/flow-generator/flow-generator-se
 })
 export default class FlowGenerator extends Vue {
   settings: IFlowGeneratorSettings = {
-    numberPoses: 6,
-    isWashingMachine: false,
+    numberPoses: 8,
+    isWashingMachine: true,
     startPoseId: 1,
     endPoseId: null,
-    difficulty: [1, 10],
-    basePositions: [BasePosition.LYING_ON_BACK],
+    difficulty: [1, 3],
+    basePositions: [BasePosition.LYING_ON_BACK, BasePosition.STANDING, BasePosition.SITTING],
     flyerPositions: [],
   };
   flow = null;
 
   async onGenerate() {
     try {
-      const response = await this.$api.post('/api/flow-generator/generate', this.settings);
+      const payload = {
+        ...this.settings,
+        endPoseId: this.settings.isWashingMachine ? this.settings.startPoseId : this.settings.endPoseId,
+      };
+      const response = await this.$api.post('/api/flow-generator/generate', payload);
       this.flow = response.data;
     } catch (e) {
       this.$notify.error(e);
