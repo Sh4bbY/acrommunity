@@ -1,11 +1,9 @@
-import {Controller, Get, Param, Query, UseGuards} from '@nestjs/common';
-import {AuthGuard} from '@nestjs/passport';
+import {Controller, Get, Param, Query} from '@nestjs/common';
 import Joi from 'joi';
 import {Validator} from '~/utils';
 import {VideoService} from './video.service';
 
 @Controller('/api/videos')
-@UseGuards(AuthGuard('jwt'))
 export class VideoController {
   constructor(private readonly videoService: VideoService) {
   }

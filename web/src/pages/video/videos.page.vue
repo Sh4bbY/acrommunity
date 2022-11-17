@@ -1,12 +1,15 @@
 <template>
   <v-container>
-    <media-dialog v-model="dialog.show" :item="dialog.item" type="video" :is-first="dialog.isFirst" :is-last="dialog.isLast" @next="loadNextVideo" @prev="loadPrevVideo"/>
+    <media-dialog v-model="dialog.show" :item="dialog.item" type="video" :fullscreen="$vuetify.breakpoint.xs" :is-first="dialog.isFirst" :is-last="dialog.isLast"
+                  @next="loadNextVideo" @prev="loadPrevVideo"/>
     <v-card>
       <v-toolbar color="primary" dark dense>
-        <v-toolbar-title>{{ $tc('p.video', 2) }}</v-toolbar-title>
+        <v-toolbar-title>
+          <breadcrumb-title :title="$tc('p.video', 2)" :parents="[{to: {name: 'dictionary'}, text: $t('label.dictionary')}]"/>
+        </v-toolbar-title>
         <v-spacer/>
-        <tooltip-button :icon="showFilter ? 'mdi-filter' : 'mdi-filter-outline'"
-                        :tooltip="showFilter ? $t('action.hideItem', {item: $tc('p.filter',2)}) : $t('action.showItem', {item: $tc('p.filter',2)})" left
+        <tooltip-button :icon="showFilter ? 'mdi-filter' : 'mdi-filter-outline'" left :top="false"
+                        :tooltip="showFilter ? $t('action.hideItem', {item: $tc('p.filter',2)}) : $t('action.showItem', {item: $tc('p.filter',2)})"
                         @click="showFilter = !showFilter"/>
       </v-toolbar>
 
@@ -32,15 +35,23 @@
         </v-sheet>
       </v-expand-transition>
 
-
-      <paginated-grid url="/api/videos" :search-params="searchParams" @update="videos=$event" class="mt-5">
-        <template #item="{item}">
-          <div class="d-flex justify-center align-center">
-            <v-card @click="showDialog(item)" class="thumbnail-card">
-              <img :src="item.thumbnail" style="max-height: 150px; max-width: 100%"/>
-            </v-card>
-          </div>
+      <paginated-grid url="/api/videos" :options="options" :search-params="searchParams" @update="videos=$event">
+        <template #items="{items}">
+          <v-row no-gutters>
+            <v-col v-for="item in items" :key="item.url" cols="6" sm="4" md="3" lg="2">
+              <v-card @click="showDialog(item)" tile>
+                <v-img :src="item.thumbnail" width="100%" height="200px"/>
+              </v-card>
+            </v-col>
+          </v-row>
         </template>
+        <!--        <template #item="{item}">-->
+        <!--          <div class="d-flex justify-center align-center">-->
+        <!--            <v-card @click="showDialog(item)" class="thumbnail-card">-->
+        <!--              <img :src="item.thumbnail" style="max-height: 150px; max-width: 100%"/>-->
+        <!--            </v-card>-->
+        <!--          </div>-->
+        <!--        </template>-->
       </paginated-grid>
     </v-card>
   </v-container>
@@ -48,13 +59,14 @@
 
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
-import MediaDialog from '~/components/media-dialog.vue';
+import BreadcrumbTitle from '~/components/breadcrumb-title.vue';
 import PaginatedGrid from '~/components/common/paginated-grid.vue';
 import TooltipButton from '~/components/common/tooltip-button.vue';
+import MediaDialog from '~/components/dialogs/media-dialog.vue';
 import Page from '../page.vue';
 
 @Component({
-  components: {PaginatedGrid, TooltipButton, MediaDialog},
+  components: {PaginatedGrid, TooltipButton, MediaDialog, BreadcrumbTitle},
 })
 export default class VideosPage extends Page {
   videos = [];
@@ -70,7 +82,8 @@ export default class VideosPage extends Page {
     isFirst: false,
     isLast: false,
   };
-  showFilter = true;
+  showFilter = false;
+  options = {itemsPerPage: 24};
   searchParams = {};
 
   get title() {
@@ -152,10 +165,4 @@ export default class VideosPage extends Page {
 </script>
 
 <style lang="scss" scoped>
-.thumbnail-card {
-  width: auto;
-  display: inline-block;
-  padding-bottom: 0;
-  max-height: 150px;
-}
 </style>

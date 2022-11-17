@@ -20,7 +20,7 @@ import Vue from 'vue';
 import VueHorizontal from 'vue-horizontal';
 import {Component} from 'vue-property-decorator';
 import ItemMenu from '~/components/item/item-menu.vue';
-import MediaDialog from '~/components/media-dialog.vue';
+import MediaDialog from '~/components/dialogs/media-dialog.vue';
 
 @Component({
   components: {ItemMenu, VueHorizontal, MediaDialog},

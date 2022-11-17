@@ -9,7 +9,7 @@
         </div>
       </div>
     </v-hover>
-    <iframe v-else :width="width === 'auto' ? '100%' : width" :height="height" :src="embedUrl" title="YouTube video player" frameborder="0"
+    <iframe v-else :width="width === 'auto' ? '100%' : width" :height="computedHeight" :src="embedUrl" title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
 </template>
@@ -74,6 +74,14 @@ export default class EmbedYoutube extends Vue {
 
   get thumbnail(): string {
     return `https://img.youtube.com/vi/${this.videoId}/hqdefault.jpg`;
+  }
+
+  get computedHeight() {
+    if (this.height === 'auto') {
+      const el = this.$refs.wrapper as HTMLElement;
+      return el ? el.clientHeight + 'px' : this.height;
+    }
+    return this.height;
   }
 }
 </script>

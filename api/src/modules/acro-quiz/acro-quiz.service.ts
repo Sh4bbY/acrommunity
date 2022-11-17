@@ -1,9 +1,11 @@
+import {QuestionType} from '@acrommunity/common';
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {literal, Op} from 'sequelize';
 import {Pose, Transition} from '~/models';
 import {Alias} from '~/models/Alias';
 import {Attachment} from '~/models/Attachment';
+import {AnswerDTO} from '~/modules/acro-quiz/acro-quiz.controller';
 import {Randomizer} from '~/utils';
 
 @Injectable()
@@ -13,7 +15,7 @@ export class AcroQuizService {
     @InjectModel(Transition) private transitionModel: typeof Transition) {
   }
 
-  async getQuestion() {
+  async getNameOfPoseQuestion() {
     const poses = await this.poseModel.findAll({
       include: [{model: Attachment, required: true}, Alias],
       order: [literal('rand()')],
@@ -32,9 +34,9 @@ export class AcroQuizService {
       .sort(Randomizer.randomSort);
 
     return {
-      text: 'What is the name of this pose?',
+      pose: {id: pose.id},
+      type: QuestionType.NameOfPose,
       img: pose.attachments[0].url,
-      poseId: pose.id,
       answers,
     };
   }
@@ -59,21 +61,30 @@ export class AcroQuizService {
       .sort(Randomizer.randomSort);
 
     return {
-      text: `How does "${pose.name}" look like?`,
-      poseId: pose.id,
+      type: QuestionType.LookOfPose,
+      pose: {id: pose.id, name: pose.name},
       answers,
     };
   }
 
-  async postSolution(body: any) {
-    const pose = await this.poseModel.findOne({
-      where: {id: body.poseId},
-      include: [Alias],
-    });
+  async checkAnswer(body: AnswerDTO) {
+    const answer = body.answer;
+    let record;
+    switch (body.type) {
+      case QuestionType.NameOfPose:
+        record = await this.poseModel.findOne({where: {id: answer.id}});
+        return {
+          isCorrect: record.name === answer.selection,
+          solution: record.name,
+        };
 
-    return {
-      isCorrect: pose.name === body.solution,
-      solution: pose.name,
-    };
+      case QuestionType.LookOfPose:
+        record = await this.poseModel.findOne({where: {id: answer.id}, include: [Attachment]});
+        const pose = record.get({plain: true});
+        return {
+          isCorrect: !!pose.attachments.find(attachment => attachment.url === answer.selection),
+          solution: pose.attachments[0].url,
+        };
+    }
   }
 }

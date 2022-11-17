@@ -18,18 +18,11 @@ import {Component, Prop} from 'vue-property-decorator';
 export default class BreadcrumbTitle extends Vue {
   @Prop() item: any;
   @Prop({type: String}) title: string;
-  @Prop({type: String, required: true}) type!: string;
-
+  @Prop({type: Array, default: () => []}) parents: any[];
 
   get breadcrumbs() {
-    const items: any = [
-      {text: this.$tc('p.' + this.type, 2), to: {name: this.type + 's'}},
-    ];
-    if (this.item) {
-      items.push({text: this.item.name});
-    } else if (this.title) {
-      items.push({text: this.title});
-    }
+    const items: any = this.parents.slice();
+    items.push({text: this.title});
     return items;
   }
 }

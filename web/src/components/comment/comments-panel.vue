@@ -1,7 +1,8 @@
 <template>
   <div>
     <comment-form v-if="flag.write" :commentable-type="commentableType" :commentable-id="commentableId" cancel @success="onCommentSuccess" @cancel="flag.write = false"/>
-    <v-btn v-else outlined @click="flag.write = true">{{ $t('action.writeItem', {item: $tc('p.comment')}) }}</v-btn>
+    <v-btn v-else-if="$store.state.auth.isSignedIn" outlined @click="flag.write = true">{{ $t('action.writeItem', {item: $tc('p.comment')}) }}</v-btn>
+    <v-btn v-else outlined disabled class="break">{{ $t('msg.mustBeSignedInToComment') }}</v-btn>
 
     <comments :commentable-type="commentableType" :commentable-id="commentableId" :new-comment="newComment"/>
   </div>

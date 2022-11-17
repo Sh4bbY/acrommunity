@@ -31,3 +31,5 @@ __exportStar(require("./MarkableType"), exports);
 __exportStar(require("./MarkType"), exports);
 __exportStar(require("./Status"), exports);
 __exportStar(require("./FeedbackStatus"), exports);
+__exportStar(require("./Role"), exports);
+__exportStar(require("./QuestionType"), exports);

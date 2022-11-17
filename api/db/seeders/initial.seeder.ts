@@ -4,12 +4,10 @@ import {config} from '~/config';
 import {dev, show} from '../seeds';
 import {Seeds} from '../seeds/Seeds';
 
-let envSeeds: {
+const envSeeds: {
   seeds: Seeds[],
   pivotSeeds: Seeds[],
-};
-
-envSeeds = config.production ? show : dev;
+} = config.production ? show : dev;
 
 module.exports = {
   up: async (queryInterface: QueryInterface, _Sequelize) => {

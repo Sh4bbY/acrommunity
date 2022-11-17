@@ -1,5 +1,15 @@
-.v-btn {
+body .v-btn {
   text-transform: none;
+
+  &.break {
+    height: auto !important;
+    min-height: 36px;
+
+    .v-btn__content {
+      width: 100%;
+      white-space: break-spaces;
+    }
+  }
 }
 
 #app .v-tabs-slider-wrapper {

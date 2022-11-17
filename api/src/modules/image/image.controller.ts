@@ -1,11 +1,9 @@
-import {Controller, Get, Param, Query, UseGuards} from '@nestjs/common';
-import {AuthGuard} from '@nestjs/passport';
+import {Controller, Get, Param, Query} from '@nestjs/common';
 import Joi from 'joi';
 import {Validator} from '~/utils';
 import {ImageService} from './image.service';
 
 @Controller('/api/images')
-@UseGuards(AuthGuard('jwt'))
 export class ImageController {
   constructor(private readonly imageService: ImageService) {
   }

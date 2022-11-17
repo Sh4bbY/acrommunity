@@ -2,15 +2,12 @@
   <v-container>
     <v-card>
       <v-toolbar color="primary" dark dense>
-        <v-toolbar-title>{{ title }}</v-toolbar-title>
-        <v-spacer/>
+        <breadcrumb-title :title="title" :parents="[{to: {name: 'dictionary'}, text: $t('label.dictionary')}]"/>
         <v-spacer/>
         <tooltip-button :icon="showFilter ? 'mdi-filter' : 'mdi-filter-outline'"
                         :tooltip="showFilter ? $t('action.hideItem', {item: $tc('p.filter',2)}) : $t('action.showItem', {item: $tc('p.filter',2)})" left
                         @click="showFilter = !showFilter"/>
-        <tooltip-button :icon="gridView ? 'mdi-view-list' : 'mdi-view-grid'" :tooltip="gridView ? 'Switch to Table View' : 'Switch to Grid View'" left
-                        @click="gridView = !gridView"/>
-        <tooltip-button :to="{name: 'flow-create'}" icon="mdi-plus" :tooltip="$t('action.createItem', {item: $tc('p.flow')})" small-btn left/>
+        <tooltip-button v-if="$store.state.auth.isAdmin" :to="{name: 'flow-create'}" icon="mdi-plus" :tooltip="$t('action.createItem', {item: $tc('p.flow')})" small-btn left/>
       </v-toolbar>
 
       <v-expand-transition>
@@ -29,27 +26,14 @@
         </v-sheet>
       </v-expand-transition>
 
-      <paginated-grid v-if="gridView" url="/api/flows" :headers="headers" :search-params="searchParams">
-        <template #item="{item}">
-          <grid-item :item="item" :type="type"/>
-        </template>
-      </paginated-grid>
 
-      <paginated-table v-else url="/api/flows" :headers="headers" :search-params="searchParams">
-        <template #item.name="{item}">
-          <router-link :to="{name: 'flow-details', params: {id: item.id}}">{{ item.name }}</router-link>
-        </template>
-        <template #item.image="{item}">
-          <v-img v-if="item.attachments.length > 0" :src="item.attachments[0].url" max-width="100" max-height="100" contain/>
-        </template>
-        <template #item.difficulty="{item}">
-          <span>{{ item.difficulty }} ({{ resolveDifficulty(item.difficulty) }})</span>
-        </template>
-        <template #item.actions="{item}">
-          <fav-button :item="item" :type="type"/>
-          <item-menu :item="item" :type="type"/>
-        </template>
-      </paginated-table>
+      <v-card-text>
+        <paginated-grid url="/api/flows" :headers="headers" :search-params="searchParams">
+          <template #item="{item}">
+            <grid-item :item="item" type="flow"/>
+          </template>
+        </paginated-grid>
+      </v-card-text>
     </v-card>
   </v-container>
 </template>
@@ -57,17 +41,18 @@
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
 import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
-import FavButton from '~/components/item/fav-button.vue';
-import GridItem from '~/components/item/grid-item.vue';
-import ItemMenu from '~/components/item/item-menu.vue';
+import BreadcrumbTitle from '~/components/breadcrumb-title.vue';
 import PaginatedGrid from '~/components/common/paginated-grid.vue';
 import PaginatedTable from '~/components/common/paginated-table.vue';
 import TooltipButton from '~/components/common/tooltip-button.vue';
+import FavButton from '~/components/item/fav-button.vue';
+import GridItem from '~/components/item/grid-item.vue';
+import ItemMenu from '~/components/item/item-menu.vue';
 import {resolveDifficulty} from '~/utils';
 import Page from '../page.vue';
 
 @Component({
-  components: {TooltipButton, ItemMenu, PaginatedTable, PaginatedGrid, EmbedAttachment, GridItem, FavButton},
+  components: {TooltipButton, ItemMenu, PaginatedTable, PaginatedGrid, EmbedAttachment, GridItem, FavButton, BreadcrumbTitle},
 })
 export default class FlowsPage extends Page {
   flows = [];
@@ -75,7 +60,6 @@ export default class FlowsPage extends Page {
     difficulty: [1, 5],
   };
   showFilter = false;
-  gridView = true;
   searchParams = {};
 
   get title() {

@@ -1,5 +1,4 @@
 import {AliasableType, TaggableType} from '@acrommunity/common';
-import {faker} from '@faker-js/faker';
 import {flows} from '../../data';
 import {flowsTable} from '../../tables';
 import {Seeds} from '../Seeds';
@@ -11,7 +10,7 @@ flowSeeds.setData(async () => {
     id: idx + 1,
     name: flow.name,
     difficulty: flow.difficulty,
-    description: faker.lorem.text(),
+    description: '',
   }));
 });
 

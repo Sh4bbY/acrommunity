@@ -3,18 +3,11 @@
     <v-card class="mb-5">
       <v-toolbar color="primary" dense dark>
         <v-toolbar-title>
-          <breadcrumb-title :item="pose" :type="type"/>
+          <breadcrumb-title :title="pose.name" :parents="[{text: $tc('p.pose',2), to: {name: 'poses'}}]"/>
         </v-toolbar-title>
-        <fav-button :item="pose" :type="type"/>
+        <fav-button v-if="$store.state.auth.isSignedIn" :item="pose" :type="type"/>
         <v-spacer/>
-        <tooltip-button icon="mdi-pencil" :tooltip="$t('action.editItem', {item: $tc('p.pose')})" :to="{name: 'pose-edit', params: {id: pose.id}}"/>
-        <v-btn v-if="pose.id > 1" icon :to="{name: 'pose-details', params: {id: pose.id - 1}}">
-          <v-icon>mdi-arrow-left</v-icon>
-        </v-btn>
-        <v-btn icon :to="{name: 'pose-details', params: {id: pose.id + 1}}">
-          <v-icon>mdi-arrow-right</v-icon>
-        </v-btn>
-        <item-menu :item="pose" :type="type"/>
+        <item-menu v-if="$store.state.auth.isSignedIn" :item="pose" :type="type"/>
       </v-toolbar>
 
       <v-card-text>
@@ -39,21 +32,31 @@
               </v-col>
               <v-col cols="12" md="6">
                 <h3 class="mb-2">{{ $t('field.difficulty') }}</h3>
-                <p>{{ pose.difficulty }} ({{ difficultyLabel }})</p>
+                <span>{{ pose.difficulty }} ({{ difficultyLabel }})</span>
               </v-col>
               <v-col cols="12" md="6">
                 <h3 class="mb-2">{{ $tc('p.person', 2) }}</h3>
-                <p>{{ pose.persons }}</p>
+                <span>{{ pose.persons }}</span>
               </v-col>
 
               <v-col cols="12" md="6">
                 <h3 class="mb-2">{{ $t('field.basePosition') }}</h3>
-                <p>{{ pose.basePosition ? $t('basePosition.' + pose.basePosition) : '-' }}</p>
+                <span>{{ pose.basePosition ? $t('basePosition.' + pose.basePosition) : '-' }}</span>
               </v-col>
 
               <v-col cols="12" md="6">
                 <h3 class="mb-2">{{ $t('field.flyerPosition') }}</h3>
-                <p>{{ pose.flyerPosition ? $t('flyerPosition.' + pose.flyerPosition) : '-' }}</p>
+                <span>{{ pose.flyerPosition ? $t('flyerPosition.' + pose.flyerPosition) : '-' }}</span>
+              </v-col>
+
+              <v-col cols="12" md="6" v-if="pose.easyIn">
+                <v-checkbox v-model="pose.easyIn" :label="$t('field.easyIn')" class="mt-0" disabled hide-details/>
+              </v-col>
+              <v-col cols="12" md="6" v-if="pose.easyOut">
+                <v-checkbox v-model="pose.easyOut" :label="$t('field.easyOut')" class="mt-0" disabled hide-details/>
+              </v-col>
+              <v-col cols="12" md="6" v-if="pose.counterBalance">
+                <v-checkbox v-model="pose.counterBalance" :label="$t('field.counterbalance')" class="mt-0" disabled hide-details/>
               </v-col>
 
               <v-col v-if="pose.tags.length > 0" cols="12" md="6">
@@ -63,7 +66,7 @@
 
               <v-col v-if="pose.aliases.length > 0" cols="12" md="6">
                 <h3 class="mb-2">{{ $tc('p.alias', 2) }}</h3>
-                <v-chip v-for="alias of pose.aliases" :key="alias.name" small class="mr-1 mb-1">{{ alias.name }}</v-chip>
+                <span>{{ pose.aliases.map(a => a.name).join(', ') }}</span>
               </v-col>
             </v-row>
           </v-col>
@@ -112,16 +115,16 @@ import {Component, Watch} from 'vue-property-decorator';
 import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
 import BreadcrumbTitle from '~/components/breadcrumb-title.vue';
 import CommentsPanel from '~/components/comment/comments-panel.vue';
+import TooltipButton from '~/components/common/tooltip-button.vue';
 import FavButton from '~/components/item/fav-button.vue';
 import ItemMenu from '~/components/item/item-menu.vue';
-import TooltipButton from '~/components/common/tooltip-button.vue';
 import {resolveDifficulty} from '~/utils';
 import Page from '../page.vue';
 
 @Component({
   components: {CommentsPanel, TooltipButton, BreadcrumbTitle, ItemMenu, FavButton, EmbedAttachment},
 })
-export default class PoseDetailsPage extends Page {
+export default class PoseDetailsPublicPage extends Page {
   pose: any = null;
   sources: any = [];
   targets: any = [];

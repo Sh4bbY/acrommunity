@@ -56,9 +56,6 @@ export default class UserMenu extends Vue {
         title: this.$t('action.logout'),
         onClick: async () => {
           await this.$store.dispatch('auth/logout');
-          if (this.$route.name !== 'landing') {
-            await this.$router.push({name: 'landing'});
-          }
         },
       },
     ];

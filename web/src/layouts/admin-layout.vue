@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <feedback-dialog v-model="dialog.feedback"/>
+    <feedback-dialog v-model="$store.state.app.dialog.feedback"/>
     <loading-indicator/>
-    <admin-header @feedback="dialog.feedback = true"/>
+    <admin-header/>
     <admin-navigation/>
 
     <v-main ref="main">

@@ -15,3 +15,5 @@ export * from './MarkableType';
 export * from './MarkType';
 export * from './Status';
 export * from './FeedbackStatus';
+export * from './Role';
+export * from './QuestionType';

@@ -2,22 +2,29 @@ import {Module} from 'vuex';
 import {api} from '~/plugins/api';
 import {RootState} from '~/store';
 
-
 export interface AppState {
-  title: string,
   showNavigation: boolean,
   isLoading: boolean,
   openRequests: number,
+  dialog: {
+    login: boolean,
+    register: boolean,
+    feedback: boolean,
+  },
   poses: [],
 }
 
 export const appStore: Module<AppState, RootState> = {
   namespaced: true,
   state: {
-    title: 'Acrommunity',
     showNavigation: true,
     isLoading: false,
     openRequests: 0,
+    dialog: {
+      login: false,
+      register: false,
+      feedback: false,
+    },
     poses: [],
   },
   mutations: {
@@ -32,6 +39,15 @@ export const appStore: Module<AppState, RootState> = {
     },
   },
   actions: {
+    showFeedbackDialog({state}) {
+      state.dialog.feedback = true;
+    },
+    login({state}) {
+      state.dialog.login = true;
+    },
+    register({state}) {
+      state.dialog.register = true;
+    },
     startRequest({commit}) {
       commit('START_REQUEST');
     },

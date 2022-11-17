@@ -61,6 +61,7 @@ import {SequelizeExceptionFilter} from '~/utils/nest/sequelize-exception-filter'
   ],
   controllers: [],
   providers: [
+    // {provide: APP_GUARD, useClass: RolesGuard},
     {provide: APP_INTERCEPTOR, useClass: LoggingInterceptor},
     {provide: APP_FILTER, useClass: SequelizeExceptionFilter},
   ],

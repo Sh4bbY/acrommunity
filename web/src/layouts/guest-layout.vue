@@ -1,7 +1,10 @@
 <template>
   <v-app :style="style">
+    <login-dialog v-model="$store.state.app.dialog.login"/>
+    <register-dialog v-model="$store.state.app.dialog.register"/>
     <loading-indicator/>
     <guest-header/>
+    <side-navigation/>
 
     <v-main ref="main">
       <transition name="page" mode="out-in">
@@ -16,14 +19,20 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
+import LoginDialog from '~/components/dialogs/login-dialog.vue';
+import RegisterDialog from '~/components/dialogs/register-dialog.vue';
 import BottomNavigation from '~/components/layout/bottom-navigation.vue';
 import GuestHeader from '~/components/layout/guest-header.vue';
+import SideNavigation from '~/components/layout/side-navigation.vue';
 import LoadingIndicator from '~/components/loading-indicator.vue';
 
 @Component({
-  components: {BottomNavigation, GuestHeader, LoadingIndicator},
+  components: {RegisterDialog, BottomNavigation, GuestHeader, LoadingIndicator, LoginDialog, SideNavigation},
 })
 export default class GuestLayout extends Vue {
+  dialog = {
+    login: false,
+  };
   bottomNavHeight = 56;
 
   get style() {

@@ -3,12 +3,14 @@
     <create-list-dialog v-model="dialog.createList"/>
     <v-card>
       <v-toolbar color="primary" dark dense>
-        <v-toolbar-title>{{ $tc('p.pose', 2) }}</v-toolbar-title>
+        <v-toolbar-title>
+          <breadcrumb-title :title="title" :parents="[{to: {name: 'dictionary'}, text: $t('label.dictionary')}]"/>
+        </v-toolbar-title>
         <v-spacer/>
         <tooltip-button :icon="showFilter ? 'mdi-filter' : 'mdi-filter-outline'"
                         :tooltip="showFilter ? $t('action.hideItem', {item: $tc('p.filter',2)}) : $t('action.showItem', {item: $tc('p.filter',2)})" left
                         @click="showFilter = !showFilter"/>
-        <tooltip-button :to="{name: 'pose-create'}" icon="mdi-plus" :tooltip="$t('action.createItem', {item: $tc('p.pose')})" small-btn left/>
+        <tooltip-button v-if="$store.state.auth.isAdmin" :to="{name: 'pose-create'}" icon="mdi-plus" :tooltip="$t('action.createItem', {item: $tc('p.pose')})" small-btn left/>
       </v-toolbar>
 
       <v-expand-transition>
@@ -52,11 +54,13 @@
         </v-sheet>
       </v-expand-transition>
 
-      <paginated-grid url="/api/poses" :headers="headers" :search-params="searchParams" :options="options">
-        <template #item="{item}">
-          <grid-item :item="item" :type="type" @create-list="dialog.createList=true"/>
-        </template>
-      </paginated-grid>
+      <v-card-text>
+        <paginated-grid url="/api/poses" :headers="headers" :search-params="searchParams" :options="options">
+          <template #item="{item}">
+            <grid-item :item="item" :type="type" @create-list="dialog.createList=true"/>
+          </template>
+        </paginated-grid>
+      </v-card-text>
     </v-card>
   </v-container>
 </template>
@@ -64,18 +68,19 @@
 <script lang="ts">
 import {BasePosition, FlyerPosition, Status} from '@acrommunity/common';
 import {Component} from 'vue-property-decorator';
+import BreadcrumbTitle from '~/components/breadcrumb-title.vue';
+import PaginatedGrid from '~/components/common/paginated-grid.vue';
+import PaginatedTable from '~/components/common/paginated-table.vue';
+import TooltipButton from '~/components/common/tooltip-button.vue';
 import FavButton from '~/components/item/fav-button.vue';
 import GridItem from '~/components/item/grid-item.vue';
 import ItemMenu from '~/components/item/item-menu.vue';
 import CreateListDialog from '~/components/my/create-list-dialog.vue';
-import PaginatedGrid from '~/components/common/paginated-grid.vue';
-import PaginatedTable from '~/components/common/paginated-table.vue';
-import TooltipButton from '~/components/common/tooltip-button.vue';
 import {resolveDifficulty} from '~/utils';
 import Page from '../page.vue';
 
 @Component({
-  components: {PaginatedTable, PaginatedGrid, TooltipButton, ItemMenu, GridItem, FavButton, CreateListDialog},
+  components: {PaginatedTable, PaginatedGrid, TooltipButton, ItemMenu, GridItem, FavButton, CreateListDialog, BreadcrumbTitle},
 })
 export default class PosesPage extends Page {
   poses = [];
@@ -97,7 +102,7 @@ export default class PosesPage extends Page {
   dialog = {
     createList: false,
   };
-  showFilter = true;
+  showFilter = false;
   searchParams = {};
 
   get title() {

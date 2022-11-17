@@ -1,14 +1,17 @@
 <template>
   <v-container>
-    <media-dialog v-model="dialog.show" :item="dialog.item" type="image"/>
-
+    <media-dialog v-model="dialog.show" :item="dialog.item" type="image" :fullscreen="$vuetify.breakpoint.xs" :is-first="dialog.isFirst" :is-last="dialog.isLast" @next="loadNext"
+                  @prev="loadPrev"/>
     <v-card>
       <v-toolbar color="primary" dark dense>
-        <v-toolbar-title>{{ $tc('p.image', 2) }}</v-toolbar-title>
+        <v-toolbar-title>
+          <breadcrumb-title :title="title" :parents="[{to: {name: 'dictionary'}, text: $t('label.dictionary')}]"/>
+        </v-toolbar-title>
         <v-spacer/>
-        <tooltip-button :icon="showFilter ? 'mdi-filter' : 'mdi-filter-outline'"
-                        :tooltip="showFilter ? $t('action.hideItem', {item: $tc('p.filter',2)}) : $t('action.showItem', {item: $tc('p.filter',2)})" left
-                        @click="showFilter = !showFilter"/>
+        <tooltip-button :icon="showFilter ? 'mdi-filter' : 'mdi-filter-outline'" left :top="false"
+                        :tooltip="showFilter ? $t('action.hideItem', {item: $tc('p.filter',2)}) : $t('action.showItem', {item: $tc('p.filter',2)})"
+                        @click="showFilter = !showFilter"
+        />
       </v-toolbar>
 
       <v-expand-transition>
@@ -33,13 +36,15 @@
         </v-sheet>
       </v-expand-transition>
 
-      <paginated-grid url="/api/images" :search-params="searchParams" class="mt-5">
-        <template #item="{item}">
-          <div class="d-flex justify-center align-center">
-            <v-card @click="dialog = {show:true, item}" class="thumbnail-card">
-              <img :src="item.thumbnail" style="max-height: 150px"/>
-            </v-card>
-          </div>
+      <paginated-grid url="/api/images" :options="options" :search-params="searchParams" @update="images=$event">
+        <template #items="{items}">
+          <v-row no-gutters>
+            <v-col v-for="item in items" :key="item.url" cols="6" sm="4" md="3" lg="2">
+              <v-card @click="showDialog(item)" tile>
+                <v-img :src="item.thumbnail" width="100%" height="200px"/>
+              </v-card>
+            </v-col>
+          </v-row>
         </template>
       </paginated-grid>
     </v-card>
@@ -48,17 +53,17 @@
 
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
-import MediaDialog from '~/components/media-dialog.vue';
+import BreadcrumbTitle from '~/components/breadcrumb-title.vue';
 import PaginatedGrid from '~/components/common/paginated-grid.vue';
 import TooltipButton from '~/components/common/tooltip-button.vue';
+import MediaDialog from '~/components/dialogs/media-dialog.vue';
 import Page from '../page.vue';
 
 @Component({
-  components: {MediaDialog, PaginatedGrid, TooltipButton},
+  components: {MediaDialog, PaginatedGrid, TooltipButton, BreadcrumbTitle},
 })
-export default class ImagesPage extends Page {
+export default class ImagesMobilePage extends Page {
   images = [];
-  favorites = [];
   filter = {
     persons: 2,
     bases: 1,
@@ -67,8 +72,11 @@ export default class ImagesPage extends Page {
   dialog = {
     show: false,
     item: null,
+    isFirst: false,
+    isLast: false,
   };
-  showFilter = true;
+  showFilter = false;
+  options = {itemsPerPage: 24};
   searchParams = {};
 
   get title() {
@@ -82,6 +90,35 @@ export default class ImagesPage extends Page {
       baseType: this.filter.baseType === null ? undefined : this.filter.baseType,
     };
   }
+
+  showDialog(item) {
+    const idx = this.images.findIndex(v => v.id === item.id);
+    this.dialog = {
+      show: true,
+      item,
+      isFirst: idx === 0,
+      isLast: idx === this.images.length - 1,
+    };
+  }
+
+  loadNext() {
+    const idx = this.images.findIndex(v => v.id === this.dialog.item.id);
+    if (idx + 1 < this.images.length) {
+      this.dialog.item = this.images[idx + 1];
+    }
+    this.dialog.isFirst = false;
+    this.dialog.isLast = idx + 1 === this.images.length - 1;
+  }
+
+  loadPrev() {
+    const idx = this.images.findIndex(v => v.id === this.dialog.item.id);
+    if (idx - 1 >= 0) {
+      this.dialog.item = this.images[idx - 1];
+    }
+    this.dialog.isFirst = idx - 1 === 0;
+    this.dialog.isLast = false;
+  }
+
 
   get personOptions() {
     return [
@@ -121,10 +158,4 @@ export default class ImagesPage extends Page {
 </script>
 
 <style lang="scss" scoped>
-.thumbnail-card {
-  width: auto;
-  display: inline-block;
-  padding-bottom: 0;
-  height: 150px;
-}
 </style>

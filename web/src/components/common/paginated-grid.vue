@@ -41,7 +41,7 @@ export interface DataIteratorOptions {
 }
 
 @Component
-export default class PaginatedGrid extends Vue {
+export default class PaginatedImageGrid extends Vue {
   @Prop({default: null, required: true}) readonly url!: string;
   @Prop({default: () => ({}), type: Object}) readonly searchParams!: any;
   @Prop({default: 6, type: Number}) readonly sm!: string;
@@ -63,7 +63,7 @@ export default class PaginatedGrid extends Vue {
   };
 
   footerProps = {
-    itemsPerPageOptions: [12, 24, 48, -1],
+    itemsPerPageOptions: [12, 24, 48, 96],
   };
 
   items: any[] = [];
@@ -128,5 +128,9 @@ export default class PaginatedGrid extends Vue {
 .no-data {
   text-align: center;
   color: rgba(#777, 0.8);
+}
+
+::v-deep .v-data-footer {
+  justify-content: space-evenly;
 }
 </style>

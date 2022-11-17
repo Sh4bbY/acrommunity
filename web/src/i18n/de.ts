@@ -1,5 +1,8 @@
 export const de = {
   p: {
+    repertoire: 'Repertoire | Repertoires',
+    trainingPlan: 'Trainingsplan | Trainingspläne',
+    question: 'Frage | Fragen',
     app: 'Anwendung | Anwendungen',
     counterbalance: 'Counterbalance | Counterbalances',
     flyerPosition: 'Flieger Position | Flieger Positionen',
@@ -139,6 +142,10 @@ export const de = {
     noLists: 'Du hast aktuell keine Listen',
     noDataFound: 'Es konnten keine Daten gefunden werden',
     thankYouForFeedback: 'Vielen Dank für dein Feedback!',
+    mustBeSignedInToComment: 'Du musst angemeldet sein um zu kommentieren',
+    underConstruction: 'Dieser Bereich wird gerade gebaut.',
+    notAvailable: 'Nicht vorhanden',
+    notYetRated: 'Noch nicht Bewertet',
   },
   recurringType: {
     once: 'Einmalig',
@@ -193,6 +200,10 @@ export const de = {
     playSound: 'Namen der Pose vorlesen',
     autoload: 'Nächste Pose automatisch laden',
     autoloadDuration: 'Automatisch laden nach',
+  },
+  quiz: {
+    nameOfPose: 'Wie nennt man diese Pose?',
+    lookOfPose: 'Wie sieht die Pose "{pose}" aus?',
   },
   flowGenerator: {
     numberPoses: 'Anzahl an Posen',

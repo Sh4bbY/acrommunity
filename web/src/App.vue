@@ -19,10 +19,9 @@ import AdminLayout from '~/layouts/admin-layout.vue';
 import BlankLayout from '~/layouts/blank-layout.vue';
 import GuestLayout from '~/layouts/guest-layout.vue';
 import UserLayout from '~/layouts/user-layout.vue';
-import LoginPage from '~/pages/auth/login.page.vue';
 
 @Component({
-  components: {BlankLayout, AdminLayout, UserLayout, GuestLayout, LoginPage},
+  components: {BlankLayout, AdminLayout, UserLayout, GuestLayout},
 })
 export default class App extends Vue {
   async created() {
@@ -35,4 +34,8 @@ export default class App extends Vue {
 
 <style lang="scss">
 @import "styles";
+
+body .v-application {
+  font-family: 'Kalam', 'Roboto', sans-serif;
+}
 </style>

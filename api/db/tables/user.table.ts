@@ -8,7 +8,7 @@ export const userTable = new Table('Users', () => ({
   username: {type: DataType.STRING(userValidation.constraints.username.maxLength), unique: true, allowNull: false},
   email: {type: DataType.STRING(userValidation.constraints.email.maxLength), unique: true, allowNull: false},
   password: {type: DataType.STRING(128), allowNull: false},
-  isAdmin: {type: DataType.BOOLEAN, allowNull: false, defaultValue: false},
+  role: {type: DataType.STRING, defaultValue: 'user'},
   tokenVersion: {type: DataType.INTEGER.UNSIGNED, allowNull: false, defaultValue: 1},
   createdAt: {allowNull: false, type: DataType.DATE},
   updatedAt: {allowNull: false, type: DataType.DATE},

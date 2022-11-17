@@ -1,4 +1,4 @@
-import {IUser} from '@acrommunity/common';
+import {IUser, Role} from '@acrommunity/common';
 import {Module} from 'vuex';
 import {api} from '~/plugins/api';
 import {RootState} from '~/store/index';
@@ -34,7 +34,7 @@ export const authStore: Module<AuthState, RootState> = {
     },
     setUser(state, user) {
       state.user = user;
-      state.isAdmin = user.isAdmin;
+      state.isAdmin = user.role === Role.Admin;
       state.isSignedIn = true;
       state.isAuthPending = false;
       resolveAuthPending();

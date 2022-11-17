@@ -1,10 +1,7 @@
-import {Controller, Get, Query, UseGuards} from '@nestjs/common';
-import {AuthGuard} from '@nestjs/passport';
+import {Controller, Get, Query} from '@nestjs/common';
 import {AcroletteService} from './acrolette.service';
 
-
 @Controller('/api/acrolette')
-@UseGuards(AuthGuard('jwt'))
 export class AcroletteController {
   constructor(private readonly acroletteService: AcroletteService) {
   }

@@ -1,26 +1,31 @@
-import {Body, Controller, Get, Post, UseGuards} from '@nestjs/common';
-import {AuthGuard} from '@nestjs/passport';
+import {QuestionType, Randomizer} from '@acrommunity/common';
+import {Body, Controller, Get, Post} from '@nestjs/common';
 import {AcroQuizService} from './acro-quiz.service';
 
-
 @Controller('/api/acro-quiz')
-@UseGuards(AuthGuard('jwt'))
 export class AcroQuizController {
   constructor(private readonly acroQuizService: AcroQuizService) {
   }
 
-  @Get('question/name-of-pose')
+  @Get('question')
   async getQuestion() {
-    return await this.acroQuizService.getQuestion();
+    const questionTypeFunctions = [
+      () => this.acroQuizService.getNameOfPoseQuestion(),
+      () => this.acroQuizService.getLookOfPoseQuestion(),
+    ];
+    return await Randomizer.getRandomArrayValue(questionTypeFunctions)();
   }
 
-  @Get('question/look-of-pose')
-  async getImageForPoseQuestion() {
-    return await this.acroQuizService.getLookOfPoseQuestion();
+  @Post('answer')
+  async submitAnswer(@Body() answer: AnswerDTO) {
+    return await this.acroQuizService.checkAnswer(answer);
   }
+}
 
-  @Post('solution/name-of-pose')
-  async postSolution(@Body() solution: any) {
-    return await this.acroQuizService.postSolution(solution);
-  }
+export interface AnswerDTO {
+  type: QuestionType,
+  answer: {
+    id: number,
+    selection: string,
+  },
 }

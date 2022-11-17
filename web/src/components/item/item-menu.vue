@@ -34,28 +34,21 @@
         <v-list-item-icon class="mr-3">
           <v-icon color="red" small>{{ isMarked(MarkType.Favorite) ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>{{
-            isMarked(MarkType.Favorite) ? $t('action.removeFromItems', {items: $tc('p.favorite', 2)}) : $t('action.addToItems', {items: $tc('p.favorite', 2)})
-          }}
+        <v-list-item-title>{{ isMarked(MarkType.Favorite) ? $t('action.removeFromItems', {items: $tc('p.favorite', 2)}) : $t('action.addToItems', {items: $tc('p.favorite', 2)}) }}
         </v-list-item-title>
       </v-list-item>
       <v-list-item @click="toggleMark(MarkType.CanDo)">
         <v-list-item-icon class="mr-3">
           <v-icon small color="orange">{{ isMarked(MarkType.CanDo) ? 'mdi-arm-flex' : 'mdi-arm-flex-outline' }}</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>{{
-            isMarked(MarkType.CanDo) ? 'Kann ich nicht mehr' : 'Kann ich'
-          }}
+        <v-list-item-title>{{ isMarked(MarkType.CanDo) ? 'Vom Repertoire entfernen' : 'Zum Repertoire hinzufügen' }}
         </v-list-item-title>
       </v-list-item>
       <v-list-item @click="toggleMark(MarkType.WorkingOn)">
         <v-list-item-icon class="mr-3">
           <v-icon small color="grey">{{ isMarked(MarkType.WorkingOn) ? 'mdi-wrench' : 'mdi-wrench-outline' }}</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>{{
-            isMarked(MarkType.WorkingOn) ? 'Arbeite ich nicht mehr dran' : 'Arbeite ich dran'
-          }}
-        </v-list-item-title>
+        <v-list-item-title>{{ isMarked(MarkType.WorkingOn) ? 'Vom Trainingsplan entfernen' : 'Zum Trainingsplan hinzufügen' }}</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-menu>

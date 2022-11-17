@@ -37,31 +37,33 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 
 @Component
-export default class UserNavigation extends Vue {
+export default class SideNavigation extends Vue {
   isGroupOpen = {
     dictionary: false,
-    games: false,
+    apps: false,
     events: false,
   };
 
   mounted() {
-    if (this.startsWithAny(this.$route.path, ['/poses', '/flows', '/skills', '/images', '/videos'])) {
+    this.updateGroupOpenState();
+  }
+
+  updateGroupOpenState() {
+    const path = window.location.pathname;
+    if (this.startsWithAny(path, ['/poses', '/flows', '/skills', '/images', '/videos'])) {
       this.isGroupOpen.dictionary = true;
-      return;
     }
-    if (this.startsWithAny(this.$route.path, ['/acrolette', '/acro-quiz'])) {
-      this.isGroupOpen.games = true;
-      return;
+    if (this.startsWithAny(path, ['/apps'])) {
+      this.isGroupOpen.apps = true;
     }
-    if (this.startsWithAny(this.$route.path, ['/jams'])) {
-      this.isGroupOpen.games = true;
-      return;
+    if (this.startsWithAny(path, ['/jams'])) {
+      this.isGroupOpen.events = true;
     }
   }
 
   get items() {
     return [
-      {title: this.$t('label.home'), icon: 'mdi-home', route: {name: 'home'}, exact: true},
+      {title: this.$t('label.home'), icon: 'mdi-home', route: {name: 'home'}, exact: true, condition: this.$store.state.auth.isSignedIn},
       {
         title: this.$t('label.dictionary'), icon: 'mdi-book-open-variant', open: this.isGroupOpen.dictionary, children: [
           {title: this.$tc('p.pose', 2), icon: 'mdi-human', route: {name: 'poses'}, exact: false},
@@ -72,10 +74,10 @@ export default class UserNavigation extends Vue {
         ],
       },
       {
-        title: this.$tc('p.app', 2), icon: 'mdi-gamepad-variant', open: this.isGroupOpen.games, children: [
+        title: this.$tc('p.app', 2), icon: 'mdi-gamepad-variant', open: this.isGroupOpen.apps, children: [
+          {title: this.$t('label.flowGenerator'), icon: 'mdi-spa', route: {name: 'flow-generator'}, exact: false},
           {title: this.$t('label.acrolette'), icon: 'mdi-gamepad', route: {name: 'acrolette'}, exact: false},
           {title: this.$t('label.acroQuiz'), icon: 'mdi-help-circle', route: {name: 'acro-quiz'}, exact: false},
-          {title: this.$t('label.flowGenerator'), icon: 'mdi-spa', route: {name: 'flow-generator'}, exact: false},
         ],
       },
       // {
@@ -85,7 +87,7 @@ export default class UserNavigation extends Vue {
       // },
       {title: this.$tc('p.reference', 2), icon: 'mdi-web', route: {name: 'references'}, exact: false},
       {title: this.$tc('p.community', 2), icon: 'mdi-account-group', route: {name: 'communities'}, exact: false},
-    ];
+    ].filter(item => item.condition === undefined || item.condition === true);
   }
 
   startsWithAny(input: string, starts: string | string[]) {

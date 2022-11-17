@@ -2,27 +2,22 @@
   <v-container v-if="flow">
     <v-card class="mb-5">
       <v-toolbar color="primary" dense dark>
-        <breadcrumb-title :item="flow" :type="type"/>
-        <v-spacer/>
-        <v-btn v-if="flow.id > 1" icon :to="{name: 'flow-details', params: {id: flow.id - 1}}">
-          <v-icon>mdi-arrow-left</v-icon>
-        </v-btn>
-        <v-btn icon :to="{name: 'flow-details', params: {id: flow.id + 1}}">
-          <v-icon>mdi-arrow-right</v-icon>
-        </v-btn>
+        <breadcrumb-title :title="flow.name" :parents="[{text: $tc('p.flow', 2), to: {name: 'flows'}}]"/>
       </v-toolbar>
 
       <v-card-text>
         <v-row>
           <v-col cols="12">
             <h2 class="mb-2">{{ $t('field.description') }}</h2>
-            <p>{{ flow.description }}</p>
+            <p v-if="flow.description">{{ flow.description }}</p>
+            <p v-else>{{ $t('msg.notAvailable') }}</p>
             <v-spacer class="my-5"/>
           </v-col>
 
-          <v-col v-if="flow.difficulty" cols="12" md="4">
+          <v-col cols="12" md="4">
             <h3 class="mb-2">{{ $t('field.difficulty') }}</h3>
-            <p>{{ flow.difficulty }} ({{ difficultyLabel }})</p>
+            <p v-if="flow.difficulty">{{ flow.difficulty }} ({{ difficultyLabel }})</p>
+            <p v-else>{{ $t('msg.notYetRated') }}</p>
             <v-spacer class="my-5"/>
           </v-col>
 
@@ -41,17 +36,13 @@
       </v-card-text>
     </v-card>
 
-    <v-card v-if="flow.attachments.length > 0" class="mb-5">
-      <v-card-title>{{ $tc('p.attachment', 2) }}</v-card-title>
-      <v-card-text>
-        <v-row>
-          <v-col v-for="(attachment,i) in flow.attachments" :key="i" cols="12" md="6" lg="4">
-            <embed-attachment :attachment="attachment"/>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
+    <v-row>
+      <v-col v-for="(attachment,i) in flow.attachments" :key="i" cols="12" md="6" lg="4">
+        <embed-attachment :attachment="attachment"/>
+      </v-col>
+    </v-row>
 
+    <v-spacer class="my-5"/>
     <comments-panel commentable-type="flow" :commentable-id="flow.id"/>
   </v-container>
 </template>

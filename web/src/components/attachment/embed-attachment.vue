@@ -1,8 +1,9 @@
 <template>
-  <div v-if="attachment" class="embed-attachment">
+  <div v-if="attachment" ref="wrapper" class="embed-attachment">
     <v-img v-if="attachment.type === AttachmentType.Image" :src="attachment.url" contain/>
     <embed-instagram v-else-if="attachment.type === AttachmentType.Instagram" :url="attachment.url"/>
-    <embed-youtube v-else-if="attachment.type === AttachmentType.YouTube" :url="attachment.url" :height="height" :width="width" :max-height="maxHeight" :max-width="maxWidth"
+    <embed-youtube v-else-if="attachment.type === AttachmentType.YouTube" :url="attachment.url" :height="height" :width="width" :max-height="maxHeight"
+                   :max-width="maxWidth"
                    :non-clickable="nonClickable"/>
   </div>
 </template>

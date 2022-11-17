@@ -1,8 +1,9 @@
 <template>
   <v-app :style="style">
+    <feedback-dialog v-model="$store.state.app.dialog.feedback"/>
     <loading-indicator/>
     <user-header/>
-    <user-navigation/>
+    <side-navigation/>
 
     <v-main ref="main">
       <transition name="page" mode="out-in">
@@ -17,13 +18,14 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
+import FeedbackDialog from '~/components/feedback-dialog.vue';
 import BottomNavigation from '~/components/layout/bottom-navigation.vue';
 import UserHeader from '~/components/layout/user-header.vue';
-import UserNavigation from '~/components/layout/user-navigation.vue';
+import SideNavigation from '~/components/layout/side-navigation.vue';
 import LoadingIndicator from '~/components/loading-indicator.vue';
 
 @Component({
-  components: {UserHeader, UserNavigation, LoadingIndicator, BottomNavigation},
+  components: {UserHeader, SideNavigation, LoadingIndicator, BottomNavigation, FeedbackDialog},
 })
 export default class UserLayout extends Vue {
   bottomNavHeight = 56;
