@@ -4,9 +4,7 @@
       <v-row>
         <v-col v-for="stat in stats" :key="stat.title" cols="4">
           <div class="d-flex flex-column align-center">
-            <h2 class="mb-3">
-              <router-link :to="stat.to">{{ stat.title }}</router-link>
-            </h2>
+            <router-link class="stat-title" :to="stat.to">{{ stat.title }}</router-link>
             <v-progress-circular v-model="stat.value" :color="stat.color" size="100" width="20">
               {{ stat.value }}
             </v-progress-circular>
@@ -56,4 +54,9 @@ export default class HomeOverview extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.stat-title {
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 8px;
+}
 </style>

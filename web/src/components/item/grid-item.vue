@@ -8,9 +8,9 @@
       <item-menu v-if="$store.state.auth.isSignedIn" :item="item" :type="type" small @create-list="$emit('create-list')"/>
     </div>
     <router-link v-if="type === 'pose'" :to="{name: type + '-details', params: {id: item.id}}">
-      <v-img v-if="item.attachments.length > 0" :src="item.attachments[0].url" contain/>
+      <v-img v-if="item.attachments.length > 0" :src="getAttachment(item.attachments).url" contain/>
     </router-link>
-    <embed-attachment v-else-if="item.attachments.length > 0" :attachment="item.attachments[0]"/>
+    <embed-attachment v-else-if="item.attachments.length > 0" :attachment="getAttachment(item.attachments)"/>
   </v-card>
 </template>
 
@@ -28,6 +28,10 @@ import ItemMenu from '~/components/item/item-menu.vue';
 export default class GridItem extends Vue {
   @Prop({type: String}) type: string;
   @Prop() item: any;
+
+  getAttachment(attachments: any[]) {
+    return attachments.slice().sort((a, b) => a.id < b.id ? -1 : 1)[0];
+  }
 }
 </script>
 

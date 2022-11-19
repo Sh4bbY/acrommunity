@@ -1,5 +1,9 @@
 <template>
-  <v-tooltip top :open-delay="400">
+  <span v-if="noTooltip">
+      <span v-if="humanize">{{ humanizedValue }}</span>
+      <span v-else>{{ formattedValue }}</span>
+  </span>
+  <v-tooltip v-else top :open-delay="400">
     <template #activator="{on}">
       <span v-on="on">
       <span v-if="humanize">{{ humanizedValue }}</span>
@@ -21,6 +25,7 @@ export default class Moment extends Vue {
   @Prop({default: 'DD.MM.YYYY'}) format!: string;
   @Prop({default: 'DD.MM.YYYY - HH:mm'}) tooltipFormat!: string;
   @Prop({default: false, type: Boolean}) humanize!: boolean;
+  @Prop({default: false, type: Boolean}) noTooltip!: boolean;
 
   get formattedValue(): string {
     return moment(this.value).format(this.format);

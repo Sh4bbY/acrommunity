@@ -1,11 +1,21 @@
 <template>
   <v-app-bar app clipped-left dark color="primary" short :hide-on-scroll="$vuetify.breakpoint.xs">
-    <router-link :to="{name: 'landing'}" class="d-inline-flex">
-      <v-img src="/img/logo.png" max-height="40" max-width="40" contain/>
-      <v-app-bar-title class="navigation-title pt-3">crommunity</v-app-bar-title>
+    <v-app-bar-nav-icon @click="onNavIconClick" class="mr-3"/>
+    <router-link :to="{name: 'home'}" class="d-inline-flex">
+      <v-img src="/img/logo.png" max-height="40" max-width="140" contain/>
     </router-link>
+
     <v-spacer/>
-    <v-menu offset-y>
+
+    <v-btn color="secondary" rounded @click="$store.dispatch('app/showFeedbackDialog')" min-width="36px" :class="{'px-0': $vuetify.breakpoint.xs}">
+      <v-icon :left="$vuetify.breakpoint.smAndUp">mdi-chat-alert</v-icon>
+      <span v-if="$vuetify.breakpoint.smAndUp">{{ $t('label.feedback') }}</span>
+    </v-btn>
+
+    <v-spacer/>
+
+    <user-menu v-if="$store.state.auth.isSignedIn"/>
+    <v-menu v-else offset-y>
       <template #activator="{on}">
         <v-btn icon v-on="on">
           <v-icon>mdi-account-circle-outline</v-icon>
@@ -26,15 +36,21 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
+import UserMenu from '~/components/layout/user-menu.vue';
 
-@Component({})
-export default class GuestHeader extends Vue {
+@Component({
+  components: {UserMenu},
+})
+export default class UserHeader extends Vue {
+  onNavIconClick() {
+    this.$store.dispatch('app/toggleNavigation');
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .navigation-title {
-  color: #24396d;
+  color: #203261;
   font-weight: bold;
   font-size: 24px;
 }

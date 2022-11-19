@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer class="app-navigation" v-model="isOpen" app clipped mobile-breakpoint="600" width="220">
+  <v-navigation-drawer class="app-navigation" v-model="show" app clipped mobile-breakpoint="600" width="220">
     <v-list class="grow" dense>
       <template v-for="item in items">
         <v-list-group v-if="item.children" v-model="item.open" :key="item.title">
@@ -42,6 +42,7 @@ export default class SideNavigation extends Vue {
     dictionary: false,
     apps: false,
     events: false,
+    admin: false,
   };
 
   mounted() {
@@ -56,14 +57,15 @@ export default class SideNavigation extends Vue {
     if (this.startsWithAny(path, ['/apps'])) {
       this.isGroupOpen.apps = true;
     }
-    if (this.startsWithAny(path, ['/jams'])) {
-      this.isGroupOpen.events = true;
+    if (this.startsWithAny(path, ['/admin'])) {
+      this.isGroupOpen.admin = true;
     }
   }
 
   get items() {
     return [
       {title: this.$t('label.home'), icon: 'mdi-home', route: {name: 'home'}, exact: true, condition: this.$store.state.auth.isSignedIn},
+      {title: this.$tc('p.jam', 2), icon: 'mdi-calendar', route: {name: 'jams'}, exact: false},
       {
         title: this.$t('label.dictionary'), icon: 'mdi-book-open-variant', open: this.isGroupOpen.dictionary, children: [
           {title: this.$tc('p.pose', 2), icon: 'mdi-human', route: {name: 'poses'}, exact: false},
@@ -80,11 +82,16 @@ export default class SideNavigation extends Vue {
           {title: this.$t('label.acroQuiz'), icon: 'mdi-help-circle', route: {name: 'acro-quiz'}, exact: false},
         ],
       },
-      // {
-      //   title: this.$tc('p.event', 2), icon: 'mdi-calendar-range', open: this.isGroupOpen.events, children: [
-      //     {title: this.$tc('p.jam', 2), icon: 'mdi-calendar', route: {name: 'jams'}, exact: false},
-      //   ],
-      // },
+      {
+        title: this.$t('label.administration'), icon: 'mdi-security', open: this.isGroupOpen.admin,
+        condition: this.$store.state.auth.isAdmin,
+        children: [
+          {title: this.$tc('p.user', 2), icon: 'mdi-account-multiple', route: {name: 'users'}, exact: false},
+          {title: this.$tc('label.feedback'), icon: 'mdi-chat-alert', route: {name: 'feedback'}, exact: false},
+          {title: this.$tc('p.comment', 2), icon: 'mdi-chat', route: {name: 'comments'}, exact: false},
+          {title: 'Dev', icon: 'mdi-dev-to', route: {name: 'dev'}, exact: false},
+        ],
+      },
       {title: this.$tc('p.reference', 2), icon: 'mdi-web', route: {name: 'references'}, exact: false},
       {title: this.$tc('p.community', 2), icon: 'mdi-account-group', route: {name: 'communities'}, exact: false},
     ].filter(item => item.condition === undefined || item.condition === true);
@@ -95,11 +102,11 @@ export default class SideNavigation extends Vue {
     return starts.reduce((result, start) => result || input.startsWith(start), false);
   }
 
-  get isOpen(): boolean {
+  get show(): boolean {
     return this.$store.state.app.showNavigation;
   }
 
-  set isOpen(value: boolean) {
+  set show(value: boolean) {
     this.$store.dispatch('app/setNavigation', value);
   }
 }

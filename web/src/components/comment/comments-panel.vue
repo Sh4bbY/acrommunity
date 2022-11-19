@@ -29,6 +29,7 @@ export default class CommentsPanel extends Vue {
 
   onCommentSuccess(comment) {
     this.newComment = {...comment, author: this.$store.state.auth.user};
+    this.flag.write = false;
   }
 }
 </script>

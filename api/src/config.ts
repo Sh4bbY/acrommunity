@@ -6,14 +6,14 @@ import {ModelCtor} from 'sequelize-typescript';
 // load env-variables from /.env
 dotenv.config();
 
-const APP_URL = process.env.APP_URL;
 const ROOT_DIR = process.cwd();
 
 export const config = {
   production: process.env.NODE_ENV !== 'development',
+  appUrl: process.env.APP_URL,
   port: process.env.PORT,
   jwt: {
-    issuer: APP_URL,
+    issuer: process.env.APP_URL,
     access: {
       secret: process.env.JWT_ACCESS_SECRET,
       expiresIn: '15m',

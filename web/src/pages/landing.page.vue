@@ -18,7 +18,7 @@
           inspirieren lassen.
 
         <p>
-          Hast dust auf neue Flows? Probiere unseren
+          Hast du Lust auf neue Flows? Probiere unseren
           <router-link :to="{name: 'flow-generator'}">Flow-Generator</router-link>
           oder spiele eine Runde
           <router-link :to="{name: 'acrolette'}">Acrolette</router-link>

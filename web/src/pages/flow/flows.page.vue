@@ -41,7 +41,7 @@
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
 import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
-import BreadcrumbTitle from '~/components/breadcrumb-title.vue';
+import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import PaginatedGrid from '~/components/common/paginated-grid.vue';
 import PaginatedTable from '~/components/common/paginated-table.vue';
 import TooltipButton from '~/components/common/tooltip-button.vue';

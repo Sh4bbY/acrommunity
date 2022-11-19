@@ -1,19 +1,38 @@
-import {Controller, Get, HttpCode, Post, Req, Res, UseGuards} from '@nestjs/common';
+import {BadRequestException, Controller, Get, HttpCode, Post, Req, Res, UseGuards} from '@nestjs/common';
 import {AuthGuard} from '@nestjs/passport';
 import {Request, Response} from 'express';
 import {registerSchema} from '~/modules/auth/validation/register.joi';
+import {EmailService} from '~/modules/email/email.service';
 import {Validator} from '~/utils';
 import {AuthService} from './auth.service';
 
 @Controller('api/auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {
+  constructor(private readonly authService: AuthService, private emailService: EmailService) {
   }
 
   @Post('register')
   async register(@Req() req: Request) {
     Validator.validate(registerSchema, req.body);
-    return await this.authService.registerUser(req.body);
+
+    try {
+      const user = await this.authService.createUser(req.body);
+
+      const email = this.emailService.loadTemplate('sign-up', {username: user.username});
+      await this.emailService.send({to: user.email, html: email.html, subject: email.subject});
+
+      return user;
+    } catch (e) {
+      if (e.name === 'SequelizeUniqueConstraintError') {
+        if (e.fields.email) {
+          throw new BadRequestException(`Email "${e.fields.email}" is already registered`);
+        }
+        if (e.fields.username) {
+          throw new BadRequestException(`Username "${e.fields.username}" is already taken`);
+        }
+      }
+      throw e;
+    }
   }
 
   @Post('login')

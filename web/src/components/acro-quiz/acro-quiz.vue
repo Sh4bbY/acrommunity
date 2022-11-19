@@ -238,7 +238,7 @@ export default class AcroQuiz extends Vue {
     }
   }
 
-  &.v-btn {
+  &.v-btn.answer {
     height: auto !important;
     padding: 6px 16px !important;
     min-height: 36px;
@@ -246,6 +246,18 @@ export default class AcroQuiz extends Vue {
     ::v-deep span.v-btn__content {
       white-space: break-spaces;
       width: 100%;
+    }
+
+    &.correct {
+      background-color: rgba(green, 0.6);
+    }
+
+    &.incorrect {
+      background-color: rgba(red, 0.6);
+    }
+
+    &.selected {
+      background-color: rgba($c-primary, 0.6);
     }
   }
 }

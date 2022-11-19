@@ -6,6 +6,17 @@
           <v-toolbar-title>{{ $t('action.register') }}</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
+          <v-row>
+            <v-col cols="12" sm="6">
+              <v-btn>SignUp with Google</v-btn>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-btn>SignUp with Facebook</v-btn>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-btn>SignUp with Apple</v-btn>
+            </v-col>
+          </v-row>
           <v-form>
             <v-text-field v-model="form.username" :label="$t('field.username')"/>
             <v-text-field v-model="form.email" :label="$t('field.email')"/>

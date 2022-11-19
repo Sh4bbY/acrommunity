@@ -1,18 +1,23 @@
 <template>
-  <v-app :style="style">
+  <v-app>
     <login-dialog v-model="$store.state.app.dialog.login"/>
     <register-dialog v-model="$store.state.app.dialog.register"/>
+
     <loading-indicator/>
-    <guest-header/>
+
+    <app-header/>
     <side-navigation/>
 
     <v-main ref="main">
-      <transition name="page" mode="out-in">
-        <slot/>
-      </transition>
+      <div :style="pageWrapStyle">
+        <transition name="page" mode="out-in">
+          <slot/>
+        </transition>
+      </div>
+      <app-footer/>
     </v-main>
 
-    <bottom-navigation v-if="$vuetify.breakpoint.xs" :height="bottomNavHeight"/>
+    <bottom-navigation v-if="$vuetify.breakpoint.xs"/>
   </v-app>
 </template>
 
@@ -21,22 +26,20 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import LoginDialog from '~/components/dialogs/login-dialog.vue';
 import RegisterDialog from '~/components/dialogs/register-dialog.vue';
+import AppFooter from '~/components/layout/app-footer.vue';
+import AppHeader from '~/components/layout/app-header.vue';
 import BottomNavigation from '~/components/layout/bottom-navigation.vue';
-import GuestHeader from '~/components/layout/guest-header.vue';
 import SideNavigation from '~/components/layout/side-navigation.vue';
-import LoadingIndicator from '~/components/loading-indicator.vue';
+import LoadingIndicator from '~/components/common/loading-indicator.vue';
 
 @Component({
-  components: {RegisterDialog, BottomNavigation, GuestHeader, LoadingIndicator, LoginDialog, SideNavigation},
+  components: {AppHeader, SideNavigation, BottomNavigation, AppFooter, LoadingIndicator, LoginDialog, RegisterDialog},
 })
 export default class GuestLayout extends Vue {
-  dialog = {
-    login: false,
-  };
-  bottomNavHeight = 56;
-
-  get style() {
-    return {paddingBottom: this.$vuetify.breakpoint.xs ? this.bottomNavHeight + 'px' : 0};
+  get pageWrapStyle() {
+    return {
+      minHeight: 'calc(100% - 36px)',
+    };
   }
 }
 </script>

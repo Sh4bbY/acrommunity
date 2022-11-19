@@ -62,7 +62,7 @@
 <script lang="ts">
 import {BasePosition, FlyerPosition} from '@acrommunity/common';
 import {Component} from 'vue-property-decorator';
-import BreadcrumbTitle from '~/components/breadcrumb-title.vue';
+import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import Page from '../page.vue';
 
 @Component({

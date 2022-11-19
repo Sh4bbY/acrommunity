@@ -68,7 +68,7 @@
 <script lang="ts">
 import {BasePosition, FlyerPosition, Status} from '@acrommunity/common';
 import {Component} from 'vue-property-decorator';
-import BreadcrumbTitle from '~/components/breadcrumb-title.vue';
+import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import PaginatedGrid from '~/components/common/paginated-grid.vue';
 import PaginatedTable from '~/components/common/paginated-table.vue';
 import TooltipButton from '~/components/common/tooltip-button.vue';

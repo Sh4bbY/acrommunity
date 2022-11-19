@@ -3,14 +3,17 @@ import {InjectModel} from '@nestjs/sequelize';
 import {sign} from 'jsonwebtoken';
 import {config} from '~/config';
 import {User} from '~/models';
+import {Crypt} from '~/utils';
 
 @Injectable()
 export class AuthService {
   constructor(@InjectModel(User) private userModel: typeof User) {
   }
 
-  public async registerUser(user: any): Promise<any> {
-    return await this.userModel.create(user);
+  public async createUser(body: any): Promise<any> {
+    const password = await Crypt.hashPassword(body.password);
+    const record = await this.userModel.create({...body, password});
+    return record.get({plain: true});
   }
 
   // todo: use interface for user

@@ -1,5 +1,6 @@
 export const de = {
   p: {
+    address: 'Adresse | Adressen',
     repertoire: 'Repertoire | Repertoires',
     trainingPlan: 'Trainingsplan | Trainingspläne',
     question: 'Frage | Fragen',
@@ -66,6 +67,14 @@ export const de = {
     basePosition: 'Base Position',
   },
   label: {
+    start: 'Start',
+    lastUpdated: 'Zuletzt geändert',
+    host: 'Veranstalter',
+    suggestion: 'Vorschlag',
+    additionalInfo: 'Weitere Informationen',
+    details: 'Details',
+    contact: 'Kontakt',
+    imprint: 'Impressum',
     feedback: 'Feedback',
     availablePoses: 'Verfügbare Posen',
     administration: 'Administration',
@@ -94,6 +103,7 @@ export const de = {
     dictionary: 'Lexion',
   },
   action: {
+    findLocation: 'Ort suchen',
     sortBy: 'Sortieren nach',
     generate: 'Generieren',
     addToList: 'Zu Liste hinzufügen',
@@ -105,6 +115,7 @@ export const de = {
     create: 'Erstellen',
     delete: 'Löschen',
     apply: 'Anwenden',
+    applySuggestion: 'Vorschlag übernehmen',
     submit: 'Abschicken',
     cancel: 'Abbrechen',
     login: 'Anmelden',
@@ -146,8 +157,9 @@ export const de = {
     underConstruction: 'Dieser Bereich wird gerade gebaut.',
     notAvailable: 'Nicht vorhanden',
     notYetRated: 'Noch nicht Bewertet',
+    yourItemIsEmpty: 'Dein {item} is leer.',
   },
-  recurringType: {
+  recursionType: {
     once: 'Einmalig',
     weekly: 'Wöchentlich',
     monthly: 'Monatlich',

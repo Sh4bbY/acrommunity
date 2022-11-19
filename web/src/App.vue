@@ -1,8 +1,5 @@
 <template>
   <v-skeleton-loader v-if="$store.state.auth.isAuthPending"/>
-  <admin-layout v-else-if="$store.state.auth.isAdmin">
-    <router-view/>
-  </admin-layout>
   <user-layout v-else-if="$store.state.auth.isSignedIn">
     <router-view/>
   </user-layout>
@@ -15,13 +12,12 @@
 import moment from 'moment';
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import AdminLayout from '~/layouts/admin-layout.vue';
 import BlankLayout from '~/layouts/blank-layout.vue';
 import GuestLayout from '~/layouts/guest-layout.vue';
 import UserLayout from '~/layouts/user-layout.vue';
 
 @Component({
-  components: {BlankLayout, AdminLayout, UserLayout, GuestLayout},
+  components: {BlankLayout, UserLayout, GuestLayout},
 })
 export default class App extends Vue {
   async created() {

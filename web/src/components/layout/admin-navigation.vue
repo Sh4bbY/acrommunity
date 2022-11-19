@@ -89,14 +89,6 @@ export default class AdminNavigation extends Vue {
           {title: this.$tc('p.jam', 2), icon: 'mdi-account-group', route: {name: 'jams'}, exact: false},
         ],
       },
-      {
-        title: this.$t('label.administration'), icon: 'mdi-security', open: this.isGroupOpen.admin, children: [
-          {title: this.$tc('p.user', 2), icon: 'mdi-account-multiple', route: {name: 'users'}, exact: false},
-          {title: this.$tc('label.feedback'), icon: 'mdi-chat-alert', route: {name: 'feedback'}, exact: false},
-          {title: this.$tc('p.comment', 2), icon: 'mdi-chat', route: {name: 'comments'}, exact: false},
-          {title: 'Dev', icon: 'mdi-dev-to', route: {name: 'dev'}, exact: false},
-        ],
-      },
       {title: this.$tc('p.reference', 2), icon: 'mdi-web', route: {name: 'references'}, exact: false},
       {title: 'Communities', icon: 'mdi-account-group', route: {name: 'communities'}, exact: false},
     ];

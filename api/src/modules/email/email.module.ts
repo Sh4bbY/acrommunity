@@ -8,16 +8,11 @@ import {EmailService} from './email.service';
   controllers: [EmailController],
   providers: [
     EmailService,
-    {
-      provide: 'NodeMailer',
-      useFactory: () => nodemailer.createTransport(smtpOptions),
-    }],
+    {provide: 'NodeMailer', useFactory: () => nodemailer.createTransport(smtpOptions)},
+  ],
   exports: [
     EmailService,
-    {
-      provide: 'NodeMailer',
-      useFactory: () => nodemailer.createTransport(smtpOptions),
-    },
+    {provide: 'NodeMailer', useFactory: () => nodemailer.createTransport(smtpOptions)},
   ],
 })
 export class EmailModule {

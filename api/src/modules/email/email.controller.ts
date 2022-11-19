@@ -1,16 +1,18 @@
-import {Body, Controller, Post, UseGuards} from '@nestjs/common';
-import {AuthGuard} from '@nestjs/passport';
-import {Options} from 'nodemailer/lib/mailer';
-import {EmailService} from './email.service';
+import {Controller, Get, NotFoundException, Param} from '@nestjs/common';
+import {EmailService} from '~/modules/email/email.service';
 
-@Controller('/api/emails')
-@UseGuards(AuthGuard('jwt'))
+@Controller('/api/email')
+// @UseGuards(AuthGuard('jwt'))
 export class EmailController {
   constructor(private readonly emailService: EmailService) {
   }
 
-  @Post('send')
-  async send(@Body() emailOptions: Options) {
-    return await this.emailService.send(emailOptions);
+  @Get('test/:template')
+  async getPaginatedData(@Param('template') templateName) {
+    const email = this.emailService.loadTemplate(templateName, {username: 'ShabbY'});
+    if (!email) {
+      throw new NotFoundException();
+    }
+    return email.html;
   }
 }

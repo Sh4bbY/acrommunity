@@ -1,6 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
-import {Jam} from '~/models';
+import {col, fn, literal, Op} from 'sequelize';
+import {Jam, User} from '~/models';
 
 @Injectable()
 export class JamService {
@@ -8,7 +9,7 @@ export class JamService {
   }
 
   async getJam(id: number) {
-    return await this.jamModel.findOne({where: {id}});
+    return await this.jamModel.findOne({where: {id}, include: [User]});
   }
 
   async getPaginatedData() {
@@ -20,8 +21,24 @@ export class JamService {
   }
 
   async createJam(data) {
-    const result = await this.jamModel.create(data);
-    console.log(result);
-    return result;
+    return await this.jamModel.create(data);
   }
+
+  async searchJams(query) {
+    const latitude = query.position[0];
+    const longitude = query.position[1];
+
+    return await this.jamModel.findAll({
+      attributes: {
+        include: [
+          [fn('ST_Distance_Sphere', col('latlng'), fn('ST_GeomFromText', `POINT(${latitude} ${longitude})`)), 'distance'],
+        ],
+      },
+      having: {
+        distance: {[Op.lte]: query.distance},
+      },
+      order: literal('distance ASC'),
+    });
+  }
+
 }

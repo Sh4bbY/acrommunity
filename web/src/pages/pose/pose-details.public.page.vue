@@ -12,65 +12,56 @@
 
       <v-card-text>
         <v-row>
+          <v-col v-if="pose.description" cols="12">
+            <h3 class="mb-2">{{ $t('field.description') }}</h3>
+            <div v-html="pose.description"/>
+          </v-col>
           <v-col cols="12" md="6">
-            <embed-attachment v-if="pose.attachments.length === 1" :attachment="pose.attachments[0]"/>
-            <v-carousel v-else-if="pose.attachments.length > 1" :show-arrows="pose.attachments.length > 1">
-              <v-carousel-item v-for="(attachment,i) in pose.attachments" :key="i">
-                <embed-attachment :attachment="attachment"/>
-              </v-carousel-item>
-            </v-carousel>
-            <div v-else>
-              <v-alert color="grey" outlined class="text-center">no images</v-alert>
-            </div>
+            <h3 class="mb-2">{{ $t('field.difficulty') }}</h3>
+            <span>{{ pose.difficulty }} ({{ difficultyLabel }})</span>
+          </v-col>
+          <v-col cols="12" md="6">
+            <h3 class="mb-2">{{ $tc('p.person', 2) }}</h3>
+            <span>{{ pose.persons }}</span>
           </v-col>
 
           <v-col cols="12" md="6">
-            <v-row>
-              <v-col v-if="pose.description" cols="12">
-                <h3 class="mb-2">{{ $t('field.description') }}</h3>
-                <div v-html="pose.description"/>
-              </v-col>
-              <v-col cols="12" md="6">
-                <h3 class="mb-2">{{ $t('field.difficulty') }}</h3>
-                <span>{{ pose.difficulty }} ({{ difficultyLabel }})</span>
-              </v-col>
-              <v-col cols="12" md="6">
-                <h3 class="mb-2">{{ $tc('p.person', 2) }}</h3>
-                <span>{{ pose.persons }}</span>
-              </v-col>
+            <h3 class="mb-2">{{ $t('field.basePosition') }}</h3>
+            <span>{{ pose.basePosition ? $t('basePosition.' + pose.basePosition) : '-' }}</span>
+          </v-col>
 
-              <v-col cols="12" md="6">
-                <h3 class="mb-2">{{ $t('field.basePosition') }}</h3>
-                <span>{{ pose.basePosition ? $t('basePosition.' + pose.basePosition) : '-' }}</span>
-              </v-col>
+          <v-col cols="12" md="6">
+            <h3 class="mb-2">{{ $t('field.flyerPosition') }}</h3>
+            <span>{{ pose.flyerPosition ? $t('flyerPosition.' + pose.flyerPosition) : '-' }}</span>
+          </v-col>
 
-              <v-col cols="12" md="6">
-                <h3 class="mb-2">{{ $t('field.flyerPosition') }}</h3>
-                <span>{{ pose.flyerPosition ? $t('flyerPosition.' + pose.flyerPosition) : '-' }}</span>
-              </v-col>
+          <v-col cols="12" md="6" v-if="pose.easyIn">
+            <v-checkbox v-model="pose.easyIn" :label="$t('field.easyIn')" class="mt-0" disabled hide-details/>
+          </v-col>
+          <v-col cols="12" md="6" v-if="pose.easyOut">
+            <v-checkbox v-model="pose.easyOut" :label="$t('field.easyOut')" class="mt-0" disabled hide-details/>
+          </v-col>
+          <v-col cols="12" md="6" v-if="pose.counterBalance">
+            <v-checkbox v-model="pose.counterBalance" :label="$t('field.counterbalance')" class="mt-0" disabled hide-details/>
+          </v-col>
 
-              <v-col cols="12" md="6" v-if="pose.easyIn">
-                <v-checkbox v-model="pose.easyIn" :label="$t('field.easyIn')" class="mt-0" disabled hide-details/>
-              </v-col>
-              <v-col cols="12" md="6" v-if="pose.easyOut">
-                <v-checkbox v-model="pose.easyOut" :label="$t('field.easyOut')" class="mt-0" disabled hide-details/>
-              </v-col>
-              <v-col cols="12" md="6" v-if="pose.counterBalance">
-                <v-checkbox v-model="pose.counterBalance" :label="$t('field.counterbalance')" class="mt-0" disabled hide-details/>
-              </v-col>
+          <v-col v-if="pose.tags.length > 0" cols="12" md="6">
+            <h3 class="mb-2">{{ $tc('p.tag', 2) }}</h3>
+            <v-chip v-for="tag of pose.tags" :key="tag.name" small class="mr-1 mb-1">{{ tag.name }}</v-chip>
+          </v-col>
 
-              <v-col v-if="pose.tags.length > 0" cols="12" md="6">
-                <h3 class="mb-2">{{ $tc('p.tag', 2) }}</h3>
-                <v-chip v-for="tag of pose.tags" :key="tag.name" small class="mr-1 mb-1">{{ tag.name }}</v-chip>
-              </v-col>
-
-              <v-col v-if="pose.aliases.length > 0" cols="12" md="6">
-                <h3 class="mb-2">{{ $tc('p.alias', 2) }}</h3>
-                <span>{{ pose.aliases.map(a => a.name).join(', ') }}</span>
-              </v-col>
-            </v-row>
+          <v-col v-if="pose.aliases.length > 0" cols="12" md="6">
+            <h3 class="mb-2">{{ $tc('p.alias', 2) }}</h3>
+            <span>{{ pose.aliases.map(a => a.name).join(', ') }}</span>
           </v-col>
         </v-row>
+
+        <h3 class="mt-4 mb-2">{{ $tc('p.image', 2) }}</h3>
+        <div class="d-flex justify-start flex-wrap">
+          <div v-for="(attachment,i) in pose.attachments" :key="i" style="border: 1px solid #cccccc" class="ma-1">
+            <v-img :src="attachment.url" :max-height="200" :max-width="200" contain/>
+          </div>
+        </div>
       </v-card-text>
     </v-card>
 
@@ -113,7 +104,7 @@
 <script lang="ts">
 import {Component, Watch} from 'vue-property-decorator';
 import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
-import BreadcrumbTitle from '~/components/breadcrumb-title.vue';
+import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import CommentsPanel from '~/components/comment/comments-panel.vue';
 import TooltipButton from '~/components/common/tooltip-button.vue';
 import FavButton from '~/components/item/fav-button.vue';

@@ -1,82 +1,50 @@
 import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
-import CommentsPage from '~/pages/admin/comments.page.vue';
-import DevPage from '~/pages/admin/dev.page.vue';
-import FeedbackPage from '~/pages/admin/feedback.page.vue';
-import UserDetailsPage from '~/pages/admin/user/user-details.page.vue';
-import UsersPage from '~/pages/admin/user/users.page.vue';
-import AcroQuizPage from '~/pages/apps/acro-quiz.page.vue';
-import AcrolettePage from '~/pages/apps/acrolette.page.vue';
-import GamesPage from '~/pages/apps/apps.page.vue';
-import FlowGeneratorPage from '~/pages/apps/flow-generator.page.vue';
-import CommunitiesPage from '~/pages/communities.page.vue';
-import DictionaryPage from '~/pages/dictionary.page.vue';
-import FlowCreatePage from '~/pages/flow/flow-create.page.vue';
-import FlowDetailsPage from '~/pages/flow/flow-details.page.vue';
-import FlowsPage from '~/pages/flow/flows.page.vue';
-import HomePage from '~/pages/home.page.vue';
-import ImagesPage from '~/pages/image/images.page.vue';
-import JamCreatePage from '~/pages/jam/jam-create.page.vue';
-import JamDetailsPage from '~/pages/jam/jam-details.page.vue';
-import JamsPage from '~/pages/jam/jams.page.vue';
-import LandingPage from '~/pages/landing.page.vue';
-import MyFavoritesPage from '~/pages/my/my-favorites.page.vue';
-import MyListsPage from '~/pages/my/my-lists.page.vue';
-import MyRepertoirePage from '~/pages/my/my-repertoire.page.vue';
-import MyTrainingPage from '~/pages/my/my-training.page.vue';
-import PoseCreatePage from '~/pages/pose/pose-create.page.vue';
-import PoseDetailsPage from '~/pages/pose/pose-details.page.vue';
-import PoseEditPage from '~/pages/pose/pose-edit.page.vue';
-import PosesPage from '~/pages/pose/poses.page.vue';
-import ProfilePage from '~/pages/profile/profile.page.vue';
-import ReferencesPage from '~/pages/references.page.vue';
-import SkillCreatePage from '~/pages/skill/skill-create.page.vue';
-import SkillDetailsPage from '~/pages/skill/skill-details.page.vue';
-import SkillsPage from '~/pages/skill/skills.page.vue';
-import UnderConstructionPage from '~/pages/under-construction.page.vue';
-import VideosPage from '~/pages/video/videos.page.vue';
 import {store} from '~/store';
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
-  {path: '/', name: 'landing', component: LandingPage},
+  {path: '/', name: 'landing', component: () => import(/* webpackChunkName: "landing" */ '~/pages/landing.page.vue')},
   // {path: '/', redirect: 'home'},
-  {path: '/home', name: 'home', component: HomePage, meta: {access: 'user'}},
-  {path: '/profile', name: 'profile', component: ProfilePage, meta: {access: 'user'}},
-  {path: '/jams/create', name: 'jam-create', component: JamCreatePage, meta: {access: 'user'}},
-  {path: '/dictionary', name: 'dictionary', component: DictionaryPage},
-  {path: '/poses', name: 'poses', component: PosesPage},
-  {path: '/poses/create', name: 'pose-create', component: PoseCreatePage, meta: {access: 'user'}},
-  {path: '/poses/:id/edit', name: 'pose-edit', component: PoseEditPage, meta: {access: 'user'}},
-  {path: '/poses/:id', name: 'pose-details', component: PoseDetailsPage},
-  {path: '/flows', name: 'flows', component: FlowsPage},
-  {path: '/flows/create', name: 'flow-create', component: FlowCreatePage},
-  {path: '/flows/:id', name: 'flow-details', component: FlowDetailsPage},
-  {path: '/skills', name: 'skills', component: SkillsPage},
-  {path: '/skills/create', name: 'skill-create', component: SkillCreatePage},
-  {path: '/skills/:id', name: 'skill-details', component: SkillDetailsPage},
-  {path: '/images', name: 'images', component: ImagesPage},
-  {path: '/videos', name: 'videos', component: VideosPage},
-  {path: '/apps', name: 'apps', component: GamesPage},
-  {path: '/apps/acrolette', name: 'acrolette', component: AcrolettePage},
-  {path: '/apps/acro-quiz', name: 'acro-quiz', component: AcroQuizPage},
-  {path: '/apps/flow-generator', name: 'flow-generator', component: FlowGeneratorPage},
-  {path: '/references', name: 'references', component: ReferencesPage},
-  {path: '/communities', name: 'communities', component: CommunitiesPage},
-  {path: '/my/lists', name: 'my-lists', component: MyListsPage, meta: {access: 'user'}},
-  {path: '/my/favorites', name: 'my-favorites', component: MyFavoritesPage, meta: {access: 'user'}},
-  {path: '/my/training', name: 'my-training', component: MyTrainingPage, meta: {access: 'user'}},
-  {path: '/my/repertoire', name: 'my-repertoire', component: MyRepertoirePage, meta: {access: 'user'}},
+  {path: '/home', name: 'home', component: () => import(/* webpackChunkName: "home" */ '~/pages/home.page.vue'), meta: {access: 'user'}},
+  {path: '/imprint', name: 'imprint', component: () => import(/* webpackChunkName: "imprint" */ '~/pages/imprint.page.vue')},
+  {path: '/profile', name: 'profile', component: () => import(/* webpackChunkName: "profile" */ '~/pages/profile/profile.page.vue'), meta: {access: 'user'}},
+  {path: '/jams/create', name: 'jam-create', component: () => import(/* webpackChunkName: "jam-create" */ '~/pages/jam/jam-create.page.vue'), meta: {access: 'user'}},
+  {path: '/dictionary', name: 'dictionary', component: () => import(/* webpackChunkName: "dictionary" */ '~/pages/dictionary.page.vue')},
+  {path: '/poses', name: 'poses', component: () => import(/* webpackChunkName: "poses" */ '~/pages/pose/poses.page.vue')},
+  {path: '/poses/create', name: 'pose-create', component: () => import(/* webpackChunkName: "pose-create" */ '~/pages/pose/pose-create.page.vue'), meta: {access: 'user'}},
+  {path: '/poses/:id/edit', name: 'pose-edit', component: () => import(/* webpackChunkName: "pose-edit" */ '~/pages/pose/pose-edit.page.vue'), meta: {access: 'user'}},
+  {path: '/poses/:id', name: 'pose-details', component: () => import(/* webpackChunkName: "pose-details" */ '~/pages/pose/pose-details.page.vue')},
+  {path: '/flows', name: 'flows', component: () => import(/* webpackChunkName: "flows" */ '~/pages/flow/flows.page.vue')},
+  {path: '/flows/create', name: 'flow-create', component: () => import(/* webpackChunkName: "flow-create" */ '~/pages/flow/flow-create.page.vue')},
+  {path: '/flows/:id', name: 'flow-details', component: () => import(/* webpackChunkName: "flow-details" */ '~/pages/flow/flow-details.page.vue')},
+  {path: '/skills', name: 'skills', component: () => import(/* webpackChunkName: "skills" */ '~/pages/skill/skills.page.vue')},
+  {path: '/skills/create', name: 'skill-create', component: () => import(/* webpackChunkName: "skill-create" */ '~/pages/skill/skill-create.page.vue')},
+  {path: '/skills/:id', name: 'skill-details', component: () => import(/* webpackChunkName: "skill-details" */ '~/pages/skill/skill-details.page.vue')},
+  {path: '/images', name: 'images', component: () => import(/* webpackChunkName: "images" */ '~/pages/image/images.page.vue')},
+  {path: '/videos', name: 'videos', component: () => import(/* webpackChunkName: "videos" */ '~/pages/video/videos.page.vue')},
+  {path: '/apps', name: 'apps', component: () => import(/* webpackChunkName: "apps" */ '~/pages/apps/apps.page.vue')},
+  {path: '/apps/acrolette', name: 'acrolette', component: () => import(/* webpackChunkName: "acrolette" */ '~/pages/apps/acrolette.page.vue')},
+  {path: '/apps/acro-quiz', name: 'acro-quiz', component: () => import(/* webpackChunkName: "acro-quiz" */ '~/pages/apps/acro-quiz.page.vue')},
+  {path: '/apps/flow-generator', name: 'flow-generator', component: () => import(/* webpackChunkName: "flow-generator" */ '~/pages/apps/flow-generator.page.vue')},
+  {path: '/references', name: 'references', component: () => import(/* webpackChunkName: "references" */ '~/pages/references.page.vue')},
+  {path: '/communities', name: 'communities', component: () => import(/* webpackChunkName: "communities" */ '~/pages/communities.page.vue')},
+  {path: '/my/lists', name: 'my-lists', component: () => import(/* webpackChunkName: "my-lists" */ '~/pages/my/my-lists.page.vue'), meta: {access: 'user'}},
+  {path: '/my/favorites', name: 'my-favorites', component: () => import(/* webpackChunkName: "my-favorites" */ '~/pages/my/my-favorites.page.vue'), meta: {access: 'user'}},
+  {path: '/my/training', name: 'my-training', component: () => import(/* webpackChunkName: "my-training" */ '~/pages/my/my-training.page.vue'), meta: {access: 'user'}},
+  {path: '/my/repertoire', name: 'my-repertoire', component: () => import(/* webpackChunkName: "my-repertoire" */ '~/pages/my/my-repertoire.page.vue'), meta: {access: 'user'}},
+  {path: '/jams', name: 'jams', component: () => import(/* webpackChunkName: "jams" */ '~/pages/jam/jams.page.vue')},
+  {path: '/jams/:id', name: 'jam-details', component: () => import(/* webpackChunkName: "jam-details" */ '~/pages/jam/jam-details.page.vue')},
 
-  {path: '/jams', name: 'jams', component: UnderConstructionPage},
-  {path: '/admin/dev', name: 'dev', component: DevPage, meta: {access: 'admin'}},
-  {path: '/admin/users', name: 'users', component: UsersPage, meta: {access: 'admin'}},
-  {path: '/admin/users/:id', name: 'user-details', component: UserDetailsPage, meta: {access: 'admin'}},
-  {path: '/admin/comments', name: 'comments', component: CommentsPage, meta: {access: 'admin'}},
-  {path: '/admin/feedback', name: 'feedback', component: FeedbackPage, meta: {access: 'admin'}},
-  {path: '/admin/jams', name: 'admin-jams', component: JamsPage, meta: {access: 'admin'}},
-  {path: '/admin/jams/:id', name: 'admin-jam-details', component: JamDetailsPage, meta: {access: 'admin'}},
+  {path: '/admin/dev', name: 'dev', component: () => import(/* webpackChunkName: "dev" */ '~/pages/admin/dev.page.vue'), meta: {access: 'admin'}},
+  {path: '/admin/users', name: 'users', component: () => import(/* webpackChunkName: "users" */ '~/pages/admin/user/users.page.vue'), meta: {access: 'admin'}},
+  {
+    path: '/admin/users/:id', name: 'user-details', component: () => import(/* webpackChunkName: "user-details" */ '~/pages/admin/user/user-details.page.vue'),
+    meta: {access: 'admin'},
+  },
+  {path: '/admin/comments', name: 'comments', component: () => import(/* webpackChunkName: "comments" */ '~/pages/admin/comments.page.vue'), meta: {access: 'admin'}},
+  {path: '/admin/feedback', name: 'feedback', component: () => import(/* webpackChunkName: "feedback" */ '~/pages/admin/feedback.page.vue'), meta: {access: 'admin'}},
 
   // 404 page needs to be last in routes array
   {path: '*', name: 'not-found', component: () => import( /* webpackChunkName: "404.page" */ './pages/404.page.vue')},

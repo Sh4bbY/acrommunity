@@ -1,33 +1,36 @@
 <template>
   <v-container>
-    <v-card>
-      <v-toolbar color="primary" dense dark>
-        <v-toolbar-title>{{ $tc('p.jam', 2) }}</v-toolbar-title>
-        <v-spacer/>
-        <v-btn :to="{name: 'jam-create'}" icon small class="mr-1">
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
-      </v-toolbar>
+    <jam-search class="mb-5"/>
 
-      <v-data-table :items="jams.rows" :headers="headers">
-        <template #item.title="{item}">
-          <router-link :to="{name: 'jam-details', params: {id: item.id}}">{{ item.title }}</router-link>
-        </template>
-        <template #item.startDate="{item}">
-          <moment v-model="item.startDate"/>
-        </template>
-      </v-data-table>
-    </v-card>
+    <!--    <v-card>-->
+    <!--      <v-toolbar color="primary" dense dark>-->
+    <!--        <v-toolbar-title>{{ $tc('p.jam', 2) }}</v-toolbar-title>-->
+    <!--        <v-spacer/>-->
+    <!--        <v-btn :to="{name: 'jam-create'}" icon small class="mr-1">-->
+    <!--          <v-icon>mdi-plus</v-icon>-->
+    <!--        </v-btn>-->
+    <!--      </v-toolbar>-->
+
+    <!--      <v-data-table :items="jams.rows" :headers="headers">-->
+    <!--        <template #item.title="{item}">-->
+    <!--          <router-link :to="{name: 'jam-details', params: {id: item.id}}">{{ item.title }}</router-link>-->
+    <!--        </template>-->
+    <!--        <template #item.startDate="{item}">-->
+    <!--          <moment v-model="item.startDate"/>-->
+    <!--        </template>-->
+    <!--      </v-data-table>-->
+    <!--    </v-card>-->
   </v-container>
 </template>
 
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
 import Moment from '~/components/common/moment.vue';
+import JamSearch from '~/components/jam-search.vue';
 import Page from '../page.vue';
 
 @Component({
-  components: {Moment},
+  components: {Moment, JamSearch},
 })
 export default class JamsPage extends Page {
   jams = [];

@@ -53,7 +53,7 @@
 
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
-import BreadcrumbTitle from '~/components/breadcrumb-title.vue';
+import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import PaginatedGrid from '~/components/common/paginated-grid.vue';
 import TooltipButton from '~/components/common/tooltip-button.vue';
 import MediaDialog from '~/components/dialogs/media-dialog.vue';

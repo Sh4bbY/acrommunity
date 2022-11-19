@@ -2,12 +2,15 @@
   <div>
     <v-card class="mb-5">
       <v-toolbar color="primary lighten-1" dark dense>
-        <v-icon class="mr-2">mdi-heart</v-icon>
-        <v-toolbar-title>{{ title }}</v-toolbar-title>
+        <v-toolbar-title>
+          <span class="pt-2">{{ title }}</span>
+        </v-toolbar-title>
         <v-spacer/>
       </v-toolbar>
       <v-card-text v-if="markables.length === 0">
-        {{ $t('msg.noFavorites') }}
+        <span v-if="type === MarkType.Favorite">{{ $t('msg.noFavorites') }}</span>
+        <span v-else-if="type === MarkType.CanDo">{{ $t('msg.yourItemIsEmpty', {item: $tc('p.repertoire')}) }}</span>
+        <span v-else-if="type === MarkType.WorkingOn">{{ $t('msg.yourItemIsEmpty', {item: $tc('p.trainingPlan')}) }}</span>
       </v-card-text>
       <v-card-text v-else v-for="markable in markables" :key="markable.type">
         <h2 class="py-2 text-center">{{ $tc('p.' + markable.type, 2) }}</h2>
@@ -60,6 +63,10 @@ export default class MyMarks extends Vue {
     } catch (e) {
       this.$notify.error(e);
     }
+  }
+
+  get MarkType() {
+    return MarkType;
   }
 }
 </script>

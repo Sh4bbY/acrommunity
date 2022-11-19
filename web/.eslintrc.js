@@ -21,6 +21,7 @@ module.exports = {
       files: ['*.vue'],
       rules: {
         'vue/valid-v-slot': 'off',
+        'no-undef': 'off',
       },
     },
     {

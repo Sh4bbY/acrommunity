@@ -50,7 +50,7 @@
 <script lang="ts">
 import {Component, Watch} from 'vue-property-decorator';
 import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
-import BreadcrumbTitle from '~/components/breadcrumb-title.vue';
+import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import CommentsPanel from '~/components/comment/comments-panel.vue';
 import {resolveDifficulty} from '~/utils';
 import Page from '../page.vue';
