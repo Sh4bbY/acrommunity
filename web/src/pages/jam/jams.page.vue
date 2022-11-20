@@ -1,25 +1,6 @@
 <template>
   <v-container>
     <jam-search class="mb-5"/>
-
-    <!--    <v-card>-->
-    <!--      <v-toolbar color="primary" dense dark>-->
-    <!--        <v-toolbar-title>{{ $tc('p.jam', 2) }}</v-toolbar-title>-->
-    <!--        <v-spacer/>-->
-    <!--        <v-btn :to="{name: 'jam-create'}" icon small class="mr-1">-->
-    <!--          <v-icon>mdi-plus</v-icon>-->
-    <!--        </v-btn>-->
-    <!--      </v-toolbar>-->
-
-    <!--      <v-data-table :items="jams.rows" :headers="headers">-->
-    <!--        <template #item.title="{item}">-->
-    <!--          <router-link :to="{name: 'jam-details', params: {id: item.id}}">{{ item.title }}</router-link>-->
-    <!--        </template>-->
-    <!--        <template #item.startDate="{item}">-->
-    <!--          <moment v-model="item.startDate"/>-->
-    <!--        </template>-->
-    <!--      </v-data-table>-->
-    <!--    </v-card>-->
   </v-container>
 </template>
 

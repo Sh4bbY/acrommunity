@@ -67,6 +67,7 @@ export const de = {
     basePosition: 'Base Position',
   },
   label: {
+    address: 'Adresse',
     start: 'Start',
     lastUpdated: 'Zuletzt geändert',
     host: 'Veranstalter',

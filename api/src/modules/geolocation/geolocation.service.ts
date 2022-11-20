@@ -16,7 +16,6 @@ export class GeolocationService {
       },
     }));
 
-    console.log(response.data[0]);
     return response.data;
   }
 

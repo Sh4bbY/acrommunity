@@ -26,8 +26,8 @@ RUN apt-get update && apt-get install -y vim
 # become user acrommunity-api
 USER ${user}
 
-# copy node dependency informations to app_dir
-COPY --chown=${user} .sequelizerc package.json yarn.lock ${app_dir}/
+# copy files to app_dir
+COPY --chown=${user} .sequelizerc package.json yarn.lock email ${app_dir}/
 
 # link @acrommunity/common
 COPY --chown=${user} ./@acrommunity/common ${app_dir}/@acrommunity/common

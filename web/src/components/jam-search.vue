@@ -14,7 +14,7 @@
         <template #item.startDate="{item}">
           <moment v-model="item.startDate" format="DD.MM.YYYY - HH:mm" no-tooltip/>
           Uhr
-          <span class="text-note">{{ getDuration(item) }}</span>
+          <span class="text-note text-no-wrap">{{ getDuration(item) }}</span>
         </template>
         <template #item.title="{item}">
           <router-link :to="{name: 'jam-details', params: {id: item.id}}">{{ item.title }}</router-link>
@@ -60,6 +60,7 @@ export default class JamSearch extends Vue {
     return [
       {text: this.$t('field.title'), value: 'title'},
       {text: this.$t('label.start'), value: 'startDate'},
+      {text: this.$t('label.address'), value: 'address'},
       {text: this.$t('label.distance'), value: 'distance', width: '120px', align: 'right'},
     ];
   }

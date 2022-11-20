@@ -1,6 +1,7 @@
 import {BadRequestException, Controller, Get, HttpCode, Post, Req, Res, UseGuards} from '@nestjs/common';
 import {AuthGuard} from '@nestjs/passport';
 import {Request, Response} from 'express';
+import {config} from '~/config';
 import {registerSchema} from '~/modules/auth/validation/register.joi';
 import {EmailService} from '~/modules/email/email.service';
 import {Validator} from '~/utils';
@@ -18,7 +19,7 @@ export class AuthController {
     try {
       const user = await this.authService.createUser(req.body);
 
-      const email = this.emailService.loadTemplate('sign-up', {username: user.username});
+      const email = this.emailService.loadTemplate('sign-up', {username: user.username, url: config.appUrl});
       await this.emailService.send({to: user.email, html: email.html, subject: email.subject});
 
       return user;

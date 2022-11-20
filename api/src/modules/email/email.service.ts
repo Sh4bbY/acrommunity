@@ -7,7 +7,6 @@ import {config} from '~/config';
 @Injectable()
 export class EmailService {
   constructor(@Inject('NodeMailer') private readonly nodeMailer) {
-    console.log(process.cwd());
   }
 
   async send(options: Options): Promise<void> {
@@ -28,7 +27,6 @@ export class EmailService {
       html = html.replace('{{ style }}', `<style type="text/css">${style}</style>`);
       html = html.replace(new RegExp(`\{\{ APP_URL \}\}`, 'g'), config.appUrl);
 
-      console.log(data);
       Object.keys(data).forEach(key => {
         html = html.replace(new RegExp(`\{${key}\}`, 'g'), data[key]);
       });

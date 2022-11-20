@@ -16,7 +16,7 @@
             <h3>{{ $t('field.createdAt') }}</h3>
             <moment v-model="user.createdAt"/>
             <v-spacer class="my-5"/>
-            <v-checkbox v-model="user.isAdmin" :label="$t('field.isAdmin')" disabled/>
+            <v-checkbox v-model="isAdmin" :label="$t('field.isAdmin')" @change="toggleAdminRole"/>
           </v-col>
         </v-row>
       </v-card-text>
@@ -50,6 +50,7 @@
 </template>
 
 <script lang="ts">
+import {Role} from '@acrommunity/common';
 import {Component, Watch} from 'vue-property-decorator';
 import Moment from '~/components/common/moment.vue';
 import Page from '../../page.vue';
@@ -59,12 +60,22 @@ import Page from '../../page.vue';
 })
 export default class UserDetailsPage extends Page {
   user: any = null;
+  isAdmin = false;
 
   @Watch('$route.params.id', {immediate: true})
   async watchId(id: string) {
     try {
       const response = await this.$api.get(`/api/users/${id}`);
       this.user = response.data;
+      this.isAdmin = this.user.role === Role.Admin;
+    } catch (e) {
+      this.$notify.error(e);
+    }
+  }
+
+  async toggleAdminRole() {
+    try {
+      await this.$api.put(`/api/admin/user/${this.user.id}`, {role: this.isAdmin ? Role.Admin : Role.User});
     } catch (e) {
       this.$notify.error(e);
     }
