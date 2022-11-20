@@ -2,7 +2,7 @@ import {ListableType, MarkableType, MarkType} from '@acrommunity/common';
 import {ForbiddenException, Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {Op} from 'sequelize';
-import {Attachment, Flow, List, Pose, Skill, User} from '~/models';
+import {Attachment, Flow, Jam, List, Pose, Skill, User} from '~/models';
 import {PT_Listable, PT_Markable} from '~/models/pivot';
 
 @Injectable()
@@ -15,15 +15,17 @@ export class MyService {
     @InjectModel(Pose) private poseModel: typeof Pose,
     @InjectModel(Flow) private flowModel: typeof Flow,
     @InjectModel(Skill) private skillModel: typeof Skill,
+    @InjectModel(Jam) private jamModel: typeof Jam,
   ) {
   }
 
   async getUserState(userId: number) {
-    const [lists, marks] = await Promise.all([
+    const [lists, marks, jams] = await Promise.all([
       this.listModel.findAll({where: {userId}, include: [Pose, Flow, Skill]}),
       this.ptMarkableModel.findAll({where: {userId}}),
+      this.jamModel.findAll({where: {creatorId: userId}}),
     ]);
-    return {lists, marks};
+    return {lists, marks, jams};
   }
 
   async addListableToList(userId: number, listId: number, listableType: ListableType, listableId: number) {

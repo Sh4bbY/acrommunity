@@ -16,6 +16,7 @@ export default class LeafletMap extends Vue {
   @Prop({type: Array, default: () => [51.5, 0]}) position: any;
   @Prop({type: String, default: '300px'}) height: string;
   @Prop({type: Number, default: 15}) zoom: number;
+  @Prop({type: Boolean, default: false}) loadCurrentPos: boolean;
   @Prop({type: String, default: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'}) url: string;
   // 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}'
 
@@ -39,7 +40,9 @@ export default class LeafletMap extends Vue {
     this.tileLayer = L.tileLayer(this.url);
     this.tileLayer.addTo(this.map);
 
-    await this.getCurrentLocation();
+    if (this.loadCurrentPos) {
+      await this.getCurrentLocation();
+    }
   }
 
   async getCurrentLocation() {

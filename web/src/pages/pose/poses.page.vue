@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts">
-import {BasePosition, FlyerPosition, Status} from '@acrommunity/common';
+import {BasePosition, FlyerPosition, PoseStatus} from '@acrommunity/common';
 import {Component} from 'vue-property-decorator';
 import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import PaginatedGrid from '~/components/common/paginated-grid.vue';
@@ -88,7 +88,7 @@ export default class PosesPage extends Page {
   filter = {
     name: null,
     persons: 2,
-    status: Status.Suggestion,
+    status: PoseStatus.Suggestion,
     difficulty: [1, 6],
     basePosition: null,
     flyerPosition: null,
@@ -169,7 +169,7 @@ export default class PosesPage extends Page {
   }
 
   get statusOptions() {
-    return Object.values(Status).map(value => ({text: this.$t('status.' + value), value}));
+    return Object.values(PoseStatus).map(value => ({text: this.$t('status.' + value), value}));
   }
 
   get personOptions() {

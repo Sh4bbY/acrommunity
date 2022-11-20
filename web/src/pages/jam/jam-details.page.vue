@@ -1,9 +1,16 @@
 <template>
   <v-container v-if="jam">
     <v-card class="mb-5">
-      <v-toolbar color="primary" dense dark>
-        <v-toolbar-title>{{ jam.title }}</v-toolbar-title>
+
+      <v-toolbar :color="isCancelled ? 'error' : 'primary'" dense dark>
+        <v-toolbar-title>
+          {{ jam.title }}
+          <span v-if="isCancelled" class="ml-5 text-decoration-underline">{{ $t('label.cancelled') }}!</span>
+        </v-toolbar-title>
         <v-spacer/>
+        <v-toolbar-items v-if="isMyJam">
+          <v-btn text :to="{name: 'jam-edit', params:{id: jam.id}}">{{ $t('action.editItem', {item: $tc('p.jam')}) }}</v-btn>
+        </v-toolbar-items>
         <v-btn icon @click="$router.go(-1)">
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
@@ -45,7 +52,7 @@
             <leaflet-show-position :position="jam.latlng.coordinates"/>
             <div class="d-flex mt-2">
               <v-spacer/>
-              <v-btn @click="openInMaps" small>Open in Google Maps</v-btn>
+              <v-btn @click="openInMaps" small>{{ $t('action.openInGoogleMaps') }}</v-btn>
             </div>
           </v-col>
         </v-row>
@@ -62,6 +69,7 @@
 </template>
 
 <script lang="ts">
+import {JamStatus} from '@acrommunity/common';
 import {Component, Watch} from 'vue-property-decorator';
 import CommentsPanel from '~/components/comment/comments-panel.vue';
 import Moment from '~/components/common/moment.vue';
@@ -86,6 +94,14 @@ export default class JamDetailsPage extends Page {
 
   get title() {
     return this.jam?.name || this.$tc('p.jam');
+  }
+
+  get isMyJam() {
+    return this.$store.state.auth.isSignedIn && this.jam.creatorId === this.$store.state.auth.user.id;
+  }
+
+  get isCancelled() {
+    return this.jam.status === JamStatus.Cancelled;
   }
 
   openInMaps() {

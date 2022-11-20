@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-if="jam">
     <v-form>
       <v-text-field v-model="form.title" :label="$t('field.title')"/>
       <v-expansion-panels v-model="openPanels" multiple accordion>
@@ -33,7 +33,7 @@
           <v-expansion-panel-content>
             <v-row>
               <v-col cols="12" md="6">
-                <leaflet-define-position :position="location.position" load-current-pos @move="onMapMove"/>
+                <leaflet-define-position :position="form.coordinates" @move="onMapMove"/>
                 <div class="mb-2">
                   <label class="mr-2">{{ $t('label.suggestion') }}:</label>
                   <span v-html="location.suggestion" style="color: #777; font-size:13px"/>
@@ -72,16 +72,16 @@
               <v-col cols="12">
                 <v-textarea v-model="form.description" :label="$t('field.description')" rows="3"/>
                 <v-text-field v-model="form.contact" :label="$t('label.contact')"/>
-                <!--                <v-autocomplete v-model="form.maxPeople" :label="$t('field.maxPeople')"/>-->
               </v-col>
             </v-row>
           </v-expansion-panel-content>
         </v-expansion-panel>
         <v-expansion-panel>
           <div class="d-flex pa-3">
+            <v-btn v-if="!isCancelled" color="error" class="mr-4" @click="cancelJam">{{ $t('action.cancelJam') }}</v-btn>
             <v-spacer/>
-            <v-btn text @click="$router.go(-1)" class="mr-4">{{ $t('action.cancel') }}</v-btn>
-            <v-btn color="primary" @click="submit">{{ $t('action.createItem', {item: $tc('p.jam')}) }}</v-btn>
+            <v-btn text :to="{name: 'jam-details', params: {id: jam.id}}" class="mr-4">{{ $t('action.cancel') }}</v-btn>
+            <v-btn color="primary" @click="submit">{{ $t('action.updateItem', {item: $tc('p.jam')}) }}</v-btn>
           </div>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -90,7 +90,7 @@
 </template>
 
 <script lang="ts">
-import {RecursionType} from '@acrommunity/common';
+import {IJam, JamStatus, RecursionType} from '@acrommunity/common';
 import moment from 'moment';
 import {Component} from 'vue-property-decorator';
 import LeafletDefinePosition from '~/components/leaflet/leaflet-define-position.vue';
@@ -99,20 +99,19 @@ import Page from '../page.vue';
 @Component({
   components: {LeafletDefinePosition},
 })
-export default class JamCreatePage extends Page {
+export default class JamEditPage extends Page {
+  jam: IJam = null;
   form = {
     title: '',
-    description: 'An alle Flughörnchen da draußen: Kommt vorbei und lasst uns fliegen!',
-    date: new Date().toISOString().substring(0, 10),
-    startTime: '18:00',
-    endTime: '21:00',
+    description: '',
+    date: null,
+    startTime: '',
+    endTime: '',
     recursionType: RecursionType.Once,
     coordinates: [0, 0],
-    address: 'Nordring 3\n' +
-        '25704 Mitteldithmarschen\n' +
-        'Deutschland',
-    locationInfo: 'einfach hier klingeln',
-    contact: '0176 123 12312 3   einfach anrufen wenn ihr es nicht findet!',
+    address: '',
+    locationInfo: '',
+    contact: '',
   };
 
   location = {
@@ -123,13 +122,33 @@ export default class JamCreatePage extends Page {
     position: [51.5, 0],
   };
 
-  openPanels = [0, 1];
+  openPanels = [0, 1, 2];
   times = [];
 
-  mounted() {
-    this.form.title = `${this.$store.state.auth.user.username}'s Jam`;
-    this.form.description = `An alle Flughörnchen da draußen: Kommt vorbei und lasst uns fliegen! `;
+  async mounted() {
+    await this.$store.state.user.stateLoaded;
+    this.jam = this.$store.state.user.jams.find(jam => jam.id === Number(this.$route.params.id));
+
+    if (!this.jam) {
+      return;
+    }
     this.setTimes();
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.form.title = this.jam.title;
+    this.form.description = this.jam.description;
+    const startDate = moment(this.jam.startDate);
+    const endDate = moment(this.jam.endDate);
+    this.form.date = this.jam.startDate.substring(0, 10);
+    this.form.startTime = startDate.format('H:mm');
+    this.form.endTime = endDate.format('H:mm');
+    this.form.recursionType = this.jam.recursionType;
+    this.form.address = this.jam.address;
+    this.form.locationInfo = this.jam.locationInfo;
+    this.form.contact = this.jam.contact;
+    this.form.coordinates = this.jam.latlng.coordinates;
   }
 
   setTimes() {
@@ -144,9 +163,21 @@ export default class JamCreatePage extends Page {
 
   async submit() {
     try {
-      const response = await this.$api.post('/api/jams', this.form);
-      this.$store.state.user.jams.push(response.data);
-      await this.$router.push({name: 'jam-details', params: {id: response.data.id}});
+      const response = await this.$api.put(`/api/jams/${this.jam.id}/update`, this.form);
+      await this.$store.dispatch('user/updateJam', response.data);
+      await this.$router.push({name: 'jam-details', params: {id: String(this.jam.id)}});
+      this.$notify.success(this.$t('notify.updateItemSuccess', {item: this.$tc('p.jam')}));
+    } catch (e) {
+      this.$notify.error(e);
+    }
+  }
+
+  async cancelJam() {
+    try {
+      const response = await this.$api.put(`/api/jams/${this.jam.id}/cancel`);
+      await this.$store.dispatch('user/updateJam', response.data);
+      await this.$router.push({name: 'jam-details', params: {id: String(this.jam.id)}});
+      this.$notify.success(this.$t('notify.updateItemSuccess', {item: this.$tc('p.jam')}));
     } catch (e) {
       this.$notify.error(e);
     }
@@ -196,6 +227,10 @@ export default class JamCreatePage extends Page {
 
   get today() {
     return new Date().toISOString().substring(0, 10);
+  }
+
+  get isCancelled() {
+    return this.jam.status === JamStatus.Cancelled;
   }
 
   onAddressClear() {

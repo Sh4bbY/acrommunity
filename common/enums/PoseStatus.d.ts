@@ -1,4 +1,4 @@
-export declare enum Status {
+export declare enum PoseStatus {
     Accepted = "accepted",
     Suggestion = "suggestion"
 }

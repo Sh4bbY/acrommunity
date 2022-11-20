@@ -1,9 +1,10 @@
-import {getListables, IList, ListableType, MarkableType, MarkType} from '@acrommunity/common';
+import {getListables, IJam, IList, ListableType, MarkableType, MarkType} from '@acrommunity/common';
 import {ActionContext, Module} from 'vuex';
 import {api} from '~/plugins/api';
 import {RootState} from '~/store';
 
 export interface UserState {
+  loaded: Promise<void>,
   marks: {
     id: number,
     type: MarkType,
@@ -20,13 +21,17 @@ export interface UserState {
     flows: any[],
     skills: any[],
   }[],
+  jams: IJam[],
 }
 
+let resolveStateLoaded = null;
 export const userStore: Module<UserState, RootState> = {
   namespaced: true,
   state: {
+    loaded: new Promise((resolve) => resolveStateLoaded = resolve),
     lists: [],
     marks: [],
+    jams: [],
   },
   mutations: {},
   actions: {
@@ -34,6 +39,8 @@ export const userStore: Module<UserState, RootState> = {
       const response = await api.get('/api/my/state');
       context.state.lists = response.data.lists;
       context.state.marks = response.data.marks;
+      context.state.jams = response.data.jams;
+      resolveStateLoaded();
     },
     async toggleMark({state, dispatch}: ActionContext<UserState, RootState>, payload: { markableType: MarkableType, markableId: number, type: MarkType }) {
       if (state.marks.find(mark => mark.markableType === payload.markableType && mark.markableId === payload.markableId && mark.type === payload.type)) {
@@ -90,6 +97,11 @@ export const userStore: Module<UserState, RootState> = {
       const list = Object.assign({poses: [], flows: [], skills: []}, response.data);
       context.state.lists.push(list);
       return list;
+    },
+    async updateJam(context: ActionContext<UserState, RootState>, jam: IJam) {
+      const storedJam = context.state.jams.find(j => j.id === jam.id);
+      Object.assign(storedJam, jam);
+      return storedJam;
     },
   },
   getters: {},

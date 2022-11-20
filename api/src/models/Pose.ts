@@ -1,4 +1,4 @@
-import {AliasableType, AttachableType, CommentableType, Status, TaggableType} from '@acrommunity/common';
+import {AliasableType, AttachableType, CommentableType, PoseStatus, TaggableType} from '@acrommunity/common';
 import {BelongsToMany, Column, DataType, HasMany, Model, Table} from 'sequelize-typescript';
 import {Comment, Tag} from '~/models';
 import {Alias} from '~/models/Alias';
@@ -39,7 +39,7 @@ export class Pose extends Model<Pose> {
   declare counterbalance: boolean;
 
   @Column({type: DataType.STRING})
-  declare status: Status;
+  declare status: PoseStatus;
 
   @BelongsToMany(() => Pose, () => Transition, 'targetPoseId')
   declare sourcePoses?: Pose[];

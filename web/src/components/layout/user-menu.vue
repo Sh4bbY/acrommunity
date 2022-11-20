@@ -1,5 +1,5 @@
 <template>
-  <v-menu bottom offset-y transition="slide-y-transition">
+  <v-menu bottom offset-y transition="scale-transition" origin="top center" tile>
     <template #activator="{ on, attrs }">
       <v-btn text v-on="on" v-bind="attrs">
         <v-avatar v-if="user.avatar" size="28" :style="avatarStyle">
@@ -47,13 +47,19 @@ export default class UserMenu extends Vue {
         to: {name: 'my-lists'},
       },
       {
+        icon: 'mdi-calendar ',
+        title: this.$tc('label.myJams'),
+        to: {name: 'my-jams'},
+        condition: this.$store.state.user.jams.length > 0,
+      },
+      {
         icon: 'mdi-power',
         title: this.$t('action.logout'),
         onClick: async () => {
           await this.$store.dispatch('auth/logout');
         },
       },
-    ];
+    ].filter(item => item.condition === undefined || item.condition === true);
   }
 }
 </script>

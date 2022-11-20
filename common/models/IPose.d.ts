@@ -1,4 +1,4 @@
-import { BasePosition, FlyerPosition, Status } from '../enums';
+import { BasePosition, FlyerPosition, PoseStatus } from '../enums';
 import { IAlias } from './IAlias';
 import { IAttachment } from './IAttachment';
 import { IComment } from './IComment';
@@ -15,7 +15,7 @@ export interface IPose {
     aliases?: IAlias[];
     tags?: ITag[];
     attachments?: IAttachment[];
-    status?: Status;
+    status?: PoseStatus;
 }
 export declare const poseValidation: {
     constraints: {

@@ -14,22 +14,24 @@
 
     <v-spacer/>
 
-    <user-menu v-if="$store.state.auth.isSignedIn"/>
-    <v-menu v-else offset-y>
-      <template #activator="{on}">
-        <v-btn icon v-on="on">
-          <v-icon>mdi-account-circle-outline</v-icon>
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item @click="$store.dispatch('app/login')">
-          <v-list-item-title>{{ $t('action.login') }}</v-list-item-title>
-        </v-list-item>
-        <v-list-item @click="$store.dispatch('app/register')">
-          <v-list-item-title>{{ $t('action.register') }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
+    <v-toolbar-items>
+      <user-menu v-if="$store.state.auth.isSignedIn"/>
+      <v-menu v-else offset-y transition="scale-transition" origin="top center" tile>
+        <template #activator="{on}">
+          <v-btn text v-on="on">
+            <v-icon>mdi-account-circle-outline</v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item @click="$store.dispatch('app/login')">
+            <v-list-item-title>{{ $t('action.login') }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="$store.dispatch('app/register')">
+            <v-list-item-title>{{ $t('action.register') }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </v-toolbar-items>
   </v-app-bar>
 </template>
 

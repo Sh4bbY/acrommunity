@@ -4,7 +4,7 @@
       <div class="d-flex justify-space-between align-center">
         <v-select v-model="form.distance" :items="distances" :label="$t('label.distance')" style="max-width: 200px" hide-details/>
         <div>
-          <v-btn :to="{name: 'jam-create'}" text class="mr-5">{{ $t('action.createItem', {item: $tc('p.jam')}) }}</v-btn>
+          <v-btn v-if="$store.state.auth.isSignedIn" :to="{name: 'jam-create'}" text class="mr-5">{{ $t('action.createItem', {item: $tc('p.jam')}) }}</v-btn>
           <v-btn color="primary" @click="submit">{{ $t('action.search') }}</v-btn>
         </div>
       </div>
@@ -35,12 +35,10 @@ import Moment from '~/components/common/moment.vue';
   components: {Moment},
 })
 export default class JamSearch extends Vue {
-
   form = {
     distance: 10000,
     position: null,
   };
-
   results = [];
 
   async submit() {
@@ -48,7 +46,6 @@ export default class JamSearch extends Vue {
       const geolocation: GeolocationPosition = await new Promise(resolve => navigator.geolocation.getCurrentPosition(resolve));
       this.form.position = [geolocation.coords.latitude, geolocation.coords.longitude];
       const response = await this.$api.get('/api/jams/search', {params: this.form});
-      console.log(response);
       this.results = response.data;
     } catch (e) {
       this.$notify.error(e);

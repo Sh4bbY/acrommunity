@@ -1,5 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
+import moment from 'moment';
 import {col, fn, literal, Op} from 'sequelize';
 import {Jam, User} from '~/models';
 
@@ -9,7 +10,7 @@ export class JamService {
   }
 
   async getJam(id: number) {
-    return await this.jamModel.findOne({where: {id}, include: [User]});
+    return await this.jamModel.findByPk(id, {include: [User]});
   }
 
   async getPaginatedData() {
@@ -22,6 +23,11 @@ export class JamService {
 
   async createJam(data) {
     return await this.jamModel.create(data);
+  }
+
+  async updateJam(id: number, data) {
+    await this.jamModel.update(data, {where: {id}});
+    return await this.jamModel.findByPk(id);
   }
 
   async searchJams(query) {
@@ -41,4 +47,10 @@ export class JamService {
     });
   }
 
+  getDate(date: string, time: string) {
+    const timeParts = time.split(':');
+    const hours = Number(timeParts[0]);
+    const minutes = Number(timeParts[1]);
+    return moment(date).add(hours, 'hours').add(minutes, 'minutes').toDate();
+  }
 }

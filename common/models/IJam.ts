@@ -1,10 +1,22 @@
 import Joi from 'joi';
+import {JamStatus, RecursionType} from '../enums';
 
 export interface IJam {
   id: number;
   title: string;
   description: string;
-  date: string;
+  startDate: string;
+  endDate: string;
+  contact: string;
+  address: string;
+  locationInfo: string;
+  recursionType: RecursionType;
+  latlng: { coordinates: number[] };
+  creatorId: string;
+  creator?: string;
+  status: JamStatus;
+  updatedAt: string;
+  createdAt: string;
 }
 
 const constraints = {

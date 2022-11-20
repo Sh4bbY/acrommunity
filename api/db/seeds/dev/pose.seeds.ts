@@ -1,4 +1,4 @@
-import {AliasableType, Status, TaggableType} from '@acrommunity/common';
+import {AliasableType, PoseStatus, TaggableType} from '@acrommunity/common';
 import {backupData, poses} from '../../data';
 import {poseTable} from '../../tables';
 import {Seeds} from '../Seeds';
@@ -20,7 +20,7 @@ if (backupData) {
       basePosition: pose.basePosition,
       flyerPosition: pose.flyerPosition,
       description: pose.description,
-      status: pose.status || Status.Suggestion,
+      status: pose.status || PoseStatus.Suggestion,
     }));
   });
 

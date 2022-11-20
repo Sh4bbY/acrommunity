@@ -29,8 +29,6 @@ export class GeolocationService {
         addressdetails: 1,
       },
     }));
-
-    console.log(response.data);
     return response.data;
   }
 }

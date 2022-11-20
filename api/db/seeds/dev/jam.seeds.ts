@@ -1,4 +1,4 @@
-import {RecursionType} from '@acrommunity/common';
+import {JamStatus, RecursionType} from '@acrommunity/common';
 import {faker} from '@faker-js/faker';
 import {fn} from 'sequelize';
 import {Randomizer} from '~/utils';
@@ -26,6 +26,7 @@ jamSeeds.setData(async () => {
       recursionType: Randomizer.getRandomArrayValue(Object.values(RecursionType)),
       title: faker.lorem.words(Randomizer.getRandomInt(1, 8)),
       description: faker.lorem.text(),
+      status: JamStatus.OK,
       createdAt: now,
       updatedAt: now,
     };

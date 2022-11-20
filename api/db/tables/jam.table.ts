@@ -1,3 +1,4 @@
+import {JamStatus} from '@acrommunity/common';
 import {GEOMETRY} from 'sequelize';
 import {DataType} from 'sequelize-typescript';
 import {Table} from './table';
@@ -18,6 +19,7 @@ export const jamTable = new Table('Jams', () => ({
 
   startDate: {type: DataType.DATE, allowNull: false},
   endDate: {type: DataType.DATE, allowNull: false},
+  status: {type: DataType.STRING, default: JamStatus.OK},
 
   createdAt: {type: DataType.DATE, allowNull: false},
   updatedAt: {type: DataType.DATE, allowNull: false},

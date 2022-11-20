@@ -1,4 +1,4 @@
-import {IFlowGeneratorSettings, Status} from '@acrommunity/common';
+import {IFlowGeneratorSettings, PoseStatus} from '@acrommunity/common';
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {Op, WhereOptions} from 'sequelize';
@@ -15,7 +15,7 @@ export class FlowGeneratorService {
   }
 
   async getPoseOptions() {
-    return await this.poseModel.findAll({where: {persons: 2, status: Status.Accepted}});
+    return await this.poseModel.findAll({where: {persons: 2, status: PoseStatus.Accepted}});
   }
 
   async generate(settings: IFlowGeneratorSettings) {
@@ -62,7 +62,7 @@ export class FlowGeneratorService {
   setupWhereConditions(settings: IFlowGeneratorSettings): WhereOptions<Pose> {
     const where: WhereOptions<Pose> = {
       persons: 2,
-      status: Status.Accepted,
+      status: PoseStatus.Accepted,
     };
     if (settings.basePositions.length > 0) {
       where.basePosition = {[Op.in]: settings.basePositions};

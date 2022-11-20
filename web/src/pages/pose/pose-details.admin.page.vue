@@ -170,12 +170,12 @@
 </template>
 
 <script lang="ts">
-import {BasePosition, FlyerPosition, Status} from '@acrommunity/common';
+import {BasePosition, FlyerPosition, PoseStatus} from '@acrommunity/common';
 import {Component, Watch} from 'vue-property-decorator';
 import {VueEditor} from 'vue2-editor';
 import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
-import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import CommentsPanel from '~/components/comment/comments-panel.vue';
+import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import TooltipButton from '~/components/common/tooltip-button.vue';
 import FavButton from '~/components/item/fav-button.vue';
 import ItemMenu from '~/components/item/item-menu.vue';
@@ -229,7 +229,7 @@ export default class PoseDetailsAdminPage extends Page {
   }
 
   get statusOptions() {
-    return Object.values(Status).map(value => ({text: this.$t('status.' + value), value}));
+    return Object.values(PoseStatus).map(value => ({text: this.$t('status.' + value), value}));
   }
 
   get flyerPositions() {

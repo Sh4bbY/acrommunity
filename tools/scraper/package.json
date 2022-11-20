@@ -13,12 +13,12 @@
     "cp:poses": "cp output/merge/poses.json ../../api/db/data/poses/initial-poses.json"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "puppeteer": "^19.2.0",
-    "typescript": "^4.8.4"
+    "puppeteer": "^19.2.0"
   },
   "devDependencies": {
-    "ts-node-dev": "^2.0.0"
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.8.4"
   }
 }

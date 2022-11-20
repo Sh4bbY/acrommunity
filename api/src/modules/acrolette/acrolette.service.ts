@@ -1,4 +1,4 @@
-import {Status} from '@acrommunity/common';
+import {PoseStatus} from '@acrommunity/common';
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {literal, Op, WhereOptions} from 'sequelize';
@@ -14,12 +14,12 @@ export class AcroletteService {
   }
 
   async getPoseOptions() {
-    return await this.poseModel.findAll({where: {persons: 2, status: Status.Accepted}});
+    return await this.poseModel.findAll({where: {persons: 2, status: PoseStatus.Accepted}});
   }
 
   async getRandomPose(query: any) {
     const currentPoseId = query.current ? Number(query.current) : null;
-    const where: WhereOptions<Pose> = {persons: 2, status: Status.Accepted};
+    const where: WhereOptions<Pose> = {persons: 2, status: PoseStatus.Accepted};
 
     if (query.startPoseId) {
       return await this.poseModel.findOne({

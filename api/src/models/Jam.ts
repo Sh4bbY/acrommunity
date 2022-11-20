@@ -1,4 +1,4 @@
-import {RecursionType} from '@acrommunity/common';
+import {JamStatus, RecursionType} from '@acrommunity/common';
 import {BelongsTo, Column, DataType, Model, Table} from 'sequelize-typescript';
 import {User} from '~/models/User';
 
@@ -32,6 +32,9 @@ export class Jam extends Model<Jam> {
 
   @Column({type: DataType.STRING})
   declare locationInfo: string;
+
+  @Column({type: DataType.STRING})
+  declare status: JamStatus;
 
   @Column({type: DataType.DATE})
   declare startDate: Date;
