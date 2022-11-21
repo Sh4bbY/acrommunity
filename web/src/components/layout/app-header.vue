@@ -7,7 +7,7 @@
 
     <v-spacer/>
 
-    <v-btn color="secondary" rounded @click="$store.dispatch('app/showFeedbackDialog')" min-width="36px" :class="{'px-0': $vuetify.breakpoint.xs}">
+    <v-btn v-if="$store.state.auth.isSignedIn" color="secondary" rounded @click="$store.dispatch('app/showFeedbackDialog')" min-width="36px" :class="{'px-0': $vuetify.breakpoint.xs}">
       <v-icon :left="$vuetify.breakpoint.smAndUp">mdi-chat-alert</v-icon>
       <span v-if="$vuetify.breakpoint.smAndUp">{{ $t('label.feedback') }}</span>
     </v-btn>

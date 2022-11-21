@@ -31,7 +31,7 @@ export const config = {
     database: process.env.SQL_DATABASE,
   },
   email: {
-    senderAddress: `no_reply@acrommunity.de`,
+    senderAddress: 'Acrommunity <no_reply@acrommunity.de>',
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
     user: process.env.EMAIL_USER,

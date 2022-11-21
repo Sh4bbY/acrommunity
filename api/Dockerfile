@@ -27,7 +27,8 @@ RUN apt-get update && apt-get install -y vim
 USER ${user}
 
 # copy files to app_dir
-COPY --chown=${user} .sequelizerc package.json yarn.lock email ${app_dir}/
+COPY --chown=${user} .sequelizerc package.json yarn.lock ${app_dir}/
+COPY --chown=${user} email ${app_dir}/email
 
 # link @acrommunity/common
 COPY --chown=${user} ./@acrommunity/common ${app_dir}/@acrommunity/common
