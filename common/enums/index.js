@@ -35,3 +35,4 @@ __exportStar(require("./FeedbackStatus"), exports);
 __exportStar(require("./Role"), exports);
 __exportStar(require("./QuestionType"), exports);
 __exportStar(require("./RecursionType"), exports);
+__exportStar(require("./LoginStrategy"), exports);

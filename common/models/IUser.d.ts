@@ -1,10 +1,12 @@
 import Joi from 'joi';
+import { LoginStrategy } from '../enums';
 export interface IUser {
     id: number;
     username: string;
     email: string;
     isAdmin: boolean;
     password: string;
+    strategy: LoginStrategy;
     avatar: string;
     tokenVersion: number;
 }

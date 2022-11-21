@@ -13,6 +13,9 @@
             <h3>{{ $t('field.email') }}</h3>
             <span>{{ user.email }}</span>
             <v-spacer class="my-5"/>
+            <h3>{{ $t('field.strategy') }}</h3>
+            <span>{{ user.strategy }}</span>
+            <v-spacer class="my-5"/>
             <h3>{{ $t('field.createdAt') }}</h3>
             <moment v-model="user.createdAt"/>
             <v-spacer class="my-5"/>

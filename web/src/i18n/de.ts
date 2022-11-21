@@ -38,6 +38,7 @@ export const de = {
     action: 'Aktion | Aktionen',
   },
   field: {
+    strategy: 'Strategie',
     isAdmin: 'Ist Administrator',
     author: 'Autor',
     text: 'Text',
@@ -67,6 +68,7 @@ export const de = {
     basePosition: 'Base Position',
   },
   label: {
+    continueWithItem: 'Mit {item} forfahren',
     address: 'Adresse',
     start: 'Start',
     lastUpdated: 'Zuletzt geändert',

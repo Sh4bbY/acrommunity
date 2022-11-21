@@ -6,6 +6,12 @@
           <v-toolbar-title>{{ $t('action.login') }}</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
+          <div class="d-flex row justify-center mb-5">
+            <v-btn class="login-btn ma-2" width="250px" @click="$store.dispatch('auth/requestGoogleAuthentication')">
+              <v-img src="/img/brand/google.svg" max-width="20px" class="mr-3"/>
+              {{ $t('label.continueWithItem', {item: 'Google'}) }}
+            </v-btn>
+          </div>
           <v-text-field v-model="form.email" :label="$t('field.email')" prepend-icon="mdi-email"/>
           <v-text-field v-model="form.password" :label="$t('field.password')" prepend-icon="mdi-lock" type="password"/>
         </v-card-text>
@@ -58,3 +64,9 @@ export default class LoginDialog extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.login-btn {
+  font-family: Roboto, sans-serif;
+}
+</style>

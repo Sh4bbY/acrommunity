@@ -16,8 +16,7 @@ export class UserService {
   }
 
   async getUser(id: number) {
-    return await this.userModel.findOne({
-      where: {id},
+    return await this.userModel.findByPk(id, {
       include: [{
         model: List,
         include: [Pose, Flow, Skill],

@@ -38,7 +38,7 @@ export class AuthController {
 
   @Post('login')
   @HttpCode(200)
-  @UseGuards(AuthGuard('login'))
+  @UseGuards(AuthGuard('local'))
   async login(@Req() req: Request, @Res() res: Response) {
     res.cookie('refreshToken', AuthService.createRefreshToken(req.user), {path: '/api/auth/refresh', httpOnly: true});
 
@@ -68,6 +68,25 @@ export class AuthController {
     res.send({
       user: req.user,
       token: AuthService.createAccessToken(req.user),
+    });
+  }
+
+
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  async googleAuth(@Req() req: Request) {
+  }
+
+  @Get('google/callback')
+  @HttpCode(200)
+  @UseGuards(AuthGuard('google'))
+  async googleAuthRedirect(@Req() req: Request, @Res() res: Response) {
+    const user = await this.authService.googleSignUp(req.user);
+    res.cookie('refreshToken', AuthService.createRefreshToken(user), {path: '/api/auth/refresh', httpOnly: true});
+
+    res.send({
+      user: user,
+      token: AuthService.createAccessToken(user),
     });
   }
 }

@@ -1,3 +1,4 @@
+import {LoginStrategy} from '@acrommunity/common';
 import {Injectable, UnauthorizedException} from '@nestjs/common';
 import {PassportStrategy} from '@nestjs/passport';
 import {Strategy} from 'passport-local';
@@ -6,7 +7,7 @@ import {AuthService} from '../auth.service';
 import {loginSchema} from '../validation/login.joi';
 
 @Injectable()
-export class LoginStrategy extends PassportStrategy(Strategy, 'login') {
+export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
   constructor(private readonly authService: AuthService) {
     super({
       usernameField: 'email',
@@ -18,7 +19,7 @@ export class LoginStrategy extends PassportStrategy(Strategy, 'login') {
   public async validate(req, email: string, password: string) {
     Validator.validate(loginSchema, req.body);
 
-    const user = await this.authService.getUserByEmail(email);
+    const user = await this.authService.getUserByEmail(email, LoginStrategy.Local);
     if (!user) {
       throw new UnauthorizedException('invalid credentials');
     }

@@ -12,6 +12,13 @@ export const config = {
   production: process.env.NODE_ENV !== 'development',
   appUrl: process.env.APP_URL,
   port: process.env.PORT,
+  auth: {
+    google: {
+      clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
+      secret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+      callbackURL: process.env.GOOGLE_OAUTH_REDIRECT_URL,
+    },
+  },
   jwt: {
     issuer: process.env.APP_URL,
     access: {

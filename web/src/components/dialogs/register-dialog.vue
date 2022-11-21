@@ -6,17 +6,12 @@
           <v-toolbar-title>{{ $t('action.register') }}</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
-<!--          <v-row>-->
-<!--            <v-col cols="12" sm="6">-->
-<!--              <v-btn>SignUp with Google</v-btn>-->
-<!--            </v-col>-->
-<!--            <v-col cols="12" sm="6">-->
-<!--              <v-btn>SignUp with Facebook</v-btn>-->
-<!--            </v-col>-->
-<!--            <v-col cols="12" sm="6">-->
-<!--              <v-btn>SignUp with Apple</v-btn>-->
-<!--            </v-col>-->
-<!--          </v-row>-->
+          <div class="d-flex row justify-center mb-5">
+            <v-btn class="login-btn ma-2" width="250px" @click="$store.dispatch('auth/requestGoogleAuthentication')">
+              <v-img src="/img/brand/google.svg" max-width="20px" class="mr-3"/>
+              {{ $t('label.continueWithItem', {item: 'Google'}) }}
+            </v-btn>
+          </div>
           <v-form>
             <v-text-field v-model="form.username" :label="$t('field.username')"/>
             <v-text-field v-model="form.email" :label="$t('field.email')"/>

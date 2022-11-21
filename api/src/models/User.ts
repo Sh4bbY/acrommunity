@@ -1,4 +1,4 @@
-import {Role} from '@acrommunity/common';
+import {LoginStrategy, Role} from '@acrommunity/common';
 import {Column, DataType, HasMany, Model, Table} from 'sequelize-typescript';
 import {List} from '~/models/List';
 import {PT_Markable} from '~/models/pivot/PT_Markable';
@@ -13,11 +13,14 @@ export class User extends Model<User> {
   @Column({type: DataType.STRING, unique: true, allowNull: false})
   declare email: string;
 
-  @Column({type: DataType.STRING, allowNull: false})
+  @Column({type: DataType.STRING})
   declare password: string;
 
   @Column({type: DataType.STRING})
   declare avatar: string;
+
+  @Column({type: DataType.STRING})
+  declare strategy: LoginStrategy;
 
   @Column({type: DataType.STRING})
   declare role: Role;

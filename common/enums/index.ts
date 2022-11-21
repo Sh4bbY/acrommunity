@@ -19,3 +19,4 @@ export * from './FeedbackStatus';
 export * from './Role';
 export * from './QuestionType';
 export * from './RecursionType';
+export * from './LoginStrategy';

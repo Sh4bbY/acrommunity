@@ -1,9 +1,11 @@
 import {JwtStrategy} from './jwt.strategy';
-import {LoginStrategy} from './login.strategy';
+import {LocalStrategy} from './local-strategy.service';
 import {RefreshStrategy} from './refresh.strategy';
+import {GoogleStrategy} from './google.strategy';
 
 export const strategies = [
-  LoginStrategy,
+  LocalStrategy,
   RefreshStrategy,
   JwtStrategy,
+  GoogleStrategy,
 ];

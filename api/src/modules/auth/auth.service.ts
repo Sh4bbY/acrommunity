@@ -1,3 +1,4 @@
+import {LoginStrategy} from '@acrommunity/common';
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {sign} from 'jsonwebtoken';
@@ -12,7 +13,7 @@ export class AuthService {
 
   public async createUser(body: any): Promise<any> {
     const password = await Crypt.hashPassword(body.password);
-    const record = await this.userModel.create({...body, password});
+    const record = await this.userModel.create({...body, password, strategy: LoginStrategy.Local});
     return record.get({plain: true});
   }
 
@@ -58,7 +59,16 @@ export class AuthService {
     return await this.userModel.findOne({where: {id}});
   }
 
-  public async getUserByEmail(email: string): Promise<User> {
-    return await this.userModel.findOne({where: {email}});
+  public async getUserByEmail(email: string, strategy: LoginStrategy): Promise<User> {
+    return await this.userModel.findOne({where: {email, strategy}});
+  }
+
+  public async googleSignUp(googleUser: any): Promise<User> {
+    const user = await this.getUserByEmail(googleUser.email, LoginStrategy.Google);
+    if (user) {
+      return user;
+    }
+
+    return await this.userModel.create({...googleUser, strategy: LoginStrategy.Google});
   }
 }

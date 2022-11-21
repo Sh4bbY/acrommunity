@@ -1,5 +1,6 @@
 import tlds from '@sideway/address/lib/tlds';
 import Joi from 'joi';
+import {LoginStrategy} from '../enums';
 
 export interface IUser {
   id: number;
@@ -7,6 +8,7 @@ export interface IUser {
   email: string;
   isAdmin: boolean;
   password: string;
+  strategy: LoginStrategy;
   avatar: string;
   tokenVersion: number;
 }
