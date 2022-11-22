@@ -63,12 +63,12 @@ export class AuthService {
     return await this.userModel.findOne({where: {email, strategy}});
   }
 
-  public async googleSignUp(googleUser: any): Promise<User> {
-    const user = await this.getUserByEmail(googleUser.email, LoginStrategy.Google);
+  public async communityLogin(communityUser: any, strategy: LoginStrategy): Promise<User> {
+    const user = await this.getUserByEmail(communityUser.email, LoginStrategy.Google);
     if (user) {
       return user;
     }
 
-    return await this.userModel.create({...googleUser, strategy: LoginStrategy.Google});
+    return await this.userModel.create({...communityUser, strategy});
   }
 }

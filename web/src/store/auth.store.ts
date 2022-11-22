@@ -62,17 +62,6 @@ export const authStore: Module<AuthState, RootState> = {
 
       dispatch('user/updateState', undefined, {root: true});
     },
-    async requestGoogleAuthentication() {
-      window.location.assign('/api/auth/google');
-    },
-    async handleGoogleAuthCallback({commit, dispatch}, callbackData) {
-      const {data} = await api.get('/api/auth/google/callback', {params: callbackData});
-      commit('setAccessToken', data.token);
-      commit('setUser', data.user);
-      dispatch('renewToken', data.token);
-
-      dispatch('user/updateState', undefined, {root: true});
-    },
     async loginByToken({commit, dispatch}) {
       try {
         const {data} = await api.post('/api/auth/refresh');
@@ -109,6 +98,30 @@ export const authStore: Module<AuthState, RootState> = {
 
       // request fresh access-token 30s before its expiration
       context.state.refreshTimeoutId = window.setTimeout(() => context.dispatch('refreshToken'), timeout);
+    },
+
+    async requestGoogleAuthentication() {
+      window.location.assign('/api/auth/google');
+    },
+    async handleGoogleAuthCallback({commit, dispatch}, callbackData) {
+      const {data} = await api.get('/api/auth/google/callback', {params: callbackData});
+      commit('setAccessToken', data.token);
+      commit('setUser', data.user);
+      dispatch('renewToken', data.token);
+
+      dispatch('user/updateState', undefined, {root: true});
+    },
+
+    async requestFacebookAuthentication() {
+      window.location.assign('/api/auth/facebook');
+    },
+    async handleFacebookAuthCallback({commit, dispatch}, callbackData) {
+      const {data} = await api.get('/api/auth/facebook/callback', {params: callbackData});
+      commit('setAccessToken', data.token);
+      commit('setUser', data.user);
+      dispatch('renewToken', data.token);
+
+      dispatch('user/updateState', undefined, {root: true});
     },
   },
   getters: {

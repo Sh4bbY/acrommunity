@@ -9,6 +9,11 @@ const routes: Array<RouteConfig> = [
   // {path: '/', redirect: 'home'},
   {path: '/home', name: 'home', component: () => import(/* webpackChunkName: "home" */ '~/pages/home.page.vue'), meta: {access: 'user'}},
   {path: '/auth/google/redirect', name: 'google-auth-callback', component: () => import(/* webpackChunkName: "google-auth-callback" */ '~/pages/auth/google-callback.page.vue')},
+  {
+    path: '/auth/facebook/callback',
+    name: 'facebook-auth-callback',
+    component: () => import(/* webpackChunkName: "facebook-auth-callback" */ '~/pages/auth/facebook-callback.page.vue'),
+  },
   {path: '/imprint', name: 'imprint', component: () => import(/* webpackChunkName: "imprint" */ '~/pages/imprint.page.vue')},
   {path: '/profile', name: 'profile', component: () => import(/* webpackChunkName: "profile" */ '~/pages/profile/profile.page.vue'), meta: {access: 'user'}},
   {path: '/dictionary', name: 'dictionary', component: () => import(/* webpackChunkName: "dictionary" */ '~/pages/dictionary.page.vue')},

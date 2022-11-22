@@ -1,10 +1,14 @@
-import {BadRequestException, Controller, Get, HttpCode, Post, Req, Res, UseGuards} from '@nestjs/common';
+import {LoginStrategy} from '@acrommunity/common';
+import {BadRequestException, Controller, Get, HttpCode, Post, Req, Res, UseFilters, UseGuards} from '@nestjs/common';
 import {AuthGuard} from '@nestjs/passport';
 import {Request, Response} from 'express';
 import {config} from '~/config';
 import {registerSchema} from '~/modules/auth/validation/register.joi';
 import {EmailService} from '~/modules/email/email.service';
 import {Validator} from '~/utils';
+import {FacebookExceptionFilter} from '~/utils/nest/facebook-exception-filter';
+import {PassportExceptionFilter} from '~/utils/nest/passport-exception-filter';
+import {RefreshExceptionFilter} from '~/utils/nest/refresh-exception-filter';
 import {AuthService} from './auth.service';
 
 @Controller('api/auth')
@@ -60,6 +64,7 @@ export class AuthController {
   @Post('refresh')
   @HttpCode(200)
   @UseGuards(AuthGuard('refresh'))
+  @UseFilters(RefreshExceptionFilter)
   async refreshToken(@Req() req: Request, @Res() res: Response) {
     res.cookie('refreshToken', AuthService.createRefreshToken(req.user), {path: '/api/auth/refresh', httpOnly: true});
 
@@ -74,14 +79,35 @@ export class AuthController {
 
   @Get('google')
   @UseGuards(AuthGuard('google'))
+  @UseFilters(PassportExceptionFilter)
   async googleAuth(@Req() req: Request) {
   }
 
   @Get('google/callback')
   @HttpCode(200)
   @UseGuards(AuthGuard('google'))
+  @UseFilters(PassportExceptionFilter)
   async googleAuthRedirect(@Req() req: Request, @Res() res: Response) {
-    const user = await this.authService.googleSignUp(req.user);
+    const user = await this.authService.communityLogin(req.user, LoginStrategy.Google);
+    res.cookie('refreshToken', AuthService.createRefreshToken(user), {path: '/api/auth/refresh', httpOnly: true});
+
+    res.send({
+      user: user,
+      token: AuthService.createAccessToken(user),
+    });
+  }
+
+  @Get('facebook')
+  @UseGuards(AuthGuard('facebook'))
+  async facebookAuth(@Req() req: Request) {
+  }
+
+  @Get('facebook/callback')
+  @HttpCode(200)
+  @UseGuards(AuthGuard('facebook'))
+  @UseFilters(FacebookExceptionFilter)
+  async facebookAuthRedirect(@Req() req: Request, @Res() res: Response) {
+    const user = await this.authService.communityLogin(req.user, LoginStrategy.Facebook);
     res.cookie('refreshToken', AuthService.createRefreshToken(user), {path: '/api/auth/refresh', httpOnly: true});
 
     res.send({

@@ -11,6 +11,10 @@
               <v-img src="/img/brand/google.svg" max-width="20px" class="mr-3"/>
               {{ $t('label.continueWithItem', {item: 'Google'}) }}
             </v-btn>
+            <v-btn class="login-btn ma-2" width="250px" @click="$store.dispatch('auth/requestFacebookAuthentication')">
+              <v-img src="/img/brand/facebook.svg" max-width="20px" class="mr-3"/>
+              {{ $t('label.continueWithItem', {item: 'Facebook'}) }}
+            </v-btn>
           </div>
           <v-text-field v-model="form.email" :label="$t('field.email')" prepend-icon="mdi-email"/>
           <v-text-field v-model="form.password" :label="$t('field.password')" prepend-icon="mdi-lock" type="password"/>

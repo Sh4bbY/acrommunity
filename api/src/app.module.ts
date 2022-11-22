@@ -27,7 +27,6 @@ import {SkillModule} from '~/modules/skill/skill.module';
 import {UserModule} from '~/modules/user/user.module';
 import {VideoModule} from '~/modules/video/video.module';
 import {LoggingInterceptor} from '~/utils/nest/logging.interceptor';
-import {PassportExceptionFilter} from '~/utils/nest/passport-exception-filter';
 import {SequelizeExceptionFilter} from '~/utils/nest/sequelize-exception-filter';
 
 @Module({
@@ -65,7 +64,6 @@ import {SequelizeExceptionFilter} from '~/utils/nest/sequelize-exception-filter'
     // {provide: APP_GUARD, useClass: RolesGuard},
     {provide: APP_INTERCEPTOR, useClass: LoggingInterceptor},
     {provide: APP_FILTER, useClass: SequelizeExceptionFilter},
-    {provide: APP_FILTER, useClass: PassportExceptionFilter},
   ],
 })
 export class AppModule {

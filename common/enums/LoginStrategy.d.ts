@@ -1,4 +1,5 @@
 export declare enum LoginStrategy {
     Local = "local",
-    Google = "google"
+    Google = "google",
+    Facebook = "facebook"
 }

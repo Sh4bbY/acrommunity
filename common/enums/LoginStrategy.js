@@ -5,4 +5,5 @@ var LoginStrategy;
 (function (LoginStrategy) {
     LoginStrategy["Local"] = "local";
     LoginStrategy["Google"] = "google";
+    LoginStrategy["Facebook"] = "facebook";
 })(LoginStrategy = exports.LoginStrategy || (exports.LoginStrategy = {}));

@@ -18,6 +18,10 @@ export const config = {
       secret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
       callbackURL: process.env.GOOGLE_OAUTH_REDIRECT_URL,
     },
+    facebook: {
+      clientId: process.env.FACEBOOK_OAUTH_CLIENT_ID,
+      secret: process.env.FACEBOOK_OAUTH_CLIENT_SECRET,
+    },
   },
   jwt: {
     issuer: process.env.APP_URL,
