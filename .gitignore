@@ -1,4 +1,4 @@
 node_modules/
 .idea/
-utils/
+/utils/
 DEPLOYMENT.md
