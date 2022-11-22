@@ -101,7 +101,7 @@ export const de = {
     oClock: 'Uhr',
     transitionFrom: 'Übergang von',
     transitionTo: 'Übergang zu',
-    acrolette: 'Acrolette',
+    acroulette: 'Acroulette',
     acroQuiz: 'Acro-Quiz',
     flowGenerator: 'Flow-Generator',
     dictionary: 'Lexion',
@@ -141,6 +141,7 @@ export const de = {
     removeItem: '{item} entfernen',
     deleteItem: '{item} löschen',
     cancelJam: 'Jam absagen',
+    changeItem: '{item} ändern',
   },
   notify: {
     info: 'Info',
@@ -215,7 +216,7 @@ export const de = {
     acropeutics: 'Acropeutics',
     dancelift: 'Dance Lift',
   },
-  acrolette: {
+  acroulette: {
     nextPose: 'Nächste Pose',
     playSound: 'Namen der Pose vorlesen',
     autoload: 'Nächste Pose automatisch laden',

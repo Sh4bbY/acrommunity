@@ -1,20 +1,20 @@
 <template>
   <v-container>
-    <acrolette/>
+    <acroulette/>
   </v-container>
 </template>
 
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
-import Acrolette from '~/components/acrolette/acrolette.vue';
+import Acroulette from '~/components/acroulette/acroulette.vue';
 import Page from '../page.vue';
 
 @Component({
-  components: {Acrolette},
+  components: {Acroulette},
 })
-export default class AcrolettePage extends Page {
+export default class AcroulettePage extends Page {
   get title() {
-    return this.$t('label.acrolette');
+    return this.$t('label.acroulette');
   }
 }
 </script>

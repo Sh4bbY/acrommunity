@@ -21,7 +21,7 @@
           Hast du Lust auf neue Flows? Probiere unseren
           <router-link :to="{name: 'flow-generator'}">Flow-Generator</router-link>
           oder spiele eine Runde
-          <router-link :to="{name: 'acrolette'}">Acrolette</router-link>
+          <router-link :to="{name: 'acroulette'}">Acroulette</router-link>
         </p>
         <p>
           Kennst du die Namen vieler Posen nicht oder fällt es dir Schwer dir diese zu merken? Probiere das

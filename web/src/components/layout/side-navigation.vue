@@ -69,7 +69,7 @@ export default class SideNavigation extends Vue {
       {
         title: this.$t('label.dictionary'), icon: 'mdi-book-open-variant', open: this.isGroupOpen.dictionary, children: [
           {title: this.$tc('p.pose', 2), icon: 'mdi-human', route: {name: 'poses'}, exact: false},
-          {title: this.$tc('p.flow', 2), icon: 'mdi-spa', route: {name: 'flows'}, exact: false},
+          {title: this.$tc('p.flow', 2), icon: 'mdi-washing-machine', route: {name: 'flows'}, exact: false},
           // {title: this.$tc('p.skill', 2), icon: 'mdi-magic-staff', route: {name: 'skills'}, exact: false},
           {title: this.$tc('p.image', 2), icon: 'mdi-image', route: {name: 'images'}, exact: false},
           {title: this.$tc('p.video', 2), icon: 'mdi-video', route: {name: 'videos'}, exact: false},
@@ -77,8 +77,8 @@ export default class SideNavigation extends Vue {
       },
       {
         title: this.$tc('p.app', 2), icon: 'mdi-gamepad-variant', open: this.isGroupOpen.apps, children: [
-          {title: this.$t('label.flowGenerator'), icon: 'mdi-spa', route: {name: 'flow-generator'}, exact: false},
-          {title: this.$t('label.acrolette'), icon: 'mdi-gamepad', route: {name: 'acrolette'}, exact: false},
+          {title: this.$t('label.flowGenerator'), icon: 'mdi-slot-machine', route: {name: 'flow-generator'}, exact: false},
+          {title: this.$t('label.acroulette'), icon: 'mdi-poker-chip', route: {name: 'acroulette'}, exact: false},
           {title: this.$t('label.acroQuiz'), icon: 'mdi-help-circle', route: {name: 'acro-quiz'}, exact: false},
         ],
       },

@@ -1,22 +1,22 @@
 <template>
-  <acrolette-settings v-if="!isGameStarted" v-model="settings" @start="startGame()"/>
-  <acrolette-game v-else :settings="settings" @end="isGameStarted = false"/>
+  <acroulette-settings v-if="!isGameStarted" v-model="settings" @start="startGame()"/>
+  <acroulette-game v-else :settings="settings" @end="isGameStarted = false"/>
 </template>
 
 <script lang="ts">
 import {BasePosition} from '@acrommunity/common';
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import AcroletteGame from '~/components/acrolette/acrolette-game.vue';
-import AcroletteSettings from '~/components/acrolette/acrolette-settings.vue';
-import {IAcroletteSettings} from '~/components/acrolette/IAcroletteSettings';
+import AcrouletteGame from '~/components/acroulette/acroulette-game.vue';
+import AcrouletteSettings from '~/components/acroulette/acroulette-settings.vue';
+import {IAcrouletteSettings} from '~/components/acroulette/IAcrouletteSettings';
 
 @Component({
-  components: {AcroletteSettings, AcroletteGame},
+  components: {AcrouletteSettings, AcrouletteGame},
 })
-export default class Acrolette extends Vue {
+export default class Acroulette extends Vue {
   isGameStarted = false;
-  settings: IAcroletteSettings = {
+  settings: IAcrouletteSettings = {
     difficulty: [1, 3],
     playSound: true,
     switch: {
@@ -30,13 +30,13 @@ export default class Acrolette extends Vue {
   };
 
   startGame() {
-    localStorage.setItem('acrolette-settings', JSON.stringify(this.settings));
+    localStorage.setItem('acroulette-settings', JSON.stringify(this.settings));
     this.isGameStarted = true;
   }
 
   mounted() {
     try {
-      const settingsJson = localStorage.getItem('acrolette-settings');
+      const settingsJson = localStorage.getItem('acroulette-settings');
       if (settingsJson) {
         const settings = JSON.parse(settingsJson);
         Object.keys(this.settings).forEach(key => this.settings[key] = settings[key]);

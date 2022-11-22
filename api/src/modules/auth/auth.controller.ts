@@ -80,7 +80,8 @@ export class AuthController {
   @Get('google')
   @UseGuards(AuthGuard('google'))
   @UseFilters(PassportExceptionFilter)
-  async googleAuth(@Req() req: Request) {
+  async googleAuth() {
+    // forward request to google oauth
   }
 
   @Get('google/callback')
@@ -99,7 +100,8 @@ export class AuthController {
 
   @Get('facebook')
   @UseGuards(AuthGuard('facebook'))
-  async facebookAuth(@Req() req: Request) {
+  async facebookAuth() {
+    // forward request to facebook oauth
   }
 
   @Get('facebook/callback')

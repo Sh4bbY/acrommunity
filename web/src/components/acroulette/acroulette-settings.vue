@@ -1,15 +1,15 @@
 <template>
   <v-card>
     <v-toolbar color="primary" dense dark>
-      <v-toolbar-title>{{ $t('label.acrolette') }}</v-toolbar-title>
+      <v-toolbar-title>{{ $t('label.acroulette') }}</v-toolbar-title>
     </v-toolbar>
     <v-card-text>
       <v-row>
         <v-col cols="12">
           <div class="d-flex">
-            <v-checkbox v-model="settings.switch.autoLoad" :label="$t('acrolette.autoload')" hide-details/>
+            <v-checkbox v-model="settings.switch.autoLoad" :label="$t('acroulette.autoload')" hide-details/>
             <v-spacer/>
-            <v-text-field v-model="settings.switch.duration" :label="$t('acrolette.autoloadDuration')" :disabled="!settings.switch.autoLoad" type="number" hide-details>
+            <v-text-field v-model="settings.switch.duration" :label="$t('acroulette.autoloadDuration')" :disabled="!settings.switch.autoLoad" type="number" hide-details>
               <template #append>sek</template>
             </v-text-field>
           </div>
@@ -29,7 +29,7 @@
           <v-range-slider v-model="settings.difficulty" min="1" max="6" hide-details/>
         </v-col>
         <v-col cols="12" md="6">
-          <v-checkbox v-model="settings.playSound" :label="$t('acrolette.playSound')"/>
+          <v-checkbox v-model="settings.playSound" :label="$t('acroulette.playSound')"/>
         </v-col>
       </v-row>
     </v-card-text>
@@ -44,16 +44,16 @@
 import {BasePosition, FlyerPosition, IPose} from '@acrommunity/common';
 import Vue from 'vue';
 import {Component, VModel} from 'vue-property-decorator';
-import {IAcroletteSettings} from '~/components/acrolette/IAcroletteSettings';
+import {IAcrouletteSettings} from '~/components/acroulette/IAcrouletteSettings';
 import {resolveDifficulty} from '~/utils';
 
 @Component
-export default class AcroletteSettings extends Vue {
-  @VModel() settings: IAcroletteSettings;
+export default class AcrouletteSettings extends Vue {
+  @VModel() settings: IAcrouletteSettings;
   poseOptions: IPose[] = [];
 
   async mounted() {
-    const response = await this.$api.get('/api/acrolette/pose-options');
+    const response = await this.$api.get('/api/acroulette/pose-options');
     this.poseOptions = response.data;
   }
 

@@ -33,8 +33,8 @@ export default class GamesPage extends Page {
         img: 'https://images.pexels.com/photos/4700391/pexels-photo-4700391.jpeg?auto=compress&cs=tinysrgb&w=600',
       },
       {
-        to: {name: 'acrolette'},
-        title: this.$t('label.acrolette'),
+        to: {name: 'acroulette'},
+        title: this.$t('label.acroulette'),
         subTitle: 'Versuche die Posen Nachzumachen',
         img: 'https://images.pexels.com/photos/3894215/pexels-photo-3894215.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       },

@@ -1,6 +1,6 @@
 import {BasePosition} from '@acrommunity/common';
 
-export interface IAcroletteSettings {
+export interface IAcrouletteSettings {
   difficulty: number[];
   playSound: boolean;
   switch: {

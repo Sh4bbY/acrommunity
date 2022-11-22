@@ -1,7 +1,7 @@
 <template>
   <v-card ref="gameContainer" :height="isFullscreen ? documentHeight : undefined" class="d-flex flex-column">
     <v-toolbar color="primary" dense dark class="flex-grow-0">
-      <v-toolbar-title>{{ $t('label.acrolette') }}</v-toolbar-title>
+      <v-toolbar-title>{{ $t('label.acroulette') }}</v-toolbar-title>
       <v-spacer/>
       <span v-if="settings.switch.autoLoad">{{ timer }}</span>
     </v-toolbar>
@@ -31,14 +31,14 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
-import {IAcroletteSettings} from '~/components/acrolette/IAcroletteSettings';
+import {IAcrouletteSettings} from '~/components/acroulette/IAcrouletteSettings';
 import TooltipButton from '~/components/common/tooltip-button.vue';
 
 @Component({
   components: {TooltipButton},
 })
-export default class AcroletteGame extends Vue {
-  @Prop({type: Object, default: () => ({})}) settings: IAcroletteSettings;
+export default class AcrouletteGame extends Vue {
+  @Prop({type: Object, default: () => ({})}) settings: IAcrouletteSettings;
   isPaused = false;
   timerValue = 0;
   pose = null;
@@ -112,7 +112,7 @@ export default class AcroletteGame extends Vue {
       params.basePositions = this.settings.poses.basePositions;
       params.difficulty = this.settings.difficulty;
 
-      const response = await this.$api.get(`/api/acrolette/pose`, {params});
+      const response = await this.$api.get(`/api/acroulette/pose`, {params});
       this.pose = response.data;
 
       if (!this.isMuted) {
