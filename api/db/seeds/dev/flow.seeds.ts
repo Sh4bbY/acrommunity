@@ -1,4 +1,4 @@
-import {AliasableType, TaggableType} from '@acrommunity/common';
+import {AliasableType, FlowStatus, TaggableType} from '@acrommunity/common';
 import {flows} from '../../data';
 import {flowsTable} from '../../tables';
 import {Seeds} from '../Seeds';
@@ -9,7 +9,8 @@ flowSeeds.setData(async () => {
   return flows.map((flow, idx) => ({
     id: idx + 1,
     name: flow.name,
-    difficulty: flow.difficulty,
+    difficulty: flow.difficulty || 3,
+    status: flow.attachments.length > 0 ? FlowStatus.Accepted : FlowStatus.Suggestion,
     description: flow.description,
   }));
 });

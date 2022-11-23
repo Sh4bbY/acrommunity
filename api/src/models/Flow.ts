@@ -1,4 +1,4 @@
-import {AliasableType, AttachableType, CommentableType, TaggableType} from '@acrommunity/common';
+import {AliasableType, AttachableType, CommentableType, FlowStatus, TaggableType} from '@acrommunity/common';
 import {BelongsToMany, Column, DataType, HasMany, Model, Table} from 'sequelize-typescript';
 import {Comment, Tag} from '~/models';
 import {Alias} from '~/models/Alias';
@@ -18,6 +18,9 @@ export class Flow extends Model<Flow> {
 
   @Column({type: DataType.TINYINT.UNSIGNED})
   declare difficulty: string;
+
+  @Column({type: DataType.STRING})
+  declare status: FlowStatus;
 
   @HasMany(() => Comment, {
     foreignKey: 'commentableId',

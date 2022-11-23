@@ -1,13 +1,13 @@
 <template>
   <div class="rich-text-editor">
     <span class="label">{{ label }}</span>
-    <vue-editor v-model="content" :editor-toolbar="toolbar"/>
+    <vue-editor v-model="content" :editor-toolbar="toolbar" @blur="onBlur"/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop, VModel} from 'vue-property-decorator';
+import {Component, Prop, VModel, Watch} from 'vue-property-decorator';
 import {VueEditor} from 'vue2-editor';
 
 @Component({
@@ -17,6 +17,15 @@ export default class RichTextEditor extends Vue {
   @VModel({default: ''}) content: string;
   @Prop({default: ''}) label: string;
   @Prop({default: '250px'}) height: string;
+
+  initialContent = '';
+
+  @Watch('content', {immediate: true})
+  watchContent(newValue, oldValue) {
+    if (oldValue === undefined) {
+      this.initialContent = newValue;
+    }
+  }
 
   toolbar = [
     ['bold', 'italic', 'underline'],
@@ -38,6 +47,13 @@ export default class RichTextEditor extends Vue {
   //   ['link', 'image', 'video'],
   //   ['clean'], // remove formatting button
   // ];
+
+  onBlur() {
+    if (this.initialContent !== this.content) {
+      this.$emit('change', this.content);
+      this.initialContent = this.content;
+    }
+  }
 }
 </script>
 

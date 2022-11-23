@@ -7,7 +7,7 @@ import {Alias} from '~/models/Alias';
 import {Attachment} from '~/models/Attachment';
 
 @Injectable()
-export class AcroletteService {
+export class AcrouletteService {
   constructor(
     @InjectModel(Pose) private poseModel: typeof Pose,
     @InjectModel(Transition) private transitionModel: typeof Transition) {

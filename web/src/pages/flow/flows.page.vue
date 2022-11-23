@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <create-list-dialog v-model="dialog.createList"/>
     <v-card>
       <v-toolbar color="primary" dark dense>
         <breadcrumb-title :title="title" :parents="[{to: {name: 'dictionary'}, text: $t('label.dictionary')}]"/>
@@ -13,8 +14,18 @@
       <v-expand-transition>
         <v-sheet v-show="showFilter" color="primary lighten-5 pa-3">
           <v-row>
-            <v-col cols="12" md="6" lg="4">
-              <v-range-slider v-model="filter.difficulty" :label="$t('field.difficulty')" min="1" max="10" :hint="difficultyLabel" persistent-hint/>
+            <v-col cols="12" sm="6" lg="4">
+              <v-text-field v-model="filter.name" :label="$t('field.name')" clearable @keyup.enter="applyFilter"/>
+            </v-col>
+            <v-col v-if="$store.state.auth.isAdmin" cols="12" sm="6" lg="4">
+              <v-select v-model="filter.status" :label="$t('field.status')" :items="statusOptions" clearable/>
+            </v-col>
+            <v-col cols="12" sm="6" lg="4">
+              <div class="d-flex align-center">
+                <v-checkbox v-model="filter.enableDifficulty" class="mr-2 mt-0"/>
+                <v-range-slider v-model="filter.difficulty" :label="$t('field.difficulty')" min="1" max="6" :hint="difficultyLabel" persistent-hint
+                                :disabled="!filter.enableDifficulty"/>
+              </div>
             </v-col>
           </v-row>
           <div class="d-flex">
@@ -26,11 +37,10 @@
         </v-sheet>
       </v-expand-transition>
 
-
       <v-card-text>
-        <paginated-grid url="/api/flows" :headers="headers" :search-params="searchParams">
+        <paginated-grid url="/api/flows" :headers="headers" :search-params="searchParams" :options="options">
           <template #item="{item}">
-            <grid-item :item="item" type="flow"/>
+            <grid-item :item="item" type="flow" @create-list="dialog.createList=true"/>
           </template>
         </paginated-grid>
       </v-card-text>
@@ -39,6 +49,7 @@
 </template>
 
 <script lang="ts">
+import {FlowStatus} from '@acrommunity/common';
 import {Component} from 'vue-property-decorator';
 import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
 import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
@@ -48,19 +59,43 @@ import TooltipButton from '~/components/common/tooltip-button.vue';
 import FavButton from '~/components/item/fav-button.vue';
 import GridItem from '~/components/item/grid-item.vue';
 import ItemMenu from '~/components/item/item-menu.vue';
+import CreateListDialog from '~/components/my/create-list-dialog.vue';
 import {resolveDifficulty} from '~/utils';
 import Page from '../page.vue';
 
 @Component({
-  components: {TooltipButton, ItemMenu, PaginatedTable, PaginatedGrid, EmbedAttachment, GridItem, FavButton, BreadcrumbTitle},
+  components: {CreateListDialog, TooltipButton, ItemMenu, PaginatedTable, PaginatedGrid, EmbedAttachment, GridItem, FavButton, BreadcrumbTitle},
 })
 export default class FlowsPage extends Page {
   flows = [];
   filter = {
-    difficulty: [1, 5],
+    name: null,
+    status: FlowStatus.Accepted,
+    difficulty: [1, 6],
+    enableDifficulty: false,
+  };
+  options = {
+    sortBy: ['id'],
+    sortDesc: [false],
+    itemsPerPage: 12,
+  };
+  dialog = {
+    createList: false,
   };
   showFilter = false;
   searchParams = {};
+
+  beforeMount() {
+    this.searchParams = Object.assign(this.searchParams, this.$route.query);
+    Object.keys(this.filter).map(key => this.filter[key] = this.$route.query[key] || this.filter[key]);
+    Object.keys(this.options).map(key => this.options[key] = this.$route.query[key] || this.options[key]);
+    if (this.$route.query.sortBy) {
+      this.options.sortBy = Array.isArray(this.$route.query.sortBy) ? this.$route.query.sortBy : [this.$route.query.sortBy];
+    }
+    if (this.$route.query.sortDesc) {
+      this.options.sortDesc = Array.isArray(this.$route.query.sortDesc) ? [this.$route.query.sortDesc[0] === 'true'] : [this.$route.query.sortDesc === 'true'];
+    }
+  }
 
   get title() {
     return this.$tc('p.flow', 2);
@@ -75,7 +110,17 @@ export default class FlowsPage extends Page {
   }
 
   applyFilter() {
-    return this.searchParams = Object.assign({}, this.filter);
+    this.searchParams = {
+      name: this.filter.name,
+      difficulty: this.filter.enableDifficulty === false ? undefined : this.filter.difficulty,
+      status: this.filter.status,
+    };
+    const query = Object.assign(this.searchParams, {sortBy: this.options.sortBy, sortDesc: String(this.options.sortDesc)});
+    const isDifferentQuery = Object.keys(query).reduce((result, key) => result || query[key] !== this.$route.query[key], false);
+
+    if (isDifferentQuery) {
+      this.$router.replace({query});
+    }
   }
 
   resolveDifficulty(difficulty) {
@@ -91,6 +136,10 @@ export default class FlowsPage extends Page {
 
   get type() {
     return 'flow';
+  }
+
+  get statusOptions() {
+    return Object.values(FlowStatus).map(value => ({text: this.$t('status.' + value), value}));
   }
 }
 </script>

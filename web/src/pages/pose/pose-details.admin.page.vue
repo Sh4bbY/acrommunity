@@ -378,8 +378,8 @@ export default class PoseDetailsAdminPage extends Page {
   async deletePose() {
     try {
       await this.$api.delete(`/api/poses/${this.pose.id}`);
-      this.targets.push({name: 'pose-details', params: {id: this.pose.id + 1}});
       this.$notify.success(this.$t('notify.deleteSuccess'));
+      await this.$router.push({name: 'pose-details', params: {id: this.pose.id + 1}});
     } catch (e) {
       this.$notify.error(e);
     }

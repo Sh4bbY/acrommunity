@@ -3,7 +3,7 @@ import {Validator} from '~/utils';
 import {FlowService} from './flow.service';
 
 @Controller('/api/flows')
-export class FlowController {
+export class FlowControllerPublic {
   constructor(private readonly flowService: FlowService) {
   }
 

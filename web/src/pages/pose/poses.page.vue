@@ -19,7 +19,7 @@
             <v-col cols="12" sm="6" lg="4">
               <v-text-field v-model="filter.name" :label="$t('field.name')" clearable @keyup.enter="applyFilter"/>
             </v-col>
-            <v-col cols="12" sm="6" lg="4">
+            <v-col v-if="$store.state.auth.isAdmin" cols="12" sm="6" lg="4">
               <v-select v-model="filter.status" :label="$t('field.status')" :items="statusOptions" clearable/>
             </v-col>
             <v-col cols="12" sm="6" lg="4">
@@ -28,7 +28,7 @@
             <v-col cols="12" sm="6" lg="4">
               <div class="d-flex align-center">
                 <v-checkbox v-model="filter.enableDifficulty" class="mr-2 mt-0"/>
-                <v-range-slider v-model="filter.difficulty" :label="$t('field.difficulty')" min="1" max="10" :hint="difficultyLabel" persistent-hint
+                <v-range-slider v-model="filter.difficulty" :label="$t('field.difficulty')" min="1" max="6" :hint="difficultyLabel" persistent-hint
                                 :disabled="!filter.enableDifficulty"/>
               </div>
             </v-col>
@@ -38,10 +38,10 @@
             <v-col cols="12" sm="6" lg="4">
               <v-select v-model="filter.flyerPosition" :label="$t('field.flyerPosition')" :items="flyerPositions" clearable/>
             </v-col>
-            <v-col cols="12" sm="6" lg="4">
+            <v-col v-if="$store.state.auth.isAdmin" cols="12" sm="6" lg="4">
               <v-select v-model="options.sortBy[0]" :label="$t('action.sortBy')" :items="sortByOptions"/>
             </v-col>
-            <v-col cols="12" sm="6" lg="4">
+            <v-col v-if="$store.state.auth.isAdmin" cols="12" sm="6" lg="4">
               <v-select v-model="options.sortDesc[0]" :label="$t('label.direction')" :items="directionOptions"/>
             </v-col>
           </v-row>
@@ -88,7 +88,7 @@ export default class PosesPage extends Page {
   filter = {
     name: null,
     persons: 2,
-    status: PoseStatus.Suggestion,
+    status: PoseStatus.Accepted,
     difficulty: [1, 6],
     basePosition: null,
     flyerPosition: null,

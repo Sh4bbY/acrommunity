@@ -65,7 +65,6 @@ export default class SideNavigation extends Vue {
   get items() {
     return [
       {title: this.$t('label.home'), icon: 'mdi-home', route: {name: 'home'}, exact: true, condition: this.$store.state.auth.isSignedIn},
-      {title: this.$tc('p.jam', 2), icon: 'mdi-calendar', route: {name: 'jams'}, exact: false},
       {
         title: this.$t('label.dictionary'), icon: 'mdi-book-open-variant', open: this.isGroupOpen.dictionary, children: [
           {title: this.$tc('p.pose', 2), icon: 'mdi-human', route: {name: 'poses'}, exact: false},
@@ -92,6 +91,7 @@ export default class SideNavigation extends Vue {
           {title: 'Dev', icon: 'mdi-dev-to', route: {name: 'dev'}, exact: false},
         ],
       },
+      {title: this.$tc('p.jam', 2), icon: 'mdi-calendar', route: {name: 'jams'}, exact: false},
       {title: this.$tc('p.reference', 2), icon: 'mdi-web', route: {name: 'references'}, exact: false},
       {title: this.$tc('p.community', 2), icon: 'mdi-account-group', route: {name: 'communities'}, exact: false},
     ].filter(item => item.condition === undefined || item.condition === true);
