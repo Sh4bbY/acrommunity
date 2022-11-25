@@ -25,6 +25,8 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
       throw new UnauthorizedException();
     }
 
+    user.setDataValue('password', undefined);
+
     return user.toJSON();
   }
 }

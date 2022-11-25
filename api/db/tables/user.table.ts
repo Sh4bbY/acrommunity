@@ -1,4 +1,5 @@
 import {userValidation} from '@acrommunity/common';
+import {literal} from 'sequelize';
 import {DataType} from 'sequelize-typescript';
 import {Table} from '.';
 
@@ -11,6 +12,7 @@ export const userTable = new Table('Users', () => ({
   role: {type: DataType.STRING, defaultValue: 'user'},
   strategy: {type: DataType.STRING, defaultValue: 'local'},
   tokenVersion: {type: DataType.INTEGER.UNSIGNED, allowNull: false, defaultValue: 1},
-  createdAt: {allowNull: false, type: DataType.DATE},
-  updatedAt: {allowNull: false, type: DataType.DATE},
+  latestActivity: {allowNull: false, type: DataType.DATE, defaultValue: literal('NOW()')},
+  createdAt: {allowNull: false, type: DataType.DATE, defaultValue: literal('NOW()')},
+  updatedAt: {allowNull: false, type: DataType.DATE, defaultValue: literal('NOW()')},
 }));

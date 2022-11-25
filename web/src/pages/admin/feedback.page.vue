@@ -5,9 +5,18 @@
         <v-toolbar-title>{{ title }}</v-toolbar-title>
       </v-toolbar>
 
-      <paginated-table url="/api/feedback" :headers="headers">
+      <paginated-table url="/api/feedback" :headers="headers" :options="{sortBy: ['createdAt']}">
         <template #item.authorId="{item}">
-          <router-link :to="{name: 'user-details', params: {id: item.authorId}}">User {{ item.authorId }}</router-link>
+          <router-link :to="{name: 'user-details', params: {id: item.authorId}}">{{ item.author.username }}</router-link>
+        </template>
+        <template #item.title="{item}">
+          <router-link :to="{name: 'feedback-details', params: {id: item.id}}">User {{ item.title }}</router-link>
+        </template>
+        <template #item.text="{item}">
+          <div v-html="item.text" class="text-container"/>
+        </template>
+        <template #item.status="{item}">
+          <span>{{ $t('feedbackStatus.' + item.status) }}</span>
         </template>
         <template #item.createdAt="{item}">
           <moment v-model="item.createdAt"/>
@@ -19,15 +28,12 @@
 
 <script lang="ts">
 import {Component} from 'vue-property-decorator';
-import ItemMenu from '~/components/item/item-menu.vue';
 import Moment from '~/components/common/moment.vue';
-import PaginatedGrid from '~/components/common/paginated-grid.vue';
 import PaginatedTable from '~/components/common/paginated-table.vue';
-import TooltipButton from '~/components/common/tooltip-button.vue';
 import Page from '../page.vue';
 
 @Component({
-  components: {PaginatedTable, PaginatedGrid, TooltipButton, ItemMenu, Moment},
+  components: {PaginatedTable, Moment},
 })
 export default class FeedbackPage extends Page {
   get title() {
@@ -36,8 +42,8 @@ export default class FeedbackPage extends Page {
 
   get headers() {
     return [
-      {text: this.$t('field.id'), value: 'id'},
       {text: this.$tc('field.author'), value: 'authorId'},
+      {text: this.$tc('field.title'), value: 'title'},
       {text: this.$tc('field.text'), value: 'text', sortable: false},
       {text: this.$tc('field.status'), value: 'status'},
       {text: this.$tc('field.createdAt'), value: 'createdAt'},
@@ -47,4 +53,23 @@ export default class FeedbackPage extends Page {
 </script>
 
 <style lang="scss" scoped>
+.text-container {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 40px;
+  max-width: 300px;
+
+  ::v-deep p {
+    margin-bottom: 0;
+  }
+
+  ::v-deep br {
+    content: ' ';
+
+    &:after {
+      content: ' ';
+    }
+  }
+}
 </style>

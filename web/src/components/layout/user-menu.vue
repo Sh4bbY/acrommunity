@@ -47,6 +47,11 @@ export default class UserMenu extends Vue {
         to: {name: 'my-lists'},
       },
       {
+        icon: 'mdi-bookmark-multiple ',
+        title: this.$tc('label.myMarks'),
+        to: {name: 'my-marks'},
+      },
+      {
         icon: 'mdi-calendar ',
         title: this.$tc('label.myJams'),
         to: {name: 'my-jams'},

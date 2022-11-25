@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {WhereOptions} from 'sequelize';
-import {Feedback} from '~/models';
+import {Feedback, User} from '~/models';
 
 @Injectable()
 export class FeedbackService {
@@ -14,14 +14,24 @@ export class FeedbackService {
     return await this.feedbackModel.create(feedbackData);
   }
 
-
   async getPaginatedData(query: any) {
     const where: WhereOptions<Feedback> = {};
     return await this.feedbackModel.findAndCountAll({
       where,
+      include: [
+        {model: User, attributes: ['username']},
+      ],
       limit: query.limit,
       offset: query.offset,
       order: query.order,
+    });
+  }
+
+  async getFeedback(id: number) {
+    return await this.feedbackModel.findByPk(id, {
+      include: [
+        {model: User, attributes: ['username', 'email', 'avatar']},
+      ],
     });
   }
 }

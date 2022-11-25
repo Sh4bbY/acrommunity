@@ -1,5 +1,7 @@
 export declare enum MarkableType {
     Pose = "pose",
     Flow = "flow",
-    Skill = "skill"
+    Skill = "skill",
+    Image = "image",
+    Video = "video"
 }

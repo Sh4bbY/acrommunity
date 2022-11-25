@@ -40,6 +40,7 @@ const routes: Array<RouteConfig> = [
   {path: '/my/training', name: 'my-training', component: () => import(/* webpackChunkName: "my-training" */ '~/pages/my/my-training.page.vue'), meta: {access: 'user'}},
   {path: '/my/repertoire', name: 'my-repertoire', component: () => import(/* webpackChunkName: "my-repertoire" */ '~/pages/my/my-repertoire.page.vue'), meta: {access: 'user'}},
   {path: '/my/jams', name: 'my-jams', component: () => import(/* webpackChunkName: "my-jams" */ '~/pages/my/my-jams.page.vue'), meta: {access: 'user'}},
+  {path: '/my/marks', name: 'my-marks', component: () => import(/* webpackChunkName: "my-marks" */ '~/pages/my/my-marks.page.vue'), meta: {access: 'user'}},
   {path: '/jams', name: 'jams', component: () => import(/* webpackChunkName: "jams" */ '~/pages/jam/jams.page.vue')},
   {path: '/jams/create', name: 'jam-create', component: () => import(/* webpackChunkName: "jam-create" */ '~/pages/jam/jam-create.page.vue'), meta: {access: 'user'}},
   {path: '/jams/:id/edit', name: 'jam-edit', component: () => import(/* webpackChunkName: "jam-edit" */ '~/pages/jam/jam-edit.page.vue'), meta: {access: 'user'}},
@@ -52,7 +53,9 @@ const routes: Array<RouteConfig> = [
     meta: {access: 'admin'},
   },
   {path: '/admin/comments', name: 'comments', component: () => import(/* webpackChunkName: "comments" */ '~/pages/admin/comments.page.vue'), meta: {access: 'admin'}},
+  {path: '/admin/comments/:id', name: 'comment-details', component: () => import(/* webpackChunkName: "comment-details" */ '~/pages/admin/comment-details.page.vue'), meta: {access: 'admin'}},
   {path: '/admin/feedback', name: 'feedback', component: () => import(/* webpackChunkName: "feedback" */ '~/pages/admin/feedback.page.vue'), meta: {access: 'admin'}},
+  {path: '/admin/feedback/:id', name: 'feedback-details', component: () => import(/* webpackChunkName: "feedback-details" */ '~/pages/admin/feedback-details.page.vue'), meta: {access: 'admin'}},
 
   // 404 page needs to be last in routes array
   {path: '*', name: 'not-found', component: () => import( /* webpackChunkName: "404.page" */ './pages/404.page.vue')},

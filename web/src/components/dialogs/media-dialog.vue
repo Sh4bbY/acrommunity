@@ -1,14 +1,17 @@
 <template>
   <v-dialog v-model="show" width="auto" :fullscreen="fullscreen" transition="dialog-bottom-transition">
     <v-card v-if="item" class="d-flex flex-column">
-      <v-btn v-if="fullscreen" icon @click="show=false" class="close-btn" color="black">
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
+      <div class="buttons">
+        <item-menu v-if="$store.state.auth.isSignedIn" :item="item" :type="type"/>
+        <v-btn v-if="fullscreen" icon @click="show=false" color="black" class="ml-2">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </div>
       <img v-if="type === 'image'" :src="item.url" style="max-height: 500px; max-width: 100%"/>
       <div v-else-if="type === 'video'" class="d-flex justify-center align-center">
         <video v-if="show" :src="item.url" height="500px" controls style="max-height: 500px; max-width: 100%" autoplay/>
       </div>
-      <div class="pa-2 text-center">
+      <div class="pa-2 text-center relative">
         <a :href="'https://www.instagram.com/' + item.copyright" target="_blank" style="font-size: 14px">&copy;{{ item.copyright }}</a>
       </div>
       <v-spacer/>
@@ -37,9 +40,10 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop, VModel} from 'vue-property-decorator';
+import ItemMenu from '~/components/item/item-menu.vue';
 
 @Component({
-  components: {},
+  components: {ItemMenu},
 })
 export default class MediaDialog extends Vue {
   @VModel({type: Boolean, default: false}) show: boolean;
@@ -52,7 +56,7 @@ export default class MediaDialog extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.close-btn {
+.buttons {
   position: absolute;
   top: 10px;
   right: 10px;

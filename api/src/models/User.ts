@@ -25,6 +25,9 @@ export class User extends Model<User> {
   @Column({type: DataType.STRING})
   declare role: Role;
 
+  @Column({type: DataType.DATE})
+  declare latestActivity: Date;
+
   @Column({type: DataType.INTEGER.UNSIGNED})
   declare tokenVersion: number;
 

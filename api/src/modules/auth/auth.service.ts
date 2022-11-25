@@ -17,6 +17,10 @@ export class AuthService {
     return record.get({plain: true});
   }
 
+  public async updateLatestActivity(id: number): Promise<any> {
+    await this.userModel.update({latestActivity: new Date()}, {where: {id}});
+  }
+
   // todo: use interface for user
   public static createAccessToken(user: any): string {
     const payload = {

@@ -1,5 +1,5 @@
 import {Role} from '@acrommunity/common';
-import {Controller, Get, Query, UseGuards} from '@nestjs/common';
+import {Controller, Get, Param, Query, UseGuards} from '@nestjs/common';
 import {AuthGuard} from '@nestjs/passport';
 import {Validator} from '~/utils';
 import {Roles} from '~/utils/nest/roles.decorator';
@@ -12,6 +12,11 @@ import {CommentService} from './comment.service';
 @UseGuards(AuthGuard('jwt'))
 export class CommentControllerAdmin {
   constructor(private readonly commentService: CommentService) {
+  }
+
+  @Get(':id')
+  async getComment(@Param('id') id: string) {
+    return await this.commentService.getComment(+id);
   }
 
   @Get()

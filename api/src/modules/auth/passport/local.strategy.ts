@@ -29,6 +29,8 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
       throw new UnauthorizedException('invalid credentials');
     }
 
+    user.setDataValue('password', undefined);
+
     return user.toJSON();
   }
 }

@@ -6,4 +6,6 @@ var MarkableType;
     MarkableType["Pose"] = "pose";
     MarkableType["Flow"] = "flow";
     MarkableType["Skill"] = "skill";
+    MarkableType["Image"] = "image";
+    MarkableType["Video"] = "video";
 })(MarkableType = exports.MarkableType || (exports.MarkableType = {}));

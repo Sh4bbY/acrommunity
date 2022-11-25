@@ -14,11 +14,19 @@ export class CommentService {
     return await this.commentModel.create(commentData);
   }
 
+  async getComment(id: number) {
+    return await this.commentModel.findByPk(id, {
+      include: [
+        {model: User, attributes: ['username', 'avatar']},
+      ],
+    });
+  }
 
   async getPaginatedData(query: any) {
     const where: WhereOptions<Comment> = {};
     return await this.commentModel.findAndCountAll({
       where,
+      include: [{model: User, attributes: ['username']}],
       limit: query.limit,
       offset: query.offset,
       order: query.order,
@@ -28,7 +36,7 @@ export class CommentService {
   async getCommentsFor(commentableType: string, commentableId: number): Promise<Comment[]> {
     return await this.commentModel.findAll({
       where: {commentableType, commentableId},
-      include: [User],
+      include: [{model: User, attributes: ['username', 'avatar']}],
       order: [['createdAt', 'DESC']],
       raw: false,
     });

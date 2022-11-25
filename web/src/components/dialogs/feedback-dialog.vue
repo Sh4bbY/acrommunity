@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="show" width="auto">
+  <v-dialog v-model="show" width="auto" :fullscreen="$vuetify.breakpoint.xs">
     <v-card width="600px">
       <v-toolbar color="primary" dark dense>
         <v-toolbar-title>{{ $t('label.feedback') }}</v-toolbar-title>

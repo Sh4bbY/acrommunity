@@ -12,6 +12,9 @@ export class Feedback extends Model<Feedback> {
   @BelongsTo(() => User, 'authorId')
   author?: User;
 
+  @Column({type: DataType.STRING})
+  declare title: string;
+
   @Column({type: DataType.TEXT})
   declare text: string;
 

@@ -25,6 +25,8 @@ export class RefreshStrategy extends PassportStrategy(Strategy, 'refresh') {
       throw new UnauthorizedException();
     }
 
+    user.setDataValue('password', undefined);
+
     return user.toJSON();
   }
 }

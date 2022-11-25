@@ -80,7 +80,7 @@ jobs:
         run: yarn
 
       - name: Run linter 👀
-        run: yarn workspace @cat-europe/common lint
+        run: yarn workspace @acrommunity/common lint
 
   web_ci:
     if: "!contains(github.event.head_commit.message, '[skip-ci]')"

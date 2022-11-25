@@ -3,15 +3,14 @@
     <div v-if="count > 0">
       <h2 class="mt-4">{{ $tc('p.comment', 2) }} ({{ count }})</h2>
       <v-list dense>
-        <v-list-item v-for="item in items" :key="item.id" class="list-item elevation-1 mb-1" :class="item.type">
-          <v-list-item-avatar v-if="item.author">
+        <v-list-item v-for="item in items" :key="item.id" :id="'comment-' + item.id" class="list-item elevation-1 mb-1" :class="item.type">
+          <v-list-item-avatar>
             <v-img :src="item.author.avatar" class="comment-avatar"/>
           </v-list-item-avatar>
 
           <v-list-item-content>
             <v-list-item-title>
-              <router-link v-if="item.author" :to="{name: 'user-details', params: {id: item.authorId}}">{{ item.author.username }}</router-link>
-              <router-link v-else :to="{name: 'user-details', params: {id: item.authorId}}">User {{ item.authorId }}</router-link>
+              <router-link :to="{name: 'user-details', params: {id: item.authorId}}">{{ item.author.username }}</router-link>
             </v-list-item-title>
 
             <v-list-item-subtitle>
@@ -39,7 +38,6 @@ export default class Comments extends Vue {
   @Prop({required: true}) commentableType: string;
   @Prop({default: null}) commentableId: string;
   @Prop({default: null}) newComment: any;
-
   items = [];
 
   onCommentSuccess(comment) {

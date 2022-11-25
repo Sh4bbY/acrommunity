@@ -46,8 +46,6 @@ export class AuthController {
   async login(@Req() req: Request, @Res() res: Response) {
     res.cookie('refreshToken', AuthService.createRefreshToken(req.user), {path: '/api/auth/refresh', httpOnly: true});
 
-    delete req.user.password;
-
     return res.send({
       user: req.user,
       token: AuthService.createAccessToken(req.user),
@@ -67,8 +65,7 @@ export class AuthController {
   @UseFilters(RefreshExceptionFilter)
   async refreshToken(@Req() req: Request, @Res() res: Response) {
     res.cookie('refreshToken', AuthService.createRefreshToken(req.user), {path: '/api/auth/refresh', httpOnly: true});
-
-    delete req.user.password;
+    await this.authService.updateLatestActivity(req.user.id);
 
     res.send({
       user: req.user,

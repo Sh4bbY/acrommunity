@@ -2,7 +2,7 @@ import {ListableType, MarkableType, MarkType} from '@acrommunity/common';
 import {ForbiddenException, Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {Op} from 'sequelize';
-import {Attachment, Flow, Jam, List, Pose, Skill, User} from '~/models';
+import {Attachment, Flow, Image, Jam, List, Pose, Skill, User, Video} from '~/models';
 import {PT_Listable, PT_Markable} from '~/models/pivot';
 
 @Injectable()
@@ -16,6 +16,8 @@ export class MyService {
     @InjectModel(Flow) private flowModel: typeof Flow,
     @InjectModel(Skill) private skillModel: typeof Skill,
     @InjectModel(Jam) private jamModel: typeof Jam,
+    @InjectModel(Image) private imageModel: typeof Image,
+    @InjectModel(Video) private videoModel: typeof Video,
   ) {
   }
 
@@ -84,21 +86,17 @@ export class MyService {
     const poseIds = markables.filter(markable => markable.markableType === MarkableType.Pose).map(markable => markable.markableId);
     const flowIds = markables.filter(markable => markable.markableType === MarkableType.Flow).map(markable => markable.markableId);
     const skillIds = markables.filter(markable => markable.markableType === MarkableType.Skill).map(markable => markable.markableId);
+    const imageIds = markables.filter(markable => markable.markableType === MarkableType.Image).map(markable => markable.markableId);
+    const videoIds = markables.filter(markable => markable.markableType === MarkableType.Video).map(markable => markable.markableId);
 
-    const [poses, flows, skills] = await Promise.all([
+    const [poses, flows, skills, images, videos] = await Promise.all([
       this.poseModel.findAll({where: {id: {[Op.in]: poseIds}}, include: [Attachment]}),
       this.flowModel.findAll({where: {id: {[Op.in]: flowIds}}, include: [Attachment]}),
       this.skillModel.findAll({where: {id: {[Op.in]: skillIds}}, include: [Attachment]}),
+      this.imageModel.findAll({where: {id: {[Op.in]: imageIds}}}),
+      this.videoModel.findAll({where: {id: {[Op.in]: videoIds}}}),
     ]);
-    return {poses, flows, skills};
-
-
-    // return await this.ptMarkableModel.findAll({
-    //   where: {userId, type}, include: [
-    //     {model: Pose},
-    //     {model: Flow},
-    //   ],
-    // });
+    return {poses, flows, skills, images, videos};
   }
 
 

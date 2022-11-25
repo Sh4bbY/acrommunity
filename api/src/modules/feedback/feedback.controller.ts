@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post, Query, Req, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Query, Req, UseGuards} from '@nestjs/common';
 import {AuthGuard} from '@nestjs/passport';
 import {FeedbackDto} from '~/modules/feedback/feedback.dto';
 import {Validator} from '~/utils';
@@ -14,6 +14,11 @@ export class FeedbackController {
   async getPaginatedData(@Query() query) {
     const queryParams = Validator.validatePaginatedQuery(query);
     return await this.feedbackService.getPaginatedData(queryParams);
+  }
+
+  @Get(':id')
+  async getFeedback(@Param('id') id: string) {
+    return await this.feedbackService.getFeedback(+id);
   }
 
   @Post()

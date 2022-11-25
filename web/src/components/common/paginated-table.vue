@@ -1,5 +1,5 @@
 <template>
-  <v-data-table v-bind="$attrs" v-on="$listeners" :items="items" :server-items-length="totalItems" :loading="loading" :options.sync="options"
+  <v-data-table v-bind="$attrs" v-on="$listeners" :items="items" :server-items-length="totalItems" :loading="loading" :options.sync="syncOptions"
                 @click:row="onRowClick">
     <slot v-for="(_, name) in $slots" :name="name" :slot="name"/>
     <template v-for="(_, name) in $scopedSlots" :slot="name" slot-scope="slotData">
@@ -19,8 +19,9 @@ export default class PaginatedTable extends Vue {
   @Prop({default: () => [], type: Array}) readonly relations!: string[];
   @Prop({default: () => ({}), type: Object}) readonly where!: any;
   @Prop({default: false, type: Boolean}) readonly expand!: boolean;
+  @Prop({default: () => ({}), type: Object}) readonly options!: any;
 
-  options = {
+  syncOptions = {
     groupBy: [],
     groupDesc: [],
     itemsPerPage: 10,
@@ -28,14 +29,18 @@ export default class PaginatedTable extends Vue {
     multiSort: false,
     page: 1,
     sortBy: ['id'],
-    sortDesc: [false],
+    sortDesc: [true],
   };
 
   items: any[] = [];
   totalItems = -1;
   loading = false;
 
-  @Watch('options')
+  created() {
+    Object.assign(this.syncOptions, this.options);
+  }
+
+  @Watch('syncOptions')
   async watchOptions() {
     await this.fetchData();
   }
@@ -43,7 +48,7 @@ export default class PaginatedTable extends Vue {
   @Watch('searchParams')
   async watchSearchParams(newParams, oldParams) {
     if (newParams.q !== oldParams.q) {
-      this.options.page = 1;
+      this.syncOptions.page = 1;
     }
     await this.fetchData();
   }
@@ -53,8 +58,8 @@ export default class PaginatedTable extends Vue {
       this.loading = true;
       const params: any = {};
 
-      if (this.options) {
-        const pagination = this.options;
+      if (this.syncOptions) {
+        const pagination = this.syncOptions;
         params.offset = (pagination.page - 1) * pagination.itemsPerPage;
         params.limit = pagination.itemsPerPage;
         params.order = pagination.sortBy.map((field: string, index: number) => `${field}:${pagination.sortDesc[index] ? 'DESC' : 'ASC'}`);

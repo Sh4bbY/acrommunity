@@ -66,8 +66,10 @@ export const de = {
     difficulty: 'Schwierigkeit',
     flyerPosition: 'Flieger Position',
     basePosition: 'Base Position',
+    latestActivity: 'Letzte Aktivität',
   },
   label: {
+    acrodispencer: 'Acroverteiler',
     continueWithItem: 'Mit {item} forfahren',
     address: 'Adresse',
     start: 'Start',
@@ -88,6 +90,7 @@ export const de = {
     any: 'Egal',
     baseType: 'Base-Typ',
     myLists: 'Meine Listen',
+    myMarks: 'Meine Markierungen',
     myJams: 'Meine Jams',
     none: '-',
     misc: 'Verschiedenes',
@@ -108,6 +111,7 @@ export const de = {
     cancelled: 'Abgesagt',
   },
   action: {
+    answerByMail: 'Per Email Antworten',
     openInGoogleMaps: 'In Google Maps öffnen',
     findLocation: 'Ort suchen',
     sortBy: 'Sortieren nach',
@@ -172,6 +176,11 @@ export const de = {
     once: 'Einmalig',
     weekly: 'Wöchentlich',
     monthly: 'Monatlich',
+  },
+  feedbackStatus: {
+    new: 'Neu',
+    highlighted: 'Hervorgehoben',
+    completed: 'Abgeschlossen',
   },
   error: {
     pageNotFound: 'Die Seite "{page}" existiert nicht.',
