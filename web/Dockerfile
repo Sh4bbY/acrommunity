@@ -13,7 +13,8 @@ RUN chown -R www-data:www-data ${html_dir}
 COPY ./dist ${html_dir}/
 
 # copy config
-COPY ./nginx/* ${conf_dir}/
+COPY ./nginx/*.conf ${conf_dir}/
+COPY ./nginx/.htpasswd /etc/nginx/.htpasswd
 
 # set workdir
 WORKDIR ${conf_dir}
