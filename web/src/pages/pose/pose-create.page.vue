@@ -3,7 +3,8 @@
     <v-form>
       <v-card>
         <v-toolbar color="primary" dark dense>
-          <breadcrumb-title :title="$t('action.createItem', {item: $tc('p.pose')})" type="pose"/>
+          <breadcrumb-title :title="$t('action.createItem', {item: $tc('p.pose')})"
+                            :parents="[{to: {name: 'dictionary'}, text: $t('label.dictionary')},{to: {name: 'poses'}, text: $tc('p.pose', 2)}]"/>
         </v-toolbar>
         <v-card-text>
           <v-row>
@@ -60,28 +61,31 @@
 </template>
 
 <script lang="ts">
-import {BasePosition, FlyerPosition} from '@acrommunity/common';
+import {AttachmentType, BasePosition, FlyerPosition} from '@acrommunity/common';
 import {Component} from 'vue-property-decorator';
+import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
 import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
+import RichTextEditor from '~/components/common/rich-text-editor.vue';
+import TooltipButton from '~/components/common/tooltip-button.vue';
+import {resolveDifficulty} from '~/utils';
 import Page from '../page.vue';
 
 @Component({
-  components: {BreadcrumbTitle},
+  components: {RichTextEditor, TooltipButton, EmbedAttachment, BreadcrumbTitle},
 })
 export default class PoseCreatePage extends Page {
+  url = '';
   form = {
-    name: 'High Throne',
-    description: 'a throne high up in the sky',
+    name: '',
+    description: '',
     persons: 2,
-    difficulty: 8,
-    basePosition: BasePosition.STANDING,
+    difficulty: 3,
+    basePosition: null,
     flyerPosition: null,
     transitionTargets: [],
     tags: [],
     aliases: [],
-    attachments: [
-      {url: 'https://www.acromuseum.com/in/ph/2/full/85079791_925760664522864_6265427718827073915_n.jpg'},
-    ],
+    attachments: [],
   };
   poseOptions = [];
 
@@ -121,7 +125,8 @@ export default class PoseCreatePage extends Page {
   }
 
   addAttachment() {
-    this.form.attachments.push({url: ''});
+    this.form.attachments.push({url: this.url, type: AttachmentType.YouTube});
+    this.url = '';
   }
 
   removeAttachment(idx: number) {
@@ -135,6 +140,10 @@ export default class PoseCreatePage extends Page {
     } catch (e) {
       this.$notify.error(e);
     }
+  }
+
+  get difficultyLabel() {
+    return resolveDifficulty(this.form.difficulty, this);
   }
 }
 </script>

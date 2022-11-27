@@ -10,7 +10,6 @@ export class ImageService {
   }
 
   async getPaginatedData(query: any) {
-
     return await this.imageModel.findAndCountAll({
       where: query.filter,
       limit: query.limit,

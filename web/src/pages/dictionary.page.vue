@@ -33,7 +33,7 @@ export default class DictionaryPage extends Page {
         img: 'https://image.brigitte.de/12436490/t/b6/v3/w1440/r1.7778/-/acro-yoga--perfektes-training-zu-zweit-bild.jpg',
       },
       {to: {name: 'flows'}, title: this.$tc('p.flow', 2), subTitle: 'Lerne neue Waschmaschienen', img: 'https://i.ytimg.com/vi/n1S0ytDg-W8/maxresdefault.jpg'},
-      // {to: {name: 'skills'}, title: this.$tc('p.skill', 2), subTitle: 'Lorem ipsum dolor sit amet...', img: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'},
+      {to: {name: 'skills'}, title: this.$tc('p.skill', 2), subTitle: 'Probiere neue Whips, Pops, oder Icarians', img: '/img/skills.png'},
       {
         to: {name: 'images'},
         title: this.$tc('p.image', 2),

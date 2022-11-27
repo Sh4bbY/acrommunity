@@ -7,5 +7,7 @@ export const skillTable = new Table('Skills', () => ({
   name: {type: DataType.STRING, allowNull: false},
   description: {type: DataType.TEXT},
   difficulty: {type: DataType.TINYINT.UNSIGNED},
-  type: {type: DataType.STRING},
+  persons: {type: DataType.TINYINT.UNSIGNED, required: true},
+  status: {type: DataType.STRING(20), required: true},
+  type: {type: DataType.STRING(20), required: true},
 }));

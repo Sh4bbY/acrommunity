@@ -1,13 +1,15 @@
 import {Injectable, Logger} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import fs from 'fs';
-import {Alias, Attachment, Image, Pose, Tag, Transition, User, Video} from '~/models';
+import {Alias, Attachment, Flow, Image, Pose, Skill, Tag, Transition, User, Video} from '~/models';
 import {PT_Attachable, PT_Taggable} from '~/models/pivot';
 
 @Injectable()
 export class AdminService {
   constructor(
     @InjectModel(Pose) private poseModel: typeof Pose,
+    @InjectModel(Skill) private skillModel: typeof Skill,
+    @InjectModel(Flow) private flowModel: typeof Flow,
     @InjectModel(Transition) private transitionModel: typeof Transition,
     @InjectModel(Attachment) private attachmentModel: typeof Attachment,
     @InjectModel(PT_Attachable) private attachableModel: typeof PT_Attachable,
@@ -32,8 +34,10 @@ export class AdminService {
   }
 
   async exportData(): Promise<any> {
-    const [poses, transitions, attachments, aliases, tags, attachables, taggables] = await Promise.all([
+    const [poses, flows, skills, transitions, attachments, aliases, tags, attachables, taggables] = await Promise.all([
       this.poseModel.findAll(),
+      this.flowModel.findAll(),
+      this.skillModel.findAll(),
       this.transitionModel.findAll(),
       this.attachmentModel.findAll(),
       this.aliasModel.findAll(),
@@ -44,6 +48,8 @@ export class AdminService {
 
     return {
       poses,
+      flows,
+      skills,
       attachments,
       transitions,
       aliases,

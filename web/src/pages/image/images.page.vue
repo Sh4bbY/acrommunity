@@ -76,7 +76,7 @@ export default class ImagesMobilePage extends Page {
     isLast: false,
   };
   showFilter = false;
-  options = {itemsPerPage: 24};
+  options = {itemsPerPage: 48};
   searchParams = {};
 
   get title() {

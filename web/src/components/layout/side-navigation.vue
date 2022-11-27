@@ -69,7 +69,7 @@ export default class SideNavigation extends Vue {
         title: this.$t('label.dictionary'), icon: 'mdi-book-open-variant', open: this.isGroupOpen.dictionary, children: [
           {title: this.$tc('p.pose', 2), icon: 'mdi-human', route: {name: 'poses'}, exact: false},
           {title: this.$tc('p.flow', 2), icon: 'mdi-washing-machine', route: {name: 'flows'}, exact: false},
-          // {title: this.$tc('p.skill', 2), icon: 'mdi-magic-staff', route: {name: 'skills'}, exact: false},
+          {title: this.$tc('p.skill', 2), icon: 'mdi-magic-staff', route: {name: 'skills'}, exact: false},
           {title: this.$tc('p.image', 2), icon: 'mdi-image', route: {name: 'images'}, exact: false},
           {title: this.$tc('p.video', 2), icon: 'mdi-video', route: {name: 'videos'}, exact: false},
         ],

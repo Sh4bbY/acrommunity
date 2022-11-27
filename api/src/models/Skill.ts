@@ -1,6 +1,5 @@
-import {SkillType} from '@acrommunity/common';
+import {AliasableType, AttachableType, CommentableType, PoseStatus, SkillType, TaggableType} from '@acrommunity/common';
 import {BelongsToMany, Column, DataType, HasMany, Model, Table} from 'sequelize-typescript';
-import {AliasableType, AttachableType, CommentableType, TaggableType} from '@acrommunity/common';
 import {Alias, Attachment, Comment, Tag} from '~/models';
 import {PT_Attachable, PT_Taggable} from '~/models/pivot';
 
@@ -19,6 +18,12 @@ export class Skill extends Model<Skill> {
 
   @Column({type: DataType.STRING})
   declare type: SkillType;
+
+  @Column({type: DataType.TINYINT.UNSIGNED})
+  declare persons: number;
+
+  @Column({type: DataType.STRING})
+  declare status: PoseStatus;
 
   @HasMany(() => Comment, {
     foreignKey: 'commentableId',

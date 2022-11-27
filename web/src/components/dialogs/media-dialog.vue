@@ -52,6 +52,29 @@ export default class MediaDialog extends Vue {
   @Prop({type: Boolean, default: false}) fullscreen: boolean;
   @Prop() item: any;
   @Prop() type: 'video' | 'image';
+
+  listenerRef = null;
+
+  mounted() {
+    this.listenerRef = this.handleKeyUp.bind(this);
+    document.addEventListener('keyup', this.listenerRef);
+  }
+
+  handleKeyUp(e) {
+    console.log('handle!');
+
+    if (e.code === 'ArrowLeft' && !this.isFirst) {
+      return this.$emit('prev');
+    }
+    if (e.code === 'ArrowRight' && !this.isLast) {
+      return this.$emit('next');
+    }
+
+  }
+
+  beforeDestroy() {
+    document.removeEventListener('keyup', this.listenerRef);
+  }
 }
 </script>
 

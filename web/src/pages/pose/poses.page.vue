@@ -84,7 +84,6 @@ import Page from '../page.vue';
 })
 export default class PosesPage extends Page {
   poses = [];
-  favorites = [];
   filter = {
     name: null,
     persons: 2,

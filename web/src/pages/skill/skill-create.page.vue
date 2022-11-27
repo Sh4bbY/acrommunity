@@ -3,7 +3,8 @@
     <v-form>
       <v-card>
         <v-toolbar color="primary" dark dense>
-          <v-toolbar-title>{{ $t('action.createItem', {item: $tc('p.skill')}) }}</v-toolbar-title>
+          <breadcrumb-title :title="$t('action.createItem', {item: $tc('p.skill')})"
+                            :parents="[{to: {name: 'dictionary'}, text: $t('label.dictionary')},{to: {name: 'skills'}, text: $tc('p.skill', 2)}]"/>
         </v-toolbar>
         <v-card-text>
           <v-row>
@@ -11,38 +12,48 @@
               <v-text-field v-model="form.name" :label="$t('field.name')"/>
             </v-col>
             <v-col cols="12" md="6">
-              <v-slider v-model="form.difficulty" :label="$t('field.difficulty')" max="10"/>
-            </v-col>
-            <v-col cols="12" md="6">
-              <v-textarea v-model="form.description" :label="$t('field.description')" rows="3" auto-grow/>
-            </v-col>
-            <v-col cols="12" md="6">
-              <v-select v-model="form.persons" :items="personOption" :label="$tc('p.person', 2)"/>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12" md="6">
-              <v-combobox v-model="form.aliases" chips deletable-chips multiple :label="$tc('p.alias', 2)"/>
-            </v-col>
-            <v-col cols="12" md="6">
-              <v-combobox v-model="form.tags" chips deletable-chips multiple :label="$tc('p.tag', 2)"/>
+              <v-select v-model="form.type" :label="$t('field.type')" :items="typeOptions"/>
             </v-col>
             <v-col cols="12">
-              <h3>{{ $tc('p.attachment', 2) }}</h3>
-              <div v-for="(attachment,idx) in form.attachments" :key="'skill-' + idx" class="d-flex align-center">
-                <v-text-field v-model="attachment.url" :label="$tc('field.url', 2)"/>
-                <v-btn v-if="idx>0" icon class="ml-2" @click="removeAttachment(idx)">
-                  <v-icon>mdi-minus</v-icon>
-                </v-btn>
-              </div>
-              <v-btn icon @click="addAttachment">
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
+              <rich-text-editor v-model="form.description" :label="$t('field.description')"/>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+              <v-select v-model="form.persons" :items="personOption" :label="$tc('p.person', 2)"/>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+              <v-select v-model="form.status" :items="statusOptions" :label="$t('field.status')"/>
+            </v-col>
+            <v-col cols="12" md="4" class="d-flex align-end">
+              <v-slider v-model="form.difficulty" :label="$t('field.difficulty')" min="1" max="6" :hint="difficultyLabel" persistent-hint/>
+            </v-col>
+            <v-col cols="12" sm="6" md="6">
+              <v-combobox v-model="form.aliases" chips deletable-chips small-chips multiple :label="$tc('p.alias', 2)"/>
+            </v-col>
+            <v-col cols="12" sm="6" md="6">
+              <v-combobox v-model="form.tags" chips deletable-chips small-chips multiple :label="$tc('p.tag', 2)"/>
+            </v-col>
+          </v-row>
+          <div class="d-flex align-center justify-space-between">
+            <h3 class="mb-2">{{ $tc('p.attachment', 2) }}</h3>
+            <v-spacer/>
+            <v-text-field v-model="url" :label="$tc('p.attachment')" :placeholder="$t('action.addItem', {item: $tc('p.attachment')})" persistent-placeholder
+                          @keyup.enter="addAttachment(url)"/>
+          </div>
+
+          <v-row>
+            <v-col cols="12" sm="6" md="4" lg="3" v-for="(attachment,idx) in form.attachments" :key="attachment.id">
+              <v-sheet class="d-flex flex-column align-center relative" outlined rounded>
+                <div class="delete-btn">
+                  <tooltip-button color="grey" icon="mdi-delete" :tooltip="$t('action.removeItem', {item: $tc('p.attachment')})" @click="removeAttachment(idx)"/>
+                </div>
+                <embed-attachment :attachment="attachment"/>
+              </v-sheet>
             </v-col>
           </v-row>
         </v-card-text>
         <v-card-actions>
           <v-spacer/>
+          <v-btn text :to="{name: 'skills'}" exact>{{ $t('action.cancel') }}</v-btn>
           <v-btn color="primary" @click="submit">{{ $t('action.createItem', {item: $tc('p.skill')}) }}</v-btn>
         </v-card-actions>
       </v-card>
@@ -51,23 +62,29 @@
 </template>
 
 <script lang="ts">
+import {AttachmentType, PoseStatus, SkillType} from '@acrommunity/common';
 import {Component} from 'vue-property-decorator';
+import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
+import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
+import RichTextEditor from '~/components/common/rich-text-editor.vue';
+import TooltipButton from '~/components/common/tooltip-button.vue';
+import {resolveDifficulty} from '~/utils';
 import Page from '../page.vue';
 
 @Component({
-  components: {},
+  components: {RichTextEditor, TooltipButton, EmbedAttachment, BreadcrumbTitle},
 })
 export default class SkillCreatePage extends Page {
+  url = '';
   form = {
-    name: 'High Throne',
-    description: 'a throne high up in the sky',
+    name: '',
+    description: '',
+    type: null,
     persons: 2,
-    difficulty: 8,
+    difficulty: 3,
     tags: [],
     aliases: [],
-    attachments: [
-      {url: 'https://www.acromuseum.com/in/ph/2/full/85079791_925760664522864_6265427718827073915_n.jpg'},
-    ],
+    attachments: [],
   };
 
   get title() {
@@ -84,8 +101,18 @@ export default class SkillCreatePage extends Page {
     ];
   }
 
+  get typeOptions() {
+    return Object.values(SkillType).map(value => ({text: this.$t('skillType.' + value), value}));
+  }
+
+
+  get statusOptions() {
+    return Object.values(PoseStatus).map(value => ({text: this.$t('status.' + value), value}));
+  }
+
   addAttachment() {
-    this.form.attachments.push({url: ''});
+    this.form.attachments.push({url: this.url, type: AttachmentType.YouTube});
+    this.url = '';
   }
 
   removeAttachment(idx: number) {
@@ -95,10 +122,22 @@ export default class SkillCreatePage extends Page {
   async submit() {
     try {
       const response = await this.$api.post('/api/skills', this.form);
-      console.log(response.data);
+      await this.$router.push({name: 'skill-details', params: {id: response.data.id}});
     } catch (e) {
       this.$notify.error(e);
     }
   }
+
+  get difficultyLabel() {
+    return resolveDifficulty(this.form.difficulty, this);
+  }
 }
 </script>
+
+<style lang="scss" scoped>
+::v-deep {
+  & .v-select.v-select--chips .v-select__selections {
+    min-height: 32px;
+  }
+}
+</style>

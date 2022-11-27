@@ -1,5 +1,10 @@
 <template>
   <v-container v-if="pose">
+    <v-dialog v-model="dialog.show">
+      <v-card>
+        <v-img :src="dialog.url" :max-height="maxHeight" contain/>
+      </v-card>
+    </v-dialog>
     <v-card class="mb-5">
       <v-toolbar color="primary" dense dark>
         <v-toolbar-title>
@@ -59,7 +64,7 @@
         <h3 class="mt-4 mb-2">{{ $tc('p.image', 2) }}</h3>
         <div class="d-flex justify-start flex-wrap">
           <div v-for="(attachment,i) in pose.attachments" :key="i" style="border: 1px solid #cccccc" class="ma-1">
-            <v-img :src="attachment.url" :max-height="200" :max-width="200" contain/>
+            <v-img :src="attachment.url" :max-height="200" :max-width="200" contain class="cursor-pointer" @click="dialog = {show: true, url: attachment.url}"/>
           </div>
         </div>
       </v-card-text>
@@ -102,10 +107,11 @@
 </template>
 
 <script lang="ts">
+import {debounceTime, fromEvent} from 'rxjs';
 import {Component, Watch} from 'vue-property-decorator';
 import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
-import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import CommentsPanel from '~/components/comment/comments-panel.vue';
+import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import TooltipButton from '~/components/common/tooltip-button.vue';
 import FavButton from '~/components/item/fav-button.vue';
 import ItemMenu from '~/components/item/item-menu.vue';
@@ -117,8 +123,24 @@ import Page from '../page.vue';
 })
 export default class PoseDetailsPublicPage extends Page {
   pose: any = null;
+  dialog = {show: false, url: null};
   sources: any = [];
   targets: any = [];
+
+  subscription = null;
+  maxHeight = window.innerHeight - 100;
+
+  mounted() {
+    this.subscription = fromEvent(window, 'resize').pipe(debounceTime(250)).subscribe(() => this.updateMaxHeight());
+  }
+
+  beforeDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  updateMaxHeight() {
+    this.maxHeight = window.innerHeight - 100;
+  }
 
   @Watch('$route.params.id', {immediate: true})
   async watchId(id: string) {
@@ -150,4 +172,11 @@ export default class PoseDetailsPublicPage extends Page {
 </script>
 
 <style lang="scss" scoped>
+.close-btn {
+  color: #000;
+  position: absolute;
+  z-index: 1;
+  top: 5px;
+  right: 5px;
+}
 </style>

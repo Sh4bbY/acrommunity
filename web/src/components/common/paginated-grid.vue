@@ -59,7 +59,7 @@ export default class PaginatedImageGrid extends Vue {
     multiSort: false,
     page: 1,
     sortBy: ['id'],
-    sortDesc: [false],
+    sortDesc: [true],
   };
 
   footerProps = {

@@ -25,6 +25,8 @@ if (backupData) {
       {attachableType: AttachableType.Skill, attachables: skillAttachments},
     ];
 
+    console.log('skillAttachments', skillAttachments);
+
     return attachmentGroups.reduce((arr, group) => arr.concat(group.attachables.map(attachable => ({
       attachableType: group.attachableType,
       attachableId: attachable.attachableId,
