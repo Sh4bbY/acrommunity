@@ -2,10 +2,23 @@
   <v-container>
     <media-dialog v-model="dialog.show" :item="dialog.item" type="image" :fullscreen="$vuetify.breakpoint.xs" :is-first="dialog.isFirst" :is-last="dialog.isLast" @next="loadNext"
                   @prev="loadPrev"/>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'images'" :to="{name: 'images'}" rounded>{{ $t('label.all') }}</v-btn>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'image-favorites'" :to="{name: 'image-favorites'}" rounded>
+      <v-icon left small>mdi-heart</v-icon>
+      {{ $tc('p.favorite', 2) }}
+    </v-btn>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'image-repertoire'" :to="{name: 'image-repertoire'}" rounded>
+      <v-icon left small>mdi-arm-flex</v-icon>
+      {{ $tc('label.repertoire') }}
+    </v-btn>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'image-training-plan'" :to="{name: 'image-training-plan'}" rounded>
+      <v-icon left small>mdi-wrench</v-icon>
+      {{ $tc('label.trainingPlan') }}
+    </v-btn>
     <v-card>
       <v-toolbar color="primary" dark dense>
         <v-toolbar-title>
-          <breadcrumb-title :title="title" :parents="[{to: {name: 'dictionary'}, text: $t('label.dictionary')}]"/>
+          <breadcrumb-title :title="breadcrumbTitle" :parents="parents"/>
         </v-toolbar-title>
         <v-spacer/>
         <tooltip-button :icon="showFilter ? 'mdi-filter' : 'mdi-filter-outline'" left :top="false"
@@ -17,26 +30,26 @@
       <v-expand-transition>
         <v-sheet v-show="showFilter" color="primary lighten-5 pa-3">
           <v-row>
-            <v-col cols="12" sm="4">
-              <v-select v-model="filter.persons" :label="$tc('p.person',2)" :items="personOptions"/>
+            <v-col cols="12" sm="4" md="3">
+              <v-select v-model="filter.persons" :label="$tc('p.person',2)" :items="personOptions" hide-details/>
             </v-col>
-            <v-col cols="12" sm="4">
-              <v-select v-model="filter.bases" :label="$tc('p.base',2)" :items="basesOptions"/>
+            <v-col cols="12" sm="4" md="3">
+              <v-select v-model="filter.bases" :label="$tc('p.base',2)" :items="basesOptions" hide-details/>
             </v-col>
-            <v-col cols="12" sm="4">
-              <v-select v-model="filter.baseType" :label="$t('label.baseType')" :items="baseTypeOptions"/>
+            <v-col cols="12" sm="4" md="3">
+              <v-select v-model="filter.baseType" :label="$t('label.baseType')" :items="baseTypeOptions" hide-details/>
+            </v-col>
+            <v-col cols="12" sm="12" md="3" class="d-flex align-center justify-end">
+              <v-spacer/>
+              <v-btn color="primary" @click="applyFilter">
+                {{ $t('action.apply') }}
+              </v-btn>
             </v-col>
           </v-row>
-          <div class="d-flex">
-            <v-spacer/>
-            <v-btn color="primary" @click="applyFilter">
-              {{ $t('action.apply') }}
-            </v-btn>
-          </div>
         </v-sheet>
       </v-expand-transition>
 
-      <paginated-grid url="/api/images" :options="options" :search-params="searchParams" @update="images=$event">
+      <paginated-grid :url="url" :options="options" :search-params="searchParams" @update="images=$event">
         <template #items="{items}">
           <v-row no-gutters>
             <v-col v-for="item in items" :key="item.url" cols="6" sm="4" md="3" lg="2">
@@ -52,7 +65,8 @@
 </template>
 
 <script lang="ts">
-import {Component} from 'vue-property-decorator';
+import {BaseType} from '@acrommunity/common';
+import {Component, Watch} from 'vue-property-decorator';
 import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import PaginatedGrid from '~/components/common/paginated-grid.vue';
 import TooltipButton from '~/components/common/tooltip-button.vue';
@@ -62,7 +76,7 @@ import Page from '../page.vue';
 @Component({
   components: {MediaDialog, PaginatedGrid, TooltipButton, BreadcrumbTitle},
 })
-export default class ImagesMobilePage extends Page {
+export default class ImagesPage extends Page {
   images = [];
   filter = {
     persons: 2,
@@ -75,9 +89,67 @@ export default class ImagesMobilePage extends Page {
     isFirst: false,
     isLast: false,
   };
-  showFilter = false;
-  options = {itemsPerPage: 48};
-  searchParams = {};
+  showFilter = true;
+  options = {
+    itemsPerPage: 48,
+    sortBy: ['id'],
+    sortDesc: [false],
+  };
+  searchParams: any = {
+    persons: 2,
+    bases: 1,
+    baseType: 'l_base',
+  };
+
+  beforeMount() {
+    this.searchParams = Object.assign(this.searchParams, this.$route.query);
+    Object.keys(this.filter).map(key => this.filter[key] = this.$route.query[key] || this.filter[key]);
+    Object.keys(this.options).map(key => this.options[key] = this.$route.query[key] || this.options[key]);
+    if (this.$route.query.sortBy) {
+      this.options.sortBy = Array.isArray(this.$route.query.sortBy) ? this.$route.query.sortBy : [this.$route.query.sortBy];
+    }
+    if (this.$route.query.sortDesc) {
+      this.options.sortDesc = Array.isArray(this.$route.query.sortDesc) ? [this.$route.query.sortDesc[0] === 'true'] : [this.$route.query.sortDesc === 'true'];
+    }
+    this.searchParams = this.routeSearchParams;
+  }
+
+  @Watch('$route')
+  watchRoute() {
+    this.searchParams = this.routeSearchParams;
+  }
+
+  get routeSearchParams() {
+    return {
+      favorites: this.$route.name === 'image-favorites' ? true : undefined,
+      repertoire: this.$route.name === 'image-repertoire' ? true : undefined,
+      workingOn: this.$route.name === 'image-training-plan' ? true : undefined,
+    };
+  }
+
+  get breadcrumbTitle() {
+    switch (this.$route.name) {
+      case 'image-favorites':
+        return this.$tc('p.favorite', 2);
+      case 'image-repertoire':
+        return this.$t('label.repertoire');
+      case 'image-training-plan':
+        return this.$t('label.trainingPlan');
+      default:
+        return this.title;
+    }
+  }
+
+  get parents() {
+    const items = [
+      {to: {name: 'dictionary'}, text: this.$t('label.dictionary')},
+    ];
+    if (this.$route.name !== 'images') {
+      items.push({to: {name: 'images'}, text: this.$tc('p.image', 2)});
+    }
+    return items;
+  }
+
 
   get title() {
     return this.$tc('p.image', 2);
@@ -85,6 +157,7 @@ export default class ImagesMobilePage extends Page {
 
   applyFilter() {
     return this.searchParams = {
+      ...this.routeSearchParams,
       persons: this.filter.persons === null ? undefined : this.filter.persons,
       bases: this.filter.bases === null ? undefined : this.filter.bases,
       baseType: this.filter.baseType === null ? undefined : this.filter.baseType,
@@ -145,14 +218,18 @@ export default class ImagesMobilePage extends Page {
   get baseTypeOptions() {
     return [
       {text: 'Any', value: null},
-      {text: 'L-Base', value: 'l_base'},
-      {text: 'Standing', value: 'standing'},
-      {text: 'Belly Base', value: 'belly_base'},
-      {text: 'On Hands', value: 'on_hands'},
-      {text: 'Walking', value: 'walking'},
-      {text: 'Moving', value: 'moving'},
-      {text: 'Other', value: 'other'},
+      {text: 'L-Base', value: BaseType.L_BASE},
+      {text: 'Standing', value: BaseType.STANDING},
+      {text: 'Belly Base', value: BaseType.BELLY_BASE},
+      {text: 'On Hands', value: BaseType.ON_HANDS},
+      {text: 'Walking', value: BaseType.WALKING},
+      {text: 'Moving', value: BaseType.MOVING},
+      {text: 'Other', value: BaseType.OTHER},
     ];
+  }
+
+  get url() {
+    return this.$store.state.auth.isSignedIn ? '/api/authenticated/images' : '/api/images';
   }
 }
 </script>

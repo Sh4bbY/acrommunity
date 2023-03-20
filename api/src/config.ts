@@ -27,7 +27,7 @@ export const config = {
     issuer: process.env.APP_URL,
     access: {
       secret: process.env.JWT_ACCESS_SECRET,
-      expiresIn: '15m',
+      expiresIn: '120m',
     },
     refresh: {
       secret: process.env.JWT_REFRESH_SECRET,

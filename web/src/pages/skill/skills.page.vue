@@ -1,10 +1,23 @@
 <template>
   <v-container>
     <create-list-dialog v-model="dialog.createList"/>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'skills'" :to="{name: 'skills'}" rounded>{{ $t('label.all') }}</v-btn>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'skill-favorites'" :to="{name: 'skill-favorites'}" rounded>
+      <v-icon left small>mdi-heart</v-icon>
+      {{ $tc('p.favorite', 2) }}
+    </v-btn>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'skill-repertoire'" :to="{name: 'skill-repertoire'}" rounded>
+      <v-icon left small>mdi-arm-flex</v-icon>
+      {{ $tc('label.repertoire') }}
+    </v-btn>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'skill-training-plan'" :to="{name: 'skill-training-plan'}" rounded>
+      <v-icon left small>mdi-wrench</v-icon>
+      {{ $tc('label.trainingPlan') }}
+    </v-btn>
     <v-card>
       <v-toolbar color="primary" dark dense>
         <v-toolbar-title>
-          <breadcrumb-title :title="title" :parents="[{to: {name: 'dictionary'}, text: $t('label.dictionary')}]"/>
+          <breadcrumb-title :title="breadcrumbTitle" :parents="parents"/>
         </v-toolbar-title>
         <v-spacer/>
         <tooltip-button :icon="showFilter ? 'mdi-filter' : 'mdi-filter-outline'"
@@ -19,7 +32,7 @@
             <v-col cols="12" sm="6" lg="4">
               <v-text-field v-model="filter.name" :label="$t('field.name')" clearable @keyup.enter="applyFilter"/>
             </v-col>
-            <v-col cols="12" md="6" lg="4">
+            <v-col cols="12" sm="6" lg="4">
               <v-select v-model="filter.type" :label="$t('field.type')" :items="skillTypes" multiple clearable/>
             </v-col>
             <v-col cols="12" sm="6" md="4">
@@ -29,10 +42,7 @@
                                 :disabled="!filter.enableDifficulty" class="mt-4"/>
               </div>
             </v-col>
-            <!--            <v-col cols="12" sm="6" md="4">-->
-            <!--              <v-select v-model="filter.persons" :label="$t('field.persons')" :items="personOptions" clearable/>-->
-            <!--            </v-col>-->
-            <v-col cols="12" sm="6" md="4">
+            <v-col v-if="$store.state.auth.isAdmin" cols="12" sm="6" md="4">
               <v-select v-model="filter.status" :label="$t('field.status')" :items="statusOptions" clearable/>
             </v-col>
           </v-row>
@@ -46,7 +56,7 @@
       </v-expand-transition>
 
       <v-card-text>
-        <paginated-grid url="/api/skills" :headers="headers" :search-params="searchParams" :options="options">
+        <paginated-grid :url="url" :headers="headers" :search-params="searchParams" :options="options">
           <template #item="{item}">
             <grid-item :item="item" :type="type" @create-list="dialog.createList=true"/>
           </template>
@@ -58,7 +68,7 @@
 
 <script lang="ts">
 import {PoseStatus, SkillType} from '@acrommunity/common';
-import {Component} from 'vue-property-decorator';
+import {Component, Watch} from 'vue-property-decorator';
 import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import PaginatedGrid from '~/components/common/paginated-grid.vue';
 import TooltipButton from '~/components/common/tooltip-button.vue';
@@ -90,6 +100,57 @@ export default class SkillsPage extends Page {
   showFilter = false;
   searchParams = {};
 
+  beforeMount() {
+    this.searchParams = Object.assign(this.searchParams, this.$route.query);
+    Object.keys(this.filter).map(key => this.filter[key] = this.$route.query[key] || this.filter[key]);
+    Object.keys(this.options).map(key => this.options[key] = this.$route.query[key] || this.options[key]);
+    if (this.$route.query.sortBy) {
+      this.options.sortBy = Array.isArray(this.$route.query.sortBy) ? this.$route.query.sortBy : [this.$route.query.sortBy];
+    }
+    if (this.$route.query.sortDesc) {
+      this.options.sortDesc = Array.isArray(this.$route.query.sortDesc) ? [this.$route.query.sortDesc[0] === 'true'] : [this.$route.query.sortDesc === 'true'];
+    }
+    this.searchParams = this.routeSearchParams;
+  }
+
+  @Watch('$route')
+  watchRoute() {
+    this.searchParams = this.routeSearchParams;
+  }
+
+  get routeSearchParams() {
+    return {
+      favorites: this.$route.name === 'skill-favorites' ? true : undefined,
+      repertoire: this.$route.name === 'skill-repertoire' ? true : undefined,
+      workingOn: this.$route.name === 'skill-training-plan' ? true : undefined,
+    };
+  }
+
+
+  get breadcrumbTitle() {
+    switch (this.$route.name) {
+      case 'skill-favorites':
+        return this.$tc('p.favorite', 2);
+      case 'skill-repertoire':
+        return this.$t('label.repertoire');
+      case 'skill-training-plan':
+        return this.$t('label.trainingPlan');
+      default:
+        return this.title;
+    }
+  }
+
+  get parents() {
+    const items = [
+      {to: {name: 'dictionary'}, text: this.$t('label.dictionary')},
+    ];
+    if (this.$route.name !== 'skills') {
+      items.push({to: {name: 'skills'}, text: this.$tc('p.skill', 2)});
+    }
+    return items;
+  }
+
+
   get title() {
     return this.$tc('p.skill', 2);
   }
@@ -104,7 +165,7 @@ export default class SkillsPage extends Page {
   }
 
   applyFilter() {
-    return this.searchParams = Object.assign({}, this.filter);
+    return this.searchParams = Object.assign({}, this.routeSearchParams, this.filter);
   }
 
   resolveDifficulty(difficulty) {
@@ -128,6 +189,10 @@ export default class SkillsPage extends Page {
 
   get type() {
     return 'skill';
+  }
+
+  get url() {
+    return this.$store.state.auth.isSignedIn ? '/api/authenticated/skills' : '/api/skills';
   }
 }
 </script>

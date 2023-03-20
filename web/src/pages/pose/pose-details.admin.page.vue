@@ -5,7 +5,9 @@
         <v-toolbar-title>
           <breadcrumb-title :title="pose.name" :parents="[{text: $tc('p.pose',2), to: {name: 'poses'}}]"/>
         </v-toolbar-title>
-        <fav-button :item="pose" :type="type"/>
+        <fav-button :item="pose" :type="type" small/>
+        <working-on-button :item="pose" :type="type" small/>
+        <repertoire-button :item="pose" :type="type" small/>
         <v-spacer/>
         <tooltip-button icon="mdi-delete" :tooltip="$t('action.deleteItem', {item: $tc('p.pose')})" @click="deletePose"/>
         <v-btn v-if="pose.id > 1" icon :to="{name: 'pose-details', params: {id: pose.id - 1}}">
@@ -179,11 +181,13 @@ import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import TooltipButton from '~/components/common/tooltip-button.vue';
 import FavButton from '~/components/item/fav-button.vue';
 import ItemMenu from '~/components/item/item-menu.vue';
+import RepertoireButton from '~/components/item/repertoire-button.vue';
+import WorkingOnButton from '~/components/item/working-on-button.vue';
 import {resolveDifficulty} from '~/utils';
 import Page from '../page.vue';
 
 @Component({
-  components: {CommentsPanel, TooltipButton, BreadcrumbTitle, ItemMenu, FavButton, EmbedAttachment, VueEditor},
+  components: {WorkingOnButton, RepertoireButton, CommentsPanel, TooltipButton, BreadcrumbTitle, ItemMenu, FavButton, EmbedAttachment, VueEditor},
 })
 export default class PoseDetailsAdminPage extends Page {
   pose: any = null;

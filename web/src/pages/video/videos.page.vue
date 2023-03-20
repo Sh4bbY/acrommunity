@@ -2,10 +2,23 @@
   <v-container>
     <media-dialog v-model="dialog.show" :item="dialog.item" type="video" :fullscreen="$vuetify.breakpoint.xs" :is-first="dialog.isFirst" :is-last="dialog.isLast"
                   @next="loadNextVideo" @prev="loadPrevVideo"/>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'videos'" :to="{name: 'videos'}" rounded>{{ $t('label.all') }}</v-btn>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'video-favorites'" :to="{name: 'video-favorites'}" rounded>
+      <v-icon left small>mdi-heart</v-icon>
+      {{ $tc('p.favorite', 2) }}
+    </v-btn>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'video-repertoire'" :to="{name: 'video-repertoire'}" rounded>
+      <v-icon left small>mdi-arm-flex</v-icon>
+      {{ $tc('label.repertoire') }}
+    </v-btn>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'video-training-plan'" :to="{name: 'video-training-plan'}" rounded>
+      <v-icon left small>mdi-wrench</v-icon>
+      {{ $tc('label.trainingPlan') }}
+    </v-btn>
     <v-card>
       <v-toolbar color="primary" dark dense>
         <v-toolbar-title>
-          <breadcrumb-title :title="$tc('p.video', 2)" :parents="[{to: {name: 'dictionary'}, text: $t('label.dictionary')}]"/>
+          <breadcrumb-title :title="breadcrumbTitle" :parents="parents"/>
         </v-toolbar-title>
         <v-spacer/>
         <tooltip-button :icon="showFilter ? 'mdi-filter' : 'mdi-filter-outline'" left :top="false"
@@ -25,7 +38,7 @@
             <v-col cols="12" sm="4" md="3">
               <v-select v-model="filter.baseType" :label="$t('label.baseType')" :items="baseTypeOptions" hide-details/>
             </v-col>
-            <v-col cols="12" sm="12" md="3" class="d-flex align-end">
+            <v-col cols="12" sm="12" md="3" class="d-flex align-center justify-end">
               <v-spacer/>
               <v-btn color="primary" @click="applyFilter">
                 {{ $t('action.apply') }}
@@ -35,7 +48,7 @@
         </v-sheet>
       </v-expand-transition>
 
-      <paginated-grid url="/api/videos" :options="options" :search-params="searchParams" @update="videos=$event">
+      <paginated-grid :url="url" :options="options" :search-params="searchParams" @update="videos=$event">
         <template #items="{items}">
           <v-row no-gutters>
             <v-col v-for="item in items" :key="item.url" cols="6" sm="4" md="3" lg="2">
@@ -45,20 +58,14 @@
             </v-col>
           </v-row>
         </template>
-        <!--        <template #item="{item}">-->
-        <!--          <div class="d-flex justify-center align-center">-->
-        <!--            <v-card @click="showDialog(item)" class="thumbnail-card">-->
-        <!--              <img :src="item.thumbnail" style="max-height: 150px; max-width: 100%"/>-->
-        <!--            </v-card>-->
-        <!--          </div>-->
-        <!--        </template>-->
       </paginated-grid>
     </v-card>
   </v-container>
 </template>
 
 <script lang="ts">
-import {Component} from 'vue-property-decorator';
+import {BaseType} from '@acrommunity/common';
+import {Component, Watch} from 'vue-property-decorator';
 import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import PaginatedGrid from '~/components/common/paginated-grid.vue';
 import TooltipButton from '~/components/common/tooltip-button.vue';
@@ -70,11 +77,10 @@ import Page from '../page.vue';
 })
 export default class VideosPage extends Page {
   videos = [];
-  favorites = [];
   filter = {
     persons: 2,
     bases: 1,
-    baseType: 'l_base',
+    baseType: null,
   };
   dialog = {
     show: false,
@@ -82,16 +88,77 @@ export default class VideosPage extends Page {
     isFirst: false,
     isLast: false,
   };
-  showFilter = false;
-  options = {itemsPerPage: 24};
-  searchParams = {};
+  showFilter = true;
+  options = {
+    itemsPerPage: 24,
+    sortBy: ['id'],
+    sortDesc: [false],
+  };
+  searchParams: any = {};
+
+
+  beforeMount() {
+    this.searchParams = Object.assign(this.searchParams, this.$route.query);
+    Object.keys(this.filter).map(key => this.filter[key] = this.$route.query[key] || this.filter[key]);
+    Object.keys(this.options).map(key => this.options[key] = this.$route.query[key] || this.options[key]);
+    if (this.$route.query.sortBy) {
+      this.options.sortBy = Array.isArray(this.$route.query.sortBy) ? this.$route.query.sortBy : [this.$route.query.sortBy];
+    }
+    if (this.$route.query.sortDesc) {
+      this.options.sortDesc = Array.isArray(this.$route.query.sortDesc) ? [this.$route.query.sortDesc[0] === 'true'] : [this.$route.query.sortDesc === 'true'];
+    }
+
+    this.searchParams = this.routeSearchParams;
+  }
+
+  @Watch('$route')
+  watchRoute() {
+    this.searchParams = this.routeSearchParams;
+  }
+
+  get routeSearchParams() {
+    return {
+      favorites: this.$route.name === 'video-favorites' ? true : undefined,
+      repertoire: this.$route.name === 'video-repertoire' ? true : undefined,
+      workingOn: this.$route.name === 'video-training-plan' ? true : undefined,
+    };
+  }
+
+  public created() {
+    this.searchParams = Object.assign({}, this.filter);
+  }
+
+  get breadcrumbTitle() {
+    switch (this.$route.name) {
+      case 'video-favorites':
+        return this.$tc('p.favorite', 2);
+      case 'video-repertoire':
+        return this.$t('label.repertoire');
+      case 'video-training-plan':
+        return this.$t('label.trainingPlan');
+      default:
+        return this.title;
+    }
+  }
+
+  get parents() {
+    const items = [
+      {to: {name: 'dictionary'}, text: this.$t('label.dictionary')},
+    ];
+    if (this.$route.name !== 'videos') {
+      items.push({to: {name: 'videos'}, text: this.$tc('p.video', 2)});
+    }
+    return items;
+  }
+
 
   get title() {
     return this.$tc('p.video', 2);
   }
 
   applyFilter() {
-    return this.searchParams = {
+    this.searchParams = {
+      ...this.routeSearchParams,
       persons: this.filter.persons === null ? undefined : this.filter.persons,
       bases: this.filter.bases === null ? undefined : this.filter.bases,
       baseType: this.filter.baseType === null ? undefined : this.filter.baseType,
@@ -107,7 +174,6 @@ export default class VideosPage extends Page {
       isLast: idx === this.videos.length - 1,
     };
   }
-
 
   loadNextVideo() {
     const idx = this.videos.findIndex(v => v.id === this.dialog.item.id);
@@ -152,14 +218,18 @@ export default class VideosPage extends Page {
   get baseTypeOptions() {
     return [
       {text: this.$t('label.any'), value: null},
-      {text: 'L-Base', value: 'l_base'},
-      {text: 'Standing', value: 'standing'},
-      {text: 'Belly Base', value: 'belly_base'},
-      {text: 'On Hands', value: 'on_hands'},
-      {text: 'Walking', value: 'walking'},
-      {text: 'Moving', value: 'moving'},
-      {text: 'Other', value: 'other'},
+      {text: 'L-Base', value: BaseType.L_BASE},
+      {text: 'Standing', value: BaseType.STANDING},
+      {text: 'Belly Base', value: BaseType.BELLY_BASE},
+      {text: 'On Hands', value: BaseType.ON_HANDS},
+      {text: 'Walking', value: BaseType.WALKING},
+      {text: 'Moving', value: BaseType.MOVING},
+      {text: 'Other', value: BaseType.OTHER},
     ];
+  }
+
+  get url() {
+    return this.$store.state.auth.isSignedIn ? '/api/authenticated/videos' : '/api/videos';
   }
 }
 </script>

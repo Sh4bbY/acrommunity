@@ -16,8 +16,8 @@
               {{ $t('label.continueWithItem', {item: 'Facebook'}) }}
             </v-btn>
           </div>
-          <v-text-field v-model="form.email" :label="$t('field.email')" prepend-icon="mdi-email"/>
-          <v-text-field v-model="form.password" :label="$t('field.password')" prepend-icon="mdi-lock" type="password"/>
+          <v-text-field v-model="form.email" :label="$t('field.email')" prepend-icon="mdi-email" autocomplete="email"/>
+          <v-text-field v-model="form.password" :label="$t('field.password')" prepend-icon="mdi-lock" type="password" autocomplete="current-password"/>
         </v-card-text>
         <v-card-actions>
           <v-spacer/>

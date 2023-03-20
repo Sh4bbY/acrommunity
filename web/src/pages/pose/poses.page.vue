@@ -1,10 +1,24 @@
 <template>
   <v-container>
     <create-list-dialog v-model="dialog.createList"/>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'poses'" :to="{name: 'poses'}" rounded>{{ $t('label.all') }}</v-btn>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'pose-favorites'" :to="{name: 'pose-favorites'}" rounded>
+      <v-icon left small>mdi-heart</v-icon>
+      {{ $tc('p.favorite', 2) }}
+    </v-btn>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'pose-repertoire'" :to="{name: 'pose-repertoire'}" rounded>
+      <v-icon left small>mdi-arm-flex</v-icon>
+      {{ $tc('label.repertoire') }}
+    </v-btn>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'pose-training-plan'" :to="{name: 'pose-training-plan'}" rounded>
+      <v-icon left small>mdi-wrench</v-icon>
+      {{ $tc('label.trainingPlan') }}
+    </v-btn>
+
     <v-card>
       <v-toolbar color="primary" dark dense>
         <v-toolbar-title>
-          <breadcrumb-title :title="title" :parents="[{to: {name: 'dictionary'}, text: $t('label.dictionary')}]"/>
+          <breadcrumb-title :title="breadcrumbTitle" :parents="parents"/>
         </v-toolbar-title>
         <v-spacer/>
         <tooltip-button :icon="showFilter ? 'mdi-filter' : 'mdi-filter-outline'"
@@ -38,6 +52,15 @@
             <v-col cols="12" sm="6" lg="4">
               <v-select v-model="filter.flyerPosition" :label="$t('field.flyerPosition')" :items="flyerPositions" clearable/>
             </v-col>
+            <v-col cols="12" sm="6" lg="4">
+              <v-select v-model="filter.favorites" :label="$tc('p.favorite', 2)" :items="markOptions" clearable/>
+            </v-col>
+            <v-col cols="12" sm="6" lg="4">
+              <v-select v-model="filter.workingOn" :label="$t('label.trainingPlan')" :items="markOptions" clearable/>
+            </v-col>
+            <v-col cols="12" sm="6" lg="4">
+              <v-select v-model="filter.repertoire" :label="$t('label.repertoire')" :items="markOptions" clearable/>
+            </v-col>
             <v-col v-if="$store.state.auth.isAdmin" cols="12" sm="6" lg="4">
               <v-select v-model="options.sortBy[0]" :label="$t('action.sortBy')" :items="sortByOptions"/>
             </v-col>
@@ -55,7 +78,7 @@
       </v-expand-transition>
 
       <v-card-text>
-        <paginated-grid url="/api/poses" :headers="headers" :search-params="searchParams" :options="options">
+        <paginated-grid :url="url" :headers="headers" :search-params="searchParams" :options="options">
           <template #item="{item}">
             <grid-item :item="item" :type="type" @create-list="dialog.createList=true"/>
           </template>
@@ -67,7 +90,7 @@
 
 <script lang="ts">
 import {BasePosition, FlyerPosition, PoseStatus} from '@acrommunity/common';
-import {Component} from 'vue-property-decorator';
+import {Component, Watch} from 'vue-property-decorator';
 import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import PaginatedGrid from '~/components/common/paginated-grid.vue';
 import PaginatedTable from '~/components/common/paginated-table.vue';
@@ -92,6 +115,9 @@ export default class PosesPage extends Page {
     basePosition: null,
     flyerPosition: null,
     enableDifficulty: false,
+    favorites: null,
+    workingOn: null,
+    repertoire: null,
   };
   options = {
     sortBy: ['id'],
@@ -102,10 +128,33 @@ export default class PosesPage extends Page {
     createList: false,
   };
   showFilter = false;
-  searchParams = {};
+  searchParams: any = {};
 
   get title() {
     return this.$tc('p.pose', 2);
+  }
+
+  get breadcrumbTitle() {
+    switch (this.$route.name) {
+      case 'pose-favorites':
+        return this.$tc('p.favorite', 2);
+      case 'pose-repertoire':
+        return this.$t('label.repertoire');
+      case 'pose-training-plan':
+        return this.$t('label.trainingPlan');
+      default:
+        return this.title;
+    }
+  }
+
+  get parents() {
+    const items = [
+      {to: {name: 'dictionary'}, text: this.$t('label.dictionary')},
+    ];
+    if (this.$route.name !== 'poses') {
+      items.push({to: {name: 'poses'}, text: this.$tc('p.pose', 2)});
+    }
+    return items;
   }
 
   get headers() {
@@ -128,16 +177,27 @@ export default class PosesPage extends Page {
     if (this.$route.query.sortDesc) {
       this.options.sortDesc = Array.isArray(this.$route.query.sortDesc) ? [this.$route.query.sortDesc[0] === 'true'] : [this.$route.query.sortDesc === 'true'];
     }
+    this.searchParams = this.routeSearchParams;
+  }
+
+  @Watch('$route')
+  watchRoute() {
+    this.searchParams = this.routeSearchParams;
+  }
+
+  get routeSearchParams() {
+    return {
+      favorites: this.$route.name === 'pose-favorites' ? true : undefined,
+      repertoire: this.$route.name === 'pose-repertoire' ? true : undefined,
+      workingOn: this.$route.name === 'pose-training-plan' ? true : undefined,
+    };
   }
 
   applyFilter() {
     this.searchParams = {
-      name: this.filter.name,
-      persons: this.filter.persons,
+      ...this.filter,
+      ...this.routeSearchParams,
       difficulty: this.filter.enableDifficulty === false ? undefined : this.filter.difficulty,
-      basePosition: this.filter.basePosition,
-      flyerPosition: this.filter.flyerPosition,
-      status: this.filter.status,
     };
     const query = Object.assign(this.searchParams, {sortBy: this.options.sortBy, sortDesc: String(this.options.sortDesc)});
     const isDifferentQuery = Object.keys(query).reduce((result, key) => {
@@ -187,6 +247,13 @@ export default class PosesPage extends Page {
     ];
   }
 
+  get markOptions() {
+    return [
+      {text: this.$t('label.include'), value: true},
+      {text: this.$t('label.exclude'), value: false},
+    ];
+  }
+
   get difficultyLabel() {
     if (Array.isArray(this.filter.difficulty)) {
       return `${this.$t('label.from')} ${resolveDifficulty(this.filter.difficulty[0], this)} ${this.$t('label.to')} ${resolveDifficulty(this.filter.difficulty[1], this)} `;
@@ -196,6 +263,10 @@ export default class PosesPage extends Page {
 
   get type() {
     return 'pose';
+  }
+
+  get url() {
+    return this.$store.state.auth.isSignedIn ? '/api/authenticated/poses' : '/api/poses';
   }
 }
 </script>

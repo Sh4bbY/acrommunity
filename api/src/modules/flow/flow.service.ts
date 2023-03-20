@@ -1,4 +1,4 @@
-import {AliasableType, AttachableType, FlowStatus, TaggableType} from '@acrommunity/common';
+import {AliasableType, AttachableType, FlowStatus, MarkableType, MarkType, TaggableType} from '@acrommunity/common';
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {Op, WhereOptions} from 'sequelize';
@@ -7,6 +7,7 @@ import {Alias} from '~/models/Alias';
 import {Attachment} from '~/models/Attachment';
 import {AliasService} from '~/modules/alias/alias.service';
 import {AttachmentService} from '~/modules/attachment/attachment.service';
+import {MyService} from '~/modules/my/my.service';
 import {TagService} from '~/modules/tag/tag.service';
 
 @Injectable()
@@ -16,6 +17,7 @@ export class FlowService {
     private attachmentService: AttachmentService,
     private tagService: TagService,
     private aliasService: AliasService,
+    private myService: MyService,
   ) {
   }
 
@@ -27,7 +29,7 @@ export class FlowService {
     return flow;
   }
 
-  async getPaginatedData(query: any) {
+  async getPaginatedData(query: any, user?: any) {
     const where: WhereOptions<Flow> = {
       status: FlowStatus.Accepted,
     };
@@ -48,6 +50,49 @@ export class FlowService {
         [Op.and]: nameParts.map(part => ({[Op.like]: `%${part}%`})),
       };
     }
+
+    let inIds = [];
+    let applyInIds = false;
+    let notInIds = [];
+    if (query.filter?.favorites && user) {
+      const ids = await this.myService.getMarkedItemIds(user.id, MarkType.Favorite, MarkableType.Flow);
+      if (query.filter.favorites === 'true') {
+        inIds = ids;
+        applyInIds = true;
+      } else {
+        notInIds = ids;
+      }
+    }
+    if (query.filter?.repertoire && user) {
+      const ids = await this.myService.getMarkedItemIds(user.id, MarkType.CanDo, MarkableType.Flow);
+      if (query.filter.repertoire === 'true') {
+        inIds = inIds.length === 0 ? ids : inIds.filter(id => ids.includes(id));
+        applyInIds = true;
+      } else {
+        notInIds = notInIds.length === 0 ? ids : notInIds.concat(ids);
+      }
+    }
+    if (query.filter?.workingOn && user) {
+      const ids = await this.myService.getMarkedItemIds(user.id, MarkType.WorkingOn, MarkableType.Flow);
+      if (query.filter.workingOn === 'true') {
+        inIds = inIds.length === 0 ? ids : inIds.filter(id => ids.includes(id));
+        applyInIds = true;
+      } else {
+        notInIds = notInIds.length === 0 ? ids : notInIds.concat(ids);
+      }
+    }
+
+    if (applyInIds) {
+      where.id = {[Op.in]: inIds};
+    }
+    if (notInIds.length > 0) {
+      if (where.id) {
+        where.id[Op.notIn] = notInIds;
+      } else {
+        where.id = {[Op.notIn]: notInIds};
+      }
+    }
+
     return this.flowModel.findAndCountAll({
       where,
       limit: query.limit,

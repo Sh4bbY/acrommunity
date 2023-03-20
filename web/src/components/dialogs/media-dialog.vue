@@ -11,8 +11,15 @@
       <div v-else-if="type === 'video'" class="d-flex justify-center align-center">
         <video v-if="show" :src="item.url" height="500px" controls style="max-height: 500px; max-width: 100%" autoplay/>
       </div>
-      <div class="pa-2 text-center relative">
-        <a :href="'https://www.instagram.com/' + item.copyright" target="_blank" style="font-size: 14px">&copy;{{ item.copyright }}</a>
+      <div class="d-flex flex-wrap justify-space-between">
+        <div class="pa-2 text-center relative">
+          <a :href="'https://www.instagram.com/' + item.copyright" target="_blank" style="font-size: 14px">&copy;{{ item.copyright }}</a>
+        </div>
+        <div class="pa-2">
+          <fav-button :item="item" :type="type" small/>
+          <working-on-button :item="item" :type="type" small/>
+          <repertoire-button :item="item" :type="type" small/>
+        </div>
       </div>
       <v-spacer/>
       <div class="d-flex align-center">
@@ -40,10 +47,13 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop, VModel} from 'vue-property-decorator';
+import FavButton from '~/components/item/fav-button.vue';
 import ItemMenu from '~/components/item/item-menu.vue';
+import RepertoireButton from '~/components/item/repertoire-button.vue';
+import WorkingOnButton from '~/components/item/working-on-button.vue';
 
 @Component({
-  components: {ItemMenu},
+  components: {ItemMenu, FavButton, WorkingOnButton, RepertoireButton},
 })
 export default class MediaDialog extends Vue {
   @VModel({type: Boolean, default: false}) show: boolean;
@@ -61,8 +71,6 @@ export default class MediaDialog extends Vue {
   }
 
   handleKeyUp(e) {
-    console.log('handle!');
-
     if (e.code === 'ArrowLeft' && !this.isFirst) {
       return this.$emit('prev');
     }

@@ -4,16 +4,15 @@
       <v-row>
         <v-col v-for="stat in stats" :key="stat.title" cols="4">
           <div class="d-flex flex-column align-center">
-            <router-link class="stat-title" :to="stat.to">{{ stat.title }}</router-link>
-            <v-progress-circular v-model="stat.value" :color="stat.color" size="100" width="20">
-              {{ stat.value }}
-            </v-progress-circular>
+            <router-link :to="stat.to">
+              <div class="stat-title">{{ stat.title }}</div>
+              <v-progress-circular v-model="stat.value" :color="stat.color" size="100" width="20">
+                {{ stat.value }}
+              </v-progress-circular>
+            </router-link>
           </div>
         </v-col>
       </v-row>
-      <!--      <p>-->
-      <!--        Du hast {{ favorites.length }} Favoriten. In deinem Repertoire sind aktuell {{ repertoire.length }} Elemente und auf deinem Trainingsplan stehen {{ training.length }}-->
-      <!--      </p>-->
     </v-card-text>
   </v-card>
 </template>
@@ -58,5 +57,6 @@ export default class HomeOverview extends Vue {
   font-size: 18px;
   font-weight: bold;
   padding-bottom: 8px;
+  text-align: center;
 }
 </style>

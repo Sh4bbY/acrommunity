@@ -69,6 +69,11 @@ export const de = {
     latestActivity: 'Letzte Aktivität',
   },
   label: {
+    all: 'Alle',
+    include: 'Einschließen',
+    exclude: 'Ausschließen',
+    trainingPlan: 'Trainingsplan',
+    repertoire: 'Repertoire',
     acrodispencer: 'Acroverteiler',
     continueWithItem: 'Mit {item} forfahren',
     address: 'Adresse',

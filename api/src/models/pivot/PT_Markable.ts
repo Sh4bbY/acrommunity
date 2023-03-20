@@ -1,6 +1,6 @@
 import {MarkableType, MarkType} from '@acrommunity/common';
 import {BelongsTo, Column, DataType, ForeignKey, Model, Table} from 'sequelize-typescript';
-import {Flow, Pose, Skill, User} from '~/models';
+import {Flow, Image, Pose, Skill, User, Video} from '~/models';
 
 @Table({timestamps: false, tableName: 'PT_Markable'})
 export class PT_Markable extends Model<PT_Markable> {
@@ -16,6 +16,8 @@ export class PT_Markable extends Model<PT_Markable> {
   @ForeignKey(() => Pose)
   @ForeignKey(() => Flow)
   @ForeignKey(() => Skill)
+  @ForeignKey(() => Video)
+  @ForeignKey(() => Image)
   @Column({type: DataType.INTEGER.UNSIGNED, allowNull: true})
   declare markableId: number;
 

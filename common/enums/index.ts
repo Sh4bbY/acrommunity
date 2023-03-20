@@ -21,3 +21,4 @@ export * from './QuestionType';
 export * from './RecursionType';
 export * from './LoginStrategy';
 export * from './FlowStatus';
+export * from './BaseType';

@@ -3,7 +3,9 @@ import {SequelizeModule} from '@nestjs/sequelize';
 import {Pose, Transition} from '~/models';
 import {AliasModule} from '~/modules/alias/alias.module';
 import {AttachmentModule} from '~/modules/attachment/attachment.module';
+import {MyModule} from '~/modules/my/my.module';
 import {PoseControllerPublic} from '~/modules/pose/pose.controller.public';
+import {PoseControllerUser} from '~/modules/pose/pose.controller.user';
 import {TagModule} from '~/modules/tag/tag.module';
 import {PoseControllerAdmin} from './pose.controller.admin';
 import {PoseService} from './pose.service';
@@ -14,8 +16,9 @@ import {PoseService} from './pose.service';
     AttachmentModule,
     TagModule,
     AliasModule,
+    MyModule,
   ],
-  controllers: [PoseControllerPublic, PoseControllerAdmin],
+  controllers: [PoseControllerPublic, PoseControllerAdmin, PoseControllerUser],
   providers: [PoseService],
   exports: [PoseService],
 })

@@ -1,7 +1,7 @@
 <template>
-  <v-data-iterator v-bind="$attrs" v-on="$listeners"
-                   :items="items" :server-items-length="totalItems" :loading="loading" :options.sync="iteratorOptions" :footer-props="footerProps">
-    <template #default="{ items}">
+  <v-data-iterator v-bind="$attrs" v-on="$listeners" :items="items" :server-items-length="totalItems" :loading="loading" :options.sync="iteratorOptions"
+                   :footer-props="footerProps">
+    <template #default="{ items }">
       <slot name="items" v-bind:items="items">
         <v-row>
           <v-col v-for="item in items" :key="item.name" cols="12" :sm="sm" :md="md" :lg="lg">
@@ -26,6 +26,7 @@
 </template>
 
 <script lang="ts">
+import {isEqual} from 'lodash';
 import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
 
@@ -57,7 +58,7 @@ export default class PaginatedImageGrid extends Vue {
     itemsPerPage: 12,
     mustSort: true,
     multiSort: false,
-    page: 1,
+    page: 5,
     sortBy: ['id'],
     sortDesc: [true],
   };
@@ -70,9 +71,8 @@ export default class PaginatedImageGrid extends Vue {
   totalItems = -1;
   loading = false;
 
-  @Watch('query')
-  async watchQuery() {
-    await this.fetchData();
+  async mounted() {
+    await this.fetchInitialData();
   }
 
   @Watch('options', {immediate: true})
@@ -87,9 +87,9 @@ export default class PaginatedImageGrid extends Vue {
 
   @Watch('searchParams')
   async watchSearchParams(newParams, oldParams) {
-    if (newParams.q !== oldParams.q) {
-      this.options.page = 1;
-    }
+    // if (newParams.q !== oldParams.q) {
+    //   this.options.page = 1;
+    // }
     await this.fetchData();
   }
 
@@ -100,20 +100,54 @@ export default class PaginatedImageGrid extends Vue {
     };
   }
 
-  async fetchData() {
+  async fetchInitialData() {
     try {
       this.loading = true;
-      const params: any = {};
-
-      if (this.iteratorOptions) {
-        const pagination = this.iteratorOptions;
-        params.offset = (pagination.page - 1) * pagination.itemsPerPage;
-        params.limit = pagination.itemsPerPage;
-        params.order = pagination.sortBy.map((field: string, index: number) => `${field}:${pagination.sortDesc[index] ? 'DESC' : 'ASC'}`);
-        Object.assign(params, {filter: this.searchParams});
-      }
+      const limit = Number(this.$route.query.limit) || this.iteratorOptions.itemsPerPage;
+      const page = Number(this.$route.query.page) || this.iteratorOptions.page;
+      const order = this.iteratorOptions.sortBy.map((field: string, index: number) => `${field}:${this.iteratorOptions.sortDesc[index] ? 'DESC' : 'ASC'}`);
+      const offset = (page - 1) * limit;
+      const params = {limit, offset, order};
+      Object.assign(params, {filter: this.searchParams});
       const response = await this.$api.get(this.url, {params});
       this.items = response.data.rows;
+      this.iteratorOptions.itemsPerPage = params.limit;
+      this.iteratorOptions.page = (params.offset / params.limit) + 1;
+      this.totalItems = response.data.count;
+      this.$emit('update', this.items);
+    } catch (err) {
+      this.$notify.error(err);
+    }
+    this.loading = false;
+  }
+
+  async fetchData(params?) {
+    if (this.loading) {
+      return;
+    }
+
+    try {
+      this.loading = true;
+
+      params = params ? params : {
+        offset: (this.iteratorOptions.page - 1) * this.iteratorOptions.itemsPerPage,
+        limit: this.iteratorOptions.itemsPerPage,
+        order: this.iteratorOptions.sortBy.map((field: string, index: number) => `${field}:${this.iteratorOptions.sortDesc[index] ? 'DESC' : 'ASC'}`),
+      };
+      Object.assign(params, {filter: this.searchParams});
+
+      const response = await this.$api.get(this.url, {params});
+      this.items = response.data.rows;
+      this.iteratorOptions.itemsPerPage = params.limit;
+      this.iteratorOptions.page = (params.offset / params.limit) + 1;
+      const query = {
+        page: String(this.iteratorOptions.page),
+        limit: String(this.iteratorOptions.itemsPerPage),
+      };
+      if (!isEqual(this.$route.query, query)) {
+        await this.$router.replace({query});
+      }
+
       this.totalItems = response.data.count;
       this.$emit('update', this.items);
     } catch (err) {

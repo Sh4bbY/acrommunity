@@ -10,7 +10,7 @@
         <v-toolbar-title>
           <breadcrumb-title :title="pose.name" :parents="[{text: $tc('p.pose',2), to: {name: 'poses'}}]"/>
         </v-toolbar-title>
-        <fav-button v-if="$store.state.auth.isSignedIn" :item="pose" :type="type"/>
+        <fav-button v-if="$store.state.auth.isSignedIn" :item="pose" :type="type" small/>
         <v-spacer/>
         <item-menu v-if="$store.state.auth.isSignedIn" :item="pose" :type="type"/>
       </v-toolbar>

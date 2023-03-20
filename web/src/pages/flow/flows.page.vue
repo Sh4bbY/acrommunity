@@ -1,9 +1,22 @@
 <template>
   <v-container>
     <create-list-dialog v-model="dialog.createList"/>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'flows'" :to="{name: 'flows'}" rounded>{{ $t('label.all') }}</v-btn>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'flow-favorites'" :to="{name: 'flow-favorites'}" rounded>
+      <v-icon left small>mdi-heart</v-icon>
+      {{ $tc('p.favorite', 2) }}
+    </v-btn>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'flow-repertoire'" :to="{name: 'flow-repertoire'}" rounded>
+      <v-icon left small>mdi-arm-flex</v-icon>
+      {{ $tc('label.repertoire') }}
+    </v-btn>
+    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'flow-training-plan'" :to="{name: 'flow-training-plan'}" rounded>
+      <v-icon left small>mdi-wrench</v-icon>
+      {{ $tc('label.trainingPlan') }}
+    </v-btn>
     <v-card>
       <v-toolbar color="primary" dark dense>
-        <breadcrumb-title :title="title" :parents="[{to: {name: 'dictionary'}, text: $t('label.dictionary')}]"/>
+        <breadcrumb-title :title="breadcrumbTitle" :parents="parents"/>
         <v-spacer/>
         <tooltip-button :icon="showFilter ? 'mdi-filter' : 'mdi-filter-outline'"
                         :tooltip="showFilter ? $t('action.hideItem', {item: $tc('p.filter',2)}) : $t('action.showItem', {item: $tc('p.filter',2)})" left
@@ -38,7 +51,7 @@
       </v-expand-transition>
 
       <v-card-text>
-        <paginated-grid url="/api/flows" :headers="headers" :search-params="searchParams" :options="options">
+        <paginated-grid :url="url" :headers="headers" :search-params="searchParams" :options="options">
           <template #item="{item}">
             <grid-item :item="item" type="flow" @create-list="dialog.createList=true"/>
           </template>
@@ -50,7 +63,7 @@
 
 <script lang="ts">
 import {FlowStatus} from '@acrommunity/common';
-import {Component} from 'vue-property-decorator';
+import {Component, Watch} from 'vue-property-decorator';
 import EmbedAttachment from '~/components/attachment/embed-attachment.vue';
 import BreadcrumbTitle from '~/components/common/breadcrumb-title.vue';
 import PaginatedGrid from '~/components/common/paginated-grid.vue';
@@ -95,7 +108,45 @@ export default class FlowsPage extends Page {
     if (this.$route.query.sortDesc) {
       this.options.sortDesc = Array.isArray(this.$route.query.sortDesc) ? [this.$route.query.sortDesc[0] === 'true'] : [this.$route.query.sortDesc === 'true'];
     }
+    this.searchParams = this.routeSearchParams;
   }
+
+  @Watch('$route')
+  watchRoute() {
+    this.searchParams = this.routeSearchParams;
+  }
+
+  get routeSearchParams() {
+    return {
+      favorites: this.$route.name === 'flow-favorites' ? true : undefined,
+      repertoire: this.$route.name === 'flow-repertoire' ? true : undefined,
+      workingOn: this.$route.name === 'flow-training-plan' ? true : undefined,
+    };
+  }
+
+  get breadcrumbTitle() {
+    switch (this.$route.name) {
+      case 'flow-favorites':
+        return this.$tc('p.favorite', 2);
+      case 'flow-repertoire':
+        return this.$t('label.repertoire');
+      case 'flow-training-plan':
+        return this.$t('label.trainingPlan');
+      default:
+        return this.title;
+    }
+  }
+
+  get parents() {
+    const items = [
+      {to: {name: 'dictionary'}, text: this.$t('label.dictionary')},
+    ];
+    if (this.$route.name !== 'flows') {
+      items.push({to: {name: 'flows'}, text: this.$tc('p.flow', 2)});
+    }
+    return items;
+  }
+
 
   get title() {
     return this.$tc('p.flow', 2);
@@ -111,6 +162,7 @@ export default class FlowsPage extends Page {
 
   applyFilter() {
     this.searchParams = {
+      ...this.routeSearchParams,
       name: this.filter.name,
       difficulty: this.filter.enableDifficulty === false ? undefined : this.filter.difficulty,
       status: this.filter.status,
@@ -140,6 +192,10 @@ export default class FlowsPage extends Page {
 
   get statusOptions() {
     return Object.values(FlowStatus).map(value => ({text: this.$t('status.' + value), value}));
+  }
+
+  get url() {
+    return this.$store.state.auth.isSignedIn ? '/api/authenticated/flows' : '/api/flows';
   }
 }
 </script>

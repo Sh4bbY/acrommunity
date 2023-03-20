@@ -81,7 +81,6 @@ export class MyService {
   }
 
   async getMarkedItem(userId: number, type: MarkType) {
-
     const markables = await this.ptMarkableModel.findAll({where: {userId, type}});
     const poseIds = markables.filter(markable => markable.markableType === MarkableType.Pose).map(markable => markable.markableId);
     const flowIds = markables.filter(markable => markable.markableType === MarkableType.Flow).map(markable => markable.markableId);
@@ -99,6 +98,10 @@ export class MyService {
     return {poses, flows, skills, images, videos};
   }
 
+  async getMarkedItemIds(userId: number, type: MarkType, markableType: MarkableType) {
+    const items = await this.ptMarkableModel.findAll({where: {userId, type, markableType}, raw: true});
+    return items.map(item => item.markableId);
+  }
 
   async deleteMark(userId: number, markableType: MarkableType, markableId: number, type: MarkType) {
     await this.ptMarkableModel.destroy({where: {userId, markableType, markableId, type}});
