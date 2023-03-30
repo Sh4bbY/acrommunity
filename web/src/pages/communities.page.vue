@@ -64,7 +64,6 @@ import Page from './page.vue';
 })
 export default class CommunitiesPage extends Page {
   tab = 0;
-  spain = [];
   communities = [
     {
       area: 'Germany',
@@ -80,6 +79,7 @@ export default class CommunitiesPage extends Page {
         },
         {name: 'Chemnitz', whatsapp: 'https://chat.whatsapp.com/LvTrDwmYgpS8Tv5SfSZvmq'},
         {name: 'Würzburg', whatsapp: 'https://chat.whatsapp.com/E0zYmlhbdS2E55cxQm7K64'},
+        {name: 'Acronyx (Region Würzburg)', telegram: 'https://t.me/acronyxtribe'},
         {name: 'Stralsund', whatsapp: 'https://chat.whatsapp.com/KpKhmnSKAb2A46BKZX4gdC'},
         {name: 'Rostock', signal: 'https://signal.group/#CjQKIBiiLyEUugeyhEj6Kj2k4qgm9zwC0y-hthoWuWOQKoY0EhAZwT-Gt0SvZFXTDtfpJEQI', telegram: 'https://t.me/AcroYogaTheater'},
         {name: 'Mitteldeutschland', note: '(Sachen, Thüringen, Sachsen-Anhalt)', whatsapp: 'https://chat.whatsapp.com/Iq9yVdGrXFxLMNqtFLzybt'},

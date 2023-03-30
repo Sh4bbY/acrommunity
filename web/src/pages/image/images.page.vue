@@ -2,19 +2,21 @@
   <v-container>
     <media-dialog v-model="dialog.show" :item="dialog.item" type="image" :fullscreen="$vuetify.breakpoint.xs" :is-first="dialog.isFirst" :is-last="dialog.isLast" @next="loadNext"
                   @prev="loadPrev"/>
-    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'images'" :to="{name: 'images'}" rounded>{{ $t('label.all') }}</v-btn>
-    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'image-favorites'" :to="{name: 'image-favorites'}" rounded>
-      <v-icon left small>mdi-heart</v-icon>
-      {{ $tc('p.favorite', 2) }}
-    </v-btn>
-    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'image-repertoire'" :to="{name: 'image-repertoire'}" rounded>
-      <v-icon left small>mdi-arm-flex</v-icon>
-      {{ $tc('label.repertoire') }}
-    </v-btn>
-    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'image-training-plan'" :to="{name: 'image-training-plan'}" rounded>
-      <v-icon left small>mdi-wrench</v-icon>
-      {{ $tc('label.trainingPlan') }}
-    </v-btn>
+    <div v-if="$store.state.auth.isSignedIn">
+      <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'images'" :to="{name: 'images'}" rounded>{{ $t('label.all') }}</v-btn>
+      <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'image-favorites'" :to="{name: 'image-favorites'}" rounded>
+        <v-icon left small>mdi-heart</v-icon>
+        {{ $tc('p.favorite', 2) }}
+      </v-btn>
+      <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'image-repertoire'" :to="{name: 'image-repertoire'}" rounded>
+        <v-icon left small>mdi-arm-flex</v-icon>
+        {{ $tc('label.repertoire') }}
+      </v-btn>
+      <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'image-training-plan'" :to="{name: 'image-training-plan'}" rounded>
+        <v-icon left small>mdi-wrench</v-icon>
+        {{ $tc('label.trainingPlan') }}
+      </v-btn>
+    </div>
     <v-card>
       <v-toolbar color="primary" dark dense>
         <v-toolbar-title>

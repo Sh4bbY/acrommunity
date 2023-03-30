@@ -1,19 +1,21 @@
 <template>
   <v-container>
     <create-list-dialog v-model="dialog.createList"/>
-    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'poses'" :to="{name: 'poses'}" rounded>{{ $t('label.all') }}</v-btn>
-    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'pose-favorites'" :to="{name: 'pose-favorites'}" rounded>
-      <v-icon left small>mdi-heart</v-icon>
-      {{ $tc('p.favorite', 2) }}
-    </v-btn>
-    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'pose-repertoire'" :to="{name: 'pose-repertoire'}" rounded>
-      <v-icon left small>mdi-arm-flex</v-icon>
-      {{ $tc('label.repertoire') }}
-    </v-btn>
-    <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'pose-training-plan'" :to="{name: 'pose-training-plan'}" rounded>
-      <v-icon left small>mdi-wrench</v-icon>
-      {{ $tc('label.trainingPlan') }}
-    </v-btn>
+    <div v-if="$store.state.auth.isSignedIn">
+      <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'poses'" :to="{name: 'poses'}" rounded>{{ $t('label.all') }}</v-btn>
+      <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'pose-favorites'" :to="{name: 'pose-favorites'}" rounded>
+        <v-icon left small>mdi-heart</v-icon>
+        {{ $tc('p.favorite', 2) }}
+      </v-btn>
+      <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'pose-repertoire'" :to="{name: 'pose-repertoire'}" rounded>
+        <v-icon left small>mdi-arm-flex</v-icon>
+        {{ $tc('label.repertoire') }}
+      </v-btn>
+      <v-btn small class="mr-2 mb-2" color="primary" :disabled="$route.name === 'pose-training-plan'" :to="{name: 'pose-training-plan'}" rounded>
+        <v-icon left small>mdi-wrench</v-icon>
+        {{ $tc('label.trainingPlan') }}
+      </v-btn>
+    </div>
 
     <v-card>
       <v-toolbar color="primary" dark dense>
