@@ -15,10 +15,14 @@
         <div class="pa-2 text-center relative">
           <a :href="'https://www.instagram.com/' + item.copyright" target="_blank" style="font-size: 14px">&copy;{{ item.copyright }}</a>
         </div>
+
         <div class="pa-2">
-          <fav-button :item="item" :type="type" small/>
-          <working-on-button :item="item" :type="type" small/>
-          <repertoire-button :item="item" :type="type" small/>
+          <span v-if="$store.state.auth.isSignedIn">
+            <fav-button :item="item" :type="type" small/>
+            <working-on-button :item="item" :type="type" small/>
+            <repertoire-button :item="item" :type="type" small/>
+          </span>
+          <tooltip-button :tooltip="$t('action.shareItem', {item: $tc('p.' + type)})" icon="mdi-share-variant" small @click="share(item)"/>
         </div>
       </div>
       <v-spacer/>
@@ -47,13 +51,14 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop, VModel} from 'vue-property-decorator';
+import TooltipButton from '~/components/common/tooltip-button.vue';
 import FavButton from '~/components/item/fav-button.vue';
 import ItemMenu from '~/components/item/item-menu.vue';
 import RepertoireButton from '~/components/item/repertoire-button.vue';
 import WorkingOnButton from '~/components/item/working-on-button.vue';
 
 @Component({
-  components: {ItemMenu, FavButton, WorkingOnButton, RepertoireButton},
+  components: {TooltipButton, ItemMenu, FavButton, WorkingOnButton, RepertoireButton},
 })
 export default class MediaDialog extends Vue {
   @VModel({type: Boolean, default: false}) show: boolean;
@@ -77,11 +82,23 @@ export default class MediaDialog extends Vue {
     if (e.code === 'ArrowRight' && !this.isLast) {
       return this.$emit('next');
     }
-
   }
 
   beforeDestroy() {
     document.removeEventListener('keyup', this.listenerRef);
+  }
+
+  async share(media) {
+    try {
+      const itemType = this.$tc('p.' + this.type);
+      await navigator.share({
+        title: 'Acro-' + itemType,
+        text: this.$t('msg.shareMediaText', {item: itemType, owner: media.copyright}).toString(),
+        url: media.url,
+      });
+    } catch (e) {
+      this.$notify.error(e);
+    }
   }
 }
 </script>

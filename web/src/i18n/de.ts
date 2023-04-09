@@ -116,6 +116,7 @@ export const de = {
     cancelled: 'Abgesagt',
   },
   action: {
+    shareItem: '{item} teilen',
     answerByMail: 'Per Email Antworten',
     openInGoogleMaps: 'In Google Maps öffnen',
     findLocation: 'Ort suchen',
@@ -176,6 +177,7 @@ export const de = {
     notAvailable: 'Nicht vorhanden',
     notYetRated: 'Noch nicht Bewertet',
     yourItemIsEmpty: 'Dein {item} is leer.',
+    shareMediaText: 'Schaue dir das {item} von {owner} an.',
   },
   recursionType: {
     once: 'Einmalig',
