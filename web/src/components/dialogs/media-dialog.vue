@@ -68,11 +68,11 @@ export default class MediaDialog extends Vue {
   @Prop() item: any;
   @Prop() type: 'video' | 'image';
 
-  listenerRef = null;
+  keyUpListenerRef = null;
 
   mounted() {
-    this.listenerRef = this.handleKeyUp.bind(this);
-    document.addEventListener('keyup', this.listenerRef);
+    this.keyUpListenerRef = this.handleKeyUp.bind(this);
+    document.addEventListener('keyup', this.keyUpListenerRef);
   }
 
   handleKeyUp(e) {
@@ -85,7 +85,7 @@ export default class MediaDialog extends Vue {
   }
 
   beforeDestroy() {
-    document.removeEventListener('keyup', this.listenerRef);
+    document.removeEventListener('keyup', this.keyUpListenerRef);
   }
 
   async share(media) {

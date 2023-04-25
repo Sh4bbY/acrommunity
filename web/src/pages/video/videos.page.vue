@@ -49,7 +49,6 @@
           </v-row>
         </v-sheet>
       </v-expand-transition>
-
       <paginated-grid :url="url" :options="options" :search-params="searchParams" @update="videos=$event">
         <template #items="{items}">
           <v-row no-gutters>
@@ -100,9 +99,14 @@ export default class VideosPage extends Page {
 
 
   beforeMount() {
-    this.searchParams = Object.assign(this.searchParams, this.$route.query);
+    this.filter.persons = this.$store.state.filter.videos.persons;
+    this.filter.bases = this.$store.state.filter.videos.bases;
+    this.filter.baseType = this.$store.state.filter.videos.baseType;
+
+    this.searchParams = Object.assign(this.searchParams, this.filter, this.$route.query);
     Object.keys(this.filter).map(key => this.filter[key] = this.$route.query[key] || this.filter[key]);
     Object.keys(this.options).map(key => this.options[key] = this.$route.query[key] || this.options[key]);
+
     if (this.$route.query.sortBy) {
       this.options.sortBy = Array.isArray(this.$route.query.sortBy) ? this.$route.query.sortBy : [this.$route.query.sortBy];
     }
@@ -120,6 +124,7 @@ export default class VideosPage extends Page {
 
   get routeSearchParams() {
     return {
+      ...this.filter,
       favorites: this.$route.name === 'video-favorites' ? true : undefined,
       repertoire: this.$route.name === 'video-repertoire' ? true : undefined,
       workingOn: this.$route.name === 'video-training-plan' ? true : undefined,
@@ -165,10 +170,12 @@ export default class VideosPage extends Page {
       bases: this.filter.bases === null ? undefined : this.filter.bases,
       baseType: this.filter.baseType === null ? undefined : this.filter.baseType,
     };
+    this.$store.commit('filter/updateVideosFilter', this.filter);
   }
 
   showDialog(item) {
     const idx = this.videos.findIndex(v => v.id === item.id);
+    this.$router.push({hash: '#show-' + item.id});
     this.dialog = {
       show: true,
       item,

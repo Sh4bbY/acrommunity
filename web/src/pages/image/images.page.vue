@@ -104,6 +104,10 @@ export default class ImagesPage extends Page {
   };
 
   beforeMount() {
+    this.filter.persons = this.$store.state.filter.images.persons;
+    this.filter.bases = this.$store.state.filter.images.bases;
+    this.filter.baseType = this.$store.state.filter.images.baseType;
+
     this.searchParams = Object.assign(this.searchParams, this.$route.query);
     Object.keys(this.filter).map(key => this.filter[key] = this.$route.query[key] || this.filter[key]);
     Object.keys(this.options).map(key => this.options[key] = this.$route.query[key] || this.options[key]);
@@ -116,13 +120,19 @@ export default class ImagesPage extends Page {
     this.searchParams = this.routeSearchParams;
   }
 
-  @Watch('$route')
-  watchRoute() {
-    this.searchParams = this.routeSearchParams;
+  @Watch('$route.hash')
+  watchRouteHash() {
+    if (!this.$route.hash) {
+      this.dialog.show = false;
+    } else {
+      this.showDialogById(this.$route.hash.substring(1));
+    }
+    // this.searchParams = this.routeSearchParams;
   }
 
   get routeSearchParams() {
     return {
+      ...this.filter,
       favorites: this.$route.name === 'image-favorites' ? true : undefined,
       repertoire: this.$route.name === 'image-repertoire' ? true : undefined,
       workingOn: this.$route.name === 'image-training-plan' ? true : undefined,
@@ -158,19 +168,32 @@ export default class ImagesPage extends Page {
   }
 
   applyFilter() {
-    return this.searchParams = {
+    this.searchParams = {
       ...this.routeSearchParams,
       persons: this.filter.persons === null ? undefined : this.filter.persons,
       bases: this.filter.bases === null ? undefined : this.filter.bases,
       baseType: this.filter.baseType === null ? undefined : this.filter.baseType,
     };
+    this.$store.commit('filter/updateImagesFilter', this.filter);
   }
 
   showDialog(item) {
     const idx = this.images.findIndex(v => v.id === item.id);
+    window.location.hash = item.id;
     this.dialog = {
       show: true,
       item,
+      isFirst: idx === 0,
+      isLast: idx === this.images.length - 1,
+    };
+  }
+
+  showDialogById(id: string) {
+    const idx = this.images.findIndex(v => v.id === Number(id));
+    window.location.hash = id;
+    this.dialog = {
+      show: true,
+      item: this.images[idx],
       isFirst: idx === 0,
       isLast: idx === this.images.length - 1,
     };
